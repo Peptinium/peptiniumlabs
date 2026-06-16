@@ -147,7 +147,7 @@ function ProductPage() {
           </div>
           <h2 className="mt-1 text-2xl font-semibold tracking-tight">Littérature PubMed</h2>
           <ul className="mt-6 divide-y divide-border rounded-md border border-border bg-card">
-            {product.references.map((r) => (
+            {product.references.map((r: typeof product.references[number]) => (
               <li key={r.pmid} className="p-5">
                 <div className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
                   {r.journal} · {r.year} · PMID {r.pmid}
