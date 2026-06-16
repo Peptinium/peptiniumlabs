@@ -77,19 +77,28 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Aetherion Labs — Réactifs peptidiques de recherche (RUO)" },
+      {
+        name: "description",
+        content:
+          "Aetherion Labs : peptides synthétiques de qualité recherche, pureté ≥ 98 % HPLC, livrés avec CoA. Réservés strictement à la recherche scientifique en laboratoire (RUO).",
+      },
+      { name: "robots", content: "index,follow" },
+      { property: "og:site_name", content: "Aetherion Labs" },
       { property: "og:type", content: "website" },
+      { property: "og:title", content: "Aetherion Labs — Réactifs peptidiques de recherche" },
+      {
+        property: "og:description",
+        content:
+          "Peptides synthétiques HPLC ≥ 98 % pour laboratoires de recherche. Research Use Only.",
+      },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
+      { rel: "stylesheet", href: appCss },
       {
         rel: "stylesheet",
-        href: appCss,
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap",
       },
     ],
   }),
