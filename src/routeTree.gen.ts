@@ -9,38 +9,234 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ProduitsRouteImport } from './routes/produits'
+import { Route as PacksRouteImport } from './routes/packs'
+import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
+import { Route as EtudesScientifiquesRouteImport } from './routes/etudes-scientifiques'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CgvRouteImport } from './routes/cgv'
+import { Route as CalculatriceRouteImport } from './routes/calculatrice'
+import { Route as AProposRouteImport } from './routes/a-propos'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProduitsSlugRouteImport } from './routes/produits.$slug'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProduitsRoute = ProduitsRouteImport.update({
+  id: '/produits',
+  path: '/produits',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PacksRoute = PacksRouteImport.update({
+  id: '/packs',
+  path: '/packs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MentionsLegalesRoute = MentionsLegalesRouteImport.update({
+  id: '/mentions-legales',
+  path: '/mentions-legales',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EtudesScientifiquesRoute = EtudesScientifiquesRouteImport.update({
+  id: '/etudes-scientifiques',
+  path: '/etudes-scientifiques',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CgvRoute = CgvRouteImport.update({
+  id: '/cgv',
+  path: '/cgv',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalculatriceRoute = CalculatriceRouteImport.update({
+  id: '/calculatrice',
+  path: '/calculatrice',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AProposRoute = AProposRouteImport.update({
+  id: '/a-propos',
+  path: '/a-propos',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProduitsSlugRoute = ProduitsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ProduitsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/a-propos': typeof AProposRoute
+  '/calculatrice': typeof CalculatriceRoute
+  '/cgv': typeof CgvRoute
+  '/contact': typeof ContactRoute
+  '/etudes-scientifiques': typeof EtudesScientifiquesRoute
+  '/mentions-legales': typeof MentionsLegalesRoute
+  '/packs': typeof PacksRoute
+  '/produits': typeof ProduitsRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/produits/$slug': typeof ProduitsSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/a-propos': typeof AProposRoute
+  '/calculatrice': typeof CalculatriceRoute
+  '/cgv': typeof CgvRoute
+  '/contact': typeof ContactRoute
+  '/etudes-scientifiques': typeof EtudesScientifiquesRoute
+  '/mentions-legales': typeof MentionsLegalesRoute
+  '/packs': typeof PacksRoute
+  '/produits': typeof ProduitsRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/produits/$slug': typeof ProduitsSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/a-propos': typeof AProposRoute
+  '/calculatrice': typeof CalculatriceRoute
+  '/cgv': typeof CgvRoute
+  '/contact': typeof ContactRoute
+  '/etudes-scientifiques': typeof EtudesScientifiquesRoute
+  '/mentions-legales': typeof MentionsLegalesRoute
+  '/packs': typeof PacksRoute
+  '/produits': typeof ProduitsRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/produits/$slug': typeof ProduitsSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/a-propos'
+    | '/calculatrice'
+    | '/cgv'
+    | '/contact'
+    | '/etudes-scientifiques'
+    | '/mentions-legales'
+    | '/packs'
+    | '/produits'
+    | '/sitemap.xml'
+    | '/produits/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/a-propos'
+    | '/calculatrice'
+    | '/cgv'
+    | '/contact'
+    | '/etudes-scientifiques'
+    | '/mentions-legales'
+    | '/packs'
+    | '/produits'
+    | '/sitemap.xml'
+    | '/produits/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/a-propos'
+    | '/calculatrice'
+    | '/cgv'
+    | '/contact'
+    | '/etudes-scientifiques'
+    | '/mentions-legales'
+    | '/packs'
+    | '/produits'
+    | '/sitemap.xml'
+    | '/produits/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AProposRoute: typeof AProposRoute
+  CalculatriceRoute: typeof CalculatriceRoute
+  CgvRoute: typeof CgvRoute
+  ContactRoute: typeof ContactRoute
+  EtudesScientifiquesRoute: typeof EtudesScientifiquesRoute
+  MentionsLegalesRoute: typeof MentionsLegalesRoute
+  PacksRoute: typeof PacksRoute
+  ProduitsRoute: typeof ProduitsRouteWithChildren
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/produits': {
+      id: '/produits'
+      path: '/produits'
+      fullPath: '/produits'
+      preLoaderRoute: typeof ProduitsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/packs': {
+      id: '/packs'
+      path: '/packs'
+      fullPath: '/packs'
+      preLoaderRoute: typeof PacksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mentions-legales': {
+      id: '/mentions-legales'
+      path: '/mentions-legales'
+      fullPath: '/mentions-legales'
+      preLoaderRoute: typeof MentionsLegalesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/etudes-scientifiques': {
+      id: '/etudes-scientifiques'
+      path: '/etudes-scientifiques'
+      fullPath: '/etudes-scientifiques'
+      preLoaderRoute: typeof EtudesScientifiquesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cgv': {
+      id: '/cgv'
+      path: '/cgv'
+      fullPath: '/cgv'
+      preLoaderRoute: typeof CgvRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calculatrice': {
+      id: '/calculatrice'
+      path: '/calculatrice'
+      fullPath: '/calculatrice'
+      preLoaderRoute: typeof CalculatriceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/a-propos': {
+      id: '/a-propos'
+      path: '/a-propos'
+      fullPath: '/a-propos'
+      preLoaderRoute: typeof AProposRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +244,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/produits/$slug': {
+      id: '/produits/$slug'
+      path: '/$slug'
+      fullPath: '/produits/$slug'
+      preLoaderRoute: typeof ProduitsSlugRouteImport
+      parentRoute: typeof ProduitsRoute
+    }
   }
 }
 
+interface ProduitsRouteChildren {
+  ProduitsSlugRoute: typeof ProduitsSlugRoute
+}
+
+const ProduitsRouteChildren: ProduitsRouteChildren = {
+  ProduitsSlugRoute: ProduitsSlugRoute,
+}
+
+const ProduitsRouteWithChildren = ProduitsRoute._addFileChildren(
+  ProduitsRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AProposRoute: AProposRoute,
+  CalculatriceRoute: CalculatriceRoute,
+  CgvRoute: CgvRoute,
+  ContactRoute: ContactRoute,
+  EtudesScientifiquesRoute: EtudesScientifiquesRoute,
+  MentionsLegalesRoute: MentionsLegalesRoute,
+  PacksRoute: PacksRoute,
+  ProduitsRoute: ProduitsRouteWithChildren,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
