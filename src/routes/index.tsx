@@ -338,7 +338,7 @@ function FeaturedCard({ featured }: { featured: typeof products[number] }) {
                 À partir de
               </div>
               <div className="font-display text-2xl font-medium">
-                {Math.min(...featured.variants.map((v) => v.price))} €
+                {formatPrice(Math.min(...featured.variants.map((v) => v.price)))}
               </div>
             </div>
             <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent transition-transform duration-300 group-hover:translate-x-0.5">
