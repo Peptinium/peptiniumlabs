@@ -341,10 +341,14 @@ function PaiementBlock({
   shipping,
   onBack,
   onConfirm,
+  submitting = false,
+  error = null,
 }: {
   shipping: any;
   onBack: () => void;
-  onConfirm: () => void;
+  onConfirm: () => void | Promise<void>;
+  submitting?: boolean;
+  error?: string | null;
 }) {
   const [method, setMethod] = useState<"bank">("bank");
   const [acceptedCgv, setAcceptedCgv] = useState(false);
