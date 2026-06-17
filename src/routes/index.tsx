@@ -1,27 +1,12 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { SiteLayout } from "@/components/SiteLayout";
-import { ProductCard, ProductVisual } from "@/components/ProductCard";
-import { RuoBadge } from "@/components/RuoBadge";
-import { Reveal } from "@/components/Reveal";
-import { products, formatPrice } from "@/data/products";
-import labBg from "@/assets/lab-bg-ruo.jpg";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Aetherion Labs — Peptides de recherche RUO, HPLC ≥ 98 %" },
-      {
-        name: "description",
-        content:
-          "Catalogue de peptides synthétiques de qualité recherche : Retatrutide, Tirzepatide, Semaglutide, BPC-157. Livrés avec Certificat d'Analyse. Research Use Only.",
-      },
-      { property: "og:title", content: "Aetherion Labs — Réactifs peptidiques de recherche" },
-      { property: "og:url", content: "/" },
-    ],
-    links: [{ rel: "canonical", href: "/" }],
-  }),
-  component: HomePage,
+  beforeLoad: () => {
+    throw redirect({ to: "/admin" });
+  },
+  component: () => null,
 });
+
 
 function HomePage() {
   const featured = products.find((p) => p.featured)!;
