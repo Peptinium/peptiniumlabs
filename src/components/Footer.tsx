@@ -58,7 +58,6 @@ export function Footer() {
             <li className="flex items-center gap-2"><Tick /> Spectrométrie de masse (MS)</li>
             <li className="flex items-center gap-2"><Tick /> CoA fourni avec chaque lot</li>
             <li className="flex items-center gap-2"><Tick /> Flacons verre type I borosilicate</li>
-            <li className="flex items-center gap-2"><Tick /> Chaîne du froid −20 °C</li>
           </ul>
         </div>
       </div>
