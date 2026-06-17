@@ -142,14 +142,14 @@ function HomePage() {
       </section>
 
       {/* ============ CATALOG GRID ============ */}
-      <section className="container-prose py-24">
+      <section className="container-prose py-20 sm:py-24">
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-8">
             <div>
               <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">
                 — Catalogue
               </div>
-              <h2 className="mt-2 font-display text-3xl font-medium tracking-tight sm:text-4xl">
+              <h2 className="mt-3 font-display text-[26px] font-normal leading-[1.15] tracking-tight sm:mt-2 sm:text-4xl sm:font-medium">
                 Réactifs sélectionnés pour la recherche
               </h2>
             </div>
@@ -158,7 +158,7 @@ function HomePage() {
             </Link>
           </div>
         </Reveal>
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-7 sm:mt-10 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
           {rest.map((p, i) => (
             <Reveal key={p.slug} delay={i * 60}>
               <ProductCard product={p} />
