@@ -46,9 +46,11 @@ export function Footer() {
           links={[
             { to: "/a-propos", label: "À propos" },
             { to: "/contact", label: "Contact" },
+            { to: "/support", label: "Support / SAV" },
             { to: "/mentions-legales", label: "Mentions légales" },
             { to: "/cgv", label: "CGV" },
           ]}
+
         />
         <div className="md:col-span-3">
           <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-foreground">
