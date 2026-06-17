@@ -312,10 +312,6 @@ function ProductPage() {
                   withSolvent={withSolvent}
                 />
               </div>
-              {/* end purchase block */}
-              <div className="hidden">{/* spacer to keep markup */}</div>
-              <div className="mt-0">
-              </div>
 
               <div className="mt-6 rounded-xl border border-warning/40 bg-warning/5 p-5 text-xs leading-relaxed text-foreground/80">
                 <strong className="block font-mono uppercase tracking-[0.15em] text-warning">
