@@ -108,6 +108,9 @@ function ProductPage() {
           {/* Visual gallery */}
           <Reveal>
             <div className="overflow-hidden rounded-2xl border border-border bg-surface">
+              <div className="flex justify-center px-4 pt-4 pb-2">
+                <RuoBadge />
+              </div>
               <div className="relative mx-auto aspect-[2/3] max-w-[460px] overflow-hidden p-3 sm:p-4">
                 {slides[slide] === "vial" ? (
                   <ProductVisual
@@ -128,8 +131,7 @@ function ProductPage() {
                     />
                   </div>
                 )}
-                <div className="absolute left-7 top-7"><RuoBadge /></div>
-                <div className="absolute right-7 top-16 rounded-full border border-background/70 bg-background/86 px-3 py-1.5 font-display text-base font-medium text-foreground shadow-sm backdrop-blur-sm">
+                <div className="absolute right-7 top-7 rounded-full border border-background/70 bg-background/86 px-3 py-1.5 font-display text-base font-medium text-foreground shadow-sm backdrop-blur-sm">
                   {formatPrice(variant.price)}
                 </div>
 
