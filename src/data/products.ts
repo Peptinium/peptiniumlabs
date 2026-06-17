@@ -53,31 +53,7 @@ export const products: Product[] = [
       "Le Retatrutide (LY3437943) est un peptide synthétique étudié in vitro pour son activité simultanée sur les récepteurs GLP-1, GIP et du glucagon. Utilisé exclusivement comme réactif de recherche pour caractériser la signalisation des récepteurs couplés aux protéines G dans des modèles cellulaires.",
     storage: "Lyophilisé : −20 °C, à l'abri de la lumière. Reconstitué : 2–8 °C, ≤ 28 jours.",
     reconstitution: "Reconstituer avec de l'eau bactériostatique stérile. Solution claire et incolore.",
-    references: [
-      {
-        title: "Triple Hormone Receptor Agonist Retatrutide for Obesity — A Phase 2 Trial",
-        authors: "Jastreboff AM, et al.",
-        journal: "N Engl J Med",
-        year: 2023,
-        pmid: "37366315",
-      },
-      {
-        title:
-          "Retatrutide, a GIP, GLP-1 and glucagon receptor agonist, in adults with type 2 diabetes",
-        authors: "Rosenstock J, et al.",
-        journal: "The Lancet",
-        year: 2023,
-        pmid: "37356446",
-      },
-      {
-        title:
-          "Retatrutide for Metabolic Dysfunction-Associated Steatotic Liver Disease",
-        authors: "Sanyal AJ, et al.",
-        journal: "N Engl J Med",
-        year: 2024,
-        pmid: "38856224",
-      },
-    ],
+    references: [pubmed("40291085"), pubmed("37366315"), pubmed("40609566")],
   },
   {
     slug: "ghk-cu",
