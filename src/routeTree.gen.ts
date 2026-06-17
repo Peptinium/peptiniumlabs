@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TesterFiolesRouteImport } from './routes/tester-fioles'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as PanierRouteImport } from './routes/panier'
 import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
 import { Route as EtudesScientifiquesRouteImport } from './routes/etudes-scientifiques'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -29,6 +30,11 @@ const TesterFiolesRoute = TesterFiolesRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PanierRoute = PanierRouteImport.update({
+  id: '/panier',
+  path: '/panier',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MentionsLegalesRoute = MentionsLegalesRouteImport.update({
@@ -85,6 +91,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/etudes-scientifiques': typeof EtudesScientifiquesRoute
   '/mentions-legales': typeof MentionsLegalesRoute
+  '/panier': typeof PanierRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tester-fioles': typeof TesterFiolesRoute
   '/produits/$slug': typeof ProduitsSlugRoute
@@ -98,6 +105,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/etudes-scientifiques': typeof EtudesScientifiquesRoute
   '/mentions-legales': typeof MentionsLegalesRoute
+  '/panier': typeof PanierRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tester-fioles': typeof TesterFiolesRoute
   '/produits/$slug': typeof ProduitsSlugRoute
@@ -112,6 +120,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/etudes-scientifiques': typeof EtudesScientifiquesRoute
   '/mentions-legales': typeof MentionsLegalesRoute
+  '/panier': typeof PanierRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tester-fioles': typeof TesterFiolesRoute
   '/produits/$slug': typeof ProduitsSlugRoute
@@ -127,6 +136,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/etudes-scientifiques'
     | '/mentions-legales'
+    | '/panier'
     | '/sitemap.xml'
     | '/tester-fioles'
     | '/produits/$slug'
@@ -140,6 +150,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/etudes-scientifiques'
     | '/mentions-legales'
+    | '/panier'
     | '/sitemap.xml'
     | '/tester-fioles'
     | '/produits/$slug'
@@ -153,6 +164,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/etudes-scientifiques'
     | '/mentions-legales'
+    | '/panier'
     | '/sitemap.xml'
     | '/tester-fioles'
     | '/produits/$slug'
@@ -167,6 +179,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   EtudesScientifiquesRoute: typeof EtudesScientifiquesRoute
   MentionsLegalesRoute: typeof MentionsLegalesRoute
+  PanierRoute: typeof PanierRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TesterFiolesRoute: typeof TesterFiolesRoute
   ProduitsSlugRoute: typeof ProduitsSlugRoute
@@ -187,6 +200,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/panier': {
+      id: '/panier'
+      path: '/panier'
+      fullPath: '/panier'
+      preLoaderRoute: typeof PanierRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mentions-legales': {
@@ -263,6 +283,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   EtudesScientifiquesRoute: EtudesScientifiquesRoute,
   MentionsLegalesRoute: MentionsLegalesRoute,
+  PanierRoute: PanierRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TesterFiolesRoute: TesterFiolesRoute,
   ProduitsSlugRoute: ProduitsSlugRoute,

@@ -1,5 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
+import { useCart } from "@/lib/cart";
 import type { Product } from "@/data/products";
 import { SiteLayout } from "@/components/SiteLayout";
 import { RuoBadge } from "@/components/RuoBadge";
@@ -303,7 +304,14 @@ function ProductPage() {
               </div>
 
               <div className="mt-5">
-                <AddToCartButton productName={product.name} dosage={variant.dosage} />
+                <AddToCartButton
+                  slug={product.slug}
+                  productName={product.name}
+                  dosage={variant.dosage}
+                  price={variant.price}
+                  qty={qty}
+                  withSolvent={withSolvent}
+                />
               </div>
 
               <div className="mt-6 rounded-xl border border-warning/40 bg-warning/5 p-5 text-xs leading-relaxed text-foreground/80">
@@ -408,11 +416,32 @@ function ProductPage() {
   );
 }
 
-function AddToCartButton({ productName, dosage }: { productName: string; dosage: string }) {
+function AddToCartButton({
+  slug,
+  productName,
+  dosage,
+  price,
+  qty,
+  withSolvent,
+}: {
+  slug: string;
+  productName: string;
+  dosage: string;
+  price: number;
+  qty: number;
+  withSolvent: boolean;
+}) {
+  const { add, setEau, eauQty, peptideCount } = useCart();
   const [added, setAdded] = useState(false);
   return (
     <button
       onClick={() => {
+        add({ slug, name: productName, dosage, price }, qty);
+        if (withSolvent) {
+          // ensure at least one eau per peptide added (capped to total peptides after add)
+          const targetEau = Math.min(eauQty + qty, peptideCount + qty);
+          setEau(targetEau);
+        }
         setAdded(true);
         window.setTimeout(() => setAdded(false), 2200);
       }}
