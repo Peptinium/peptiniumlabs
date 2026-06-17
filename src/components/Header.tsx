@@ -30,15 +30,15 @@ export function Header() {
           : "border-b border-transparent bg-background/0"
       }`}
     >
-      <div className="container-prose flex h-16 items-center justify-between">
+      <div className="container-prose flex h-16 items-center justify-between lg:h-20">
         <Link to="/" className="group flex items-center gap-3">
           <Logo />
           <div className="leading-tight">
-            <div className="font-display text-[15px] font-medium tracking-tight">
+            <div className="font-display text-[15px] font-medium tracking-tight lg:text-[18px]">
               Aetherion <span className="text-accent">Labs</span>
             </div>
-            <div className="font-mono text-[9px] uppercase tracking-[0.22em] text-muted-foreground">
-              Research-grade peptides
+            <div className="font-mono text-[9px] uppercase tracking-[0.22em] text-muted-foreground lg:text-[10px]">
+              Peptide de Recherche
             </div>
           </div>
         </Link>
@@ -48,7 +48,7 @@ export function Header() {
             <Link
               key={n.to}
               to={n.to}
-              className="link-underline text-[13px] text-foreground/70 transition-colors hover:text-foreground"
+              className="link-underline text-[15px] font-medium text-foreground/70 transition-colors hover:text-foreground"
               activeProps={{ className: "text-foreground" }}
             >
               {n.label}
@@ -60,9 +60,9 @@ export function Header() {
           <Link
             to="/panier"
             aria-label="Panier"
-            className="group relative inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-2 text-xs font-medium text-foreground transition-all hover:border-accent hover:text-accent"
+            className="group relative inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-2 text-xs font-medium text-foreground transition-all hover:border-accent hover:text-accent lg:px-4 lg:py-2.5 lg:text-sm"
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="lg:h-4 lg:w-4">
               <path d="M3 3h2l2.4 12.3a2 2 0 0 0 2 1.7h9.7a2 2 0 0 0 2-1.6L23 8H6" />
               <circle cx="10" cy="21" r="1.4" />
               <circle cx="18" cy="21" r="1.4" />
