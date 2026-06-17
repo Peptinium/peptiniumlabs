@@ -52,7 +52,7 @@ function HomePage() {
             </Reveal>
 
             <Reveal delay={80}>
-              <h1 className="mt-6 font-display text-[44px] font-medium leading-[1.02] tracking-[-0.035em] text-balance sm:text-6xl lg:text-[68px]">
+              <h1 className="mt-8 font-display text-[34px] font-normal leading-[1.1] tracking-[-0.025em] text-balance sm:mt-6 sm:text-6xl sm:font-medium sm:leading-[1.02] sm:tracking-[-0.035em] lg:text-[68px]">
                 Réactifs peptidiques
                 <br />
                 <span className="shimmer-text">pour motif de recherche.</span>
@@ -60,7 +60,7 @@ function HomePage() {
             </Reveal>
 
             <Reveal delay={160}>
-              <p className="mt-7 max-w-xl text-[15px] leading-relaxed text-muted-foreground">
+              <p className="mt-8 max-w-xl text-[15px] leading-[1.75] text-muted-foreground sm:mt-7 sm:leading-relaxed">
                 Aetherion Labs fournit aux laboratoires académiques, CRO et instituts des
                 peptides synthétiques validés par HPLC et spectrométrie de masse. Chaque lot
                 est livré avec son Certificat d'Analyse —{" "}
