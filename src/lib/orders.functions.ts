@@ -188,7 +188,7 @@ export const updateProduct = createServerFn({ method: "POST" })
     });
     if (!isAdmin) throw new Error("Accès refusé");
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const patch: Record<string, unknown> = {};
+    const patch: { stock?: number; active?: boolean; price_eur?: number } = {};
     if (data.stock !== undefined) patch.stock = data.stock;
     if (data.active !== undefined) patch.active = data.active;
     if (data.price_eur !== undefined) patch.price_eur = data.price_eur;
