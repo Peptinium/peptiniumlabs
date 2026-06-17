@@ -7,27 +7,32 @@ export function ProductCard({ product }: { product: Product }) {
     <Link
       to="/produits/$slug"
       params={{ slug: product.slug }}
-      className="group flex flex-col rounded-md border border-border bg-card transition-all hover:border-medical/50 hover:shadow-sm"
+      className="hover-lift group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card"
     >
-      <div className="relative aspect-[5/4] overflow-hidden rounded-t-md bg-surface">
+      <div className="relative aspect-[5/4] overflow-hidden bg-surface">
+        <div className="absolute inset-0 dot-bg opacity-60" />
         <VialIllustration label={product.name} />
         <div className="absolute left-3 top-3">
           <RuoBadge compact />
         </div>
+        <div className="absolute right-3 top-3 rounded-full border border-border bg-background/80 px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.18em] text-muted-foreground backdrop-blur">
+          {product.purity}
+        </div>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
       </div>
-      <div className="flex flex-1 flex-col gap-2 p-4">
-        <div className="flex items-start justify-between gap-2">
+      <div className="flex flex-1 flex-col gap-2 p-5">
+        <div className="flex items-start justify-between gap-3">
           <div>
-            <div className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent">
               {product.category}
             </div>
-            <h3 className="mt-0.5 text-base font-semibold tracking-tight group-hover:text-medical">
+            <h3 className="mt-1 font-display text-[17px] font-medium tracking-tight text-foreground transition-colors group-hover:text-accent">
               {product.name}
             </h3>
           </div>
           <div className="text-right">
-            <div className="text-base font-semibold">{product.price} €</div>
-            <div className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+            <div className="font-display text-lg font-medium">{product.price} €</div>
+            <div className="font-mono text-[9px] uppercase tracking-[0.18em] text-muted-foreground">
               {product.dosage}
             </div>
           </div>
@@ -35,9 +40,11 @@ export function ProductCard({ product }: { product: Product }) {
         <p className="line-clamp-2 text-xs leading-relaxed text-muted-foreground">
           {product.shortDescription}
         </p>
-        <div className="mt-2 flex items-center justify-between border-t border-border pt-3 text-[11px] text-muted-foreground">
-          <span className="font-mono">Pureté {product.purity.replace("≥ ", "≥")}</span>
-          <span className="font-mono text-medical">Voir fiche →</span>
+        <div className="mt-3 flex items-center justify-between border-t border-border pt-3 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+          <span>CAS {product.cas}</span>
+          <span className="text-accent transition-transform duration-300 group-hover:translate-x-0.5">
+            Fiche →
+          </span>
         </div>
       </div>
     </Link>
@@ -48,58 +55,60 @@ export function VialIllustration({ label }: { label: string }) {
   return (
     <svg viewBox="0 0 200 160" className="absolute inset-0 size-full">
       <defs>
-        <linearGradient id="vial" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stopColor="oklch(0.99 0 0)" />
-          <stop offset="100%" stopColor="oklch(0.95 0.01 240)" />
+        <linearGradient id="vialGlass" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stopColor="oklch(1 0 0 / 80%)" />
+          <stop offset="100%" stopColor="oklch(0.96 0.01 230 / 90%)" />
+        </linearGradient>
+        <linearGradient id="vialLiquid" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stopColor="oklch(0.85 0.09 200 / 70%)" />
+          <stop offset="100%" stopColor="oklch(0.7 0.12 200 / 80%)" />
         </linearGradient>
       </defs>
-      <rect width="200" height="160" fill="url(#vial)" />
-      {Array.from({ length: 8 }).map((_, i) => (
-        <line
-          key={i}
-          x1="0"
-          x2="200"
-          y1={i * 22 + 4}
-          y2={i * 22 + 4}
-          stroke="oklch(0.93 0.005 240)"
-          strokeWidth="0.5"
-        />
-      ))}
-      <g transform="translate(70 22)">
-        <rect x="10" y="0" width="40" height="10" rx="2" fill="oklch(0.55 0.04 240)" />
-        <rect x="6" y="10" width="48" height="6" fill="oklch(0.7 0.02 240)" />
+      <g transform="translate(70 18)">
+        {/* cap */}
+        <rect x="8" y="0" width="44" height="10" rx="1.5" fill="oklch(0.32 0.04 245)" />
+        <rect x="4" y="10" width="52" height="7" fill="oklch(0.55 0.03 245)" />
+        <rect x="4" y="10" width="52" height="2" fill="oklch(0.7 0.02 245)" />
+        {/* glass */}
         <path
-          d="M10 16 H50 V100 a18 18 0 0 1 -18 18 H28 a18 18 0 0 1 -18 -18 Z"
-          fill="oklch(0.99 0 0)"
+          d="M8 17 H52 V108 a18 18 0 0 1 -18 18 H26 a18 18 0 0 1 -18 -18 Z"
+          fill="url(#vialGlass)"
           stroke="oklch(0.85 0.01 240)"
-          strokeWidth="1.2"
+          strokeWidth="1"
         />
+        {/* liquid */}
         <path
-          d="M10 70 H50 V100 a18 18 0 0 1 -18 18 H28 a18 18 0 0 1 -18 -18 Z"
-          fill="oklch(0.92 0.04 195 / 60%)"
+          d="M8 72 H52 V108 a18 18 0 0 1 -18 18 H26 a18 18 0 0 1 -18 -18 Z"
+          fill="url(#vialLiquid)"
         />
-        <rect x="13" y="40" width="34" height="22" fill="oklch(1 0 0)" stroke="oklch(0.88 0.01 240)" />
+        {/* label */}
+        <rect x="11" y="42" width="38" height="26" fill="oklch(1 0 0)" stroke="oklch(0.88 0.01 240)" />
+        <line x1="11" y1="48" x2="49" y2="48" stroke="oklch(0.18 0.04 245)" strokeWidth="0.6" />
         <text
           x="30"
-          y="54"
+          y="58"
           textAnchor="middle"
           fontSize="6"
-          fontFamily="ui-monospace, monospace"
-          fill="oklch(0.32 0.06 235)"
+          fontFamily="Space Grotesk, sans-serif"
+          fill="oklch(0.18 0.04 245)"
           fontWeight="600"
         >
           {label.slice(0, 14).toUpperCase()}
         </text>
         <text
           x="30"
-          y="60"
+          y="65"
           textAnchor="middle"
-          fontSize="3.5"
-          fontFamily="ui-monospace, monospace"
+          fontSize="3.4"
+          fontFamily="JetBrains Mono, monospace"
           fill="oklch(0.5 0.02 240)"
         >
-          RUO — Lyophilized
+          RUO · LYO
         </text>
+        {/* meniscus highlight */}
+        <ellipse cx="30" cy="72" rx="22" ry="2" fill="oklch(1 0 0 / 60%)" />
+        {/* shine */}
+        <rect x="13" y="20" width="3" height="85" rx="1.5" fill="oklch(1 0 0 / 60%)" />
       </g>
     </svg>
   );

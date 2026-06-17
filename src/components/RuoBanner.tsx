@@ -1,12 +1,25 @@
 export function RuoBanner() {
+  const items = [
+    "Research Use Only",
+    "Réactifs de laboratoire",
+    "Non destiné à l'usage humain",
+    "HPLC ≥ 98 %",
+    "CoA par lot",
+    "Chaîne du froid −20 °C",
+  ];
+  const loop = [...items, ...items];
   return (
-    <div className="border-b border-warning/30 bg-warning/5">
-      <div className="container-prose flex items-center justify-center gap-2 py-1.5 text-center text-[11px] font-medium uppercase tracking-wider text-warning sm:text-xs">
-        <span aria-hidden>⚠</span>
-        <span>
-          Produits destinés exclusivement à la recherche scientifique en laboratoire — Research
-          Use Only (RUO). Non destinés à un usage humain, vétérinaire ou alimentaire.
-        </span>
+    <div className="relative overflow-hidden border-b border-foreground/10 bg-foreground text-background">
+      <div className="flex animate-[marquee_38s_linear_infinite] whitespace-nowrap py-1.5">
+        {loop.map((t, i) => (
+          <div
+            key={i}
+            className="flex items-center gap-3 px-6 font-mono text-[10px] uppercase tracking-[0.22em] text-background/80"
+          >
+            <span className="size-1 rounded-full bg-accent" />
+            {t}
+          </div>
+        ))}
       </div>
     </div>
   );
