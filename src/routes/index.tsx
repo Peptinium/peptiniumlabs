@@ -309,34 +309,12 @@ function FeaturedCard({ featured }: { featured: typeof products[number] }) {
       <div className="grid gap-5 p-6 sm:grid-cols-[140px_1fr] sm:items-center sm:p-7">
         <div className="relative mx-auto aspect-[3/4] w-32 overflow-hidden rounded-md bg-surface sm:mx-0">
           <div className="absolute inset-0 dot-bg opacity-60" />
-          <svg viewBox="0 0 100 140" className="absolute inset-0 size-full">
-            <defs>
-              <linearGradient id="fg-liq" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0%" stopColor="oklch(0.85 0.09 200 / 70%)" />
-                <stop offset="100%" stopColor="oklch(0.7 0.12 200 / 85%)" />
-              </linearGradient>
-            </defs>
-            <rect x="35" y="0" width="30" height="9" rx="1.5" fill="oklch(0.32 0.04 245)" />
-            <rect x="32" y="9" width="36" height="6" fill="oklch(0.55 0.03 245)" />
-            <path
-              d="M35 15 H65 V112 a14 14 0 0 1 -14 14 H49 a14 14 0 0 1 -14 -14 Z"
-              fill="oklch(1 0 0 / 90%)"
-              stroke="oklch(0.85 0.01 240)"
-            />
-            <path
-              d="M35 78 H65 V112 a14 14 0 0 1 -14 14 H49 a14 14 0 0 1 -14 -14 Z"
-              fill="url(#fg-liq)"
-            />
-            <rect x="38" y="42" width="24" height="22" fill="oklch(1 0 0)" stroke="oklch(0.88 0.01 240)" />
-            <text x="50" y="53" textAnchor="middle" fontSize="5" fontFamily="Space Grotesk" fontWeight="600" fill="oklch(0.18 0.04 245)">
-              RETATRU
-            </text>
-            <text x="50" y="60" textAnchor="middle" fontSize="3" fontFamily="JetBrains Mono" fill="oklch(0.5 0.02 240)">
-              10 mg · RUO
-            </text>
-            <ellipse cx="50" cy="78" rx="14" ry="1.6" fill="oklch(1 0 0 / 70%)" />
-            <rect x="38" y="22" width="2.5" height="85" rx="1" fill="oklch(1 0 0 / 60%)" />
-          </svg>
+          <img
+            src={retatrutideVial.url}
+            alt="Flacon Retatrutide — Research Use Only"
+            className="absolute inset-0 size-full object-contain p-2"
+            loading="eager"
+          />
         </div>
         <div>
           <h2 className="font-display text-2xl font-medium tracking-tight transition-colors group-hover:text-accent">
