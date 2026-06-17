@@ -1,10 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/SiteLayout";
-import { ProductCard } from "@/components/ProductCard";
+import { ProductCard, ProductVisual } from "@/components/ProductCard";
 import { RuoBadge } from "@/components/RuoBadge";
 import { Reveal } from "@/components/Reveal";
 import { products } from "@/data/products";
-import retatrutideVial from "@/assets/retatrutide-vial.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -306,13 +305,14 @@ function FeaturedCard({ featured }: { featured: typeof products[number] }) {
         <div className="pointer-events-none absolute -bottom-px left-0 h-px w-1/2 bg-gradient-to-r from-transparent via-accent to-transparent [animation:beam-sweep_5s_ease-in-out_infinite]" />
       </div>
 
-      <div className="grid gap-5 p-6 sm:grid-cols-[140px_1fr] sm:items-center sm:p-7">
-        <div className="relative mx-auto aspect-[3/4] w-32 overflow-hidden rounded-md bg-surface sm:mx-0">
-          <div className="absolute inset-0 dot-bg opacity-60" />
-          <img
-            src={retatrutideVial.url}
-            alt="Flacon Retatrutide — Research Use Only"
-            className="absolute inset-0 size-full object-contain p-2"
+      <div className="grid gap-5 p-6 sm:grid-cols-[160px_1fr] sm:items-center sm:p-7">
+        <div className="relative mx-auto aspect-[2/3] w-36 overflow-hidden rounded-[18px] border border-border bg-surface sm:mx-0">
+          <ProductVisual
+            product={featured}
+            dosage={featured.variants[0]?.dosage}
+            alt={`Flacon ${featured.name} — Research Use Only`}
+            className="size-full"
+            imageClassName="size-full object-cover"
             loading="eager"
           />
         </div>
