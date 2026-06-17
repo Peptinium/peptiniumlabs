@@ -337,9 +337,12 @@ export const replyTicket = createServerFn({ method: "POST" })
       author_role: "admin",
       body: data.body,
     });
-    const patch: Record<string, unknown> = { updated_at: new Date().toISOString() };
+    const patch: { updated_at: string; status?: string } = {
+      updated_at: new Date().toISOString(),
+    };
     if (data.status) patch.status = data.status;
     await supabaseAdmin.from("support_tickets").update(patch).eq("id", data.ticketId);
+
     return { ok: true };
   });
 
@@ -357,10 +360,13 @@ export const updateTicket = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     await requireAdmin(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const patch: Record<string, unknown> = { updated_at: new Date().toISOString() };
+    const patch: { updated_at: string; status?: string; priority?: string } = {
+      updated_at: new Date().toISOString(),
+    };
     if (data.status) patch.status = data.status;
     if (data.priority) patch.priority = data.priority;
     await supabaseAdmin.from("support_tickets").update(patch).eq("id", data.ticketId);
+
     return { ok: true };
   });
 
