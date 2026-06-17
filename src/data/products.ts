@@ -73,30 +73,7 @@ export const products: Product[] = [
       "Le GHK-Cu est un complexe peptide-cuivre endogène utilisé comme outil de recherche in vitro pour l'étude des fibroblastes, de la synthèse du collagène et de l'expression génique liée à la régénération.",
     storage: "Lyophilisé : −20 °C, à l'abri de la lumière. Reconstitué : 2–8 °C.",
     reconstitution: "Eau bactériostatique stérile.",
-    references: [
-      {
-        title: "GHK Peptide as a Natural Modulator of Multiple Cellular Pathways in Skin Regeneration",
-        authors: "Pickart L, Margolina A.",
-        journal: "Biomed Res Int",
-        year: 2015,
-        pmid: "26236730",
-      },
-      {
-        title:
-          "The human tripeptide GHK-Cu in prevention of oxidative stress and degenerative conditions of aging",
-        authors: "Pickart L, Vasquez-Soltero JM, Margolina A.",
-        journal: "Oxid Med Cell Longev",
-        year: 2012,
-        pmid: "22720117",
-      },
-      {
-        title: "GHK and DNA: resetting the human genome to health",
-        authors: "Pickart L, Vasquez-Soltero JM, Margolina A.",
-        journal: "Biomed Res Int",
-        year: 2014,
-        pmid: "25247178",
-      },
-    ],
+    references: [pmc("PMC6073405"), pubmed("18644225"), pubmed("35083444")],
   },
   {
     slug: "cjc-1295-ipamorelin",
