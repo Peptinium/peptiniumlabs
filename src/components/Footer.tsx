@@ -38,6 +38,7 @@ export function Footer() {
             { to: "/produits", label: "Toutes les références" },
             { to: "/calculatrice", label: "Calculatrice de dilution" },
             { to: "/etudes-scientifiques", label: "Bibliographie PubMed" },
+            { to: "/tester-fioles", label: "Tester ses fioles" },
           ]}
         />
         <FooterCol
