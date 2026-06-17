@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TesterFiolesRouteImport } from './routes/tester-fioles'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ProduitsRouteImport } from './routes/produits'
 import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
@@ -20,6 +21,11 @@ import { Route as AProposRouteImport } from './routes/a-propos'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProduitsSlugRouteImport } from './routes/produits.$slug'
 
+const TesterFiolesRoute = TesterFiolesRouteImport.update({
+  id: '/tester-fioles',
+  path: '/tester-fioles',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -81,6 +87,7 @@ export interface FileRoutesByFullPath {
   '/mentions-legales': typeof MentionsLegalesRoute
   '/produits': typeof ProduitsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/tester-fioles': typeof TesterFiolesRoute
   '/produits/$slug': typeof ProduitsSlugRoute
 }
 export interface FileRoutesByTo {
@@ -93,6 +100,7 @@ export interface FileRoutesByTo {
   '/mentions-legales': typeof MentionsLegalesRoute
   '/produits': typeof ProduitsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/tester-fioles': typeof TesterFiolesRoute
   '/produits/$slug': typeof ProduitsSlugRoute
 }
 export interface FileRoutesById {
@@ -106,6 +114,7 @@ export interface FileRoutesById {
   '/mentions-legales': typeof MentionsLegalesRoute
   '/produits': typeof ProduitsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/tester-fioles': typeof TesterFiolesRoute
   '/produits/$slug': typeof ProduitsSlugRoute
 }
 export interface FileRouteTypes {
@@ -120,6 +129,7 @@ export interface FileRouteTypes {
     | '/mentions-legales'
     | '/produits'
     | '/sitemap.xml'
+    | '/tester-fioles'
     | '/produits/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -132,6 +142,7 @@ export interface FileRouteTypes {
     | '/mentions-legales'
     | '/produits'
     | '/sitemap.xml'
+    | '/tester-fioles'
     | '/produits/$slug'
   id:
     | '__root__'
@@ -144,6 +155,7 @@ export interface FileRouteTypes {
     | '/mentions-legales'
     | '/produits'
     | '/sitemap.xml'
+    | '/tester-fioles'
     | '/produits/$slug'
   fileRoutesById: FileRoutesById
 }
@@ -157,10 +169,18 @@ export interface RootRouteChildren {
   MentionsLegalesRoute: typeof MentionsLegalesRoute
   ProduitsRoute: typeof ProduitsRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  TesterFiolesRoute: typeof TesterFiolesRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/tester-fioles': {
+      id: '/tester-fioles'
+      path: '/tester-fioles'
+      fullPath: '/tester-fioles'
+      preLoaderRoute: typeof TesterFiolesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -256,6 +276,7 @@ const rootRouteChildren: RootRouteChildren = {
   MentionsLegalesRoute: MentionsLegalesRoute,
   ProduitsRoute: ProduitsRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  TesterFiolesRoute: TesterFiolesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
