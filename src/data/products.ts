@@ -21,8 +21,14 @@ export type Product = {
   researchSummary: string;
   storage: string;
   reconstitution: string;
-  references: { title: string; authors: string; journal: string; year: number; pmid: string }[];
+  references: Reference[];
 };
+
+export type Reference = { url: string; source: "PubMed" | "PMC" | "JAMA"; id: string };
+
+const pubmed = (id: string): Reference => ({ url: `https://pubmed.ncbi.nlm.nih.gov/${id}/`, source: "PubMed", id: `PMID ${id}` });
+const pmc = (id: string): Reference => ({ url: `https://pmc.ncbi.nlm.nih.gov/articles/${id}/`, source: "PMC", id });
+const ext = (url: string, source: "JAMA", id: string): Reference => ({ url, source, id });
 
 export const minPrice = (p: Product) => Math.min(...p.variants.map((v) => v.price));
 export const defaultVariant = (p: Product) => p.variants[0];
@@ -47,31 +53,7 @@ export const products: Product[] = [
       "Le Retatrutide (LY3437943) est un peptide synthétique étudié in vitro pour son activité simultanée sur les récepteurs GLP-1, GIP et du glucagon. Utilisé exclusivement comme réactif de recherche pour caractériser la signalisation des récepteurs couplés aux protéines G dans des modèles cellulaires.",
     storage: "Lyophilisé : −20 °C, à l'abri de la lumière. Reconstitué : 2–8 °C, ≤ 28 jours.",
     reconstitution: "Reconstituer avec de l'eau bactériostatique stérile. Solution claire et incolore.",
-    references: [
-      {
-        title: "Triple Hormone Receptor Agonist Retatrutide for Obesity — A Phase 2 Trial",
-        authors: "Jastreboff AM, et al.",
-        journal: "N Engl J Med",
-        year: 2023,
-        pmid: "37366315",
-      },
-      {
-        title:
-          "Retatrutide, a GIP, GLP-1 and glucagon receptor agonist, in adults with type 2 diabetes",
-        authors: "Rosenstock J, et al.",
-        journal: "The Lancet",
-        year: 2023,
-        pmid: "37356446",
-      },
-      {
-        title:
-          "Retatrutide for Metabolic Dysfunction-Associated Steatotic Liver Disease",
-        authors: "Sanyal AJ, et al.",
-        journal: "N Engl J Med",
-        year: 2024,
-        pmid: "38856224",
-      },
-    ],
+    references: [pubmed("40291085"), pubmed("37366315"), pubmed("40609566")],
   },
   {
     slug: "ghk-cu",
@@ -91,30 +73,7 @@ export const products: Product[] = [
       "Le GHK-Cu est un complexe peptide-cuivre endogène utilisé comme outil de recherche in vitro pour l'étude des fibroblastes, de la synthèse du collagène et de l'expression génique liée à la régénération.",
     storage: "Lyophilisé : −20 °C, à l'abri de la lumière. Reconstitué : 2–8 °C.",
     reconstitution: "Eau bactériostatique stérile.",
-    references: [
-      {
-        title: "GHK Peptide as a Natural Modulator of Multiple Cellular Pathways in Skin Regeneration",
-        authors: "Pickart L, Margolina A.",
-        journal: "Biomed Res Int",
-        year: 2015,
-        pmid: "26236730",
-      },
-      {
-        title:
-          "The human tripeptide GHK-Cu in prevention of oxidative stress and degenerative conditions of aging",
-        authors: "Pickart L, Vasquez-Soltero JM, Margolina A.",
-        journal: "Oxid Med Cell Longev",
-        year: 2012,
-        pmid: "22720117",
-      },
-      {
-        title: "GHK and DNA: resetting the human genome to health",
-        authors: "Pickart L, Vasquez-Soltero JM, Margolina A.",
-        journal: "Biomed Res Int",
-        year: 2014,
-        pmid: "25247178",
-      },
-    ],
+    references: [pmc("PMC6073405"), pubmed("18644225"), pubmed("35083444")],
   },
   {
     slug: "cjc-1295-ipamorelin",
@@ -131,31 +90,7 @@ export const products: Product[] = [
       "Co-conditionnement d'un analogue GHRH (CJC-1295 sans DAC) et d'un pentapeptide sécrétagogue (Ipamorelin) utilisé comme outil pharmacologique pour caractériser la signalisation conjointe GHRH-R / GHS-R1a sur lignées cellulaires.",
     storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
     reconstitution: "Reconstitution séparée recommandée à l'eau bactériostatique stérile.",
-    references: [
-      {
-        title:
-          "Prolonged stimulation of growth hormone (GH) and insulin-like growth factor I secretion by CJC-1295, a long-acting analog of GH-releasing hormone, in healthy adults",
-        authors: "Teichman SL, et al.",
-        journal: "J Clin Endocrinol Metab",
-        year: 2006,
-        pmid: "16352683",
-      },
-      {
-        title: "Ipamorelin, the first selective growth hormone secretagogue",
-        authors: "Raun K, et al.",
-        journal: "Eur J Endocrinol",
-        year: 1998,
-        pmid: "9849822",
-      },
-      {
-        title:
-          "Pharmacokinetics, pharmacodynamics, and safety of a single dose of CJC-1295",
-        authors: "Ionescu M, Frohman LA.",
-        journal: "J Clin Endocrinol Metab",
-        year: 2006,
-        pmid: "16940447",
-      },
-    ],
+    references: [pubmed("16352683"), pubmed("10373343"), pubmed("17018654")],
   },
   {
     slug: "semax",
@@ -172,23 +107,7 @@ export const products: Product[] = [
       "Peptide nootropique étudié in vitro pour son effet sur l'expression du BDNF et du NGF dans des modèles neuronaux.",
     storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
     reconstitution: "Eau bactériostatique stérile.",
-    references: [
-      {
-        title:
-          "Semax, an analogue of ACTH(4-10), regulates expression of immediate early genes in the rat brain",
-        authors: "Dolotov OV, et al.",
-        journal: "J Neurochem",
-        year: 2006,
-        pmid: "16539681",
-      },
-      {
-        title: "The nootropic and analgesic effects of Semax",
-        authors: "Eremin KO, et al.",
-        journal: "Bull Exp Biol Med",
-        year: 2005,
-        pmid: "16027820",
-      },
-    ],
+    references: [pubmed("16996699"), pubmed("41479572"), pubmed("16635254")],
   },
   {
     slug: "ahk-cu",
@@ -205,16 +124,7 @@ export const products: Product[] = [
       "Analogue cuivré utilisé comme outil expérimental dans les essais de prolifération de cellules dermiques et de modulation de la VEGF in vitro.",
     storage: "Lyophilisé : −20 °C, à l'abri de la lumière. Reconstitué : 2–8 °C.",
     reconstitution: "Eau bactériostatique stérile.",
-    references: [
-      {
-        title:
-          "Regenerative and protective actions of the GHK-Cu peptide in the light of the new gene data",
-        authors: "Pickart L, Margolina A.",
-        journal: "Int J Mol Sci",
-        year: 2018,
-        pmid: "29986520",
-      },
-    ],
+    references: [pubmed("17703734"), pmc("PMC8332470"), pmc("PMC6073405")],
   },
   {
     slug: "bpc-157",
@@ -231,24 +141,7 @@ export const products: Product[] = [
       "Fragment peptidique synthétique utilisé comme outil de recherche dans les essais in vitro d'angiogenèse et de migration cellulaire.",
     storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
     reconstitution: "Eau bactériostatique stérile.",
-    references: [
-      {
-        title:
-          "Stable gastric pentadecapeptide BPC 157: novel therapy in gastrointestinal tract",
-        authors: "Sikiric P, et al.",
-        journal: "Curr Pharm Des",
-        year: 2011,
-        pmid: "21443487",
-      },
-      {
-        title:
-          "Brain-gut Axis and Pentadecapeptide BPC 157: Theoretical and Practical Implications",
-        authors: "Sikiric P, et al.",
-        journal: "Curr Neuropharmacol",
-        year: 2016,
-        pmid: "26521203",
-      },
-    ],
+    references: [pubmed("30915550"), pmc("PMC6271067"), pmc("PMC8275860")],
   },
   {
     slug: "mt-1",
@@ -265,16 +158,7 @@ export const products: Product[] = [
       "Peptide utilisé comme ligand de référence pour la caractérisation du récepteur mélanocortine 1 sur cellules pigmentaires.",
     storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
     reconstitution: "Eau bactériostatique stérile.",
-    references: [
-      {
-        title:
-          "Afamelanotide for prevention of phototoxicity in erythropoietic protoporphyria",
-        authors: "Langendonk JG, et al.",
-        journal: "N Engl J Med",
-        year: 2015,
-        pmid: "26132941",
-      },
-    ],
+    references: [pubmed("15262693"), pubmed("9113347"), pmc("PMC11664455")],
   },
   {
     slug: "mt-2",
@@ -291,15 +175,7 @@ export const products: Product[] = [
       "Peptide utilisé comme ligand non sélectif de référence dans la caractérisation des récepteurs mélanocortines.",
     storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
     reconstitution: "Eau bactériostatique stérile.",
-    references: [
-      {
-        title: "Discovery and development of the melanocortin receptor agonists",
-        authors: "Hadley ME, Dorr RT.",
-        journal: "Peptides",
-        year: 2006,
-        pmid: "16406170",
-      },
-    ],
+    references: [pubmed("8637402"), pubmed("15262693")],
   },
   {
     slug: "klow",
@@ -316,23 +192,7 @@ export const products: Product[] = [
       "Co-formulation utilisée comme outil expérimental pour étudier les effets combinés in vitro sur la migration cellulaire, l'angiogenèse et la modulation inflammatoire.",
     storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C, ≤ 14 jours.",
     reconstitution: "Eau bactériostatique stérile, agitation douce.",
-    references: [
-      {
-        title: "Thymosin beta-4 activates integrin-linked kinase",
-        authors: "Bock-Marquette I, et al.",
-        journal: "Nature",
-        year: 2004,
-        pmid: "15229603",
-      },
-      {
-        title:
-          "Tripeptide KPV in nutrition, inflammation, and cancer",
-        authors: "Dalmasso G, et al.",
-        journal: "Ann N Y Acad Sci",
-        year: 2009,
-        pmid: "19120211",
-      },
-    ],
+    references: [pmc("PMC6073405"), pubmed("30915550"), pmc("PMC6271067")],
   },
   {
     slug: "nad-plus",
@@ -349,23 +209,7 @@ export const products: Product[] = [
       "Coenzyme central des réactions redox utilisé comme outil de recherche in vitro pour l'étude des sirtuines et du métabolisme mitochondrial.",
     storage: "Lyophilisé : −20 °C, à l'abri de la lumière. Reconstitué : 2–8 °C.",
     reconstitution: "Eau bactériostatique stérile.",
-    references: [
-      {
-        title:
-          "NAD+ Metabolism and Its Roles in Cellular Processes during Ageing",
-        authors: "Covarrubias AJ, et al.",
-        journal: "Nat Rev Mol Cell Biol",
-        year: 2021,
-        pmid: "33353981",
-      },
-      {
-        title: "NAD+ in aging, metabolism, and neurodegeneration",
-        authors: "Verdin E.",
-        journal: "Science",
-        year: 2015,
-        pmid: "26785480",
-      },
-    ],
+    references: [pmc("PMC10692436"), pmc("PMC9512238"), pubmed("37971292")],
   },
   {
     slug: "tesamoreline",
@@ -382,24 +226,7 @@ export const products: Product[] = [
       "Peptide synthétique utilisé comme outil pharmacologique pour l'étude in vitro de la signalisation GHRH-R sur lignées hypophysaires.",
     storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
     reconstitution: "Eau bactériostatique stérile.",
-    references: [
-      {
-        title:
-          "Effects of tesamorelin (TH9507), a growth hormone-releasing factor analog, in HIV-infected patients with excess abdominal fat",
-        authors: "Falutz J, et al.",
-        journal: "J Clin Endocrinol Metab",
-        year: 2007,
-        pmid: "17726073",
-      },
-      {
-        title:
-          "Long-term safety and effects of tesamorelin, a GHRH analogue, in HIV patients with abdominal fat accumulation",
-        authors: "Falutz J, et al.",
-        journal: "AIDS",
-        year: 2008,
-        pmid: "18753925",
-      },
-    ],
+    references: [pubmed("20554713"), pubmed("18690162"), ext("https://jamanetwork.com/journals/jama/fullarticle/1889139", "JAMA", "JAMA · fullarticle/1889139")],
   },
   {
     slug: "eau-bacteriostatique",

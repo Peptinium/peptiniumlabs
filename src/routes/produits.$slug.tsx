@@ -224,22 +224,21 @@ function ProductPage() {
             </Reveal>
             <ul className="mt-8 divide-y divide-border overflow-hidden rounded-xl border border-border bg-card">
               {product.references.map((r, i) => (
-                <Reveal key={r.pmid} delay={i * 70}>
-                  <li className="group flex items-start justify-between gap-6 p-6 transition-colors hover:bg-surface">
+                <Reveal key={r.url} delay={i * 70}>
+                  <li className="group flex items-center justify-between gap-6 p-6 transition-colors hover:bg-surface">
                     <div>
                       <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                        {r.journal} · {r.year} · PMID {r.pmid}
+                        {r.source} · Référence n°{i + 1}
                       </div>
-                      <div className="mt-1.5 font-display text-base font-medium text-foreground">{r.title}</div>
-                      <div className="mt-1 text-xs text-muted-foreground">{r.authors}</div>
+                      <div className="mt-1.5 font-display text-base font-medium text-foreground">{r.id}</div>
                     </div>
                     <a
-                      href={`https://pubmed.ncbi.nlm.nih.gov/${r.pmid}/`}
+                      href={r.url}
                       target="_blank"
                       rel="noreferrer"
-                      className="shrink-0 font-mono text-[10px] uppercase tracking-[0.2em] text-accent transition-transform group-hover:translate-x-0.5"
+                      className="shrink-0 inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-accent transition-all hover:border-accent hover:bg-accent/5"
                     >
-                      PubMed →
+                      Consulter sur {r.source} →
                     </a>
                   </li>
                 </Reveal>

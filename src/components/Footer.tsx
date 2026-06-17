@@ -37,7 +37,6 @@ export function Footer() {
           title="Catalogue"
           links={[
             { to: "/produits", label: "Toutes les références" },
-            { to: "/packs", label: "Packs recherche" },
             { to: "/calculatrice", label: "Calculatrice de dilution" },
             { to: "/etudes-scientifiques", label: "Bibliographie PubMed" },
           ]}
