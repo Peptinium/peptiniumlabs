@@ -62,6 +62,17 @@ export function ProductCard({ product }: { product: Product }) {
 }
 
 export function VialIllustration({ label }: { label: string }) {
+  const isRetatrutide = label.toLowerCase().includes("retatrutide");
+  if (isRetatrutide) {
+    return (
+      <img
+        src={retatrutideVial.url}
+        alt="Flacon Retatrutide — Research Use Only"
+        className="absolute inset-0 size-full object-contain p-4"
+        loading="lazy"
+      />
+    );
+  }
   return (
     <svg viewBox="0 0 200 160" className="absolute inset-0 size-full">
       <defs>
