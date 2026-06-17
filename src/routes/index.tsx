@@ -114,10 +114,15 @@ function HomePage() {
 
           {/* Featured molecule card */}
           <Reveal delay={120}>
-            <FeaturedCard featured={featured} />
+            <div className="relative">
+              <HologramOrnament />
+              <FeaturedCard featured={featured} />
+            </div>
           </Reveal>
         </div>
       </section>
+
+
 
       {/* ============ MARQUEE OF SPECS ============ */}
       <section className="border-b border-border bg-foreground text-background">
@@ -259,6 +264,37 @@ const specsMarquee = [
   "Tésamoréline 5 mg",
   "Eau bactériostatique 30 mL",
 ];
+
+function HologramOrnament() {
+  return (
+    <div
+      aria-hidden
+      className="pointer-events-none absolute -top-24 left-1/2 z-10 hidden -translate-x-1/2 sm:block"
+    >
+      <div className="relative grid size-28 place-items-center">
+        {/* outer rotating ring */}
+        <div className="absolute inset-0 rounded-full border border-accent/30 [animation:spin_18s_linear_infinite]" />
+        <div className="absolute inset-2 rounded-full border border-dashed border-accent/40 [animation:spin_12s_linear_infinite_reverse]" />
+        {/* glow */}
+        <div className="absolute inset-4 rounded-full bg-accent/15 blur-2xl [animation:pulse_3s_ease-in-out_infinite]" />
+        {/* hologram orb */}
+        <div className="relative size-16 rounded-full bg-gradient-to-br from-accent/40 via-accent/10 to-transparent [animation:float_4s_ease-in-out_infinite] shadow-[0_0_40px_oklch(0.7_0.18_220/40%)]">
+          <div className="absolute inset-0 grid place-items-center">
+            <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+              <circle cx="17" cy="17" r="14" stroke="currentColor" className="text-accent" strokeWidth="1" strokeDasharray="3 4" />
+              <path d="M11 8h12v3l-4 6 4 6v3H11v-3l4-6-4-6V8Z" stroke="currentColor" className="text-accent" strokeWidth="1.2" strokeLinejoin="round" />
+            </svg>
+          </div>
+        </div>
+        {/* scan beam */}
+        <div className="absolute left-1/2 top-1/2 h-px w-24 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-transparent via-accent to-transparent [animation:beam-sweep_3s_ease-in-out_infinite]" />
+      </div>
+      <div className="mt-1 text-center font-mono text-[8px] uppercase tracking-[0.3em] text-accent/80">
+        ◇ Lab-grade ◇
+      </div>
+    </div>
+  );
+}
 
 function QualityCard({
   k, t, d, tag, className = "", big = false,

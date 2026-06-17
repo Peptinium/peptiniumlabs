@@ -76,6 +76,10 @@
   0%, 100% { transform: translateX(-20%) }
   50% { transform: translateX(120%) }
 }
+@keyframes float {
+  0%, 100% { transform: translateY(0) }
+  50% { transform: translateY(-6px) }
+}
 
 :root {
   --radius: 6px;

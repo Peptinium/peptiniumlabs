@@ -41,11 +41,11 @@ const labs: Lab[] = [
     contactEmail: "info@janoshik.com",
     shipTo:
       "Janoshik Analytical s.r.o. — adresse complète communiquée après commande sur janoshik.com.",
-    pricing: "≈ 40–60 € par peptide (identification + pureté HPLC). Quantification ≈ 60–80 €.",
+    pricing: "≈ 215–360 USD par test selon le peptide. Ex. BPC-157 ≈ 215 USD · GLP-1 (Retatrutide, Tirzépatide) ≈ 360 USD · option endotoxines ≈ 120–180 USD.",
     turnaround: "5–10 jours ouvrés après réception du colis",
-    methods: ["HPLC-UV en phase inverse", "Spectrométrie de masse (MS)", "Quantification gravimétrique"],
+    methods: ["HPLC-UV en phase inverse", "Spectrométrie de masse (MS)", "Quantification gravimétrique", "Endotoxines (option)"],
     notes:
-      "Référence européenne pour les analyses de peptides de recherche. Chaque rapport est associé à une clé unique de vérification consultable publiquement sur janoshik.com pour authentifier l'origine du CoA. Idéal pour les chercheurs basés en UE (douanes simples, délais courts).",
+      "Référence européenne, considérée comme gold standard par la communauté de recherche pour la complétude des analyses. Chaque rapport est associé à une clé unique de vérification consultable publiquement sur janoshik.com pour authentifier l'origine du CoA. Plus complet et plus cher que la moyenne, mais plébiscité pour la fiabilité des résultats.",
     highlight: true,
   },
   {
@@ -55,11 +55,11 @@ const labs: Lab[] = [
     contactEmail: "support@finnrick.com",
     shipTo:
       "Fínnrick Labs — adresse postale fournie lors de la création d'un compte sur finnrick.com.",
-    pricing: "≈ 50–95 USD par analyse (HPLC + identification). Tests combinés disponibles.",
+    pricing: "≈ 129–238 USD par produit selon le panel. Ex. KLOW ≈ 199 USD · option endotoxines ≈ 110 USD. Souvent gratuit ou moins cher sur les peptides courants.",
     turnaround: "7–14 jours ouvrés après réception",
-    methods: ["HPLC", "LC-MS", "Tests de stérilité (option)"],
+    methods: ["HPLC", "LC-MS", "Endotoxines (option)", "Tests de stérilité (option)"],
     notes:
-      "Laboratoire américain reconnu par la communauté de recherche outre-Atlantique. Propose des packs multi-fioles, des analyses anonymisées et un suivi de commande en ligne. Pensez aux frais et délais de douane si envoi depuis l'Europe.",
+      "Laboratoire américain reconnu pour son rapport qualité/prix : tarifs accessibles, analyses parfois offertes sur les peptides courants, suivi de commande en ligne et packs multi-fioles. Pensez aux frais et délais de douane si envoi depuis l'Europe.",
   },
   {
     name: "Trustpoint Analytical",
