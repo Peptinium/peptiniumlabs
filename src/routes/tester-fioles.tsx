@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/SiteLayout";
 import { RuoBadge } from "@/components/RuoBadge";
 import { Reveal } from "@/components/Reveal";
+import labBg from "@/assets/lab-bg-ruo.jpg";
+
 
 export const Route = createFileRoute("/tester-fioles")({
   head: () => ({
