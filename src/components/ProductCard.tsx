@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { minPrice, type Product } from "@/data/products";
+import { minPrice, formatPrice, type Product } from "@/data/products";
 import { RuoBadge } from "./RuoBadge";
 import retatrutide10mg from "@/assets/products/retatrutide-10mg.png.asset.json";
 import retatrutide20mg from "@/assets/products/retatrutide-20mg.png.asset.json";
@@ -11,6 +11,9 @@ import ghkCu50mg from "@/assets/products/ghk-cu-50mg.png.asset.json";
 import tesamoreline5mg from "@/assets/products/tesamoreline-5mg.png.asset.json";
 import nadPlus1000mg from "@/assets/products/nad-plus-1000mg.png.asset.json";
 import klow80mg from "@/assets/products/klow-80mg.png.asset.json";
+import ahkCu100mg from "@/assets/products/ahk-cu-100mg.png.asset.json";
+import bpc15710mg from "@/assets/products/bpc-157-10mg.png.asset.json";
+import eauBac from "@/assets/products/eau-bacteriostatique.png.asset.json";
 
 type ProductVisualProps = {
   product: Pick<Product, "slug" | "name">;
