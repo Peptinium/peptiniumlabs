@@ -725,7 +725,7 @@ function ConfirmationBlock({
         <div>
           <div className="font-display text-sm font-semibold text-success">Virement signalé avec succès</div>
           <p className="mt-1 text-xs text-muted-foreground">
-            Notre équipe vérifie la réception des fonds. Vous recevrez un email d'expédition sous 24 à 48h ouvrées.
+            Notre équipe vérifie la réception des fonds. Vous recevrez un email d'expédition sous 48 à 72h ouvrées.
           </p>
         </div>
       </div>
