@@ -5,7 +5,6 @@ export function RuoBanner() {
     "Non destiné à l'usage humain",
     "HPLC ≥ 98 %",
     "CoA par lot",
-    "Chaîne du froid −20 °C",
   ];
   const loop = [...items, ...items];
   return (
