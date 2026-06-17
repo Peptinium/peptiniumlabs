@@ -33,6 +33,9 @@ const ext = (url: string, source: "JAMA", id: string): Reference => ({ url, sour
 export const minPrice = (p: Product) => Math.min(...p.variants.map((v) => v.price));
 export const defaultVariant = (p: Product) => p.variants[0];
 
+export const formatPrice = (n: number) =>
+  `${n.toLocaleString("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
+
 export const products: Product[] = [
   {
     slug: "retatrutide",
