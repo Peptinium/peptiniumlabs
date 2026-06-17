@@ -158,7 +158,7 @@ function HomePage() {
             </Link>
           </div>
         </Reveal>
-        <div className="mt-12 grid gap-7 sm:mt-10 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
+        <div className="mt-12 grid grid-cols-2 gap-3 sm:mt-10 sm:gap-5 lg:grid-cols-3">
           {rest.map((p, i) => (
             <Reveal key={p.slug} delay={i * 60}>
               <ProductCard product={p} />
