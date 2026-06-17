@@ -133,8 +133,11 @@ function PanierPage() {
             <PaiementBlock
               shipping={shipping}
               onBack={() => setStep("livraison")}
-              onConfirm={() => setStep("virement")}
+              onConfirm={handleConfirmPaiement}
+              submitting={submitting}
+              error={submitError}
             />
+
             <Recap
               cart={cart}
               subtotal={subtotal}
