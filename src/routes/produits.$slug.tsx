@@ -1,5 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
+import type { Product } from "@/data/products";
 import { SiteLayout } from "@/components/SiteLayout";
 import { RuoBadge } from "@/components/RuoBadge";
 import { Reveal } from "@/components/Reveal";
@@ -44,7 +45,7 @@ export const Route = createFileRoute("/produits/$slug")({
 });
 
 function ProductPage() {
-  const { product } = Route.useLoaderData();
+  const { product } = Route.useLoaderData() as { product: Product };
   const [variantIdx, setVariantIdx] = useState(0);
   const variant = product.variants[variantIdx];
   const hasMultiple = product.variants.length > 1;
