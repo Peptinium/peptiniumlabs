@@ -11,7 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ProduitsRouteImport } from './routes/produits'
-import { Route as PacksRouteImport } from './routes/packs'
 import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
 import { Route as EtudesScientifiquesRouteImport } from './routes/etudes-scientifiques'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -29,11 +28,6 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const ProduitsRoute = ProduitsRouteImport.update({
   id: '/produits',
   path: '/produits',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PacksRoute = PacksRouteImport.update({
-  id: '/packs',
-  path: '/packs',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MentionsLegalesRoute = MentionsLegalesRouteImport.update({
@@ -85,7 +79,6 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/etudes-scientifiques': typeof EtudesScientifiquesRoute
   '/mentions-legales': typeof MentionsLegalesRoute
-  '/packs': typeof PacksRoute
   '/produits': typeof ProduitsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/produits/$slug': typeof ProduitsSlugRoute
@@ -98,7 +91,6 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/etudes-scientifiques': typeof EtudesScientifiquesRoute
   '/mentions-legales': typeof MentionsLegalesRoute
-  '/packs': typeof PacksRoute
   '/produits': typeof ProduitsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/produits/$slug': typeof ProduitsSlugRoute
@@ -112,7 +104,6 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/etudes-scientifiques': typeof EtudesScientifiquesRoute
   '/mentions-legales': typeof MentionsLegalesRoute
-  '/packs': typeof PacksRoute
   '/produits': typeof ProduitsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/produits/$slug': typeof ProduitsSlugRoute
@@ -127,7 +118,6 @@ export interface FileRouteTypes {
     | '/contact'
     | '/etudes-scientifiques'
     | '/mentions-legales'
-    | '/packs'
     | '/produits'
     | '/sitemap.xml'
     | '/produits/$slug'
@@ -140,7 +130,6 @@ export interface FileRouteTypes {
     | '/contact'
     | '/etudes-scientifiques'
     | '/mentions-legales'
-    | '/packs'
     | '/produits'
     | '/sitemap.xml'
     | '/produits/$slug'
@@ -153,7 +142,6 @@ export interface FileRouteTypes {
     | '/contact'
     | '/etudes-scientifiques'
     | '/mentions-legales'
-    | '/packs'
     | '/produits'
     | '/sitemap.xml'
     | '/produits/$slug'
@@ -167,7 +155,6 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   EtudesScientifiquesRoute: typeof EtudesScientifiquesRoute
   MentionsLegalesRoute: typeof MentionsLegalesRoute
-  PacksRoute: typeof PacksRoute
   ProduitsRoute: typeof ProduitsRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
@@ -186,13 +173,6 @@ declare module '@tanstack/react-router' {
       path: '/produits'
       fullPath: '/produits'
       preLoaderRoute: typeof ProduitsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/packs': {
-      id: '/packs'
-      path: '/packs'
-      fullPath: '/packs'
-      preLoaderRoute: typeof PacksRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mentions-legales': {
@@ -274,7 +254,6 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   EtudesScientifiquesRoute: EtudesScientifiquesRoute,
   MentionsLegalesRoute: MentionsLegalesRoute,
-  PacksRoute: PacksRoute,
   ProduitsRoute: ProduitsRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
 }

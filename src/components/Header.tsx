@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 
 const nav = [
   { to: "/produits", label: "Catalogue" },
-  { to: "/packs", label: "Packs" },
   { to: "/etudes-scientifiques", label: "Études" },
   { to: "/calculatrice", label: "Calculatrice" },
   { to: "/a-propos", label: "Laboratoire" },
