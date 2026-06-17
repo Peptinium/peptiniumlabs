@@ -262,23 +262,43 @@ function TestVialsPage() {
       </section>
 
       {/* RUO REMINDER */}
-      <section className="container-prose py-20">
-        <Reveal>
-          <div className="rounded-2xl border border-warning/40 bg-warning/5 p-8 sm:p-12">
-            <RuoBadge />
-            <h2 className="mt-4 max-w-3xl font-display text-2xl font-medium tracking-tight">
-              Tester pour la recherche — pas pour la consommation
+      <section
+        className="relative overflow-hidden border-t border-border"
+        style={{
+          backgroundImage: `linear-gradient(135deg, oklch(0.18 0.08 245 / 0.92), oklch(0.14 0.07 250 / 0.96)), url(${labBg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="pointer-events-none absolute -top-px left-0 h-px w-1/3 bg-gradient-to-r from-transparent via-accent to-transparent [animation:beam-sweep_6s_ease-in-out_infinite]" />
+        <div className="pointer-events-none absolute inset-0 opacity-[0.08] grid-bg" />
+        <div className="container-prose relative py-24">
+          <Reveal>
+            <RuoBadge variant="ghost" />
+            <h2 className="mt-5 max-w-3xl font-display text-3xl font-medium tracking-tight text-white sm:text-4xl">
+              Tester pour la <span className="shimmer-text">recherche</span> — pas pour la consommation
             </h2>
-            <p className="mt-4 max-w-3xl text-sm leading-relaxed text-foreground/85">
+            <p className="mt-5 max-w-3xl text-[15px] leading-relaxed text-white/75">
               La vérification analytique d'une fiole s'inscrit dans une démarche scientifique
               rigoureuse de contrôle qualité des réactifs de recherche. Elle ne valide en aucun
               cas une utilisation humaine, vétérinaire, diagnostique ou thérapeutique. Les
               peptides commercialisés par Aetherion Labs sont strictement destinés à la recherche
               scientifique in vitro et à un usage exclusivement professionnel et de laboratoire.
             </p>
-          </div>
-        </Reveal>
+            <div className="mt-8 flex flex-wrap gap-2">
+              {["HPLC ≥ 98 %", "MS · CoA par lot", "ISO 9001", "RUO strict"].map((t) => (
+                <span
+                  key={t}
+                  className="rounded-full border border-white/15 bg-white/5 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-white/70 backdrop-blur"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+          </Reveal>
+        </div>
       </section>
+
     </SiteLayout>
   );
 }
