@@ -4,7 +4,7 @@ import type { Product } from "@/data/products";
 import { SiteLayout } from "@/components/SiteLayout";
 import { RuoBadge } from "@/components/RuoBadge";
 import { Reveal } from "@/components/Reveal";
-import { VialIllustration } from "@/components/ProductCard";
+import { ProductVisual } from "@/components/ProductCard";
 import { products } from "@/data/products";
 
 export const Route = createFileRoute("/produits/$slug")({
@@ -69,10 +69,19 @@ function ProductPage() {
           {/* Visual */}
           <Reveal>
             <div className="overflow-hidden rounded-2xl border border-border bg-surface">
-              <div className="relative aspect-[5/4] overflow-hidden">
-                <div className="absolute inset-0 dot-bg opacity-60" />
-                <VialIllustration label={product.name} />
-                <div className="absolute left-4 top-4"><RuoBadge /></div>
+              <div className="relative mx-auto aspect-[2/3] max-w-[430px] overflow-hidden p-3 sm:p-4">
+                <ProductVisual
+                  product={product}
+                  dosage={variant.dosage}
+                  alt={`Flacon ${product.name} ${variant.dosage} — Research Use Only`}
+                  className="size-full"
+                  imageClassName="size-full object-cover"
+                  loading="eager"
+                />
+                <div className="absolute left-7 top-7"><RuoBadge /></div>
+                <div className="absolute right-7 top-7 rounded-full border border-background/70 bg-background/86 px-3 py-1.5 font-display text-base font-medium text-foreground shadow-sm backdrop-blur-sm">
+                  {variant.price} €
+                </div>
                 <div className="pointer-events-none absolute -bottom-px left-0 h-px w-1/2 bg-gradient-to-r from-transparent via-accent to-transparent [animation:beam-sweep_5s_ease-in-out_infinite]" />
               </div>
               <div className="grid grid-cols-3 divide-x divide-border border-t border-border bg-card">

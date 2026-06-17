@@ -1,26 +1,53 @@
 import { Link } from "@tanstack/react-router";
 import { minPrice, type Product } from "@/data/products";
 import { RuoBadge } from "./RuoBadge";
-import retatrutideVial from "@/assets/retatrutide-vial.png.asset.json";
+import retatrutide10mg from "@/assets/products/retatrutide-10mg.png.asset.json";
+import retatrutide20mg from "@/assets/products/retatrutide-20mg.png.asset.json";
+import cjc1295Ipamorelin from "@/assets/products/cjc-1295-ipamorelin.png.asset.json";
+import semax10mg from "@/assets/products/semax-10mg.png.asset.json";
+import mt110mg from "@/assets/products/mt-1-10mg.png.asset.json";
+import mt210mg from "@/assets/products/mt-2-10mg.png.asset.json";
+import ghkCu50mg from "@/assets/products/ghk-cu-50mg.png.asset.json";
+import tesamoreline5mg from "@/assets/products/tesamoreline-5mg.png.asset.json";
+import nadPlus1000mg from "@/assets/products/nad-plus-1000mg.png.asset.json";
+import klow80mg from "@/assets/products/klow-80mg.png.asset.json";
+
+type ProductVisualProps = {
+  product: Pick<Product, "slug" | "name">;
+  dosage?: string;
+  alt?: string;
+  className?: string;
+  imageClassName?: string;
+  loading?: "lazy" | "eager";
+};
 
 export function ProductCard({ product }: { product: Product }) {
   const hasMultiple = product.variants.length > 1;
   const price = minPrice(product);
+
   return (
     <Link
       to="/produits/$slug"
       params={{ slug: product.slug }}
       className="hover-lift group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card"
     >
-      <div className="relative aspect-[5/4] overflow-hidden bg-surface">
-        <div className="absolute inset-0 dot-bg opacity-60" />
-        <VialIllustration label={product.name} />
+      <div className="relative aspect-[2/3] overflow-hidden border-b border-border bg-surface">
+        <ProductVisual
+          product={product}
+          dosage={product.variants[0]?.dosage}
+          alt={`Flacon ${product.name} — Research Use Only`}
+          className="size-full"
+          imageClassName="size-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+          loading="lazy"
+        />
         <div className="absolute left-3 top-3">
           <RuoBadge compact />
         </div>
-        <div className="absolute right-3 top-3 rounded-full border border-border bg-background/80 px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.18em] text-muted-foreground backdrop-blur">
-          {product.purity}
+        <div className="absolute right-3 top-3 rounded-full border border-background/70 bg-background/84 px-2.5 py-1 font-display text-sm font-medium text-foreground shadow-sm backdrop-blur-sm">
+          {hasMultiple ? <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-muted-foreground">dès </span> : null}
+          {price} €
         </div>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-background/35 via-background/8 to-transparent" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
       </div>
       <div className="flex flex-1 flex-col gap-2 p-5">
@@ -33,16 +60,10 @@ export function ProductCard({ product }: { product: Product }) {
               {product.name}
             </h3>
           </div>
-          <div className="text-right">
-            <div className="font-display text-lg font-medium">
-              {hasMultiple ? <span className="text-[10px] font-normal text-muted-foreground">dès </span> : null}
-              {price} €
-            </div>
-            <div className="font-mono text-[9px] uppercase tracking-[0.18em] text-muted-foreground">
-              {hasMultiple
-                ? product.variants.map((v) => v.dosage).join(" · ")
-                : product.variants[0].dosage}
-            </div>
+          <div className="text-right font-mono text-[9px] uppercase tracking-[0.18em] text-muted-foreground">
+            {hasMultiple
+              ? product.variants.map((v) => v.dosage).join(" · ")
+              : product.variants[0].dosage}
           </div>
         </div>
         <p className="line-clamp-2 text-xs leading-relaxed text-muted-foreground">
@@ -61,20 +82,64 @@ export function ProductCard({ product }: { product: Product }) {
   );
 }
 
-export function VialIllustration({ label }: { label: string }) {
-  const isRetatrutide = label.toLowerCase().includes("retatrutide");
-  if (isRetatrutide) {
+export function ProductVisual({
+  product,
+  dosage,
+  alt,
+  className = "",
+  imageClassName = "",
+  loading = "lazy",
+}: ProductVisualProps) {
+  const src = getProductImageUrl(product.slug, dosage);
+
+  if (src) {
     return (
-      <img
-        src={retatrutideVial.url}
-        alt="Flacon Retatrutide — Research Use Only"
-        className="absolute inset-0 size-full object-contain p-4"
-        loading="lazy"
-      />
+      <div className={`overflow-hidden rounded-[18px] ${className}`}>
+        <img
+          src={src}
+          alt={alt ?? `Flacon ${product.name} — Research Use Only`}
+          className={imageClassName || "size-full object-cover"}
+          loading={loading}
+        />
+      </div>
     );
   }
+
   return (
-    <svg viewBox="0 0 200 160" className="absolute inset-0 size-full">
+    <div className={`overflow-hidden rounded-[18px] bg-surface ${className}`}>
+      <FallbackVialIllustration label={product.name} />
+    </div>
+  );
+}
+
+function getProductImageUrl(slug: Product["slug"], dosage?: string) {
+  switch (slug) {
+    case "retatrutide":
+      return dosage?.includes("20") ? retatrutide20mg.url : retatrutide10mg.url;
+    case "ghk-cu":
+      return ghkCu50mg.url;
+    case "cjc-1295-ipamorelin":
+      return cjc1295Ipamorelin.url;
+    case "semax":
+      return semax10mg.url;
+    case "mt-1":
+      return mt110mg.url;
+    case "mt-2":
+      return mt210mg.url;
+    case "tesamoreline":
+      return tesamoreline5mg.url;
+    case "nad-plus":
+      return nadPlus1000mg.url;
+    case "klow":
+      return klow80mg.url;
+    default:
+      return null;
+  }
+}
+
+function FallbackVialIllustration({ label }: { label: string }) {
+  return (
+    <svg viewBox="0 0 200 160" className="size-full">
       <defs>
         <linearGradient id="vialGlass" x1="0" x2="0" y1="0" y2="1">
           <stop offset="0%" stopColor="oklch(1 0 0 / 80%)" />
@@ -86,23 +151,19 @@ export function VialIllustration({ label }: { label: string }) {
         </linearGradient>
       </defs>
       <g transform="translate(70 18)">
-        {/* cap */}
         <rect x="8" y="0" width="44" height="10" rx="1.5" fill="oklch(0.32 0.04 245)" />
         <rect x="4" y="10" width="52" height="7" fill="oklch(0.55 0.03 245)" />
         <rect x="4" y="10" width="52" height="2" fill="oklch(0.7 0.02 245)" />
-        {/* glass */}
         <path
           d="M8 17 H52 V108 a18 18 0 0 1 -18 18 H26 a18 18 0 0 1 -18 -18 Z"
           fill="url(#vialGlass)"
           stroke="oklch(0.85 0.01 240)"
           strokeWidth="1"
         />
-        {/* liquid */}
         <path
           d="M8 72 H52 V108 a18 18 0 0 1 -18 18 H26 a18 18 0 0 1 -18 -18 Z"
           fill="url(#vialLiquid)"
         />
-        {/* label */}
         <rect x="11" y="42" width="38" height="26" fill="oklch(1 0 0)" stroke="oklch(0.88 0.01 240)" />
         <line x1="11" y1="48" x2="49" y2="48" stroke="oklch(0.18 0.04 245)" strokeWidth="0.6" />
         <text
@@ -126,9 +187,7 @@ export function VialIllustration({ label }: { label: string }) {
         >
           RUO · LYO
         </text>
-        {/* meniscus highlight */}
         <ellipse cx="30" cy="72" rx="22" ry="2" fill="oklch(1 0 0 / 60%)" />
-        {/* shine */}
         <rect x="13" y="20" width="3" height="85" rx="1.5" fill="oklch(1 0 0 / 60%)" />
       </g>
     </svg>
