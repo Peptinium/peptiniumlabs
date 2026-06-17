@@ -312,6 +312,8 @@ function PaiementBlock({
   onConfirm: () => void;
 }) {
   const [method, setMethod] = useState<"bank">("bank");
+  const [acceptedCgv, setAcceptedCgv] = useState(false);
+  const [cgvOpen, setCgvOpen] = useState(false);
   return (
     <div className="space-y-4">
       <div className="flex items-start gap-3 rounded-2xl border border-success/40 bg-success/5 p-4">
@@ -376,15 +378,69 @@ function PaiementBlock({
         <span><strong className="text-foreground">Transaction sécurisée :</strong> votre paiement est traité avec discrétion par notre partenaire financier certifié.</span>
       </div>
 
+      <div className={`rounded-2xl border p-4 ${acceptedCgv ? "border-success/50 bg-success/5" : "border-border bg-card"}`}>
+        <label className="flex cursor-pointer items-start gap-3">
+          <input
+            type="checkbox"
+            checked={acceptedCgv}
+            onChange={(e) => setAcceptedCgv(e.target.checked)}
+            className="mt-0.5 size-4 shrink-0 cursor-pointer accent-[color:var(--color-accent)]"
+          />
+          <span className="text-sm text-foreground">
+            J'ai lu et j'accepte les{" "}
+            <button
+              type="button"
+              onClick={(e) => { e.preventDefault(); setCgvOpen((o) => !o); }}
+              className="font-semibold text-accent underline-offset-4 hover:underline"
+            >
+              Conditions Générales de Vente
+            </button>
+            {" "}ci-dessous.
+          </span>
+        </label>
+        {cgvOpen && (
+          <div className="mt-4 max-h-72 overflow-y-auto rounded-lg border border-border bg-background p-4 text-xs leading-relaxed text-muted-foreground">
+            <CgvFullText />
+          </div>
+        )}
+      </div>
+
       <button
         onClick={onConfirm}
-        className="group relative w-full overflow-hidden rounded-xl bg-accent px-6 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-background transition-colors hover:bg-accent/90"
+        disabled={!acceptedCgv}
+        className="group relative w-full overflow-hidden rounded-xl bg-accent px-6 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-background transition-colors hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-50"
       >
         <span className="inline-flex items-center justify-center gap-2">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M3 21h18M5 21V10M19 21V10M3 10l9-6 9 6"/></svg>
           Confirmer la commande
         </span>
       </button>
+    </div>
+  );
+}
+
+function CgvFullText() {
+  const sections: { h: string; p: string }[] = [
+    { h: "Article 1 – Objet et champ d'application", p: "Les présentes Conditions Générales de Vente (CGV) régissent les relations contractuelles entre le vendeur Aetherion – Micro-entreprise, 75017 Paris, SIRET 102 457 652 00018, TVA non applicable – franchise en base (article 293 B du CGI), et le client professionnel de recherche en laboratoire. Le site propose à la vente des produits chimiques et réactifs destinés exclusivement à la recherche scientifique en laboratoire (usage in vitro uniquement). Toute commande implique l'acceptation sans réserve des présentes CGV." },
+    { h: "Article 2 – Produits – Usage strictement réservé", p: "Les produits vendus sont strictement destinés à un usage de recherche en laboratoire (Research Use Only – RUO). Ils ne sont ni des médicaments, ni des compléments alimentaires, ni des produits destinés à la consommation humaine ou animale. Le client déclare et garantit qu'il utilise les produits exclusivement dans le cadre de travaux de recherche, d'études ou d'analyses en laboratoire. Le vendeur décline toute responsabilité en cas d'utilisation autre que celle expressément prévue (recherche in vitro), notamment en cas d'administration à des êtres humains ou animaux, d'utilisation thérapeutique, cosmétique ou alimentaire." },
+    { h: "Article 3 – Commande et acceptation", p: "Le client déclare avoir pris connaissance et accepté les présentes CGV avant de valider sa commande. Toute commande est ferme et définitive dès validation du paiement. Le vendeur se réserve le droit de refuser toute commande s'il a un doute sur l'usage réel qui sera fait des produits. L'acceptation des CGV est matérialisée par le cochement de la case « J'accepte les conditions générales de vente » avant la validation du paiement." },
+    { h: "Article 4 – Prix et paiement", p: "Les prix sont indiqués en euros toutes taxes comprises (TTC). La TVA n'est pas applicable – franchise en base (article 293 B du CGI). Le paiement est exigible immédiatement à la commande et s'effectue par les moyens de paiement proposés sur le site." },
+    { h: "Article 5 – Livraison", p: "Les produits sont expédiés dans un emballage neutre et discret, sans mention du contenu à l'extérieur du colis. Les délais de livraison (48 à 72h ouvrées) sont donnés à titre indicatif. Le client est seul responsable du respect des réglementations locales applicables à l'importation et à l'utilisation des produits." },
+    { h: "Article 6 – Droit de rétractation", p: "Conformément à l'article L.221-18 du Code de la consommation, le client dispose d'un droit de rétractation de 14 jours à compter de la réception des produits. Toutefois, conformément à l'article L.221-28, ce droit ne peut être exercé pour les produits ayant été ouverts, reconstitués ou dont le conditionnement scellé a été altéré après livraison. Aucun retour ni remboursement ne sera accepté pour tout produit dont le conditionnement scellé a été ouvert." },
+    { h: "Article 7 – Garantie et responsabilité", p: "Les produits sont vendus en l'état, sans aucune garantie d'usage particulier. Le vendeur ne pourra en aucun cas être tenu responsable de l'utilisation qui sera faite des produits par le client. Le client assume l'entière responsabilité de l'usage qu'il fait des produits, y compris en cas de mauvaise utilisation, d'erreur de manipulation ou d'usage non conforme à leur destination (recherche in vitro)." },
+    { h: "Article 8 – Usage strictement réservé – Engagement du client", p: "Le client s'engage expressément à n'utiliser les produits que dans un cadre de recherche scientifique en laboratoire. Toute utilisation humaine, animale, thérapeutique ou cosmétique n'est pas promue et relève de la seule responsabilité du client. Le vendeur se réserve le droit de refuser toute commande s'il a un doute sur l'usage réel qui sera fait des produits." },
+    { h: "Article 9 – Données personnelles", p: "Les données collectées sont traitées conformément au RGPD. Elles ne sont utilisées que pour le traitement des commandes et la relation client. Le client dispose d'un droit d'accès, de rectification et d'opposition qu'il peut exercer par email à l'adresse indiquée sur le site." },
+    { h: "Article 10 – Preuve et conservation des contrats", p: "Le fait de cocher la case « J'accepte les conditions générales de vente » avant la validation du paiement constitue une acceptation irrévocable et sans réserve des présentes. Les contrats sont archivés par le vendeur." },
+    { h: "Article 11 – Loi applicable et juridiction", p: "Les présentes CGV sont soumises au droit français. En cas de litige, une solution amiable sera recherchée avant toute action judiciaire. À défaut, les tribunaux français seront seuls compétents. Ces CGV sont valables pour toute commande passée sur le site peptidesfr.com." },
+  ];
+  return (
+    <div className="space-y-3">
+      {sections.map((s) => (
+        <div key={s.h}>
+          <div className="font-display text-[13px] font-semibold text-foreground">{s.h}</div>
+          <p className="mt-1">{s.p}</p>
+        </div>
+      ))}
     </div>
   );
 }
