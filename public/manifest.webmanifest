@@ -2,7 +2,7 @@
   "name": "Aetherion Labs",
   "short_name": "Aetherion",
   "description": "Aetherion Labs — Peptides de recherche (RUO). Gérez vos commandes, tickets SAV et suivi.",
-  "start_url": "/",
+  "start_url": "/admin",
   "scope": "/",
   "display": "standalone",
   "background_color": "#0c0d10",
