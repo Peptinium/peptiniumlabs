@@ -43,7 +43,7 @@ export function ProductCard({ product }: { product: Product }) {
           imageClassName="size-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
           loading="lazy"
         />
-        <div className="absolute left-3 top-3">
+        <div className="absolute bottom-3 left-3 z-10 sm:bottom-auto sm:top-3">
           <RuoBadge compact />
         </div>
         <div className="absolute right-3 top-3 rounded-full border border-background/70 bg-background/84 px-2.5 py-1 font-display text-sm font-medium text-foreground shadow-sm backdrop-blur-sm">
