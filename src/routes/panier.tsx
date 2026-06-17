@@ -58,9 +58,7 @@ function PanierPage() {
   }, [step, orderRef]);
 
   const isEmpty = cart.items.length === 0;
-  const motif = orderRef
-    ? `${orderRef} ${shipping.firstName} ${shipping.lastName}`.trim()
-    : "";
+  const motif = `${shipping.firstName} ${shipping.lastName}`.trim();
 
   const subtotal = cart.subtotal;
   const shippingFee = subtotal >= FREE_SHIPPING_THRESHOLD || subtotal === 0 ? 0 : SHIPPING;
