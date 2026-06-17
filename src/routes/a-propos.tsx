@@ -252,12 +252,12 @@ function AboutPage() {
                   rel="noreferrer"
                   className="group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card transition-all hover:border-accent/50 hover:shadow-[0_12px_40px_-16px_oklch(0.7_0.12_200/40%)]"
                 >
-                  <div className="relative overflow-hidden border-b border-border bg-white">
+                  <div className="relative aspect-[3/4] overflow-hidden border-b border-border bg-white">
                     <img
                       src={c.src}
                       alt={`Rapport Janoshik — ${c.name} ${c.dosage}`}
                       loading="lazy"
-                      className="aspect-[3/4] w-full bg-white object-contain object-top p-2 transition-transform duration-700 group-hover:scale-[1.02]"
+                      className="absolute inset-0 size-full bg-white object-cover transition-transform duration-700 group-hover:scale-[1.02]"
                     />
                     <div className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-border bg-white/95 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.2em] text-accent shadow-sm backdrop-blur">
                       <span className="size-1 rounded-full bg-accent" /> Vérifié Janoshik
