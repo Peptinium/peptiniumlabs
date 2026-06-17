@@ -224,12 +224,12 @@ function AboutPage() {
                 les rapports en taille réelle, et — fait important — <strong className="text-foreground">vérifier vous-mêmes l'authenticité de chaque
                 rapport</strong> directement sur{" "}
                 <a
-                  href="https://www.janoshik.com/verify/"
+                  href="https://www.janoshik.com/"
                   target="_blank"
                   rel="noreferrer"
                   className="font-mono text-accent underline-offset-4 hover:underline"
                 >
-                  janoshik.com/verify
+                  janoshik.com
                 </a>{" "}
                 en saisissant la clé unique fournie sur chaque CoA.
               </p>
@@ -252,14 +252,14 @@ function AboutPage() {
                   rel="noreferrer"
                   className="group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card transition-all hover:border-accent/50 hover:shadow-[0_12px_40px_-16px_oklch(0.7_0.12_200/40%)]"
                 >
-                  <div className="relative overflow-hidden border-b border-border bg-background">
+                  <div className="relative overflow-hidden border-b border-border bg-white">
                     <img
                       src={c.src}
                       alt={`Rapport Janoshik — ${c.name} ${c.dosage}`}
                       loading="lazy"
-                      className="aspect-[3/4] w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.02]"
+                      className="aspect-[3/4] w-full bg-white object-contain object-top p-2 transition-transform duration-700 group-hover:scale-[1.02]"
                     />
-                    <div className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-border bg-background/90 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.2em] text-accent backdrop-blur">
+                    <div className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-border bg-white/95 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.2em] text-accent shadow-sm backdrop-blur">
                       <span className="size-1 rounded-full bg-accent" /> Vérifié Janoshik
                     </div>
                   </div>
@@ -320,12 +320,12 @@ function AboutPage() {
               <li>
                 <span className="font-mono text-[11px] text-accent">01 ·</span> Rendez-vous sur{" "}
                 <a
-                  href="https://www.janoshik.com/verify/"
+                  href="https://www.janoshik.com/"
                   target="_blank"
                   rel="noreferrer"
                   className="font-mono text-accent hover:underline"
                 >
-                  janoshik.com/verify
+                  janoshik.com
                 </a>
                 .
               </li>

@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { minPrice, type Product } from "@/data/products";
+import { minPrice, formatPrice, type Product } from "@/data/products";
 import { RuoBadge } from "./RuoBadge";
 import retatrutide10mg from "@/assets/products/retatrutide-10mg.png.asset.json";
 import retatrutide20mg from "@/assets/products/retatrutide-20mg.png.asset.json";
@@ -11,6 +11,9 @@ import ghkCu50mg from "@/assets/products/ghk-cu-50mg.png.asset.json";
 import tesamoreline5mg from "@/assets/products/tesamoreline-5mg.png.asset.json";
 import nadPlus1000mg from "@/assets/products/nad-plus-1000mg.png.asset.json";
 import klow80mg from "@/assets/products/klow-80mg.png.asset.json";
+import ahkCu100mg from "@/assets/products/ahk-cu-100mg.png.asset.json";
+import bpc15710mg from "@/assets/products/bpc-157-10mg.png.asset.json";
+import eauBac from "@/assets/products/eau-bacteriostatique.png.asset.json";
 
 type ProductVisualProps = {
   product: Pick<Product, "slug" | "name">;
@@ -45,7 +48,7 @@ export function ProductCard({ product }: { product: Product }) {
         </div>
         <div className="absolute right-3 top-3 rounded-full border border-background/70 bg-background/84 px-2.5 py-1 font-display text-sm font-medium text-foreground shadow-sm backdrop-blur-sm">
           {hasMultiple ? <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-muted-foreground">dès </span> : null}
-          {price} €
+          {formatPrice(price)}
         </div>
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-background/35 via-background/8 to-transparent" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
@@ -118,6 +121,10 @@ function getProductImageUrl(slug: Product["slug"], dosage?: string) {
       return dosage?.includes("20") ? retatrutide20mg.url : retatrutide10mg.url;
     case "ghk-cu":
       return ghkCu50mg.url;
+    case "ahk-cu":
+      return ahkCu100mg.url;
+    case "bpc-157":
+      return bpc15710mg.url;
     case "cjc-1295-ipamorelin":
       return cjc1295Ipamorelin.url;
     case "semax":
@@ -132,6 +139,8 @@ function getProductImageUrl(slug: Product["slug"], dosage?: string) {
       return nadPlus1000mg.url;
     case "klow":
       return klow80mg.url;
+    case "eau-bacteriostatique":
+      return eauBac.url;
     default:
       return null;
   }

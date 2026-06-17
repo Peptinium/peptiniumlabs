@@ -33,6 +33,9 @@ const ext = (url: string, source: "JAMA", id: string): Reference => ({ url, sour
 export const minPrice = (p: Product) => Math.min(...p.variants.map((v) => v.price));
 export const defaultVariant = (p: Product) => p.variants[0];
 
+export const formatPrice = (n: number) =>
+  `${n.toLocaleString("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
+
 export const products: Product[] = [
   {
     slug: "retatrutide",
@@ -42,8 +45,8 @@ export const products: Product[] = [
     molecularWeight: "4731.4 g/mol",
     purity: "≥ 99.1 % (HPLC)",
     variants: [
-      { dosage: "10 mg", price: 65 },
-      { dosage: "20 mg", price: 110 },
+      { dosage: "10 mg", price: 64.99 },
+      { dosage: "20 mg", price: 109.99 },
     ],
     category: "GLP-1/GIP",
     featured: true,
@@ -63,8 +66,8 @@ export const products: Product[] = [
     molecularWeight: "402.92 g/mol",
     purity: "≥ 99.0 % (HPLC)",
     variants: [
-      { dosage: "50 mg", price: 45 },
-      { dosage: "100 mg", price: 60 },
+      { dosage: "50 mg", price: 44.99 },
+      { dosage: "100 mg", price: 59.99 },
     ],
     category: "Réparation",
     shortDescription:
@@ -82,7 +85,7 @@ export const products: Product[] = [
     molecularFormula: "C152H252N44O42 / C38H49N9O5",
     molecularWeight: "3367.9 / 711.9 g/mol",
     purity: "≥ 99.0 % (HPLC)",
-    variants: [{ dosage: "5 mg + 5 mg", price: 60 }],
+    variants: [{ dosage: "5 mg + 5 mg", price: 59.99 }],
     category: "Croissance",
     shortDescription:
       "Combinaison analogue GHRH (CJC-1295 no-DAC) + agoniste GHS-R1a (Ipamorelin) — outil de référence pour l'étude in vitro de l'axe somatotrope.",
@@ -99,7 +102,7 @@ export const products: Product[] = [
     molecularFormula: "C37H51N9O10S",
     molecularWeight: "813.92 g/mol",
     purity: "≥ 99.0 % (HPLC)",
-    variants: [{ dosage: "10 mg", price: 55 }],
+    variants: [{ dosage: "10 mg", price: 54.99 }],
     category: "Cognitif",
     shortDescription:
       "Heptapeptide synthétique dérivé de l'ACTH(4-10) — outil de recherche in vitro sur les voies neurotrophiques.",
@@ -116,7 +119,7 @@ export const products: Product[] = [
     molecularFormula: "C16H25CuN7O3",
     molecularWeight: "427.0 g/mol",
     purity: "≥ 98.5 % (HPLC)",
-    variants: [{ dosage: "100 mg", price: 50 }],
+    variants: [{ dosage: "100 mg", price: 49.99 }],
     category: "Réparation",
     shortDescription:
       "Complexe tripeptide-cuivre (Ala-His-Lys-Cu²⁺) — outil de recherche in vitro sur les follicules pileux et la matrice extracellulaire.",
@@ -133,7 +136,7 @@ export const products: Product[] = [
     molecularFormula: "C62H98N16O22",
     molecularWeight: "1419.5 g/mol",
     purity: "≥ 99.0 % (HPLC)",
-    variants: [{ dosage: "10 mg", price: 60 }],
+    variants: [{ dosage: "10 mg", price: 59.99 }],
     category: "Réparation",
     shortDescription:
       "Pentadécapeptide étudié in vitro pour ses effets sur les modèles cellulaires de réparation tissulaire.",
@@ -150,7 +153,7 @@ export const products: Product[] = [
     molecularFormula: "C78H111N21O19",
     molecularWeight: "1646.85 g/mol",
     purity: "≥ 98.5 % (HPLC)",
-    variants: [{ dosage: "10 mg", price: 50 }],
+    variants: [{ dosage: "10 mg", price: 49.99 }],
     category: "Mélanocortine",
     shortDescription:
       "Analogue synthétique α-MSH (afamelanotide) — outil d'étude in vitro du récepteur MC1R.",
@@ -167,7 +170,7 @@ export const products: Product[] = [
     molecularFormula: "C50H69N15O9",
     molecularWeight: "1024.18 g/mol",
     purity: "≥ 99.0 % (HPLC)",
-    variants: [{ dosage: "10 mg", price: 55 }],
+    variants: [{ dosage: "10 mg", price: 54.99 }],
     category: "Mélanocortine",
     shortDescription:
       "Analogue synthétique α-MSH — réactif pour l'étude in vitro des récepteurs MC1R / MC4R.",
@@ -184,7 +187,7 @@ export const products: Product[] = [
     molecularFormula: "GHK-Cu + BPC-157 + TB-500 + KPV",
     molecularWeight: "—",
     purity: "≥ 98.0 % (HPLC, par composant)",
-    variants: [{ dosage: "80 mg", price: 160 }],
+    variants: [{ dosage: "80 mg", price: 159.99 }],
     category: "Réparation",
     shortDescription:
       "Blend de quatre peptides (GHK-Cu, BPC-157, TB-500, KPV) — outil de recherche in vitro pour les protocoles de réparation tissulaire combinée.",
@@ -201,7 +204,7 @@ export const products: Product[] = [
     molecularFormula: "C21H27N7O14P2",
     molecularWeight: "663.43 g/mol",
     purity: "≥ 99.0 % (HPLC)",
-    variants: [{ dosage: "1000 mg", price: 90 }],
+    variants: [{ dosage: "1000 mg", price: 89.99 }],
     category: "Anti-âge",
     shortDescription:
       "Nicotinamide Adénine Dinucléotide — cofacteur de référence pour l'étude in vitro du métabolisme énergétique cellulaire.",
@@ -218,7 +221,7 @@ export const products: Product[] = [
     molecularFormula: "C221H366N72O67S",
     molecularWeight: "5135.8 g/mol",
     purity: "≥ 99.0 % (HPLC)",
-    variants: [{ dosage: "5 mg", price: 80 }],
+    variants: [{ dosage: "5 mg", price: 79.99 }],
     category: "Croissance",
     shortDescription:
       "Analogue stabilisé du GHRH — outil de référence pour la caractérisation in vitro du récepteur GHRH-R.",
@@ -235,7 +238,7 @@ export const products: Product[] = [
     molecularFormula: "H₂O + C7H8O",
     molecularWeight: "—",
     purity: "USP grade",
-    variants: [{ dosage: "30 mL", price: 6 }],
+    variants: [{ dosage: "30 mL", price: 5.99 }],
     category: "Consommables",
     shortDescription:
       "Solvant de reconstitution stérile à 0,9 % d'alcool benzylique — usage exclusivement laboratoire.",
@@ -254,7 +257,7 @@ export const packs = [
     description:
       "Ensemble de réactifs pour l'étude in vitro des récepteurs incrétines et de l'axe somatotrope.",
     items: ["Retatrutide 10 mg", "Tésamoréline 5 mg", "Eau bactériostatique 30 mL"],
-    price: 145,
+    price: 144.99,
     saving: 12,
   },
   {
@@ -263,7 +266,7 @@ export const packs = [
     description:
       "Réactifs sélectionnés pour les protocoles in vitro d'étude de la migration cellulaire et du remodelage matriciel.",
     items: ["BPC-157 10 mg", "GHK-Cu 50 mg", "Eau bactériostatique 30 mL"],
-    price: 105,
+    price: 104.99,
     saving: 10,
   },
   {
@@ -272,7 +275,7 @@ export const packs = [
     description:
       "Outils pour la caractérisation in vitro des récepteurs GHS-R1a et GHRH.",
     items: ["CJC-1295 + Ipamorelin (5 mg + 5 mg)", "Eau bactériostatique 30 mL"],
-    price: 62,
+    price: 61.99,
     saving: 7,
   },
 ];
