@@ -197,9 +197,9 @@ function HomePage() {
             <QualityCard
               className="md:col-span-2"
               k="04"
-              t="Traçabilité"
-              d="N° de lot unique, archives 5 ans."
-              tag="QMS"
+              t="Conditionnement stérile"
+              d="Lyophilisation sous atmosphère contrôlée."
+              tag="LYO"
             />
             <QualityCard
               className="md:col-span-2"
