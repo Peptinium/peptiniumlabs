@@ -90,31 +90,7 @@ export const products: Product[] = [
       "Co-conditionnement d'un analogue GHRH (CJC-1295 sans DAC) et d'un pentapeptide sécrétagogue (Ipamorelin) utilisé comme outil pharmacologique pour caractériser la signalisation conjointe GHRH-R / GHS-R1a sur lignées cellulaires.",
     storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
     reconstitution: "Reconstitution séparée recommandée à l'eau bactériostatique stérile.",
-    references: [
-      {
-        title:
-          "Prolonged stimulation of growth hormone (GH) and insulin-like growth factor I secretion by CJC-1295, a long-acting analog of GH-releasing hormone, in healthy adults",
-        authors: "Teichman SL, et al.",
-        journal: "J Clin Endocrinol Metab",
-        year: 2006,
-        pmid: "16352683",
-      },
-      {
-        title: "Ipamorelin, the first selective growth hormone secretagogue",
-        authors: "Raun K, et al.",
-        journal: "Eur J Endocrinol",
-        year: 1998,
-        pmid: "9849822",
-      },
-      {
-        title:
-          "Pharmacokinetics, pharmacodynamics, and safety of a single dose of CJC-1295",
-        authors: "Ionescu M, Frohman LA.",
-        journal: "J Clin Endocrinol Metab",
-        year: 2006,
-        pmid: "16940447",
-      },
-    ],
+    references: [pubmed("16352683"), pubmed("10373343"), pubmed("17018654")],
   },
   {
     slug: "semax",
