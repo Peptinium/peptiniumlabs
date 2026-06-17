@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { ProductCard } from "@/components/ProductCard";
+import { Reveal } from "@/components/Reveal";
+import { RuoBadge } from "@/components/RuoBadge";
 import { products } from "@/data/products";
 
 export const Route = createFileRoute("/produits")({
@@ -13,7 +15,6 @@ export const Route = createFileRoute("/produits")({
         content:
           "Catalogue complet de peptides synthétiques de qualité recherche : GLP-1/GIP, axe somatotrope, réparation, mélanocortines. HPLC ≥ 98 %. RUO uniquement.",
       },
-      { property: "og:title", content: "Catalogue — Aetherion Labs" },
       { property: "og:url", content: "/produits" },
     ],
     links: [{ rel: "canonical", href: "/produits" }],
@@ -31,40 +32,58 @@ function CatalogPage() {
   );
   return (
     <SiteLayout>
-      <section className="border-b border-border bg-surface">
-        <div className="container-prose py-14">
-          <div className="font-mono text-[11px] uppercase tracking-wider text-medical">
-            Catalogue · {products.length} référence(s)
-          </div>
-          <h1 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
-            Peptides synthétiques — qualité recherche
-          </h1>
-          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-            Tous nos composés sont validés par HPLC et spectrométrie de masse, conditionnés en
-            flacons stériles et livrés avec leur Certificat d'Analyse. Réactifs destinés
-            <strong className="text-foreground"> exclusivement à la recherche scientifique en laboratoire</strong>.
-          </p>
-          <div className="mt-6 flex flex-wrap gap-2">
-            {categories.map((c) => (
-              <button
-                key={c}
-                onClick={() => setCat(c)}
-                className={`rounded-sm border px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider transition-colors ${
-                  cat === c
-                    ? "border-medical bg-medical text-medical-foreground"
-                    : "border-border bg-card text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {c}
-              </button>
-            ))}
-          </div>
+      <section className="relative overflow-hidden border-b border-border">
+        <div className="pointer-events-none absolute inset-0 grid-bg opacity-50 [animation:grid-drift_24s_linear_infinite]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,transparent_30%,var(--background)_85%)]" />
+        <div className="container-prose relative py-20">
+          <Reveal>
+            <div className="flex flex-wrap items-center gap-2">
+              <RuoBadge />
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                · {products.length} référence(s) disponibles
+              </span>
+            </div>
+          </Reveal>
+          <Reveal delay={80}>
+            <h1 className="mt-5 max-w-3xl font-display text-4xl font-medium tracking-[-0.03em] text-balance sm:text-5xl">
+              Catalogue de réactifs peptidiques
+            </h1>
+          </Reveal>
+          <Reveal delay={140}>
+            <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-muted-foreground">
+              Composés validés par HPLC et spectrométrie de masse, conditionnés en flacons
+              stériles et livrés avec leur Certificat d'Analyse. Réactifs destinés{" "}
+              <strong className="text-foreground">
+                exclusivement à la recherche scientifique en laboratoire.
+              </strong>
+            </p>
+          </Reveal>
+          <Reveal delay={200}>
+            <div className="mt-8 flex flex-wrap gap-2">
+              {categories.map((c) => (
+                <button
+                  key={c}
+                  onClick={() => setCat(c)}
+                  className={`rounded-full border px-4 py-2 font-mono text-[10px] uppercase tracking-[0.2em] transition-all ${
+                    cat === c
+                      ? "border-foreground bg-foreground text-background"
+                      : "border-border bg-card text-muted-foreground hover:border-foreground/50 hover:text-foreground"
+                  }`}
+                >
+                  {c}
+                </button>
+              ))}
+            </div>
+          </Reveal>
         </div>
       </section>
-      <section className="container-prose py-14">
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {list.map((p) => (
-            <ProductCard key={p.slug} product={p} />
+
+      <section className="container-prose py-16">
+        <div key={cat} className="grid animate-[fade-in_0.5s_ease-out_both] gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {list.map((p, i) => (
+            <Reveal key={p.slug} delay={i * 50}>
+              <ProductCard product={p} />
+            </Reveal>
           ))}
         </div>
       </section>
