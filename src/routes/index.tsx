@@ -29,8 +29,10 @@ function HomePage() {
 
   return (
     <SiteLayout>
+      <SideOrnaments />
       {/* ============ HERO ============ */}
       <section className="relative overflow-hidden border-b border-border">
+
         {/* animated grid bg */}
         <div className="pointer-events-none absolute inset-0 grid-bg opacity-60 [animation:grid-drift_24s_linear_infinite]" />
         {/* radial fade */}
