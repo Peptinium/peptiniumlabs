@@ -604,8 +604,8 @@ function VirementBlock({
             </span>
           </button>
           <p className="mt-3 text-center text-[11px] leading-relaxed text-muted-foreground">
-            Votre commande sera expédiée dès réception des fonds (délai habituel 24 à 48h ouvrées).
-            Utilisez uniquement le numéro de commande comme motif de virement.
+            Votre commande sera expédiée dès réception des fonds (délai habituel 48 à 72h ouvrées).
+            Utilisez vos <strong className="text-foreground">Nom + Prénom</strong> comme motif de virement.
           </p>
         </div>
       </div>
