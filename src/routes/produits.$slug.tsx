@@ -168,15 +168,7 @@ function ProductPage() {
                   </div>
                   <div className="mt-1 font-display text-4xl font-medium">{formatPrice(variant.price)}</div>
                 </div>
-                <button className="group relative overflow-hidden rounded-full bg-foreground px-6 py-3.5 text-sm font-medium text-background transition-colors hover:bg-foreground/90">
-                  <span className="relative z-10 flex items-center gap-2">
-                    Demander un devis labo
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                      <path d="M1 6h10m-4-4 4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                    </svg>
-                  </span>
-                  <span className="absolute inset-y-0 left-0 w-14 -translate-x-full bg-accent/40 blur-md transition-transform duration-700 group-hover:translate-x-[460%]" />
-                </button>
+                <AddToCartButton productName={product.name} dosage={variant.dosage} />
               </div>
 
               <div className="mt-7 rounded-xl border border-warning/40 bg-warning/5 p-5 text-xs leading-relaxed text-foreground/80">
@@ -193,8 +185,23 @@ function ProductPage() {
           </Reveal>
         </div>
 
+        {/* Detailed scientific effects */}
+        <Reveal>
+          <div className="mt-20 rounded-2xl border border-border bg-card p-6 sm:p-10">
+            <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">
+              — Données scientifiques détaillées
+            </div>
+            <h2 className="mt-2 font-display text-2xl font-medium tracking-tight sm:text-3xl">
+              Effets documentés dans la littérature
+            </h2>
+            <p className="mt-5 text-[14px] leading-[1.75] text-foreground/85 whitespace-pre-line">
+              {product.detailedEffects}
+            </p>
+          </div>
+        </Reveal>
+
         {/* Detail blocks */}
-        <div className="mt-20 grid gap-8 lg:grid-cols-3">
+        <div className="mt-12 grid gap-8 lg:grid-cols-3">
           {[
             { mono: "01", title: "Contexte de recherche", body: product.researchSummary },
             { mono: "02", title: "Conservation", body: product.storage },
@@ -248,5 +255,40 @@ function ProductPage() {
         )}
       </div>
     </SiteLayout>
+  );
+}
+
+function AddToCartButton({ productName, dosage }: { productName: string; dosage: string }) {
+  const [added, setAdded] = useState(false);
+  return (
+    <button
+      onClick={() => {
+        setAdded(true);
+        window.setTimeout(() => setAdded(false), 2200);
+      }}
+      aria-label={`Ajouter ${productName} ${dosage} au panier`}
+      className="group relative overflow-hidden rounded-full bg-foreground px-6 py-3.5 text-sm font-medium text-background transition-colors hover:bg-foreground/90"
+    >
+      <span className="relative z-10 flex items-center gap-2">
+        {added ? (
+          <>
+            Ajouté au panier
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M2 7.5l3 3L12 3.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </>
+        ) : (
+          <>
+            Ajouter au panier
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M1 2h2l1.6 8.2a1 1 0 0 0 1 .8h5.3a1 1 0 0 0 1-.8L13 4H4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+              <circle cx="6" cy="13" r="0.8" fill="currentColor" />
+              <circle cx="11" cy="13" r="0.8" fill="currentColor" />
+            </svg>
+          </>
+        )}
+      </span>
+      <span className="absolute inset-y-0 left-0 w-14 -translate-x-full bg-accent/40 blur-md transition-transform duration-700 group-hover:translate-x-[460%]" />
+    </button>
   );
 }

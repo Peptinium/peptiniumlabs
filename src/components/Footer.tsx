@@ -38,6 +38,7 @@ export function Footer() {
             { to: "/produits", label: "Toutes les références" },
             { to: "/calculatrice", label: "Calculatrice de dilution" },
             { to: "/etudes-scientifiques", label: "Bibliographie PubMed" },
+            { to: "/tester-fioles", label: "Tester ses fioles" },
           ]}
         />
         <FooterCol
@@ -58,7 +59,6 @@ export function Footer() {
             <li className="flex items-center gap-2"><Tick /> Spectrométrie de masse (MS)</li>
             <li className="flex items-center gap-2"><Tick /> CoA fourni avec chaque lot</li>
             <li className="flex items-center gap-2"><Tick /> Flacons verre type I borosilicate</li>
-            <li className="flex items-center gap-2"><Tick /> Chaîne du froid −20 °C</li>
           </ul>
         </div>
       </div>

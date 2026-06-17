@@ -22,7 +22,7 @@ export const Route = createFileRoute("/produits")({
   component: CatalogPage,
 });
 
-const categories = ["Toutes", "GLP-1/GIP", "Croissance", "Cognitif", "Réparation", "Mélanocortine", "Anti-âge", "Consommables"] as const;
+const categories = ["Toutes", "GLP-1/GIP", "Croissance", "Cognitif", "Réparation", "Mélanocortine", "Anti-âge", "Reconstitution"] as const;
 
 function CatalogPage() {
   const [cat, setCat] = useState<(typeof categories)[number]>("Toutes");
