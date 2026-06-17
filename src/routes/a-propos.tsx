@@ -229,7 +229,7 @@ function AboutPage() {
                   rel="noreferrer"
                   className="font-mono text-accent underline-offset-4 hover:underline"
                 >
-                  janoshik.com/verify
+                  janoshik.com
                 </a>{" "}
                 en saisissant la clé unique fournie sur chaque CoA.
               </p>
@@ -325,7 +325,7 @@ function AboutPage() {
                   rel="noreferrer"
                   className="font-mono text-accent hover:underline"
                 >
-                  janoshik.com/verify
+                  janoshik.com
                 </a>
                 .
               </li>
