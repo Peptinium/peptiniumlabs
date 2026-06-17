@@ -97,6 +97,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
+      { rel: "manifest", href: "/manifest.webmanifest" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
@@ -104,6 +105,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap",
       },
     ],
+
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -127,13 +129,50 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-
   return (
     <QueryClientProvider client={queryClient}>
       <CartProvider>
+        <PageViewTracker />
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
       </CartProvider>
     </QueryClientProvider>
   );
 }
+
+function PageViewTracker() {
+  const router = useRouter();
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const KEY = "ae_sid";
+    let sid = sessionStorage.getItem(KEY);
+    if (!sid) {
+      sid = Math.random().toString(36).slice(2) + Date.now().toString(36);
+      sessionStorage.setItem(KEY, sid);
+    }
+    let lastPath = "";
+    const send = (path: string) => {
+      if (path === lastPath) return;
+      if (path.startsWith("/admin") || path.startsWith("/auth") || path.startsWith("/api/")) return;
+      lastPath = path;
+      const ref = lastPath === path ? "" : document.referrer;
+      fetch("/api/public/track", {
+        method: "POST",
+        keepalive: true,
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          path,
+          referrer: ref || null,
+          sessionId: sid,
+        }),
+      }).catch(() => {});
+    };
+    send(window.location.pathname);
+    const unsub = router.subscribe("onResolved", (e) => {
+      send(e.toLocation.pathname);
+    });
+    return () => unsub();
+  }, [router]);
+  return null;
+}
+
