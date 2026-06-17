@@ -457,7 +457,7 @@ function Recap({
 
       <div className="space-y-1.5 rounded-2xl border border-border bg-card p-5 text-sm">
         <Row label="Sous-total" value={formatPrice(subtotal)} />
-        <Row label="Livraison 48h" value={shipping === 0 ? "Gratuit" : formatPrice(shipping)} />
+        <Row label="Livraison 48-72h" value={shipping === 0 ? "Gratuit" : formatPrice(shipping)} />
         <div className="mt-3 flex items-baseline justify-between border-t border-border pt-3">
           <span className="font-display text-base font-semibold uppercase tracking-[0.12em]">Total</span>
           <span className="font-display text-2xl font-medium text-accent">{formatPrice(total)}</span>
