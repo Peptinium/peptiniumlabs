@@ -5,7 +5,7 @@ import { SiteLayout } from "@/components/SiteLayout";
 import { RuoBadge } from "@/components/RuoBadge";
 import { Reveal } from "@/components/Reveal";
 import { ProductVisual } from "@/components/ProductCard";
-import { products } from "@/data/products";
+import { products, formatPrice } from "@/data/products";
 
 export const Route = createFileRoute("/produits/$slug")({
   loader: ({ params }) => {
