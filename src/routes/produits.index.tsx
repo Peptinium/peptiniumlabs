@@ -6,7 +6,7 @@ import { Reveal } from "@/components/Reveal";
 import { RuoBadge } from "@/components/RuoBadge";
 import { products } from "@/data/products";
 
-export const Route = createFileRoute("/produits")({
+export const Route = createFileRoute("/produits/")({
   head: () => ({
     meta: [
       { title: "Catalogue — Peptides de recherche RUO · Aetherion Labs" },
