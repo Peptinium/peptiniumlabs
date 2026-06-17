@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { minPrice, type Product } from "@/data/products";
 import { RuoBadge } from "./RuoBadge";
+import retatrutideVial from "@/assets/retatrutide-vial.png.asset.json";
 
 export function ProductCard({ product }: { product: Product }) {
   const hasMultiple = product.variants.length > 1;
