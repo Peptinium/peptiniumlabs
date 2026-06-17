@@ -71,13 +71,13 @@ export function Footer() {
               — Clause de non-responsabilité
             </div>
             <p className="mt-3 text-[12px] leading-relaxed text-muted-foreground">
-              En effectuant un achat sur <strong className="text-foreground">peptidesfr.com</strong>,
+              En effectuant un achat sur <strong className="text-foreground">Aetherion-lab.com</strong>,
               vous reconnaissez et acceptez les conditions suivantes :
             </p>
             <ul className="mt-3 space-y-2 text-[12px] leading-relaxed text-muted-foreground">
               <li><strong className="text-foreground">Utilisation réservée à la recherche :</strong> Tous nos produits sont exclusivement vendus à des fins de recherche. Ils ne sont pas destinés à un usage humain, ni à des applications thérapeutiques, diagnostiques ou cliniques.</li>
               <li><strong className="text-foreground">Absence de caractère médical :</strong> Aucun des produits présentés sur notre site n'est un dispositif médical, et ils ne doivent pas être présentés ou utilisés comme tels.</li>
-              <li><strong className="text-foreground">Conformité et responsabilité :</strong> L'acheteur est seul responsable du respect de l'ensemble des lois et réglementations applicables. peptidesfr.com ne saurait être tenu responsable en cas d'utilisation inappropriée des produits ou de tout préjudice qui en découlerait.</li>
+              <li><strong className="text-foreground">Conformité et responsabilité :</strong> L'acheteur est seul responsable du respect de l'ensemble des lois et réglementations applicables. Aetherion-lab.com ne saurait être tenu responsable en cas d'utilisation inappropriée des produits ou de tout préjudice qui en découlerait.</li>
               <li><strong className="text-foreground">Non-retour :</strong> En raison de la nature des produits que nous commercialisons, nous n'acceptons aucun retour.</li>
             </ul>
             <p className="mt-3 text-[12px] leading-relaxed text-muted-foreground">
@@ -88,7 +88,7 @@ export function Footer() {
       </div>
       <div className="border-t border-border">
         <div className="container-prose flex flex-col gap-2 py-5 text-[11px] text-muted-foreground sm:flex-row sm:justify-between">
-          <div>© {new Date().getFullYear()} peptidesfr.com — Tous droits réservés.</div>
+          <div>© {new Date().getFullYear()} Aetherion-lab.com — Tous droits réservés.</div>
           <div className="font-mono uppercase tracking-[0.2em]">
             Réservé à la recherche · HPLC ≥ 98 %
           </div>
