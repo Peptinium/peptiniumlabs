@@ -52,7 +52,7 @@ function HomePage() {
               <h1 className="mt-6 font-display text-[44px] font-medium leading-[1.02] tracking-[-0.035em] text-balance sm:text-6xl lg:text-[68px]">
                 Réactifs peptidiques
                 <br />
-                <span className="shimmer-text">de qualité recherche.</span>
+                <span className="shimmer-text">pour motif de recherche.</span>
               </h1>
             </Reveal>
 
@@ -63,7 +63,11 @@ function HomePage() {
                 est livré avec son Certificat d'Analyse —{" "}
                 <strong className="text-foreground">
                   strictement destinés à la recherche scientifique in vitro (RUO).
-                </strong>
+                </strong>{" "}
+                <span className="text-foreground/90">
+                  Pas pour consommation humaine. Pas pour utilisation humaine. Non recommandé
+                  pour toute utilisation hors cadre scientifique, professionnel et de recherche.
+                </span>
               </p>
             </Reveal>
 
