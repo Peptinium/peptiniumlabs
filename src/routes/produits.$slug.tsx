@@ -257,3 +257,38 @@ function ProductPage() {
     </SiteLayout>
   );
 }
+
+function AddToCartButton({ productName, dosage }: { productName: string; dosage: string }) {
+  const [added, setAdded] = useState(false);
+  return (
+    <button
+      onClick={() => {
+        setAdded(true);
+        window.setTimeout(() => setAdded(false), 2200);
+      }}
+      aria-label={`Ajouter ${productName} ${dosage} au panier`}
+      className="group relative overflow-hidden rounded-full bg-foreground px-6 py-3.5 text-sm font-medium text-background transition-colors hover:bg-foreground/90"
+    >
+      <span className="relative z-10 flex items-center gap-2">
+        {added ? (
+          <>
+            Ajouté au panier
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M2 7.5l3 3L12 3.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </>
+        ) : (
+          <>
+            Ajouter au panier
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M1 2h2l1.6 8.2a1 1 0 0 0 1 .8h5.3a1 1 0 0 0 1-.8L13 4H4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+              <circle cx="6" cy="13" r="0.8" fill="currentColor" />
+              <circle cx="11" cy="13" r="0.8" fill="currentColor" />
+            </svg>
+          </>
+        )}
+      </span>
+      <span className="absolute inset-y-0 left-0 w-14 -translate-x-full bg-accent/40 blur-md transition-transform duration-700 group-hover:translate-x-[460%]" />
+    </button>
+  );
+}
