@@ -121,6 +121,10 @@ function getProductImageUrl(slug: Product["slug"], dosage?: string) {
       return dosage?.includes("20") ? retatrutide20mg.url : retatrutide10mg.url;
     case "ghk-cu":
       return ghkCu50mg.url;
+    case "ahk-cu":
+      return ahkCu100mg.url;
+    case "bpc-157":
+      return bpc15710mg.url;
     case "cjc-1295-ipamorelin":
       return cjc1295Ipamorelin.url;
     case "semax":
@@ -135,6 +139,8 @@ function getProductImageUrl(slug: Product["slug"], dosage?: string) {
       return nadPlus1000mg.url;
     case "klow":
       return klow80mg.url;
+    case "eau-bacteriostatique":
+      return eauBac.url;
     default:
       return null;
   }
