@@ -129,7 +129,7 @@ function ProductPage() {
                   </div>
                 )}
                 <div className="absolute left-7 top-7"><RuoBadge /></div>
-                <div className="absolute right-7 top-7 rounded-full border border-background/70 bg-background/86 px-3 py-1.5 font-display text-base font-medium text-foreground shadow-sm backdrop-blur-sm">
+                <div className="absolute right-7 top-16 rounded-full border border-background/70 bg-background/86 px-3 py-1.5 font-display text-base font-medium text-foreground shadow-sm backdrop-blur-sm">
                   {formatPrice(variant.price)}
                 </div>
 
