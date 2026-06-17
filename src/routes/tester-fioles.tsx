@@ -74,19 +74,8 @@ const labs: Lab[] = [
     notes:
       "Trustpoint propose des analyses étendues (pureté, identification, quantification, contaminants microbiens). Particulièrement utile pour les laboratoires nécessitant un panel complet sur un même échantillon.",
   },
-  {
-    name: "Peptide Sciences Lab Network",
-    country: "International",
-    url: "https://www.peptidesciences.com/",
-    contactEmail: "—",
-    shipTo: "Voir partenaires analytiques listés sur le site",
-    pricing: "Variable selon le partenaire choisi",
-    turnaround: "Variable",
-    methods: ["HPLC", "MS"],
-    notes:
-      "Réseau d'analyse indirect — utile en complément si vous comparez plusieurs laboratoires pour un même lot.",
-  },
 ];
+
 
 function TestVialsPage() {
   return (
