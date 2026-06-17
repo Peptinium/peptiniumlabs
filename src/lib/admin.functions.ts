@@ -57,7 +57,7 @@ export const validatePayment = createServerFn({ method: "POST" })
         .maybeSingle();
       const { data: items } = await supabaseAdmin
         .from("order_items")
-        .select("name,quantity,price_eur")
+        .select("product_name,quantity,unit_price_eur")
         .eq("order_id", data.orderId);
       if (order?.email) {
         const { sendAppEmail } = await import("@/lib/email/send.server");
@@ -70,9 +70,9 @@ export const validatePayment = createServerFn({ method: "POST" })
             orderNumber: order.order_number ?? "",
             totalEur: Number(order.total_eur ?? 0),
             items: (items ?? []).map((i) => ({
-              name: i.name,
+              name: i.product_name,
               quantity: i.quantity,
-              price_eur: Number(i.price_eur ?? 0),
+              price_eur: Number(i.unit_price_eur ?? 0),
             })),
           },
         });
