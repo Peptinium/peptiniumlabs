@@ -224,7 +224,7 @@ function AboutPage() {
                 les rapports en taille réelle, et — fait important — <strong className="text-foreground">vérifier vous-mêmes l'authenticité de chaque
                 rapport</strong> directement sur{" "}
                 <a
-                  href="https://www.janoshik.com/verify/"
+                  href="https://www.janoshik.com/"
                   target="_blank"
                   rel="noreferrer"
                   className="font-mono text-accent underline-offset-4 hover:underline"
@@ -320,7 +320,7 @@ function AboutPage() {
               <li>
                 <span className="font-mono text-[11px] text-accent">01 ·</span> Rendez-vous sur{" "}
                 <a
-                  href="https://www.janoshik.com/verify/"
+                  href="https://www.janoshik.com/"
                   target="_blank"
                   rel="noreferrer"
                   className="font-mono text-accent hover:underline"
