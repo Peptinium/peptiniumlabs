@@ -39,7 +39,20 @@ function StudiesPage() {
 
       <section className="container-prose py-12">
         <div className="space-y-12">
-          {products.map((p) => (
+          {(() => {
+            const order = ["retatrutide", "ghk-cu", "cjc-1295-ipamorelin"];
+            const sorted = [...products]
+              .filter((p) => p.references.length > 0)
+              .sort((a, b) => {
+                const ai = order.indexOf(a.slug);
+                const bi = order.indexOf(b.slug);
+                if (ai !== -1 && bi !== -1) return ai - bi;
+                if (ai !== -1) return -1;
+                if (bi !== -1) return 1;
+                return 0;
+              });
+            return sorted;
+          })().map((p) => (
             <div key={p.slug} className="border-t border-border pt-8">
               <div className="flex flex-wrap items-baseline justify-between gap-3">
                 <div>

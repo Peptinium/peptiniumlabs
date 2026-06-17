@@ -1,4 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { useState } from "react";
+import type { Product } from "@/data/products";
 import { SiteLayout } from "@/components/SiteLayout";
 import { RuoBadge } from "@/components/RuoBadge";
 import { Reveal } from "@/components/Reveal";
@@ -13,13 +15,14 @@ export const Route = createFileRoute("/produits/$slug")({
   },
   head: ({ loaderData, params }) => {
     const p = loaderData?.product;
+    const dosages = p?.variants.map((v) => v.dosage).join(" / ");
     return {
       meta: [
         { title: `${p?.name ?? "Produit"} — Réactif de recherche RUO · Aetherion Labs` },
         {
           name: "description",
           content: p
-            ? `${p.name} (CAS ${p.cas}), pureté ${p.purity}, ${p.dosage}. Réactif destiné exclusivement à la recherche scientifique en laboratoire (RUO).`
+            ? `${p.name} (CAS ${p.cas ?? "—"}), pureté ${p.purity}, dosages ${dosages}. Réactif destiné exclusivement à la recherche scientifique en laboratoire (RUO).`
             : "Fiche produit Aetherion Labs.",
         },
         { property: "og:title", content: `${p?.name} — Aetherion Labs` },
@@ -42,7 +45,11 @@ export const Route = createFileRoute("/produits/$slug")({
 });
 
 function ProductPage() {
-  const { product } = Route.useLoaderData();
+  const { product } = Route.useLoaderData() as { product: Product };
+  const [variantIdx, setVariantIdx] = useState(0);
+  const variant = product.variants[variantIdx];
+  const hasMultiple = product.variants.length > 1;
+
   return (
     <SiteLayout>
       <div className="border-b border-border bg-surface">
@@ -72,7 +79,7 @@ function ProductPage() {
                 {[
                   { k: "Pureté", v: product.purity },
                   { k: "Forme", v: "Lyophilisé" },
-                  { k: "Flacon", v: product.dosage },
+                  { k: "Flacon", v: variant.dosage },
                 ].map((m) => (
                   <div key={m.k} className="p-4 text-center">
                     <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">{m.k}</div>
@@ -100,24 +107,57 @@ function ProductPage() {
               <dl className="mt-7 grid grid-cols-2 gap-x-6 gap-y-4 border-y border-border py-6 text-sm">
                 <div>
                   <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">N° CAS</dt>
-                  <dd className="mt-1 font-mono text-foreground">{product.cas}</dd>
+                  <dd className="mt-1 font-mono text-foreground">{product.cas ?? "—"}</dd>
                 </div>
                 <div>
                   <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">Masse molaire</dt>
-                  <dd className="mt-1 font-mono text-foreground">{product.molecularWeight}</dd>
+                  <dd className="mt-1 font-mono text-foreground">{product.molecularWeight ?? "—"}</dd>
                 </div>
                 <div className="col-span-2">
                   <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">Formule moléculaire</dt>
-                  <dd className="mt-1 font-mono text-xs break-all text-foreground">{product.molecularFormula}</dd>
+                  <dd className="mt-1 font-mono text-xs break-all text-foreground">{product.molecularFormula ?? "—"}</dd>
                 </div>
               </dl>
+
+              {/* Variant selector */}
+              <div className="mt-7">
+                <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">
+                  {hasMultiple ? "Sélectionner un dosage" : "Conditionnement"}
+                </div>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {product.variants.map((v, i) => {
+                    const active = i === variantIdx;
+                    return (
+                      <button
+                        key={v.dosage}
+                        onClick={() => setVariantIdx(i)}
+                        disabled={!hasMultiple}
+                        className={`group flex items-center gap-3 rounded-xl border px-4 py-3 text-left transition-all ${
+                          active
+                            ? "border-foreground bg-foreground text-background shadow-sm"
+                            : "border-border bg-card text-foreground hover:border-foreground/60"
+                        } ${!hasMultiple ? "cursor-default" : ""}`}
+                      >
+                        <span className="font-display text-base font-medium">{v.dosage}</span>
+                        <span
+                          className={`font-mono text-[11px] uppercase tracking-[0.18em] ${
+                            active ? "text-background/70" : "text-muted-foreground"
+                          }`}
+                        >
+                          {v.price} €
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
 
               <div className="mt-7 flex flex-wrap items-end justify-between gap-4">
                 <div>
                   <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">
-                    Tarif laboratoire — flacon unique
+                    Tarif laboratoire — {variant.dosage}
                   </div>
-                  <div className="mt-1 font-display text-4xl font-medium">{product.price} €</div>
+                  <div className="mt-1 font-display text-4xl font-medium">{variant.price} €</div>
                 </div>
                 <button className="group relative overflow-hidden rounded-full bg-foreground px-6 py-3.5 text-sm font-medium text-background transition-colors hover:bg-foreground/90">
                   <span className="relative z-10 flex items-center gap-2">
@@ -167,35 +207,37 @@ function ProductPage() {
         </div>
 
         {/* References */}
-        <div className="mt-20">
-          <Reveal>
-            <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">— Bibliographie</div>
-            <h2 className="mt-2 font-display text-3xl font-medium tracking-tight">Références PubMed</h2>
-          </Reveal>
-          <ul className="mt-8 divide-y divide-border overflow-hidden rounded-xl border border-border bg-card">
-            {product.references.map((r: typeof product.references[number], i: number) => (
-              <Reveal key={r.pmid} delay={i * 70}>
-                <li className="group flex items-start justify-between gap-6 p-6 transition-colors hover:bg-surface">
-                  <div>
-                    <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                      {r.journal} · {r.year} · PMID {r.pmid}
+        {product.references.length > 0 && (
+          <div className="mt-20">
+            <Reveal>
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">— Bibliographie</div>
+              <h2 className="mt-2 font-display text-3xl font-medium tracking-tight">Références PubMed</h2>
+            </Reveal>
+            <ul className="mt-8 divide-y divide-border overflow-hidden rounded-xl border border-border bg-card">
+              {product.references.map((r, i) => (
+                <Reveal key={r.pmid} delay={i * 70}>
+                  <li className="group flex items-start justify-between gap-6 p-6 transition-colors hover:bg-surface">
+                    <div>
+                      <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                        {r.journal} · {r.year} · PMID {r.pmid}
+                      </div>
+                      <div className="mt-1.5 font-display text-base font-medium text-foreground">{r.title}</div>
+                      <div className="mt-1 text-xs text-muted-foreground">{r.authors}</div>
                     </div>
-                    <div className="mt-1.5 font-display text-base font-medium text-foreground">{r.title}</div>
-                    <div className="mt-1 text-xs text-muted-foreground">{r.authors}</div>
-                  </div>
-                  <a
-                    href={`https://pubmed.ncbi.nlm.nih.gov/${r.pmid}/`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="shrink-0 font-mono text-[10px] uppercase tracking-[0.2em] text-accent transition-transform group-hover:translate-x-0.5"
-                  >
-                    PubMed →
-                  </a>
-                </li>
-              </Reveal>
-            ))}
-          </ul>
-        </div>
+                    <a
+                      href={`https://pubmed.ncbi.nlm.nih.gov/${r.pmid}/`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="shrink-0 font-mono text-[10px] uppercase tracking-[0.2em] text-accent transition-transform group-hover:translate-x-0.5"
+                    >
+                      PubMed →
+                    </a>
+                  </li>
+                </Reveal>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </SiteLayout>
   );

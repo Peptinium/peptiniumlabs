@@ -1,3 +1,5 @@
+export type Variant = { dosage: string; price: number };
+
 export type Product = {
   slug: string;
   name: string;
@@ -5,9 +7,15 @@ export type Product = {
   molecularFormula?: string;
   molecularWeight?: string;
   purity: string;
-  dosage: string; // mg per vial
-  price: number;
-  category: "GLP-1/GIP" | "Croissance" | "Cognitif" | "Réparation" | "Mélanocortine";
+  variants: Variant[];
+  category:
+    | "GLP-1/GIP"
+    | "Croissance"
+    | "Cognitif"
+    | "Réparation"
+    | "Mélanocortine"
+    | "Anti-âge"
+    | "Consommables";
   featured?: boolean;
   shortDescription: string;
   researchSummary: string;
@@ -15,6 +23,9 @@ export type Product = {
   reconstitution: string;
   references: { title: string; authors: string; journal: string; year: number; pmid: string }[];
 };
+
+export const minPrice = (p: Product) => Math.min(...p.variants.map((v) => v.price));
+export const defaultVariant = (p: Product) => p.variants[0];
 
 export const products: Product[] = [
   {
@@ -24,20 +35,21 @@ export const products: Product[] = [
     molecularFormula: "C221H343N51O66",
     molecularWeight: "4731.4 g/mol",
     purity: "≥ 99.1 % (HPLC)",
-    dosage: "10 mg / flacon",
-    price: 189,
+    variants: [
+      { dosage: "10 mg", price: 65 },
+      { dosage: "20 mg", price: 110 },
+    ],
     category: "GLP-1/GIP",
     featured: true,
     shortDescription:
-      "Triple agoniste des récepteurs GLP-1 / GIP / Glucagon — réactif de référence pour la recherche in vitro sur le métabolisme énergétique.",
+      "Triple agoniste GLP-1 / GIP / Glucagon — réactif de référence pour la recherche in vitro sur le métabolisme énergétique.",
     researchSummary:
       "Le Retatrutide (LY3437943) est un peptide synthétique étudié in vitro pour son activité simultanée sur les récepteurs GLP-1, GIP et du glucagon. Utilisé exclusivement comme réactif de recherche pour caractériser la signalisation des récepteurs couplés aux protéines G dans des modèles cellulaires.",
     storage: "Lyophilisé : −20 °C, à l'abri de la lumière. Reconstitué : 2–8 °C, ≤ 28 jours.",
     reconstitution: "Reconstituer avec de l'eau bactériostatique stérile. Solution claire et incolore.",
     references: [
       {
-        title:
-          "Triple Hormone Receptor Agonist Retatrutide for Obesity — A Phase 2 Trial",
+        title: "Triple Hormone Receptor Agonist Retatrutide for Obesity — A Phase 2 Trial",
         authors: "Jastreboff AM, et al.",
         journal: "N Engl J Med",
         year: 2023,
@@ -51,58 +63,156 @@ export const products: Product[] = [
         year: 2023,
         pmid: "37356446",
       },
-    ],
-  },
-  {
-    slug: "tirzepatide",
-    name: "Tirzepatide",
-    cas: "2023788-19-2",
-    molecularFormula: "C225H348N48O68",
-    molecularWeight: "4813.5 g/mol",
-    purity: "≥ 99.0 % (HPLC)",
-    dosage: "10 mg / flacon",
-    price: 149,
-    category: "GLP-1/GIP",
-    shortDescription:
-      "Co-agoniste GLP-1 / GIP — réactif de référence pour l'étude in vitro de la signalisation incrétine.",
-    researchSummary:
-      "Peptide synthétique double agoniste utilisé comme outil pharmacologique de référence dans la caractérisation des voies GLP-1R et GIPR sur lignées cellulaires.",
-    storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
-    reconstitution: "Eau bactériostatique stérile, agitation douce.",
-    references: [
       {
-        title: "Tirzepatide Once Weekly for the Treatment of Obesity",
-        authors: "Jastreboff AM, et al.",
+        title:
+          "Retatrutide for Metabolic Dysfunction-Associated Steatotic Liver Disease",
+        authors: "Sanyal AJ, et al.",
         journal: "N Engl J Med",
-        year: 2022,
-        pmid: "35658024",
+        year: 2024,
+        pmid: "38856224",
       },
     ],
   },
   {
-    slug: "semaglutide",
-    name: "Semaglutide",
-    cas: "910463-68-2",
-    molecularFormula: "C187H291N45O59",
-    molecularWeight: "4113.6 g/mol",
+    slug: "ghk-cu",
+    name: "GHK-Cu",
+    cas: "89030-95-5",
+    molecularFormula: "C14H22CuN6O4",
+    molecularWeight: "402.92 g/mol",
     purity: "≥ 99.0 % (HPLC)",
-    dosage: "5 mg / flacon",
-    price: 99,
-    category: "GLP-1/GIP",
+    variants: [
+      { dosage: "50 mg", price: 45 },
+      { dosage: "100 mg", price: 60 },
+    ],
+    category: "Réparation",
     shortDescription:
-      "Agoniste sélectif du récepteur GLP-1 — référence pour les études comparatives in vitro de signalisation incrétine.",
+      "Tripeptide-cuivre (Gly-His-Lys-Cu²⁺) — réactif de référence pour les études in vitro de remodelage matriciel.",
     researchSummary:
-      "Peptide synthétique acylé étudié in vitro comme ligand de référence du GLP-1R.",
+      "Le GHK-Cu est un complexe peptide-cuivre endogène utilisé comme outil de recherche in vitro pour l'étude des fibroblastes, de la synthèse du collagène et de l'expression génique liée à la régénération.",
+    storage: "Lyophilisé : −20 °C, à l'abri de la lumière. Reconstitué : 2–8 °C.",
+    reconstitution: "Eau bactériostatique stérile.",
+    references: [
+      {
+        title: "GHK Peptide as a Natural Modulator of Multiple Cellular Pathways in Skin Regeneration",
+        authors: "Pickart L, Margolina A.",
+        journal: "Biomed Res Int",
+        year: 2015,
+        pmid: "26236730",
+      },
+      {
+        title:
+          "The human tripeptide GHK-Cu in prevention of oxidative stress and degenerative conditions of aging",
+        authors: "Pickart L, Vasquez-Soltero JM, Margolina A.",
+        journal: "Oxid Med Cell Longev",
+        year: 2012,
+        pmid: "22720117",
+      },
+      {
+        title: "GHK and DNA: resetting the human genome to health",
+        authors: "Pickart L, Vasquez-Soltero JM, Margolina A.",
+        journal: "Biomed Res Int",
+        year: 2014,
+        pmid: "25247178",
+      },
+    ],
+  },
+  {
+    slug: "cjc-1295-ipamorelin",
+    name: "CJC-1295 + Ipamorelin",
+    cas: "863288-34-0 / 170851-70-4",
+    molecularFormula: "C152H252N44O42 / C38H49N9O5",
+    molecularWeight: "3367.9 / 711.9 g/mol",
+    purity: "≥ 99.0 % (HPLC)",
+    variants: [{ dosage: "5 mg + 5 mg", price: 60 }],
+    category: "Croissance",
+    shortDescription:
+      "Combinaison analogue GHRH (CJC-1295 no-DAC) + agoniste GHS-R1a (Ipamorelin) — outil de référence pour l'étude in vitro de l'axe somatotrope.",
+    researchSummary:
+      "Co-conditionnement d'un analogue GHRH (CJC-1295 sans DAC) et d'un pentapeptide sécrétagogue (Ipamorelin) utilisé comme outil pharmacologique pour caractériser la signalisation conjointe GHRH-R / GHS-R1a sur lignées cellulaires.",
+    storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
+    reconstitution: "Reconstitution séparée recommandée à l'eau bactériostatique stérile.",
+    references: [
+      {
+        title:
+          "Prolonged stimulation of growth hormone (GH) and insulin-like growth factor I secretion by CJC-1295, a long-acting analog of GH-releasing hormone, in healthy adults",
+        authors: "Teichman SL, et al.",
+        journal: "J Clin Endocrinol Metab",
+        year: 2006,
+        pmid: "16352683",
+      },
+      {
+        title: "Ipamorelin, the first selective growth hormone secretagogue",
+        authors: "Raun K, et al.",
+        journal: "Eur J Endocrinol",
+        year: 1998,
+        pmid: "9849822",
+      },
+      {
+        title:
+          "Pharmacokinetics, pharmacodynamics, and safety of a single dose of CJC-1295",
+        authors: "Ionescu M, Frohman LA.",
+        journal: "J Clin Endocrinol Metab",
+        year: 2006,
+        pmid: "16940447",
+      },
+    ],
+  },
+  {
+    slug: "semax",
+    name: "Semax",
+    cas: "80714-61-0",
+    molecularFormula: "C37H51N9O10S",
+    molecularWeight: "813.92 g/mol",
+    purity: "≥ 99.0 % (HPLC)",
+    variants: [{ dosage: "10 mg", price: 55 }],
+    category: "Cognitif",
+    shortDescription:
+      "Heptapeptide synthétique dérivé de l'ACTH(4-10) — outil de recherche in vitro sur les voies neurotrophiques.",
+    researchSummary:
+      "Peptide nootropique étudié in vitro pour son effet sur l'expression du BDNF et du NGF dans des modèles neuronaux.",
     storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
     reconstitution: "Eau bactériostatique stérile.",
     references: [
       {
         title:
-          "Semaglutide and Cardiovascular Outcomes in Obesity without Diabetes",
-        authors: "Lincoff AM, et al.",
-        journal: "N Engl J Med",
-        year: 2023,
-        pmid: "37952131",
+          "Semax, an analogue of ACTH(4-10), regulates expression of immediate early genes in the rat brain",
+        authors: "Dolotov OV, et al.",
+        journal: "J Neurochem",
+        year: 2006,
+        pmid: "16539681",
+      },
+      {
+        title: "The nootropic and analgesic effects of Semax",
+        authors: "Eremin KO, et al.",
+        journal: "Bull Exp Biol Med",
+        year: 2005,
+        pmid: "16027820",
+      },
+    ],
+  },
+  {
+    slug: "ahk-cu",
+    name: "AHK-Cu",
+    cas: "147658-05-9",
+    molecularFormula: "C16H25CuN7O3",
+    molecularWeight: "427.0 g/mol",
+    purity: "≥ 98.5 % (HPLC)",
+    variants: [{ dosage: "100 mg", price: 50 }],
+    category: "Réparation",
+    shortDescription:
+      "Complexe tripeptide-cuivre (Ala-His-Lys-Cu²⁺) — outil de recherche in vitro sur les follicules pileux et la matrice extracellulaire.",
+    researchSummary:
+      "Analogue cuivré utilisé comme outil expérimental dans les essais de prolifération de cellules dermiques et de modulation de la VEGF in vitro.",
+    storage: "Lyophilisé : −20 °C, à l'abri de la lumière. Reconstitué : 2–8 °C.",
+    reconstitution: "Eau bactériostatique stérile.",
+    references: [
+      {
+        title:
+          "Regenerative and protective actions of the GHK-Cu peptide in the light of the new gene data",
+        authors: "Pickart L, Margolina A.",
+        journal: "Int J Mol Sci",
+        year: 2018,
+        pmid: "29986520",
       },
     ],
   },
@@ -113,8 +223,7 @@ export const products: Product[] = [
     molecularFormula: "C62H98N16O22",
     molecularWeight: "1419.5 g/mol",
     purity: "≥ 99.0 % (HPLC)",
-    dosage: "5 mg / flacon",
-    price: 49,
+    variants: [{ dosage: "10 mg", price: 60 }],
     category: "Réparation",
     shortDescription:
       "Pentadécapeptide étudié in vitro pour ses effets sur les modèles cellulaires de réparation tissulaire.",
@@ -131,24 +240,82 @@ export const products: Product[] = [
         year: 2011,
         pmid: "21443487",
       },
+      {
+        title:
+          "Brain-gut Axis and Pentadecapeptide BPC 157: Theoretical and Practical Implications",
+        authors: "Sikiric P, et al.",
+        journal: "Curr Neuropharmacol",
+        year: 2016,
+        pmid: "26521203",
+      },
     ],
   },
   {
-    slug: "tb-500",
-    name: "TB-500 (Thymosin β4 Fragment)",
-    cas: "77591-33-4",
-    molecularFormula: "C212H350N56O78S",
-    molecularWeight: "4963.4 g/mol",
+    slug: "mt-1",
+    name: "Melanotan I",
+    cas: "75921-69-6",
+    molecularFormula: "C78H111N21O19",
+    molecularWeight: "1646.85 g/mol",
     purity: "≥ 98.5 % (HPLC)",
-    dosage: "5 mg / flacon",
-    price: 59,
-    category: "Réparation",
+    variants: [{ dosage: "10 mg", price: 50 }],
+    category: "Mélanocortine",
     shortDescription:
-      "Fragment synthétique de la thymosine β4 — réactif pour l'étude in vitro des dynamiques de l'actine.",
+      "Analogue synthétique α-MSH (afamelanotide) — outil d'étude in vitro du récepteur MC1R.",
     researchSummary:
-      "Peptide utilisé comme outil expérimental dans les essais de polymérisation de l'actine et de migration cellulaire.",
+      "Peptide utilisé comme ligand de référence pour la caractérisation du récepteur mélanocortine 1 sur cellules pigmentaires.",
     storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
     reconstitution: "Eau bactériostatique stérile.",
+    references: [
+      {
+        title:
+          "Afamelanotide for prevention of phototoxicity in erythropoietic protoporphyria",
+        authors: "Langendonk JG, et al.",
+        journal: "N Engl J Med",
+        year: 2015,
+        pmid: "26132941",
+      },
+    ],
+  },
+  {
+    slug: "mt-2",
+    name: "Melanotan II",
+    cas: "121062-08-6",
+    molecularFormula: "C50H69N15O9",
+    molecularWeight: "1024.18 g/mol",
+    purity: "≥ 99.0 % (HPLC)",
+    variants: [{ dosage: "10 mg", price: 55 }],
+    category: "Mélanocortine",
+    shortDescription:
+      "Analogue synthétique α-MSH — réactif pour l'étude in vitro des récepteurs MC1R / MC4R.",
+    researchSummary:
+      "Peptide utilisé comme ligand non sélectif de référence dans la caractérisation des récepteurs mélanocortines.",
+    storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
+    reconstitution: "Eau bactériostatique stérile.",
+    references: [
+      {
+        title: "Discovery and development of the melanocortin receptor agonists",
+        authors: "Hadley ME, Dorr RT.",
+        journal: "Peptides",
+        year: 2006,
+        pmid: "16406170",
+      },
+    ],
+  },
+  {
+    slug: "klow",
+    name: "KLOW",
+    cas: "Mélange — multi-CAS",
+    molecularFormula: "GHK-Cu + BPC-157 + TB-500 + KPV",
+    molecularWeight: "—",
+    purity: "≥ 98.0 % (HPLC, par composant)",
+    variants: [{ dosage: "80 mg", price: 160 }],
+    category: "Réparation",
+    shortDescription:
+      "Blend de quatre peptides (GHK-Cu, BPC-157, TB-500, KPV) — outil de recherche in vitro pour les protocoles de réparation tissulaire combinée.",
+    researchSummary:
+      "Co-formulation utilisée comme outil expérimental pour étudier les effets combinés in vitro sur la migration cellulaire, l'angiogenèse et la modulation inflammatoire.",
+    storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C, ≤ 14 jours.",
+    reconstitution: "Eau bactériostatique stérile, agitation douce.",
     references: [
       {
         title: "Thymosin beta-4 activates integrin-linked kinase",
@@ -157,115 +324,99 @@ export const products: Product[] = [
         year: 2004,
         pmid: "15229603",
       },
-    ],
-  },
-  {
-    slug: "ipamorelin",
-    name: "Ipamorelin",
-    cas: "170851-70-4",
-    molecularFormula: "C38H49N9O5",
-    molecularWeight: "711.85 g/mol",
-    purity: "≥ 99.0 % (HPLC)",
-    dosage: "5 mg / flacon",
-    price: 39,
-    category: "Croissance",
-    shortDescription:
-      "Pentapeptide synthétique sécrétagogue — outil de recherche pour l'étude in vitro du récepteur GHS-R1a.",
-    researchSummary:
-      "Peptide utilisé comme ligand de référence dans la caractérisation du récepteur de la ghréline (GHS-R1a).",
-    storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
-    reconstitution: "Eau bactériostatique stérile.",
-    references: [
       {
         title:
-          "Ipamorelin, the first selective growth hormone secretagogue",
-        authors: "Raun K, et al.",
-        journal: "Eur J Endocrinol",
-        year: 1998,
-        pmid: "9849822",
+          "Tripeptide KPV in nutrition, inflammation, and cancer",
+        authors: "Dalmasso G, et al.",
+        journal: "Ann N Y Acad Sci",
+        year: 2009,
+        pmid: "19120211",
       },
     ],
   },
   {
-    slug: "cjc-1295-dac",
-    name: "CJC-1295 DAC",
-    cas: "863288-34-0",
-    molecularFormula: "C165H269N47O46",
-    molecularWeight: "3647.2 g/mol",
+    slug: "nad-plus",
+    name: "NAD+",
+    cas: "53-84-9",
+    molecularFormula: "C21H27N7O14P2",
+    molecularWeight: "663.43 g/mol",
     purity: "≥ 99.0 % (HPLC)",
-    dosage: "5 mg / flacon",
-    price: 65,
+    variants: [{ dosage: "1000 mg", price: 90 }],
+    category: "Anti-âge",
+    shortDescription:
+      "Nicotinamide Adénine Dinucléotide — cofacteur de référence pour l'étude in vitro du métabolisme énergétique cellulaire.",
+    researchSummary:
+      "Coenzyme central des réactions redox utilisé comme outil de recherche in vitro pour l'étude des sirtuines et du métabolisme mitochondrial.",
+    storage: "Lyophilisé : −20 °C, à l'abri de la lumière. Reconstitué : 2–8 °C.",
+    reconstitution: "Eau bactériostatique stérile.",
+    references: [
+      {
+        title:
+          "NAD+ Metabolism and Its Roles in Cellular Processes during Ageing",
+        authors: "Covarrubias AJ, et al.",
+        journal: "Nat Rev Mol Cell Biol",
+        year: 2021,
+        pmid: "33353981",
+      },
+      {
+        title: "NAD+ in aging, metabolism, and neurodegeneration",
+        authors: "Verdin E.",
+        journal: "Science",
+        year: 2015,
+        pmid: "26785480",
+      },
+    ],
+  },
+  {
+    slug: "tesamoreline",
+    name: "Tésamoréline",
+    cas: "218949-48-5",
+    molecularFormula: "C221H366N72O67S",
+    molecularWeight: "5135.8 g/mol",
+    purity: "≥ 99.0 % (HPLC)",
+    variants: [{ dosage: "5 mg", price: 80 }],
     category: "Croissance",
     shortDescription:
-      "Analogue synthétique GHRH avec DAC — réactif pour l'étude in vitro du récepteur GHRH.",
+      "Analogue stabilisé du GHRH — outil de référence pour la caractérisation in vitro du récepteur GHRH-R.",
     researchSummary:
-      "Peptide modifié utilisé comme outil de recherche dans la caractérisation pharmacocinétique des analogues GHRH.",
+      "Peptide synthétique utilisé comme outil pharmacologique pour l'étude in vitro de la signalisation GHRH-R sur lignées hypophysaires.",
     storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
     reconstitution: "Eau bactériostatique stérile.",
     references: [
       {
         title:
-          "A long-acting growth hormone-releasing factor analog (CJC-1295)",
-        authors: "Teichman SL, et al.",
+          "Effects of tesamorelin (TH9507), a growth hormone-releasing factor analog, in HIV-infected patients with excess abdominal fat",
+        authors: "Falutz J, et al.",
         journal: "J Clin Endocrinol Metab",
-        year: 2006,
-        pmid: "16384850",
+        year: 2007,
+        pmid: "17726073",
+      },
+      {
+        title:
+          "Long-term safety and effects of tesamorelin, a GHRH analogue, in HIV patients with abdominal fat accumulation",
+        authors: "Falutz J, et al.",
+        journal: "AIDS",
+        year: 2008,
+        pmid: "18753925",
       },
     ],
   },
   {
-    slug: "selank",
-    name: "Selank",
-    cas: "129954-34-3",
-    molecularFormula: "C33H57N11O9",
-    molecularWeight: "751.87 g/mol",
-    purity: "≥ 98.5 % (HPLC)",
-    dosage: "5 mg / flacon",
-    price: 45,
-    category: "Cognitif",
+    slug: "eau-bacteriostatique",
+    name: "Eau bactériostatique",
+    cas: "7732-18-5 (H₂O) + 0,9 % alcool benzylique",
+    molecularFormula: "H₂O + C7H8O",
+    molecularWeight: "—",
+    purity: "USP grade",
+    variants: [{ dosage: "30 mL", price: 6 }],
+    category: "Consommables",
     shortDescription:
-      "Heptapeptide synthétique — outil d'étude in vitro des récepteurs GABAergiques.",
+      "Solvant de reconstitution stérile à 0,9 % d'alcool benzylique — usage exclusivement laboratoire.",
     researchSummary:
-      "Peptide utilisé comme réactif de recherche pour l'étude des modulateurs peptidergiques in vitro.",
-    storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
-    reconstitution: "Eau bactériostatique stérile.",
-    references: [
-      {
-        title:
-          "Selank, a peptide analogue of tuftsin: effect on cytokine balance",
-        authors: "Kolomin T, et al.",
-        journal: "Bull Exp Biol Med",
-        year: 2013,
-        pmid: "24319698",
-      },
-    ],
-  },
-  {
-    slug: "melanotan-2",
-    name: "Melanotan II",
-    cas: "121062-08-6",
-    molecularFormula: "C50H69N15O9",
-    molecularWeight: "1024.18 g/mol",
-    purity: "≥ 99.0 % (HPLC)",
-    dosage: "10 mg / flacon",
-    price: 39,
-    category: "Mélanocortine",
-    shortDescription:
-      "Analogue synthétique α-MSH — réactif pour l'étude in vitro des récepteurs MC1R / MC4R.",
-    researchSummary:
-      "Peptide utilisé comme ligand de référence dans la caractérisation des récepteurs mélanocortines.",
-    storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
-    reconstitution: "Eau bactériostatique stérile.",
-    references: [
-      {
-        title:
-          "Melanocortin receptors and their accessory proteins",
-        authors: "Cone RD",
-        journal: "Mol Cell Endocrinol",
-        year: 2000,
-        pmid: "10867796",
-      },
-    ],
+      "Solvant de reconstitution pour peptides lyophilisés en laboratoire. Conservation prolongée des solutions reconstituées grâce à l'alcool benzylique.",
+    storage: "Température ambiante (15–25 °C), à l'abri de la lumière.",
+    reconstitution: "Prêt à l'emploi — prélever avec une seringue stérile.",
+    references: [],
   },
 ];
 
@@ -274,27 +425,27 @@ export const packs = [
     slug: "pack-metabolisme-recherche",
     name: "Pack Recherche — Métabolisme",
     description:
-      "Ensemble de réactifs pour l'étude comparative in vitro des récepteurs GLP-1, GIP et glucagon.",
-    items: ["Retatrutide 10 mg", "Tirzepatide 10 mg", "Semaglutide 5 mg"],
-    price: 399,
-    saving: 38,
+      "Ensemble de réactifs pour l'étude in vitro des récepteurs incrétines et de l'axe somatotrope.",
+    items: ["Retatrutide 10 mg", "Tésamoréline 5 mg", "Eau bactériostatique 30 mL"],
+    price: 145,
+    saving: 12,
   },
   {
     slug: "pack-reparation-cellulaire",
     name: "Pack Recherche — Réparation cellulaire",
     description:
-      "Réactifs sélectionnés pour les protocoles in vitro d'étude de la migration cellulaire et de la dynamique de l'actine.",
-    items: ["BPC-157 5 mg", "TB-500 5 mg"],
-    price: 89,
-    saving: 19,
+      "Réactifs sélectionnés pour les protocoles in vitro d'étude de la migration cellulaire et du remodelage matriciel.",
+    items: ["BPC-157 10 mg", "GHK-Cu 50 mg", "Eau bactériostatique 30 mL"],
+    price: 105,
+    saving: 10,
   },
   {
     slug: "pack-axe-somatotrope",
     name: "Pack Recherche — Axe somatotrope",
     description:
       "Outils pour la caractérisation in vitro des récepteurs GHS-R1a et GHRH.",
-    items: ["Ipamorelin 5 mg", "CJC-1295 DAC 5 mg"],
-    price: 89,
-    saving: 15,
+    items: ["CJC-1295 + Ipamorelin (5 mg + 5 mg)", "Eau bactériostatique 30 mL"],
+    price: 62,
+    saving: 7,
   },
 ];

@@ -1,8 +1,10 @@
 import { Link } from "@tanstack/react-router";
-import type { Product } from "@/data/products";
+import { minPrice, type Product } from "@/data/products";
 import { RuoBadge } from "./RuoBadge";
 
 export function ProductCard({ product }: { product: Product }) {
+  const hasMultiple = product.variants.length > 1;
+  const price = minPrice(product);
   return (
     <Link
       to="/produits/$slug"
@@ -31,9 +33,14 @@ export function ProductCard({ product }: { product: Product }) {
             </h3>
           </div>
           <div className="text-right">
-            <div className="font-display text-lg font-medium">{product.price} €</div>
+            <div className="font-display text-lg font-medium">
+              {hasMultiple ? <span className="text-[10px] font-normal text-muted-foreground">dès </span> : null}
+              {price} €
+            </div>
             <div className="font-mono text-[9px] uppercase tracking-[0.18em] text-muted-foreground">
-              {product.dosage}
+              {hasMultiple
+                ? product.variants.map((v) => v.dosage).join(" · ")
+                : product.variants[0].dosage}
             </div>
           </div>
         </div>
@@ -41,9 +48,11 @@ export function ProductCard({ product }: { product: Product }) {
           {product.shortDescription}
         </p>
         <div className="mt-3 flex items-center justify-between border-t border-border pt-3 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-          <span>CAS {product.cas}</span>
+          <span className="truncate">
+            {hasMultiple ? `${product.variants.length} dosages` : `CAS ${product.cas ?? "—"}`}
+          </span>
           <span className="text-accent transition-transform duration-300 group-hover:translate-x-0.5">
-            Fiche →
+            {hasMultiple ? "Choisir →" : "Fiche →"}
           </span>
         </div>
       </div>
