@@ -166,7 +166,7 @@ function ProductPage() {
                   <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">
                     Tarif laboratoire — {variant.dosage}
                   </div>
-                  <div className="mt-1 font-display text-4xl font-medium">{variant.price} €</div>
+                  <div className="mt-1 font-display text-4xl font-medium">{formatPrice(variant.price)}</div>
                 </div>
                 <button className="group relative overflow-hidden rounded-full bg-foreground px-6 py-3.5 text-sm font-medium text-background transition-colors hover:bg-foreground/90">
                   <span className="relative z-10 flex items-center gap-2">
