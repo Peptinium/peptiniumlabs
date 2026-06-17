@@ -444,14 +444,20 @@ function PaiementBlock({
         )}
       </div>
 
+      {error && (
+        <div className="rounded-lg border border-destructive/40 bg-destructive/5 p-3 text-xs text-destructive">
+          {error}
+        </div>
+      )}
+
       <button
         onClick={onConfirm}
-        disabled={!acceptedCgv}
+        disabled={!acceptedCgv || submitting}
         className="group relative w-full overflow-hidden rounded-xl bg-accent px-6 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-background transition-colors hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-50"
       >
         <span className="inline-flex items-center justify-center gap-2">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M3 21h18M5 21V10M19 21V10M3 10l9-6 9 6"/></svg>
-          Confirmer la commande
+          {submitting ? "Enregistrement…" : "Confirmer la commande"}
         </span>
       </button>
     </div>
