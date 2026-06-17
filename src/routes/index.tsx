@@ -352,7 +352,9 @@ function FeaturedCard({ featured }: { featured: typeof products[number] }) {
               <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">
                 À partir de
               </div>
-              <div className="font-display text-2xl font-medium">{featured.price} €</div>
+              <div className="font-display text-2xl font-medium">
+                {Math.min(...featured.variants.map((v) => v.price))} €
+              </div>
             </div>
             <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent transition-transform duration-300 group-hover:translate-x-0.5">
               Voir la fiche →
