@@ -5,8 +5,7 @@ export function Footer() {
     <footer className="mt-32 border-t border-border bg-surface">
       <div className="ruo-stripe border-b border-warning/20">
         <div className="container-prose py-3.5 text-center font-mono text-[10px] uppercase tracking-[0.22em] text-warning">
-          ⚠ Research Use Only — Réservé à la recherche scientifique en laboratoire · Aucun usage
-          humain, vétérinaire ou thérapeutique
+          ⚠ Pour motif de recherche uniquement — Pas pour consommation humaine, vétérinaire ou thérapeutique
         </div>
       </div>
       <div className="container-prose grid gap-12 py-16 md:grid-cols-12">
