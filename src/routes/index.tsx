@@ -99,7 +99,7 @@ function HomePage() {
                 {[
                   { k: "≥ 98 %", v: "Pureté HPLC" },
                   { k: "CoA", v: "Pour chaque lot" },
-                  { k: "−20 °C", v: "Chaîne du froid" },
+                  { k: "RUO", v: "Recherche uniquement" },
                 ].map((s) => (
                   <div key={s.v}>
                     <dt className="font-display text-2xl font-medium text-foreground">{s.k}</dt>
