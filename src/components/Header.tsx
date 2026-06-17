@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { useCart } from "@/lib/cart";
 
 const nav = [
   { to: "/produits", label: "Catalogue" },
