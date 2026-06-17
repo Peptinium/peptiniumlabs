@@ -40,7 +40,7 @@ function HomePage() {
         {/* beam */}
         <div className="pointer-events-none absolute -top-px left-0 h-px w-1/3 bg-gradient-to-r from-transparent via-accent to-transparent [animation:beam-sweep_5s_ease-in-out_infinite]" />
 
-        <div className="container-prose relative grid gap-14 py-24 lg:grid-cols-[1.15fr_1fr] lg:items-center lg:py-32">
+        <div className="container-prose relative grid gap-16 py-20 sm:py-24 lg:grid-cols-[1.15fr_1fr] lg:items-center lg:gap-14 lg:py-32">
           <div>
             <Reveal>
               <div className="flex flex-wrap items-center gap-2">
@@ -52,7 +52,7 @@ function HomePage() {
             </Reveal>
 
             <Reveal delay={80}>
-              <h1 className="mt-6 font-display text-[44px] font-medium leading-[1.02] tracking-[-0.035em] text-balance sm:text-6xl lg:text-[68px]">
+              <h1 className="mt-8 font-display text-[34px] font-normal leading-[1.1] tracking-[-0.025em] text-balance sm:mt-6 sm:text-6xl sm:font-medium sm:leading-[1.02] sm:tracking-[-0.035em] lg:text-[68px]">
                 Réactifs peptidiques
                 <br />
                 <span className="shimmer-text">pour motif de recherche.</span>
@@ -60,7 +60,7 @@ function HomePage() {
             </Reveal>
 
             <Reveal delay={160}>
-              <p className="mt-7 max-w-xl text-[15px] leading-relaxed text-muted-foreground">
+              <p className="mt-8 max-w-xl text-[15px] leading-[1.75] text-muted-foreground sm:mt-7 sm:leading-relaxed">
                 Aetherion Labs fournit aux laboratoires académiques, CRO et instituts des
                 peptides synthétiques validés par HPLC et spectrométrie de masse. Chaque lot
                 est livré avec son Certificat d'Analyse —{" "}
@@ -75,7 +75,7 @@ function HomePage() {
             </Reveal>
 
             <Reveal delay={240}>
-              <div className="mt-9 flex flex-wrap items-center gap-3">
+              <div className="mt-10 flex flex-wrap items-center gap-3 sm:mt-9">
                 <Link
                   to="/produits"
                   className="group relative overflow-hidden rounded-full bg-foreground px-6 py-3.5 text-sm font-medium text-background transition-colors hover:bg-foreground/90"
@@ -98,15 +98,15 @@ function HomePage() {
             </Reveal>
 
             <Reveal delay={320}>
-              <dl className="mt-14 grid grid-cols-3 gap-6 border-t border-border pt-8">
+              <dl className="mt-16 grid grid-cols-3 gap-6 border-t border-border pt-10 sm:mt-14 sm:pt-8">
                 {[
                   { k: "≥ 98 %", v: "Pureté HPLC" },
                   { k: "CoA", v: "Pour chaque lot" },
                   { k: "RUO", v: "Recherche uniquement" },
                 ].map((s) => (
                   <div key={s.v}>
-                    <dt className="font-display text-2xl font-medium text-foreground">{s.k}</dt>
-                    <dd className="mt-1 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                    <dt className="font-display text-xl font-medium text-foreground sm:text-2xl">{s.k}</dt>
+                    <dd className="mt-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
                       {s.v}
                     </dd>
                   </div>
@@ -142,14 +142,14 @@ function HomePage() {
       </section>
 
       {/* ============ CATALOG GRID ============ */}
-      <section className="container-prose py-24">
+      <section className="container-prose py-20 sm:py-24">
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-8">
             <div>
               <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">
                 — Catalogue
               </div>
-              <h2 className="mt-2 font-display text-3xl font-medium tracking-tight sm:text-4xl">
+              <h2 className="mt-3 font-display text-[26px] font-normal leading-[1.15] tracking-tight sm:mt-2 sm:text-4xl sm:font-medium">
                 Réactifs sélectionnés pour la recherche
               </h2>
             </div>
@@ -158,7 +158,7 @@ function HomePage() {
             </Link>
           </div>
         </Reveal>
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-7 sm:mt-10 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
           {rest.map((p, i) => (
             <Reveal key={p.slug} delay={i * 60}>
               <ProductCard product={p} />
@@ -169,17 +169,17 @@ function HomePage() {
 
       {/* ============ QUALITY BENTO ============ */}
       <section className="border-y border-border bg-surface">
-        <div className="container-prose py-24">
+        <div className="container-prose py-20 sm:py-24">
           <Reveal>
             <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">
               — Notre laboratoire
             </div>
-            <h2 className="mt-2 max-w-2xl font-display text-3xl font-medium tracking-tight text-balance sm:text-4xl">
+            <h2 className="mt-3 max-w-2xl font-display text-[26px] font-normal leading-[1.15] tracking-tight text-balance sm:mt-2 sm:text-4xl sm:font-medium">
               Un protocole qualité reproductible, lot après lot.
             </h2>
           </Reveal>
 
-          <div className="mt-12 grid gap-4 md:grid-cols-6">
+          <div className="mt-14 grid gap-5 sm:mt-12 sm:gap-4 md:grid-cols-6">
             <QualityCard
               className="md:col-span-3 md:row-span-2"
               k="01"
@@ -242,17 +242,17 @@ function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background/60" />
         <div className="pointer-events-none absolute -top-px left-0 h-px w-1/2 bg-gradient-to-r from-transparent via-accent to-transparent [animation:beam-sweep_6s_ease-in-out_infinite]" />
 
-        <div className="container-prose relative py-24 sm:py-32">
+        <div className="container-prose relative py-20 sm:py-32">
           <Reveal>
             <div className="mx-auto max-w-3xl text-center">
               <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-white/80 backdrop-blur">
                 <span className="size-1.5 rounded-full bg-accent" />
                 Research Use Only
               </div>
-              <h2 className="mt-5 font-display text-3xl font-medium tracking-tight text-balance text-white sm:text-4xl lg:text-5xl">
+              <h2 className="mt-6 font-display text-[26px] font-normal leading-[1.15] tracking-tight text-balance text-white sm:mt-5 sm:text-4xl sm:font-medium lg:text-5xl">
                 Avis réglementaire — Research Use Only (RUO)
               </h2>
-              <p className="mt-6 text-[15px] leading-relaxed text-white/75">
+              <p className="mt-7 text-[15px] leading-[1.75] text-white/75 sm:mt-6 sm:leading-relaxed">
                 Les produits commercialisés par Aetherion Labs sont des{" "}
                 <strong className="text-white">réactifs chimiques destinés à la recherche scientifique in vitro</strong>{" "}
                 en environnement de laboratoire contrôlé. Ils ne sont pas destinés ni adaptés à un
