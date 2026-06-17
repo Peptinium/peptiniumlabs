@@ -53,13 +53,13 @@ export function ProductCard({ product }: { product: Product }) {
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-background/35 via-background/8 to-transparent" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
       </div>
-      <div className="flex flex-1 flex-col gap-2 p-5">
+      <div className="flex flex-1 flex-col gap-2 p-3 sm:p-5">
         <div className="flex items-start justify-between gap-3">
           <div>
             <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent">
               {product.category}
             </div>
-            <h3 className="mt-1 font-display text-[17px] font-medium tracking-tight text-foreground transition-colors group-hover:text-accent">
+            <h3 className="mt-1 font-display text-[15px] font-medium tracking-tight text-foreground transition-colors group-hover:text-accent sm:text-[17px]">
               {product.name}
             </h3>
           </div>
