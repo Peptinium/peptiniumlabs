@@ -153,7 +153,7 @@ function ProductPage() {
                             active ? "text-background/70" : "text-muted-foreground"
                           }`}
                         >
-                          {v.price} €
+                          {formatPrice(v.price)}
                         </span>
                       </button>
                     );
