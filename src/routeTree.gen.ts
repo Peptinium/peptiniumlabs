@@ -20,12 +20,19 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CgvRouteImport } from './routes/cgv'
 import { Route as CalculatriceRouteImport } from './routes/calculatrice'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AProposRouteImport } from './routes/a-propos'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProduitsIndexRouteImport } from './routes/produits.index'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as ProduitsSlugRouteImport } from './routes/produits.$slug'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
+import { Route as AdminStocksRouteImport } from './routes/admin.stocks'
+import { Route as AdminSiteWebRouteImport } from './routes/admin.site-web'
+import { Route as AdminSavRouteImport } from './routes/admin.sav'
+import { Route as AdminPaiementsRouteImport } from './routes/admin.paiements'
+import { Route as AdminClientsRouteImport } from './routes/admin.clients'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as ApiPublicTrackRouteImport } from './routes/api/public/track'
@@ -88,6 +95,11 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AProposRoute = AProposRouteImport.update({
   id: '/a-propos',
   path: '/a-propos',
@@ -107,6 +119,11 @@ const ProduitsIndexRoute = ProduitsIndexRouteImport.update({
   path: '/produits/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
 const ProduitsSlugRoute = ProduitsSlugRouteImport.update({
   id: '/produits/$slug',
   path: '/produits/$slug',
@@ -116,6 +133,31 @@ const EmailUnsubscribeRoute = EmailUnsubscribeRouteImport.update({
   id: '/email/unsubscribe',
   path: '/email/unsubscribe',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AdminStocksRoute = AdminStocksRouteImport.update({
+  id: '/stocks',
+  path: '/stocks',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSiteWebRoute = AdminSiteWebRouteImport.update({
+  id: '/site-web',
+  path: '/site-web',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSavRoute = AdminSavRouteImport.update({
+  id: '/sav',
+  path: '/sav',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminPaiementsRoute = AdminPaiementsRouteImport.update({
+  id: '/paiements',
+  path: '/paiements',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminClientsRoute = AdminClientsRouteImport.update({
+  id: '/clients',
+  path: '/clients',
+  getParentRoute: () => AdminRoute,
 } as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   id: '/admin',
@@ -154,6 +196,7 @@ const LovableEmailQueueProcessRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/a-propos': typeof AProposRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/auth': typeof AuthRoute
   '/calculatrice': typeof CalculatriceRoute
   '/cgv': typeof CgvRoute
@@ -165,9 +208,14 @@ export interface FileRoutesByFullPath {
   '/support': typeof SupportRoute
   '/tester-fioles': typeof TesterFiolesRoute
   '/unsubscribe': typeof UnsubscribeRoute
-  '/admin': typeof AuthenticatedAdminRoute
+  '/admin/clients': typeof AdminClientsRoute
+  '/admin/paiements': typeof AdminPaiementsRoute
+  '/admin/sav': typeof AdminSavRoute
+  '/admin/site-web': typeof AdminSiteWebRoute
+  '/admin/stocks': typeof AdminStocksRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/produits/$slug': typeof ProduitsSlugRoute
+  '/admin/': typeof AdminIndexRoute
   '/produits/': typeof ProduitsIndexRoute
   '/api/public/track': typeof ApiPublicTrackRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -189,7 +237,12 @@ export interface FileRoutesByTo {
   '/support': typeof SupportRoute
   '/tester-fioles': typeof TesterFiolesRoute
   '/unsubscribe': typeof UnsubscribeRoute
-  '/admin': typeof AuthenticatedAdminRoute
+  '/admin': typeof AdminIndexRoute
+  '/admin/clients': typeof AdminClientsRoute
+  '/admin/paiements': typeof AdminPaiementsRoute
+  '/admin/sav': typeof AdminSavRoute
+  '/admin/site-web': typeof AdminSiteWebRoute
+  '/admin/stocks': typeof AdminStocksRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/produits/$slug': typeof ProduitsSlugRoute
   '/produits': typeof ProduitsIndexRoute
@@ -204,6 +257,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/a-propos': typeof AProposRoute
+  '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRoute
   '/calculatrice': typeof CalculatriceRoute
   '/cgv': typeof CgvRoute
@@ -216,8 +270,14 @@ export interface FileRoutesById {
   '/tester-fioles': typeof TesterFiolesRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/admin/clients': typeof AdminClientsRoute
+  '/admin/paiements': typeof AdminPaiementsRoute
+  '/admin/sav': typeof AdminSavRoute
+  '/admin/site-web': typeof AdminSiteWebRoute
+  '/admin/stocks': typeof AdminStocksRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/produits/$slug': typeof ProduitsSlugRoute
+  '/admin/': typeof AdminIndexRoute
   '/produits/': typeof ProduitsIndexRoute
   '/api/public/track': typeof ApiPublicTrackRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -230,6 +290,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/a-propos'
+    | '/admin'
     | '/auth'
     | '/calculatrice'
     | '/cgv'
@@ -241,9 +302,14 @@ export interface FileRouteTypes {
     | '/support'
     | '/tester-fioles'
     | '/unsubscribe'
-    | '/admin'
+    | '/admin/clients'
+    | '/admin/paiements'
+    | '/admin/sav'
+    | '/admin/site-web'
+    | '/admin/stocks'
     | '/email/unsubscribe'
     | '/produits/$slug'
+    | '/admin/'
     | '/produits/'
     | '/api/public/track'
     | '/lovable/email/suppression'
@@ -266,6 +332,11 @@ export interface FileRouteTypes {
     | '/tester-fioles'
     | '/unsubscribe'
     | '/admin'
+    | '/admin/clients'
+    | '/admin/paiements'
+    | '/admin/sav'
+    | '/admin/site-web'
+    | '/admin/stocks'
     | '/email/unsubscribe'
     | '/produits/$slug'
     | '/produits'
@@ -279,6 +350,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/a-propos'
+    | '/admin'
     | '/auth'
     | '/calculatrice'
     | '/cgv'
@@ -291,8 +363,14 @@ export interface FileRouteTypes {
     | '/tester-fioles'
     | '/unsubscribe'
     | '/_authenticated/admin'
+    | '/admin/clients'
+    | '/admin/paiements'
+    | '/admin/sav'
+    | '/admin/site-web'
+    | '/admin/stocks'
     | '/email/unsubscribe'
     | '/produits/$slug'
+    | '/admin/'
     | '/produits/'
     | '/api/public/track'
     | '/lovable/email/suppression'
@@ -305,6 +383,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AProposRoute: typeof AProposRoute
+  AdminRoute: typeof AdminRouteWithChildren
   AuthRoute: typeof AuthRoute
   CalculatriceRoute: typeof CalculatriceRoute
   CgvRoute: typeof CgvRoute
@@ -405,6 +484,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/a-propos': {
       id: '/a-propos'
       path: '/a-propos'
@@ -433,6 +519,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProduitsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/produits/$slug': {
       id: '/produits/$slug'
       path: '/produits/$slug'
@@ -446,6 +539,41 @@ declare module '@tanstack/react-router' {
       fullPath: '/email/unsubscribe'
       preLoaderRoute: typeof EmailUnsubscribeRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/admin/stocks': {
+      id: '/admin/stocks'
+      path: '/stocks'
+      fullPath: '/admin/stocks'
+      preLoaderRoute: typeof AdminStocksRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/site-web': {
+      id: '/admin/site-web'
+      path: '/site-web'
+      fullPath: '/admin/site-web'
+      preLoaderRoute: typeof AdminSiteWebRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/sav': {
+      id: '/admin/sav'
+      path: '/sav'
+      fullPath: '/admin/sav'
+      preLoaderRoute: typeof AdminSavRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/paiements': {
+      id: '/admin/paiements'
+      path: '/paiements'
+      fullPath: '/admin/paiements'
+      preLoaderRoute: typeof AdminPaiementsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/clients': {
+      id: '/admin/clients'
+      path: '/clients'
+      fullPath: '/admin/clients'
+      preLoaderRoute: typeof AdminClientsRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/_authenticated/admin': {
       id: '/_authenticated/admin'
@@ -503,10 +631,31 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
+interface AdminRouteChildren {
+  AdminClientsRoute: typeof AdminClientsRoute
+  AdminPaiementsRoute: typeof AdminPaiementsRoute
+  AdminSavRoute: typeof AdminSavRoute
+  AdminSiteWebRoute: typeof AdminSiteWebRoute
+  AdminStocksRoute: typeof AdminStocksRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminClientsRoute: AdminClientsRoute,
+  AdminPaiementsRoute: AdminPaiementsRoute,
+  AdminSavRoute: AdminSavRoute,
+  AdminSiteWebRoute: AdminSiteWebRoute,
+  AdminStocksRoute: AdminStocksRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AProposRoute: AProposRoute,
+  AdminRoute: AdminRouteWithChildren,
   AuthRoute: AuthRoute,
   CalculatriceRoute: CalculatriceRoute,
   CgvRoute: CgvRoute,
