@@ -190,9 +190,9 @@ function HomePage() {
             <QualityCard
               className="md:col-span-3"
               k="03"
-              t="Chaîne du froid"
-              d="Expédition réfrigérée avec traceurs de température, documentation auditable."
-              tag="−20 °C"
+              t="Traçabilité de lot"
+              d="Numéro de lot unique, archive de 5 ans, documentation auditable à la demande."
+              tag="QMS"
             />
             <QualityCard
               className="md:col-span-2"
