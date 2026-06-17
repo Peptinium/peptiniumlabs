@@ -1,17 +1,23 @@
 {
-  "name": "Aetherion Labs — Admin",
+  "name": "Aetherion Labs",
   "short_name": "Aetherion",
-  "description": "Back-office Aetherion Labs",
-  "start_url": "/admin",
+  "description": "Aetherion Labs — Peptides de recherche (RUO). Gérez vos commandes, tickets SAV et suivi.",
+  "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "background_color": "#0c0d10",
   "theme_color": "#0c0d10",
+  "orientation": "portrait",
   "icons": [
     {
-      "src": "/favicon.ico",
-      "sizes": "any",
-      "type": "image/x-icon"
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ]
 }
