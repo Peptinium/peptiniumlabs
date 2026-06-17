@@ -4,6 +4,7 @@ import { ProductCard } from "@/components/ProductCard";
 import { RuoBadge } from "@/components/RuoBadge";
 import { Reveal } from "@/components/Reveal";
 import { products } from "@/data/products";
+import retatrutideVial from "@/assets/retatrutide-vial.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
