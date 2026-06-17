@@ -22,10 +22,10 @@ export const Route = createFileRoute("/calculatrice")({
 type Unit = "mg" | "mcg";
 
 function CalcPage() {
-  const [peptideValue, setPeptideValue] = useState<string>("10");
+  const [peptideValue, setPeptideValue] = useState<string>("");
   const [peptideUnit, setPeptideUnit] = useState<Unit>("mg");
-  const [waterMl, setWaterMl] = useState<string>("2");
-  const [doseValue, setDoseValue] = useState<string>("250");
+  const [waterMl, setWaterMl] = useState<string>("");
+  const [doseValue, setDoseValue] = useState<string>("");
   const [doseUnit, setDoseUnit] = useState<Unit>("mcg");
   const [submitted, setSubmitted] = useState(false);
 
