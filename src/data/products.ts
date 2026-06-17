@@ -107,23 +107,7 @@ export const products: Product[] = [
       "Peptide nootropique étudié in vitro pour son effet sur l'expression du BDNF et du NGF dans des modèles neuronaux.",
     storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
     reconstitution: "Eau bactériostatique stérile.",
-    references: [
-      {
-        title:
-          "Semax, an analogue of ACTH(4-10), regulates expression of immediate early genes in the rat brain",
-        authors: "Dolotov OV, et al.",
-        journal: "J Neurochem",
-        year: 2006,
-        pmid: "16539681",
-      },
-      {
-        title: "The nootropic and analgesic effects of Semax",
-        authors: "Eremin KO, et al.",
-        journal: "Bull Exp Biol Med",
-        year: 2005,
-        pmid: "16027820",
-      },
-    ],
+    references: [pubmed("16996699"), pubmed("41479572"), pubmed("16635254")],
   },
   {
     slug: "ahk-cu",
