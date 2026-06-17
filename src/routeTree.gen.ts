@@ -17,10 +17,13 @@ import { Route as EtudesScientifiquesRouteImport } from './routes/etudes-scienti
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CgvRouteImport } from './routes/cgv'
 import { Route as CalculatriceRouteImport } from './routes/calculatrice'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AProposRouteImport } from './routes/a-propos'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProduitsIndexRouteImport } from './routes/produits.index'
 import { Route as ProduitsSlugRouteImport } from './routes/produits.$slug'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 
 const TesterFiolesRoute = TesterFiolesRouteImport.update({
   id: '/tester-fioles',
@@ -62,9 +65,18 @@ const CalculatriceRoute = CalculatriceRouteImport.update({
   path: '/calculatrice',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AProposRoute = AProposRouteImport.update({
   id: '/a-propos',
   path: '/a-propos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -82,10 +94,16 @@ const ProduitsSlugRoute = ProduitsSlugRouteImport.update({
   path: '/produits/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/a-propos': typeof AProposRoute
+  '/auth': typeof AuthRoute
   '/calculatrice': typeof CalculatriceRoute
   '/cgv': typeof CgvRoute
   '/contact': typeof ContactRoute
@@ -94,12 +112,14 @@ export interface FileRoutesByFullPath {
   '/panier': typeof PanierRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tester-fioles': typeof TesterFiolesRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/produits/$slug': typeof ProduitsSlugRoute
   '/produits/': typeof ProduitsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/a-propos': typeof AProposRoute
+  '/auth': typeof AuthRoute
   '/calculatrice': typeof CalculatriceRoute
   '/cgv': typeof CgvRoute
   '/contact': typeof ContactRoute
@@ -108,13 +128,16 @@ export interface FileRoutesByTo {
   '/panier': typeof PanierRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tester-fioles': typeof TesterFiolesRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/produits/$slug': typeof ProduitsSlugRoute
   '/produits': typeof ProduitsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/a-propos': typeof AProposRoute
+  '/auth': typeof AuthRoute
   '/calculatrice': typeof CalculatriceRoute
   '/cgv': typeof CgvRoute
   '/contact': typeof ContactRoute
@@ -123,6 +146,7 @@ export interface FileRoutesById {
   '/panier': typeof PanierRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tester-fioles': typeof TesterFiolesRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/produits/$slug': typeof ProduitsSlugRoute
   '/produits/': typeof ProduitsIndexRoute
 }
@@ -131,6 +155,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/a-propos'
+    | '/auth'
     | '/calculatrice'
     | '/cgv'
     | '/contact'
@@ -139,12 +164,14 @@ export interface FileRouteTypes {
     | '/panier'
     | '/sitemap.xml'
     | '/tester-fioles'
+    | '/admin'
     | '/produits/$slug'
     | '/produits/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/a-propos'
+    | '/auth'
     | '/calculatrice'
     | '/cgv'
     | '/contact'
@@ -153,12 +180,15 @@ export interface FileRouteTypes {
     | '/panier'
     | '/sitemap.xml'
     | '/tester-fioles'
+    | '/admin'
     | '/produits/$slug'
     | '/produits'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/a-propos'
+    | '/auth'
     | '/calculatrice'
     | '/cgv'
     | '/contact'
@@ -167,13 +197,16 @@ export interface FileRouteTypes {
     | '/panier'
     | '/sitemap.xml'
     | '/tester-fioles'
+    | '/_authenticated/admin'
     | '/produits/$slug'
     | '/produits/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AProposRoute: typeof AProposRoute
+  AuthRoute: typeof AuthRoute
   CalculatriceRoute: typeof CalculatriceRoute
   CgvRoute: typeof CgvRoute
   ContactRoute: typeof ContactRoute
@@ -244,11 +277,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CalculatriceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/a-propos': {
       id: '/a-propos'
       path: '/a-propos'
       fullPath: '/a-propos'
       preLoaderRoute: typeof AProposRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -272,12 +319,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProduitsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AProposRoute: AProposRoute,
+  AuthRoute: AuthRoute,
   CalculatriceRoute: CalculatriceRoute,
   CgvRoute: CgvRoute,
   ContactRoute: ContactRoute,

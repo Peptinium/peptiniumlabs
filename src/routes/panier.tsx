@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useMemo, useState } from "react";
 import { SiteLayout } from "@/components/SiteLayout";
 import {
@@ -11,6 +12,7 @@ import {
   FREE_SHIPPING_THRESHOLD,
 } from "@/lib/cart";
 import { formatPrice } from "@/data/products";
+import { placeOrder } from "@/lib/orders.functions";
 
 export const Route = createFileRoute("/panier")({
   head: () => ({
@@ -31,13 +33,9 @@ const BANK = {
   bic: "QNTOFRP1XXX",
 };
 
-function genOrderRef() {
-  const n = Math.floor(100000 + Math.random() * 900000);
-  return `ATH-${n}`;
-}
-
 function PanierPage() {
   const cart = useCart();
+  const submitOrderFn = useServerFn(placeOrder);
   const [step, setStep] = useState<Step>("livraison");
   const [shipping, setShipping] = useState({
     email: "",
@@ -51,11 +49,8 @@ function PanierPage() {
     country: "France",
   });
   const [orderRef, setOrderRef] = useState<string>("");
-
-  // generate order ref once we move past livraison
-  useEffect(() => {
-    if (step !== "livraison" && !orderRef) setOrderRef(genOrderRef());
-  }, [step, orderRef]);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const isEmpty = cart.items.length === 0;
   const motif = `${shipping.firstName} ${shipping.lastName}`.trim();
@@ -63,6 +58,43 @@ function PanierPage() {
   const subtotal = cart.subtotal;
   const shippingFee = subtotal >= FREE_SHIPPING_THRESHOLD || subtotal === 0 ? 0 : SHIPPING;
   const total = subtotal + shippingFee;
+
+  const handleConfirmPaiement = async () => {
+    if (submitting) return;
+    setSubmitError(null);
+    setSubmitting(true);
+    try {
+      const res = await submitOrderFn({
+        data: {
+          shipping: {
+            email: shipping.email,
+            firstName: shipping.firstName,
+            lastName: shipping.lastName,
+            phone: shipping.mobile || null,
+            address: shipping.address,
+            address2: shipping.address2 || null,
+            postal: shipping.postal,
+            city: shipping.city,
+            country: shipping.country,
+          },
+          items: cart.items.map((it) => ({
+            slug: it.slug,
+            name: `${it.name} ${it.dosage}`.trim(),
+            quantity: it.qty,
+            unitPrice: it.price,
+          })),
+          shippingFee,
+        },
+      });
+      setOrderRef(res.orderNumber);
+      setStep("virement");
+    } catch (e: any) {
+      setSubmitError(e?.message ?? "Erreur lors de l'enregistrement de la commande");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
 
   return (
     <SiteLayout>
@@ -101,8 +133,11 @@ function PanierPage() {
             <PaiementBlock
               shipping={shipping}
               onBack={() => setStep("livraison")}
-              onConfirm={() => setStep("virement")}
+              onConfirm={handleConfirmPaiement}
+              submitting={submitting}
+              error={submitError}
             />
+
             <Recap
               cart={cart}
               subtotal={subtotal}
@@ -306,10 +341,14 @@ function PaiementBlock({
   shipping,
   onBack,
   onConfirm,
+  submitting = false,
+  error = null,
 }: {
   shipping: any;
   onBack: () => void;
-  onConfirm: () => void;
+  onConfirm: () => void | Promise<void>;
+  submitting?: boolean;
+  error?: string | null;
 }) {
   const [method, setMethod] = useState<"bank">("bank");
   const [acceptedCgv, setAcceptedCgv] = useState(false);
@@ -405,14 +444,20 @@ function PaiementBlock({
         )}
       </div>
 
+      {error && (
+        <div className="rounded-lg border border-destructive/40 bg-destructive/5 p-3 text-xs text-destructive">
+          {error}
+        </div>
+      )}
+
       <button
         onClick={onConfirm}
-        disabled={!acceptedCgv}
+        disabled={!acceptedCgv || submitting}
         className="group relative w-full overflow-hidden rounded-xl bg-accent px-6 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-background transition-colors hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-50"
       >
         <span className="inline-flex items-center justify-center gap-2">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M3 21h18M5 21V10M19 21V10M3 10l9-6 9 6"/></svg>
-          Confirmer la commande
+          {submitting ? "Enregistrement…" : "Confirmer la commande"}
         </span>
       </button>
     </div>
