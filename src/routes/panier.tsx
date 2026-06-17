@@ -717,7 +717,7 @@ function ConfirmationBlock({
       </div>
       <h1 className="mt-4 font-display text-3xl font-medium">Virement signalé</h1>
       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-        Paiement signalé, en attente de vérification par nos équipes. Votre commande sera expédiée dès réception des fonds (24 à 48h ouvrées).
+        Paiement signalé, en attente de vérification par nos équipes. Votre commande sera expédiée dès réception des fonds (48 à 72h ouvrées).
       </p>
 
       <div className="mt-6 flex items-start gap-3 rounded-2xl border border-success/40 bg-success/5 p-4 text-left">
