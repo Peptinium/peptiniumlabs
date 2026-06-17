@@ -169,17 +169,17 @@ function HomePage() {
 
       {/* ============ QUALITY BENTO ============ */}
       <section className="border-y border-border bg-surface">
-        <div className="container-prose py-24">
+        <div className="container-prose py-20 sm:py-24">
           <Reveal>
             <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">
               — Notre laboratoire
             </div>
-            <h2 className="mt-2 max-w-2xl font-display text-3xl font-medium tracking-tight text-balance sm:text-4xl">
+            <h2 className="mt-3 max-w-2xl font-display text-[26px] font-normal leading-[1.15] tracking-tight text-balance sm:mt-2 sm:text-4xl sm:font-medium">
               Un protocole qualité reproductible, lot après lot.
             </h2>
           </Reveal>
 
-          <div className="mt-12 grid gap-4 md:grid-cols-6">
+          <div className="mt-14 grid gap-5 sm:mt-12 sm:gap-4 md:grid-cols-6">
             <QualityCard
               className="md:col-span-3 md:row-span-2"
               k="01"
