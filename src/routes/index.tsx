@@ -40,7 +40,7 @@ function HomePage() {
         {/* beam */}
         <div className="pointer-events-none absolute -top-px left-0 h-px w-1/3 bg-gradient-to-r from-transparent via-accent to-transparent [animation:beam-sweep_5s_ease-in-out_infinite]" />
 
-        <div className="container-prose relative grid gap-14 py-24 lg:grid-cols-[1.15fr_1fr] lg:items-center lg:py-32">
+        <div className="container-prose relative grid gap-16 py-20 sm:py-24 lg:grid-cols-[1.15fr_1fr] lg:items-center lg:gap-14 lg:py-32">
           <div>
             <Reveal>
               <div className="flex flex-wrap items-center gap-2">
