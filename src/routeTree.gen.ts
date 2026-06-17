@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as UnsubscribeRouteImport } from './routes/unsubscribe'
 import { Route as TesterFiolesRouteImport } from './routes/tester-fioles'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
@@ -32,6 +33,11 @@ import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lova
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
 
+const UnsubscribeRoute = UnsubscribeRouteImport.update({
+  id: '/unsubscribe',
+  path: '/unsubscribe',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TesterFiolesRoute = TesterFiolesRouteImport.update({
   id: '/tester-fioles',
   path: '/tester-fioles',
@@ -158,6 +164,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/support': typeof SupportRoute
   '/tester-fioles': typeof TesterFiolesRoute
+  '/unsubscribe': typeof UnsubscribeRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/produits/$slug': typeof ProduitsSlugRoute
@@ -181,6 +188,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/support': typeof SupportRoute
   '/tester-fioles': typeof TesterFiolesRoute
+  '/unsubscribe': typeof UnsubscribeRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/produits/$slug': typeof ProduitsSlugRoute
@@ -206,6 +214,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/support': typeof SupportRoute
   '/tester-fioles': typeof TesterFiolesRoute
+  '/unsubscribe': typeof UnsubscribeRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/produits/$slug': typeof ProduitsSlugRoute
@@ -231,6 +240,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/support'
     | '/tester-fioles'
+    | '/unsubscribe'
     | '/admin'
     | '/email/unsubscribe'
     | '/produits/$slug'
@@ -254,6 +264,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/support'
     | '/tester-fioles'
+    | '/unsubscribe'
     | '/admin'
     | '/email/unsubscribe'
     | '/produits/$slug'
@@ -278,6 +289,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/support'
     | '/tester-fioles'
+    | '/unsubscribe'
     | '/_authenticated/admin'
     | '/email/unsubscribe'
     | '/produits/$slug'
@@ -303,6 +315,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SupportRoute: typeof SupportRoute
   TesterFiolesRoute: typeof TesterFiolesRoute
+  UnsubscribeRoute: typeof UnsubscribeRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   ProduitsSlugRoute: typeof ProduitsSlugRoute
   ProduitsIndexRoute: typeof ProduitsIndexRoute
@@ -315,6 +328,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/unsubscribe': {
+      id: '/unsubscribe'
+      path: '/unsubscribe'
+      fullPath: '/unsubscribe'
+      preLoaderRoute: typeof UnsubscribeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tester-fioles': {
       id: '/tester-fioles'
       path: '/tester-fioles'
@@ -497,6 +517,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SupportRoute: SupportRoute,
   TesterFiolesRoute: TesterFiolesRoute,
+  UnsubscribeRoute: UnsubscribeRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   ProduitsSlugRoute: ProduitsSlugRoute,
   ProduitsIndexRoute: ProduitsIndexRoute,

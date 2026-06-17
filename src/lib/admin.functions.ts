@@ -47,6 +47,39 @@ export const validatePayment = createServerFn({ method: "POST" })
       })
       .eq("id", data.orderId);
     if (oErr) throw new Error(oErr.message);
+
+    // Send order confirmation email (best-effort)
+    try {
+      const { data: order } = await supabaseAdmin
+        .from("orders")
+        .select("order_number,email,first_name,last_name,total_eur")
+        .eq("id", data.orderId)
+        .maybeSingle();
+      const { data: items } = await supabaseAdmin
+        .from("order_items")
+        .select("name,quantity,price_eur")
+        .eq("order_id", data.orderId);
+      if (order?.email) {
+        const { sendAppEmail } = await import("@/lib/email/send.server");
+        await sendAppEmail({
+          templateName: "order-confirmation",
+          recipientEmail: order.email,
+          idempotencyKey: `order-confirm-${data.orderId}`,
+          templateData: {
+            customerName: [order.first_name, order.last_name].filter(Boolean).join(" "),
+            orderNumber: order.order_number ?? "",
+            totalEur: Number(order.total_eur ?? 0),
+            items: (items ?? []).map((i) => ({
+              name: i.name,
+              quantity: i.quantity,
+              price_eur: Number(i.price_eur ?? 0),
+            })),
+          },
+        });
+      }
+    } catch (e) {
+      console.error("order confirmation email failed", e);
+    }
     return { ok: true };
   });
 
@@ -342,6 +375,30 @@ export const replyTicket = createServerFn({ method: "POST" })
     };
     if (data.status) patch.status = data.status;
     await supabaseAdmin.from("support_tickets").update(patch).eq("id", data.ticketId);
+
+    // Send reply email to ticket author (best-effort)
+    try {
+      const { data: ticket } = await supabaseAdmin
+        .from("support_tickets")
+        .select("email,subject,id")
+        .eq("id", data.ticketId)
+        .maybeSingle();
+      if (ticket?.email) {
+        const { sendAppEmail } = await import("@/lib/email/send.server");
+        await sendAppEmail({
+          templateName: "support-reply",
+          recipientEmail: ticket.email,
+          idempotencyKey: `sav-reply-${data.ticketId}-${Date.now()}`,
+          templateData: {
+            subject: ticket.subject ?? "",
+            body: data.body,
+            ticketRef: ticket.id.slice(0, 8).toUpperCase(),
+          },
+        });
+      }
+    } catch (e) {
+      console.error("SAV reply email failed", e);
+    }
 
     return { ok: true };
   });
