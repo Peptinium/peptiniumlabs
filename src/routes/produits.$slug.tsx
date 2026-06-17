@@ -1,5 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
+import { useCart } from "@/lib/cart";
 import type { Product } from "@/data/products";
 import { SiteLayout } from "@/components/SiteLayout";
 import { RuoBadge } from "@/components/RuoBadge";
