@@ -3,7 +3,7 @@ import { SiteLayout } from "@/components/SiteLayout";
 import { ProductCard, ProductVisual } from "@/components/ProductCard";
 import { RuoBadge } from "@/components/RuoBadge";
 import { Reveal } from "@/components/Reveal";
-import { products } from "@/data/products";
+import { products, formatPrice } from "@/data/products";
 
 export const Route = createFileRoute("/")({
   head: () => ({
