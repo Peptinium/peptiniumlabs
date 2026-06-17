@@ -22,7 +22,7 @@ export function RuoBadge({
         <span className="relative size-1.5 rounded-full bg-current" />
       </span>
       <span className="ruo-badge-text relative z-10">
-        Pour motif de recherche uniquement — pas pour consommation humaine
+        Pour motif de recherche uniquement
       </span>
       <span aria-hidden className="ruo-badge-shine" />
     </span>
