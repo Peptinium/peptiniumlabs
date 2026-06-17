@@ -11,7 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TesterFiolesRouteImport } from './routes/tester-fioles'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as ProduitsRouteImport } from './routes/produits'
 import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
 import { Route as EtudesScientifiquesRouteImport } from './routes/etudes-scientifiques'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -19,6 +18,7 @@ import { Route as CgvRouteImport } from './routes/cgv'
 import { Route as CalculatriceRouteImport } from './routes/calculatrice'
 import { Route as AProposRouteImport } from './routes/a-propos'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProduitsIndexRouteImport } from './routes/produits.index'
 import { Route as ProduitsSlugRouteImport } from './routes/produits.$slug'
 
 const TesterFiolesRoute = TesterFiolesRouteImport.update({
@@ -29,11 +29,6 @@ const TesterFiolesRoute = TesterFiolesRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProduitsRoute = ProduitsRouteImport.update({
-  id: '/produits',
-  path: '/produits',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MentionsLegalesRoute = MentionsLegalesRouteImport.update({
@@ -71,10 +66,15 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProduitsIndexRoute = ProduitsIndexRouteImport.update({
+  id: '/produits/',
+  path: '/produits/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProduitsSlugRoute = ProduitsSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => ProduitsRoute,
+  id: '/produits/$slug',
+  path: '/produits/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -85,10 +85,10 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/etudes-scientifiques': typeof EtudesScientifiquesRoute
   '/mentions-legales': typeof MentionsLegalesRoute
-  '/produits': typeof ProduitsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tester-fioles': typeof TesterFiolesRoute
   '/produits/$slug': typeof ProduitsSlugRoute
+  '/produits/': typeof ProduitsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -98,10 +98,10 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/etudes-scientifiques': typeof EtudesScientifiquesRoute
   '/mentions-legales': typeof MentionsLegalesRoute
-  '/produits': typeof ProduitsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tester-fioles': typeof TesterFiolesRoute
   '/produits/$slug': typeof ProduitsSlugRoute
+  '/produits': typeof ProduitsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -112,10 +112,10 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/etudes-scientifiques': typeof EtudesScientifiquesRoute
   '/mentions-legales': typeof MentionsLegalesRoute
-  '/produits': typeof ProduitsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tester-fioles': typeof TesterFiolesRoute
   '/produits/$slug': typeof ProduitsSlugRoute
+  '/produits/': typeof ProduitsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -127,10 +127,10 @@ export interface FileRouteTypes {
     | '/contact'
     | '/etudes-scientifiques'
     | '/mentions-legales'
-    | '/produits'
     | '/sitemap.xml'
     | '/tester-fioles'
     | '/produits/$slug'
+    | '/produits/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -140,10 +140,10 @@ export interface FileRouteTypes {
     | '/contact'
     | '/etudes-scientifiques'
     | '/mentions-legales'
-    | '/produits'
     | '/sitemap.xml'
     | '/tester-fioles'
     | '/produits/$slug'
+    | '/produits'
   id:
     | '__root__'
     | '/'
@@ -153,10 +153,10 @@ export interface FileRouteTypes {
     | '/contact'
     | '/etudes-scientifiques'
     | '/mentions-legales'
-    | '/produits'
     | '/sitemap.xml'
     | '/tester-fioles'
     | '/produits/$slug'
+    | '/produits/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -167,9 +167,10 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   EtudesScientifiquesRoute: typeof EtudesScientifiquesRoute
   MentionsLegalesRoute: typeof MentionsLegalesRoute
-  ProduitsRoute: typeof ProduitsRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TesterFiolesRoute: typeof TesterFiolesRoute
+  ProduitsSlugRoute: typeof ProduitsSlugRoute
+  ProduitsIndexRoute: typeof ProduitsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -186,13 +187,6 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/produits': {
-      id: '/produits'
-      path: '/produits'
-      fullPath: '/produits'
-      preLoaderRoute: typeof ProduitsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mentions-legales': {
@@ -244,27 +238,22 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/produits/': {
+      id: '/produits/'
+      path: '/produits'
+      fullPath: '/produits/'
+      preLoaderRoute: typeof ProduitsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/produits/$slug': {
       id: '/produits/$slug'
-      path: '/$slug'
+      path: '/produits/$slug'
       fullPath: '/produits/$slug'
       preLoaderRoute: typeof ProduitsSlugRouteImport
-      parentRoute: typeof ProduitsRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
-
-interface ProduitsRouteChildren {
-  ProduitsSlugRoute: typeof ProduitsSlugRoute
-}
-
-const ProduitsRouteChildren: ProduitsRouteChildren = {
-  ProduitsSlugRoute: ProduitsSlugRoute,
-}
-
-const ProduitsRouteWithChildren = ProduitsRoute._addFileChildren(
-  ProduitsRouteChildren,
-)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -274,9 +263,10 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   EtudesScientifiquesRoute: EtudesScientifiquesRoute,
   MentionsLegalesRoute: MentionsLegalesRoute,
-  ProduitsRoute: ProduitsRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TesterFiolesRoute: TesterFiolesRoute,
+  ProduitsSlugRoute: ProduitsSlugRoute,
+  ProduitsIndexRoute: ProduitsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

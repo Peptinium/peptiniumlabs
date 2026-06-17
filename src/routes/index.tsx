@@ -269,9 +269,10 @@ function HologramOrnament() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute -top-24 left-1/2 z-10 hidden -translate-x-1/2 sm:block"
+      className="pointer-events-none absolute -top-40 left-1/2 z-10 hidden -translate-x-1/2 sm:block"
     >
-      <div className="relative grid size-28 place-items-center">
+      <div className="relative grid size-24 place-items-center">
+
         {/* outer rotating ring */}
         <div className="absolute inset-0 rounded-full border border-accent/30 [animation:spin_18s_linear_infinite]" />
         <div className="absolute inset-2 rounded-full border border-dashed border-accent/40 [animation:spin_12s_linear_infinite_reverse]" />
