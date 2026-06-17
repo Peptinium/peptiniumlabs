@@ -4,6 +4,7 @@ import { ProductCard, ProductVisual } from "@/components/ProductCard";
 import { RuoBadge } from "@/components/RuoBadge";
 import { Reveal } from "@/components/Reveal";
 import { products, formatPrice } from "@/data/products";
+import labBg from "@/assets/lab-bg-ruo.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
