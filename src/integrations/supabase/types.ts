@@ -14,6 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
+      customer_notes: {
+        Row: {
+          email: string
+          note: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          email: string
+          note?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          email?: string
+          note?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      invoice_counters: {
+        Row: {
+          next_seq: number
+          year: number
+        }
+        Insert: {
+          next_seq?: number
+          year: number
+        }
+        Update: {
+          next_seq?: number
+          year?: number
+        }
+        Relationships: []
+      }
       order_items: {
         Row: {
           created_at: string
@@ -64,13 +100,18 @@ export type Database = {
           email: string
           first_name: string
           id: string
+          invoice_issued_at: string | null
+          invoice_number: string | null
           last_name: string
           notes: string | null
           order_number: string
+          payment_validated_at: string | null
+          payment_validated_by: string | null
           phone: string | null
           postal_code: string
           status: string
           total_eur: number
+          tracking_number: string | null
           updated_at: string
         }
         Insert: {
@@ -81,13 +122,18 @@ export type Database = {
           email: string
           first_name: string
           id?: string
+          invoice_issued_at?: string | null
+          invoice_number?: string | null
           last_name: string
           notes?: string | null
           order_number?: string
+          payment_validated_at?: string | null
+          payment_validated_by?: string | null
           phone?: string | null
           postal_code: string
           status?: string
           total_eur?: number
+          tracking_number?: string | null
           updated_at?: string
         }
         Update: {
@@ -98,22 +144,102 @@ export type Database = {
           email?: string
           first_name?: string
           id?: string
+          invoice_issued_at?: string | null
+          invoice_number?: string | null
           last_name?: string
           notes?: string | null
           order_number?: string
+          payment_validated_at?: string | null
+          payment_validated_by?: string | null
           phone?: string | null
           postal_code?: string
           status?: string
           total_eur?: number
+          tracking_number?: string | null
           updated_at?: string
         }
         Relationships: []
+      }
+      page_views: {
+        Row: {
+          country: string | null
+          created_at: string
+          id: string
+          path: string
+          referrer: string | null
+          session_id: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          country?: string | null
+          created_at?: string
+          id?: string
+          path: string
+          referrer?: string | null
+          session_id?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          country?: string | null
+          created_at?: string
+          id?: string
+          path?: string
+          referrer?: string | null
+          session_id?: string | null
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
+      payments: {
+        Row: {
+          amount_eur: number
+          created_at: string
+          id: string
+          method: string
+          note: string | null
+          order_id: string
+          reference: string | null
+          validated_at: string
+          validated_by: string | null
+        }
+        Insert: {
+          amount_eur: number
+          created_at?: string
+          id?: string
+          method?: string
+          note?: string | null
+          order_id: string
+          reference?: string | null
+          validated_at?: string
+          validated_by?: string | null
+        }
+        Update: {
+          amount_eur?: number
+          created_at?: string
+          id?: string
+          method?: string
+          note?: string | null
+          order_id?: string
+          reference?: string | null
+          validated_at?: string
+          validated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payments_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       products: {
         Row: {
           active: boolean
           created_at: string
           id: string
+          low_stock_threshold: number
           name: string
           price_eur: number
           slug: string
@@ -124,6 +250,7 @@ export type Database = {
           active?: boolean
           created_at?: string
           id?: string
+          low_stock_threshold?: number
           name: string
           price_eur?: number
           slug: string
@@ -134,6 +261,7 @@ export type Database = {
           active?: boolean
           created_at?: string
           id?: string
+          low_stock_threshold?: number
           name?: string
           price_eur?: number
           slug?: string
@@ -141,6 +269,118 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      stock_movements: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          delta: number
+          id: string
+          note: string | null
+          product_slug: string
+          reason: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          delta: number
+          id?: string
+          note?: string | null
+          product_slug: string
+          reason: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          delta?: number
+          id?: string
+          note?: string | null
+          product_slug?: string
+          reason?: string
+        }
+        Relationships: []
+      }
+      support_messages: {
+        Row: {
+          author_email: string | null
+          author_role: string
+          body: string
+          created_at: string
+          id: string
+          ticket_id: string
+        }
+        Insert: {
+          author_email?: string | null
+          author_role: string
+          body: string
+          created_at?: string
+          id?: string
+          ticket_id: string
+        }
+        Update: {
+          author_email?: string | null
+          author_role?: string
+          body?: string
+          created_at?: string
+          id?: string
+          ticket_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "support_messages_ticket_id_fkey"
+            columns: ["ticket_id"]
+            isOneToOne: false
+            referencedRelation: "support_tickets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      support_tickets: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          order_id: string | null
+          order_number: string | null
+          priority: string
+          status: string
+          subject: string
+          ticket_number: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          order_id?: string | null
+          order_number?: string | null
+          priority?: string
+          status?: string
+          subject: string
+          ticket_number?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          order_id?: string | null
+          order_number?: string | null
+          priority?: string
+          status?: string
+          subject?: string
+          ticket_number?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "support_tickets_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_roles: {
         Row: {
@@ -175,6 +415,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      next_invoice_number: { Args: never; Returns: string }
     }
     Enums: {
       app_role: "admin" | "user"
