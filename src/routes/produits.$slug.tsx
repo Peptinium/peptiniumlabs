@@ -303,7 +303,18 @@ function ProductPage() {
               </div>
 
               <div className="mt-5">
-                <AddToCartButton productName={product.name} dosage={variant.dosage} />
+                <AddToCartButton
+                  slug={product.slug}
+                  productName={product.name}
+                  dosage={variant.dosage}
+                  price={variant.price}
+                  qty={qty}
+                  withSolvent={withSolvent}
+                />
+              </div>
+              {/* end purchase block */}
+              <div className="hidden">{/* spacer to keep markup */}</div>
+              <div className="mt-0">
               </div>
 
               <div className="mt-6 rounded-xl border border-warning/40 bg-warning/5 p-5 text-xs leading-relaxed text-foreground/80">
