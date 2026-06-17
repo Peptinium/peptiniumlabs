@@ -227,27 +227,73 @@ function HomePage() {
         </div>
       </section>
 
-      {/* ============ RUO REMINDER ============ */}
-      <section className="container-prose py-20">
-        <Reveal>
-          <div className="relative overflow-hidden rounded-2xl border border-warning/40 bg-warning/5 p-8 sm:p-12">
-            <div className="pointer-events-none absolute -right-20 -top-20 size-72 rounded-full bg-warning/10 blur-3xl" />
-            <RuoBadge />
-            <h2 className="mt-4 max-w-3xl font-display text-2xl font-medium tracking-tight text-balance sm:text-3xl">
-              Avis réglementaire — Research Use Only (RUO)
-            </h2>
-            <p className="relative mt-4 max-w-3xl text-sm leading-relaxed text-foreground/80">
-              Les produits commercialisés par Aetherion Labs sont des{" "}
-              <strong>réactifs chimiques destinés à la recherche scientifique in vitro</strong> en
-              environnement de laboratoire contrôlé. Ils ne sont pas destinés ni adaptés à un
-              usage humain, vétérinaire, diagnostique, thérapeutique, alimentaire ou cosmétique.
-              Toute manipulation doit être effectuée par un personnel qualifié, dans le respect
-              des bonnes pratiques de laboratoire et des réglementations en vigueur.
-            </p>
-          </div>
-        </Reveal>
+      {/* ============ RUO REMINDER with lab background ============ */}
+      <section className="relative overflow-hidden border-t border-border">
+        <img
+          src={labBg}
+          alt=""
+          aria-hidden
+          width={1920}
+          height={1080}
+          loading="lazy"
+          className="absolute inset-0 size-full object-cover"
+        />
+        <div className="absolute inset-0 bg-[oklch(0.18_0.08_245/88%)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background/60" />
+        <div className="pointer-events-none absolute -top-px left-0 h-px w-1/2 bg-gradient-to-r from-transparent via-accent to-transparent [animation:beam-sweep_6s_ease-in-out_infinite]" />
+
+        <div className="container-prose relative py-24 sm:py-32">
+          <Reveal>
+            <div className="mx-auto max-w-3xl text-center">
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-white/80 backdrop-blur">
+                <span className="size-1.5 rounded-full bg-accent" />
+                Research Use Only
+              </div>
+              <h2 className="mt-5 font-display text-3xl font-medium tracking-tight text-balance text-white sm:text-4xl lg:text-5xl">
+                Avis réglementaire — Research Use Only (RUO)
+              </h2>
+              <p className="mt-6 text-[15px] leading-relaxed text-white/75">
+                Les produits commercialisés par Aetherion Labs sont des{" "}
+                <strong className="text-white">réactifs chimiques destinés à la recherche scientifique in vitro</strong>{" "}
+                en environnement de laboratoire contrôlé. Ils ne sont pas destinés ni adaptés à un
+                usage humain, vétérinaire, diagnostique, thérapeutique, alimentaire ou cosmétique.
+                Toute manipulation doit être effectuée par un personnel qualifié, dans le respect
+                des bonnes pratiques de laboratoire et des réglementations en vigueur.
+              </p>
+            </div>
+          </Reveal>
+        </div>
       </section>
     </SiteLayout>
+  );
+}
+
+function SideOrnaments() {
+  return (
+    <div aria-hidden className="pointer-events-none fixed inset-y-0 left-0 right-0 z-0 hidden xl:block">
+      {/* Left rail */}
+      <div className="absolute left-0 top-0 h-full w-[max(0px,calc((100vw-1240px)/2))]">
+        <div className="absolute inset-y-0 right-8 w-px bg-gradient-to-b from-transparent via-border to-transparent" />
+        <div className="absolute right-6 top-1/4 size-3 rounded-full border border-accent/40 [animation:float_5s_ease-in-out_infinite]" />
+        <div className="absolute right-10 top-1/2 size-1.5 rounded-full bg-accent/60 [animation:pulse-ring_3s_ease-in-out_infinite]" />
+        <div className="absolute right-4 top-2/3 size-12 rounded-full border border-dashed border-accent/25 [animation:spin_30s_linear_infinite]" />
+        <div className="absolute right-2 bottom-1/4 rotate-90 font-mono text-[9px] uppercase tracking-[0.4em] text-muted-foreground/60 origin-bottom-right whitespace-nowrap">
+          ◆ Lot QC-2026.06 · HPLC ≥ 98 %
+        </div>
+      </div>
+      {/* Right rail */}
+      <div className="absolute right-0 top-0 h-full w-[max(0px,calc((100vw-1240px)/2))]">
+        <div className="absolute inset-y-0 left-8 w-px bg-gradient-to-b from-transparent via-border to-transparent" />
+        <div className="absolute left-4 top-1/3 size-16 rounded-full border border-accent/20 [animation:spin_45s_linear_infinite_reverse]">
+          <div className="absolute inset-2 rounded-full border border-dashed border-accent/30" />
+        </div>
+        <div className="absolute left-10 top-2/3 size-2 rounded-full bg-accent/50 [animation:float_4s_ease-in-out_infinite]" />
+        <div className="absolute left-6 bottom-1/3 size-6 rounded-sm border border-border [animation:float_6s_ease-in-out_infinite] rotate-45" />
+        <div className="absolute left-2 top-1/4 -rotate-90 font-mono text-[9px] uppercase tracking-[0.4em] text-muted-foreground/60 origin-top-left whitespace-nowrap">
+          MS · CoA · ISO ◆
+        </div>
+      </div>
+    </div>
   );
 }
 
