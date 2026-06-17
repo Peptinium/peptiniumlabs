@@ -80,7 +80,7 @@ function ProductPage() {
                 />
                 <div className="absolute left-7 top-7"><RuoBadge /></div>
                 <div className="absolute right-7 top-7 rounded-full border border-background/70 bg-background/86 px-3 py-1.5 font-display text-base font-medium text-foreground shadow-sm backdrop-blur-sm">
-                  {variant.price} €
+                  {formatPrice(variant.price)}
                 </div>
                 <div className="pointer-events-none absolute -bottom-px left-0 h-px w-1/2 bg-gradient-to-r from-transparent via-accent to-transparent [animation:beam-sweep_5s_ease-in-out_infinite]" />
               </div>
