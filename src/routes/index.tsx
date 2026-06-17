@@ -75,7 +75,7 @@ function HomePage() {
             </Reveal>
 
             <Reveal delay={240}>
-              <div className="mt-9 flex flex-wrap items-center gap-3">
+              <div className="mt-10 flex flex-wrap items-center gap-3 sm:mt-9">
                 <Link
                   to="/produits"
                   className="group relative overflow-hidden rounded-full bg-foreground px-6 py-3.5 text-sm font-medium text-background transition-colors hover:bg-foreground/90"
@@ -98,15 +98,15 @@ function HomePage() {
             </Reveal>
 
             <Reveal delay={320}>
-              <dl className="mt-14 grid grid-cols-3 gap-6 border-t border-border pt-8">
+              <dl className="mt-16 grid grid-cols-3 gap-6 border-t border-border pt-10 sm:mt-14 sm:pt-8">
                 {[
                   { k: "≥ 98 %", v: "Pureté HPLC" },
                   { k: "CoA", v: "Pour chaque lot" },
                   { k: "RUO", v: "Recherche uniquement" },
                 ].map((s) => (
                   <div key={s.v}>
-                    <dt className="font-display text-2xl font-medium text-foreground">{s.k}</dt>
-                    <dd className="mt-1 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                    <dt className="font-display text-xl font-medium text-foreground sm:text-2xl">{s.k}</dt>
+                    <dd className="mt-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
                       {s.v}
                     </dd>
                   </div>
