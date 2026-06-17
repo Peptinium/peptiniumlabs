@@ -415,11 +415,32 @@ function ProductPage() {
   );
 }
 
-function AddToCartButton({ productName, dosage }: { productName: string; dosage: string }) {
+function AddToCartButton({
+  slug,
+  productName,
+  dosage,
+  price,
+  qty,
+  withSolvent,
+}: {
+  slug: string;
+  productName: string;
+  dosage: string;
+  price: number;
+  qty: number;
+  withSolvent: boolean;
+}) {
+  const { add, setEau, eauQty, peptideCount } = useCart();
   const [added, setAdded] = useState(false);
   return (
     <button
       onClick={() => {
+        add({ slug, name: productName, dosage, price }, qty);
+        if (withSolvent) {
+          // ensure at least one eau per peptide added (capped to total peptides after add)
+          const targetEau = Math.min(eauQty + qty, peptideCount + qty);
+          setEau(targetEau);
+        }
         setAdded(true);
         window.setTimeout(() => setAdded(false), 2200);
       }}
