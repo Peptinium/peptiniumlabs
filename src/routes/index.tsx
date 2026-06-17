@@ -114,10 +114,15 @@ function HomePage() {
 
           {/* Featured molecule card */}
           <Reveal delay={120}>
-            <FeaturedCard featured={featured} />
+            <div className="relative">
+              <HologramOrnament />
+              <FeaturedCard featured={featured} />
+            </div>
           </Reveal>
         </div>
       </section>
+
+
 
       {/* ============ MARQUEE OF SPECS ============ */}
       <section className="border-b border-border bg-foreground text-background">
