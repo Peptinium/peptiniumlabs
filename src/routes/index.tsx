@@ -242,17 +242,17 @@ function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background/60" />
         <div className="pointer-events-none absolute -top-px left-0 h-px w-1/2 bg-gradient-to-r from-transparent via-accent to-transparent [animation:beam-sweep_6s_ease-in-out_infinite]" />
 
-        <div className="container-prose relative py-24 sm:py-32">
+        <div className="container-prose relative py-20 sm:py-32">
           <Reveal>
             <div className="mx-auto max-w-3xl text-center">
               <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-white/80 backdrop-blur">
                 <span className="size-1.5 rounded-full bg-accent" />
                 Research Use Only
               </div>
-              <h2 className="mt-5 font-display text-3xl font-medium tracking-tight text-balance text-white sm:text-4xl lg:text-5xl">
+              <h2 className="mt-6 font-display text-[26px] font-normal leading-[1.15] tracking-tight text-balance text-white sm:mt-5 sm:text-4xl sm:font-medium lg:text-5xl">
                 Avis réglementaire — Research Use Only (RUO)
               </h2>
-              <p className="mt-6 text-[15px] leading-relaxed text-white/75">
+              <p className="mt-7 text-[15px] leading-[1.75] text-white/75 sm:mt-6 sm:leading-relaxed">
                 Les produits commercialisés par Aetherion Labs sont des{" "}
                 <strong className="text-white">réactifs chimiques destinés à la recherche scientifique in vitro</strong>{" "}
                 en environnement de laboratoire contrôlé. Ils ne sont pas destinés ni adaptés à un
