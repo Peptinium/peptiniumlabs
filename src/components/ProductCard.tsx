@@ -48,7 +48,7 @@ export function ProductCard({ product }: { product: Product }) {
         </div>
         <div className="absolute right-3 top-3 rounded-full border border-background/70 bg-background/84 px-2.5 py-1 font-display text-sm font-medium text-foreground shadow-sm backdrop-blur-sm">
           {hasMultiple ? <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-muted-foreground">dès </span> : null}
-          {price} €
+          {formatPrice(price)}
         </div>
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-background/35 via-background/8 to-transparent" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
