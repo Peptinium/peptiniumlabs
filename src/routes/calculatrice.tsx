@@ -148,17 +148,36 @@ function CalcPage() {
 
             {result ? (
               <>
+                {/* HERO RESULT — Unités seringue insuline */}
+                <div className="border-b border-border bg-accent/5 px-6 py-7 sm:px-7">
+                  <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">
+                    Prélever
+                  </div>
+                  <div className="mt-2 flex items-baseline gap-2">
+                    <span className="font-display text-5xl font-medium tracking-tight text-accent">
+                      {fmt(result.unitsOn100, 1)}
+                    </span>
+                    <span className="font-mono text-sm uppercase tracking-[0.18em] text-foreground/70">
+                      unités
+                    </span>
+                  </div>
+                  <p className="mt-2 text-xs text-muted-foreground">
+                    sur une seringue à insuline graduée U-100 (1 mL = 100 unités)
+                  </p>
+                  <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1 font-mono text-[11px] text-muted-foreground">
+                    <span>= <span className="text-foreground">{fmt(result.volumeMl, 3)} mL</span></span>
+                    <span>= <span className="text-foreground">{fmt(result.volumeUl, 1)} µL</span></span>
+                  </div>
+                </div>
                 <dl className="divide-y divide-border">
                   <Row k="Concentration finale" v={`${fmt(result.concMgPerMl)} mg / mL`} />
-                  <Row k="Dose convertie" v={`${fmt(result.doseMg)} mg`} />
                   <Row
-                    k="Volume à prélever"
-                    v={`${fmt(result.volumeMl, 3)} mL (${fmt(result.volumeUl)} µL)`}
-                    highlight
+                    k="Dose par injection"
+                    v={`${fmt(result.doseMg, 4)} mg · ${fmt(result.doseMg * 1000, 1)} µg`}
                   />
                   <Row
-                    k="Équivalent seringue U-100"
-                    v={`${fmt(result.unitsOn100)} unités`}
+                    k="Doses par flacon"
+                    v={`≈ ${fmt(result.volumeMl > 0 ? waterMl / result.volumeMl : 0, 1)} prises`}
                   />
                 </dl>
                 <div className="border-t border-border p-6 sm:p-7">
@@ -169,6 +188,7 @@ function CalcPage() {
                   </div>
                 </div>
               </>
+
             ) : (
               <div className="p-7 text-sm text-muted-foreground">
                 Renseignez les paramètres et cliquez sur{" "}
