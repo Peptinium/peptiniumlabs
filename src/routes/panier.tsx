@@ -352,7 +352,7 @@ function PaiementBlock({
           </div>
           <div className="mt-3 space-y-1 pl-8 text-sm text-muted-foreground">
             <div>Transférez les fonds depuis votre banque.</div>
-            <div><strong className="text-foreground">Délai : 24 à 48h ouvrées.</strong> Expédition à réception.</div>
+            <div><strong className="text-foreground">Délai : 48 à 72h ouvrées.</strong> Expédition à réception.</div>
           </div>
           <input type="radio" name="method" checked readOnly className="sr-only" />
         </label>
