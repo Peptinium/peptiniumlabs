@@ -58,16 +58,21 @@ export function Header() {
 
         <div className="flex items-center gap-2">
           <Link
-            to="/contact"
-            className="group relative hidden overflow-hidden rounded-full bg-foreground px-4 py-2 text-xs font-medium text-background transition-all hover:bg-foreground/90 sm:inline-flex"
+            to="/panier"
+            aria-label="Panier"
+            className="group relative inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-2 text-xs font-medium text-foreground transition-all hover:border-accent hover:text-accent"
           >
-            <span className="relative z-10 flex items-center gap-1.5">
-              Devis labo
-              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                <path d="M1 5h8m-3-3 3 3-3 3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-              </svg>
-            </span>
-            <span className="absolute inset-y-0 left-0 w-12 -translate-x-full bg-accent/40 blur-md transition-transform duration-700 group-hover:translate-x-[280%]" />
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M3 3h2l2.4 12.3a2 2 0 0 0 2 1.7h9.7a2 2 0 0 0 2-1.6L23 8H6" />
+              <circle cx="10" cy="21" r="1.4" />
+              <circle cx="18" cy="21" r="1.4" />
+            </svg>
+            <span className="hidden sm:inline">Panier</span>
+            {count > 0 && (
+              <span className="ml-0.5 grid min-w-[18px] place-items-center rounded-full bg-accent px-1.5 py-0.5 font-mono text-[10px] font-semibold text-background">
+                {count}
+              </span>
+            )}
           </Link>
           <button
             onClick={() => setOpen((v) => !v)}
