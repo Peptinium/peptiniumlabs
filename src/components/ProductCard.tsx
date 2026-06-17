@@ -1,6 +1,5 @@
 import { Link } from "@tanstack/react-router";
 import { minPrice, formatPrice, type Product } from "@/data/products";
-import { RuoBadge } from "./RuoBadge";
 import retatrutide10mg from "@/assets/products/retatrutide-10mg.png.asset.json";
 import retatrutide20mg from "@/assets/products/retatrutide-20mg.png.asset.json";
 import cjc1295Ipamorelin from "@/assets/products/cjc-1295-ipamorelin.png.asset.json";
