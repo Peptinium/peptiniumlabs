@@ -240,14 +240,20 @@ function HomePage() {
 }
 
 const specsMarquee = [
-  "HPLC ≥ 98 %",
-  "Mass spectrometry validated",
-  "Lyophilized · Type I glass",
-  "Certificate of Analysis",
-  "Cold chain −20 °C",
-  "Research Use Only",
-  "Lot traceability",
-  "SPPS Fmoc synthesis",
+  "Retatrutide 10 mg",
+  "Retatrutide 20 mg",
+  "GHK-Cu 50 mg",
+  "GHK-Cu 100 mg",
+  "AHK-Cu 100 mg",
+  "BPC-157 10 mg",
+  "CJC-1295 + Ipamorelin 5 mg + 5 mg",
+  "Semax 10 mg",
+  "Melanotan I 10 mg",
+  "Melanotan II 10 mg",
+  "KLOW 80 mg",
+  "NAD+ 1000 mg",
+  "Tésamoréline 5 mg",
+  "Eau bactériostatique 30 mL",
 ];
 
 function QualityCard({
