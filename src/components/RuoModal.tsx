@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 
-const KEY = "aetherion_ruo_ack_v1";
+const KEY = "aetherion_ruo_ack_v2";
 
 export function RuoModal() {
   const [open, setOpen] = useState(false);
+  const [age, setAge] = useState(false);
+  const [research, setResearch] = useState(false);
+  const [noHealth, setNoHealth] = useState(false);
 
   useEffect(() => {
     try {
@@ -19,58 +22,65 @@ export function RuoModal() {
 
   if (!open) return null;
 
+  const canAccept = age && research && noHealth;
+
   const accept = () => {
-    try { window.localStorage.setItem(KEY, "1"); } catch {}
+    if (!canAccept) return;
+    try {
+      window.localStorage.setItem(KEY, "1");
+    } catch {}
     setOpen(false);
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-foreground/50 p-4 backdrop-blur-md sm:items-center"
-         style={{ animation: "fade-in 0.4s cubic-bezier(0.22,1,0.36,1) both" }}>
+    <div
+      className="fixed inset-0 z-50 flex items-end justify-center bg-foreground/55 p-4 backdrop-blur-md sm:items-center"
+      style={{ animation: "fade-in 0.4s cubic-bezier(0.22,1,0.36,1) both" }}
+    >
       <div
-        className="w-full max-w-lg overflow-hidden rounded-xl border border-border bg-card shadow-2xl"
+        className="w-full max-w-xl overflow-hidden rounded-xl border border-border bg-card shadow-2xl"
         style={{ animation: "scale-in 0.5s cubic-bezier(0.22,1,0.36,1) both" }}
       >
         <div className="relative overflow-hidden border-b border-border bg-foreground text-background">
           <div className="relative z-10 flex items-center justify-between px-6 py-4">
             <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-background/80">
               <span className="size-1.5 animate-pulse rounded-full bg-accent" />
-              Pré-accès laboratoire
+              Vérification d'accès — Laboratoire
             </div>
             <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">
-              RUO
+              Recherche uniquement
             </span>
           </div>
           <div className="pointer-events-none absolute inset-0 opacity-30 grid-bg" />
         </div>
         <div className="px-7 py-7">
           <h2 className="font-display text-xl font-medium tracking-tight">
-            Confirmation d'usage recherche
+            Certification d'usage recherche
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-            Les produits proposés par <strong className="text-foreground">Aetherion Labs</strong> sont
-            des réactifs chimiques destinés{" "}
-            <strong className="text-foreground">
-              exclusivement à un usage de recherche scientifique en laboratoire
-            </strong>{" "}
-            (Research Use Only).
+            Avant d'accéder au site, merci de confirmer les points suivants. Les produits de{" "}
+            <strong className="text-foreground">peptidesfr.com</strong> sont des réactifs
+            chimiques destinés exclusivement à la recherche scientifique en laboratoire.
           </p>
-          <ul className="mt-5 space-y-2.5 text-sm text-muted-foreground">
-            {[
-              "Non destinés à un usage humain, vétérinaire, diagnostique ou thérapeutique.",
-              "Non destinés à la consommation, l'ingestion ou l'injection.",
-              "Manipulation réservée à un personnel qualifié, en environnement contrôlé.",
-            ].map((t) => (
-              <li key={t} className="flex gap-2.5">
-                <span className="mt-1.5 size-1 shrink-0 rounded-full bg-accent" />
-                <span>{t}</span>
-              </li>
-            ))}
-          </ul>
-          <p className="mt-5 text-xs text-muted-foreground">
-            En accédant au site, vous certifiez être un chercheur, un professionnel de laboratoire
-            ou une entité de recherche, et vous engagez à respecter cette destination.
-          </p>
+
+          <div className="mt-6 space-y-3">
+            <Check
+              checked={age}
+              onChange={setAge}
+              label="Je certifie avoir plus de 18 ans et être un professionnel, chercheur ou membre d'une entité de recherche."
+            />
+            <Check
+              checked={research}
+              onChange={setResearch}
+              label="Je certifie utiliser ces peptides uniquement à des fins de recherche scientifique in vitro, sans usage humain, vétérinaire ou thérapeutique."
+            />
+            <Check
+              checked={noHealth}
+              onChange={setNoHealth}
+              label="Je comprends qu'aucune recommandation de santé n'est formulée : les peptides vendus sont strictement destinés à la recherche et ne sont approuvés par aucun organisme de santé (ANSM, EMA, FDA, etc.) pour un usage humain."
+            />
+          </div>
+
           <div className="mt-7 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
             <a
               href="https://www.google.com"
@@ -80,14 +90,61 @@ export function RuoModal() {
             </a>
             <button
               onClick={accept}
-              className="group relative overflow-hidden rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-colors hover:bg-foreground/90"
+              disabled={!canAccept}
+              className={`group relative overflow-hidden rounded-full px-5 py-2.5 text-sm font-medium text-background transition-all ${
+                canAccept
+                  ? "bg-foreground hover:bg-foreground/90"
+                  : "cursor-not-allowed bg-foreground/40"
+              }`}
             >
-              <span className="relative z-10">J'accepte — usage recherche uniquement</span>
-              <span className="absolute inset-y-0 left-0 w-12 -translate-x-full bg-accent/40 blur-md transition-transform duration-700 group-hover:translate-x-[420%]" />
+              <span className="relative z-10">J'accepte et j'entre</span>
+              {canAccept && (
+                <span className="absolute inset-y-0 left-0 w-12 -translate-x-full bg-accent/40 blur-md transition-transform duration-700 group-hover:translate-x-[420%]" />
+              )}
             </button>
           </div>
         </div>
       </div>
     </div>
+  );
+}
+
+function Check({
+  checked,
+  onChange,
+  label,
+}: {
+  checked: boolean;
+  onChange: (v: boolean) => void;
+  label: string;
+}) {
+  return (
+    <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-border bg-background p-3.5 transition-colors hover:border-accent/50">
+      <span className="relative mt-0.5 flex size-4 shrink-0 items-center justify-center">
+        <input
+          type="checkbox"
+          checked={checked}
+          onChange={(e) => onChange(e.target.checked)}
+          className="peer absolute size-4 cursor-pointer opacity-0"
+        />
+        <span
+          className={`size-4 rounded border transition-all ${
+            checked ? "border-foreground bg-foreground" : "border-border bg-background"
+          }`}
+        />
+        {checked && (
+          <svg
+            viewBox="0 0 12 12"
+            className="absolute size-3 text-background"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <path d="M2 6.5 5 9.5 10 3.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        )}
+      </span>
+      <span className="text-xs leading-relaxed text-foreground/85">{label}</span>
+    </label>
   );
 }
