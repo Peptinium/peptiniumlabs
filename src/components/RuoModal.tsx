@@ -72,12 +72,12 @@ export function RuoModal() {
             <Check
               checked={research}
               onChange={setResearch}
-              label="Je certifie utiliser ces peptides uniquement à des fins de recherche scientifique in vitro, sans usage humain, vétérinaire ou thérapeutique."
+              label="Je certifie utiliser ces peptides uniquement à des fins de recherche scientifique in vitro, sans usage vétérinaire ou thérapeutique."
             />
             <Check
               checked={noHealth}
               onChange={setNoHealth}
-              label="Je comprends qu'aucune recommandation de santé n'est formulée : les peptides vendus sont strictement destinés à la recherche et ne sont approuvés par aucun organisme de santé (ANSM, EMA, FDA, etc.) pour un usage humain."
+              label="Je comprends qu'aucune recommandation de santé n'est formulée : les peptides vendus sont strictement destinés à la recherche et ne sont approuvés par aucun organisme de santé (ANSM, EMA, FDA, etc.)."
             />
           </div>
 
