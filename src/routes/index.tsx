@@ -68,8 +68,7 @@ function HomePage() {
                   strictement destinés à la recherche scientifique in vitro (RUO).
                 </strong>{" "}
                 <span className="text-foreground/90">
-                  Pas pour consommation humaine. Pas pour utilisation humaine. Non recommandé
-                  pour toute utilisation hors cadre scientifique, professionnel et de recherche.
+                  Non recommandé pour toute utilisation hors cadre scientifique, professionnel et de recherche.
                 </span>
               </p>
             </Reveal>
