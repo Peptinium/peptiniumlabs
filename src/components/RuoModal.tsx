@@ -59,7 +59,7 @@ export function RuoModal() {
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             Avant d'accéder au site, merci de confirmer les points suivants. Les produits de{" "}
-            <strong className="text-foreground">peptidesfr.com</strong> sont des réactifs
+            <strong className="text-foreground">aetherion-lab.com</strong> sont des réactifs
             chimiques destinés exclusivement à la recherche scientifique en laboratoire.
           </p>
 
@@ -72,12 +72,12 @@ export function RuoModal() {
             <Check
               checked={research}
               onChange={setResearch}
-              label="Je certifie utiliser ces peptides uniquement à des fins de recherche scientifique in vitro, sans usage humain, vétérinaire ou thérapeutique."
+              label="Je certifie utiliser ces peptides uniquement à des fins de recherche scientifique in vitro, sans usage vétérinaire ou thérapeutique."
             />
             <Check
               checked={noHealth}
               onChange={setNoHealth}
-              label="Je comprends qu'aucune recommandation de santé n'est formulée : les peptides vendus sont strictement destinés à la recherche et ne sont approuvés par aucun organisme de santé (ANSM, EMA, FDA, etc.) pour un usage humain."
+              label="Je comprends qu'aucune recommandation de santé n'est formulée : les peptides vendus sont strictement destinés à la recherche et ne sont approuvés par aucun organisme de santé (ANSM, EMA, FDA, etc.)."
             />
           </div>
 
