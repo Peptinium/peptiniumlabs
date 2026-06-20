@@ -42,21 +42,65 @@ export const Route = createFileRoute("/produits/$slug")({
     return { product };
   },
   head: ({ loaderData, params }) => {
+    const SITE = "https://aetherion-lab.com";
     const p = loaderData?.product;
     const dosages = p?.variants.map((v) => v.dosage).join(" / ");
+    const minP = p ? Math.min(...p.variants.map((v) => v.price)) : 0;
+    const kw = p
+      ? [
+          p.name, `acheter ${p.name}`, `${p.name} France`, `${p.name} prix`,
+          `${p.name} ${dosages}`, `${p.name} HPLC`, `${p.name} CoA`,
+          `${p.name} peptide`, `${p.name} recherche`, `${p.name} RUO`,
+          p.cas ? `${p.name} CAS ${p.cas}` : "",
+          "peptides de recherche", "peptides France", p.category,
+        ].filter(Boolean).join(", ")
+      : "";
     return {
       meta: [
-        { title: `${p?.name ?? "Produit"} — Réactif de recherche RUO · Aetherion Labs` },
+        { title: p ? `${p.name} ${dosages} — Acheter peptide de recherche HPLC ≥ 98 % · Aetherion Labs` : "Produit · Aetherion Labs" },
         {
           name: "description",
           content: p
-            ? `${p.name} (CAS ${p.cas ?? "—"}), pureté ${p.purity}, dosages ${dosages}. Réactif destiné exclusivement à la recherche scientifique en laboratoire (RUO).`
+            ? `Achetez ${p.name} (CAS ${p.cas ?? "—"}) — peptide de recherche, pureté ${p.purity}, dosages ${dosages}, livré avec Certificat d'Analyse. ${p.shortDescription} RUO uniquement.`
             : "Fiche produit Aetherion Labs.",
         },
-        { property: "og:title", content: `${p?.name} — Aetherion Labs` },
-        { property: "og:url", content: `/produits/${params.slug}` },
+        { name: "keywords", content: kw },
+        { property: "og:title", content: p ? `${p.name} ${dosages} — Aetherion Labs` : "Aetherion Labs" },
+        {
+          property: "og:description",
+          content: p ? `${p.shortDescription} Pureté ${p.purity}. CoA fourni. RUO.` : "",
+        },
+        { property: "og:url", content: `${SITE}/produits/${params.slug}` },
+        { property: "og:type", content: "product" },
+        { name: "twitter:title", content: p ? `${p.name} — Aetherion Labs` : "Aetherion Labs" },
+        { name: "twitter:description", content: p?.shortDescription ?? "" },
       ],
-      links: [{ rel: "canonical", href: `/produits/${params.slug}` }],
+      links: [{ rel: "canonical", href: `${SITE}/produits/${params.slug}` }],
+      scripts: p
+        ? [
+            {
+              type: "application/ld+json",
+              children: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Product",
+                name: p.name,
+                description: p.shortDescription,
+                category: p.category,
+                sku: p.slug,
+                brand: { "@type": "Brand", name: "Aetherion Labs" },
+                ...(p.cas ? { additionalProperty: [{ "@type": "PropertyValue", name: "CAS", value: p.cas }] } : {}),
+                offers: {
+                  "@type": "AggregateOffer",
+                  priceCurrency: "EUR",
+                  lowPrice: minP.toFixed(2),
+                  offerCount: p.variants.length,
+                  availability: "https://schema.org/InStock",
+                  url: `${SITE}/produits/${params.slug}`,
+                },
+              }),
+            },
+          ]
+        : [],
     };
   },
   component: ProductPage,

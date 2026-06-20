@@ -6,18 +6,32 @@ import { Reveal } from "@/components/Reveal";
 import { RuoBadge } from "@/components/RuoBadge";
 import { products } from "@/data/products";
 
+const SITE_URL = "https://aetherion-lab.com";
+
 export const Route = createFileRoute("/produits/")({
   head: () => ({
     meta: [
-      { title: "Catalogue — Peptides de recherche RUO · Aetherion Labs" },
+      { title: "Catalogue de peptides — Retatrutide, BPC-157, GHK-Cu, CJC-1295, Semax, Melanotan, NAD+ · Aetherion Labs" },
       {
         name: "description",
         content:
-          "Catalogue complet de peptides synthétiques de qualité recherche : GLP-1/GIP, axe somatotrope, réparation, mélanocortines. HPLC ≥ 98 %. RUO uniquement.",
+          "Catalogue complet de peptides de recherche : Retatrutide, GHK-Cu, AHK-Cu, CJC-1295/Ipamorelin, Semax, BPC-157, Melanotan I & II, KLOW, NAD+, Tésamoréline, eau bactériostatique. HPLC ≥ 98 %, CoA, RUO.",
       },
-      { property: "og:url", content: "/produits" },
+      {
+        name: "keywords",
+        content:
+          "peptides, peptides de recherche, acheter peptides France, Retatrutide, GHK-Cu, AHK-Cu, CJC-1295, Ipamorelin, Semax, BPC-157, Melanotan I, Melanotan II, MT-1, MT-2, KLOW, NAD+, Tésamoréline, eau bactériostatique, GLP-1, GIP, GHRP, mélanocortine, HPLC, certificat d'analyse, CoA, RUO",
+      },
+      { property: "og:title", content: "Catalogue de peptides de recherche — Aetherion Labs" },
+      {
+        property: "og:description",
+        content:
+          "Retatrutide, BPC-157, GHK-Cu, CJC-1295/Ipamorelin, Semax, Melanotan, KLOW, NAD+, Tésamoréline. Pureté HPLC ≥ 98 %, CoA fourni.",
+      },
+      { property: "og:url", content: `${SITE_URL}/produits` },
+      { property: "og:type", content: "website" },
     ],
-    links: [{ rel: "canonical", href: "/produits" }],
+    links: [{ rel: "canonical", href: `${SITE_URL}/produits` }],
   }),
   component: CatalogPage,
 });
