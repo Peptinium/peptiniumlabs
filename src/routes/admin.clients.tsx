@@ -14,7 +14,19 @@ import {
   CheckCircle2,
   Trash2,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import {
+  Area,
+  AreaChart,
+  Bar,
+  CartesianGrid,
+  ComposedChart,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 import { supabase } from "@/integrations/supabase/client";
 import { updateOrderStatus, deleteOrder } from "@/lib/orders.functions";
 import { Button } from "@/components/ui/button";
