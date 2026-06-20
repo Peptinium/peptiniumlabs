@@ -6,19 +6,74 @@ import { Reveal } from "@/components/Reveal";
 import { products, formatPrice } from "@/data/products";
 import labBg from "@/assets/lab-bg-ruo.jpg";
 
+const SITE_URL = "https://aetherion-lab.com";
+const ALL_PEPTIDES_KEYWORDS = [
+  "peptides", "peptides de recherche", "peptides France", "acheter peptides", "vente peptides",
+  "peptides RUO", "peptides HPLC", "peptides qualité recherche", "réactifs peptidiques",
+  "Retatrutide", "LY3437943", "GLP-1", "GIP", "agoniste GLP-1", "triple agoniste",
+  "Tirzepatide", "Semaglutide", "Liraglutide",
+  "GHK-Cu", "AHK-Cu", "peptide cuivre", "cuivre tripeptide",
+  "CJC-1295", "Ipamorelin", "CJC-1295 Ipamorelin", "GHRP", "GHRH", "hormone de croissance",
+  "Semax", "peptide nootropique", "BDNF",
+  "BPC-157", "Body Protection Compound", "réparation tissulaire",
+  "Melanotan", "Melanotan I", "Melanotan II", "MT-1", "MT-2", "mélanocortine",
+  "KLOW", "blend KLOW", "GHK-Cu BPC-157 TB-500",
+  "NAD+", "NAD plus", "nicotinamide adénine dinucléotide", "anti-âge cellulaire",
+  "Tésamoréline", "tesamorelin",
+  "eau bactériostatique", "solvant peptides", "reconstitution peptides",
+  "CAS", "pureté HPLC", "spectrométrie de masse", "certificat d'analyse", "CoA",
+  "calculatrice dilution peptides", "tester ses fioles", "laboratoire CRO", "in vitro",
+].join(", ");
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Aetherion Labs — Peptides de recherche RUO, HPLC ≥ 98 %" },
+      { title: "Peptides de recherche — Retatrutide, BPC-157, GHK-Cu, CJC-1295, Semax · Aetherion Labs" },
       {
         name: "description",
         content:
-          "Catalogue de peptides synthétiques de qualité recherche : Retatrutide, Tirzepatide, Semaglutide, BPC-157. Livrés avec Certificat d'Analyse. Research Use Only.",
+          "Achetez vos peptides de recherche en France : Retatrutide, Tirzepatide, Semaglutide, BPC-157, GHK-Cu, AHK-Cu, CJC-1295/Ipamorelin, Semax, Melanotan I/II, KLOW, NAD+, Tésamoréline. Pureté HPLC ≥ 98 %, Certificat d'Analyse, livraison rapide. RUO.",
       },
-      { property: "og:title", content: "Aetherion Labs — Réactifs peptidiques de recherche" },
-      { property: "og:url", content: "/" },
+      { name: "keywords", content: ALL_PEPTIDES_KEYWORDS },
+      { property: "og:title", content: "Aetherion Labs — Peptides de recherche (Retatrutide, BPC-157, GHK-Cu, CJC-1295…)" },
+      {
+        property: "og:description",
+        content:
+          "Peptides synthétiques HPLC ≥ 98 % livrés avec CoA : Retatrutide, BPC-157, GHK-Cu, CJC-1295/Ipamorelin, Semax, Melanotan, KLOW, NAD+, Tésamoréline.",
+      },
+      { property: "og:url", content: `${SITE_URL}/` },
+      { property: "og:type", content: "website" },
+      { name: "twitter:title", content: "Aetherion Labs — Peptides de recherche RUO" },
+      { name: "twitter:description", content: "Retatrutide, BPC-157, GHK-Cu, CJC-1295/Ipamorelin, Semax, Melanotan, KLOW, NAD+, Tésamoréline. HPLC ≥ 98 %, CoA." },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [{ rel: "canonical", href: `${SITE_URL}/` }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "Aetherion Labs",
+          url: SITE_URL,
+          potentialAction: {
+            "@type": "SearchAction",
+            target: `${SITE_URL}/produits?q={search_term_string}`,
+            "query-input": "required name=search_term_string",
+          },
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "Aetherion Labs",
+          url: SITE_URL,
+          description:
+            "Fournisseur français de peptides synthétiques de qualité recherche (RUO) : Retatrutide, BPC-157, GHK-Cu, CJC-1295/Ipamorelin, Semax, Melanotan, KLOW, NAD+, Tésamoréline.",
+        }),
+      },
+    ],
   }),
   component: HomePage,
 });
