@@ -103,7 +103,31 @@ function ClientsPage() {
       if (error) throw error;
       return data ?? [];
     },
+    refetchInterval: 30000,
   });
+
+  // Realtime: refresh on new page views & orders
+  useEffect(() => {
+    const ch = supabase
+      .channel("admin-clients-realtime")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "page_views" },
+        () => qc.invalidateQueries({ queryKey: ["admin", "clients", "traffic"] }),
+      )
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "orders" },
+        () => {
+          qc.invalidateQueries({ queryKey: ["admin", "clients", "orders"] });
+          qc.invalidateQueries({ queryKey: ["admin", "clients", "items"] });
+        },
+      )
+      .subscribe();
+    return () => {
+      supabase.removeChannel(ch);
+    };
+  }, [qc]);
 
   const updateFn = useServerFn(updateOrderStatus);
   const deleteFn = useServerFn(deleteOrder);
