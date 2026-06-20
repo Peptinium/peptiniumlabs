@@ -66,8 +66,8 @@ function StudiesPage() {
               Chaque réactif du catalogue est documenté par une sélection de publications
               scientifiques indexées sur PubMed / PMC ou éditées par les principales revues
               médicales internationales. Ces références sont fournies à titre documentaire
-              exclusivement et ne constituent en aucun cas une indication d'usage humain,
-              thérapeutique ou diagnostique.
+              exclusivement et ne constituent en aucun cas une indication d'usage diagnostique,
+              thérapeutique ou vétérinaire.
             </p>
           </Reveal>
         </div>

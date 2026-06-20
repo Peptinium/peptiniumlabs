@@ -38,13 +38,13 @@ export const Route = createFileRoute("/cgv")({
           <section>
             <h2 className="text-base font-semibold text-foreground">Article 2 – Produits – Usage strictement réservé</h2>
             <p>
-              Les produits vendus sont strictement destinés à un usage de recherche en laboratoire (Research Use Only – RUO). Ils ne sont ni des médicaments, ni des compléments alimentaires, ni des produits destinés à la consommation humaine ou animale.
+              Les produits vendus sont strictement destinés à un usage de recherche en laboratoire (Research Use Only – RUO). Ils ne sont ni des médicaments, ni des compléments alimentaires, ni des produits destinés à un usage vétérinaire, diagnostique ou thérapeutique.
             </p>
             <p className="mt-2">
               Le client déclare et garantit qu'il utilise les produits exclusivement dans le cadre de travaux de recherche, d'études ou d'analyses en laboratoire, que ce soit pour son compte ou pour le compte d'une entreprise, d'un organisme de recherche ou d'une institution académique.
             </p>
             <p className="mt-2">
-              Le vendeur décline toute responsabilité en cas d'utilisation autre que celle expressément prévue (recherche in vitro), et notamment en cas d'administration à des êtres humains ou animaux, d'utilisation thérapeutique, cosmétique ou alimentaire.
+              Le vendeur décline toute responsabilité en cas d'utilisation autre que celle expressément prévue (recherche in vitro), et notamment en cas d'administration à des animaux, d'utilisation thérapeutique, cosmétique ou alimentaire.
             </p>
           </section>
 
@@ -107,7 +107,7 @@ export const Route = createFileRoute("/cgv")({
               Le client s'engage expressément à n'utiliser les produits que dans un cadre de recherche scientifique en laboratoire.
             </p>
             <p className="mt-2">
-              Toute utilisation humaine, animale, thérapeutique, cosmétique ou autre est strictement interdite et relève de la seule responsabilité du client.
+              Toute utilisation animale, thérapeutique, diagnostique, cosmétique ou autre est strictement interdite et relève de la seule responsabilité du client.
             </p>
             <p className="mt-2">
               Le vendeur se réserve le droit de refuser toute commande s'il a un doute sur l'usage réel qui sera fait des produits.
