@@ -278,7 +278,13 @@ function ClientsPage() {
       </div>
 
       <div>
-        <h3 className="mb-2 text-sm font-semibold">Trafic du site (30 derniers jours)</h3>
+        <div className="mb-2 flex items-center justify-between">
+          <h3 className="text-sm font-semibold">Trafic du site (30 derniers jours)</h3>
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-2 py-0.5 text-[10px] font-medium text-emerald-400">
+            <span className="size-1.5 animate-pulse rounded-full bg-emerald-400" />
+            Temps réel
+          </span>
+        </div>
         <div className="grid grid-cols-2 gap-3">
           {trafficStats.map((stat) => {
             const Icon = stat.icon;
@@ -292,6 +298,71 @@ function ClientsPage() {
               </div>
             );
           })}
+        </div>
+
+        <div className="mt-3 rounded-xl border border-border bg-card p-3">
+          <div className="mb-2 flex items-center justify-between">
+            <div>
+              <div className="text-xs font-semibold">Évolution sur 14 jours</div>
+              <div className="text-[10px] text-muted-foreground">
+                Visiteurs uniques, pages vues et commandes par jour
+              </div>
+            </div>
+          </div>
+          <div className="h-64 w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <ComposedChart data={chartData} margin={{ top: 8, right: 8, left: -16, bottom: 0 }}>
+                <defs>
+                  <linearGradient id="gVisits" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="hsl(199 89% 48%)" stopOpacity={0.5} />
+                    <stop offset="100%" stopColor="hsl(199 89% 48%)" stopOpacity={0} />
+                  </linearGradient>
+                  <linearGradient id="gViews" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="hsl(258 90% 66%)" stopOpacity={0.35} />
+                    <stop offset="100%" stopColor="hsl(258 90% 66%)" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
+                <XAxis
+                  dataKey="label"
+                  tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 10 }}
+                  tickLine={false}
+                  axisLine={false}
+                />
+                <YAxis
+                  tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 10 }}
+                  tickLine={false}
+                  axisLine={false}
+                  allowDecimals={false}
+                />
+                <Tooltip
+                  contentStyle={{
+                    background: "hsl(var(--card))",
+                    border: "1px solid hsl(var(--border))",
+                    borderRadius: 8,
+                    fontSize: 12,
+                  }}
+                  labelStyle={{ color: "hsl(var(--foreground))" }}
+                />
+                <Legend wrapperStyle={{ fontSize: 11 }} />
+                <Area
+                  type="monotone"
+                  dataKey="Pages vues"
+                  stroke="hsl(258 90% 66%)"
+                  fill="url(#gViews)"
+                  strokeWidth={2}
+                />
+                <Area
+                  type="monotone"
+                  dataKey="Visiteurs"
+                  stroke="hsl(199 89% 48%)"
+                  fill="url(#gVisits)"
+                  strokeWidth={2}
+                />
+                <Bar dataKey="Commandes" fill="hsl(142 71% 45%)" radius={[4, 4, 0, 0]} barSize={14} />
+              </ComposedChart>
+            </ResponsiveContainer>
+          </div>
         </div>
       </div>
 
