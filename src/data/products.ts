@@ -38,7 +38,7 @@ export const formatPrice = (n: number) =>
   `${n.toLocaleString("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
 
 const RUO_DISCLAIMER =
-  "Ces données sont issues de la littérature scientifique et sont fournies à titre strictement informatif dans un cadre de recherche. Ce produit n'est pas destiné à la consommation humaine et n'est pas recommandé pour un usage hors d'un cadre scientifique, professionnel et de recherche.";
+  "Ces données sont issues de la littérature scientifique et sont fournies à titre strictement informatif dans un cadre de recherche. Ce produit n'est pas destiné à un usage vétérinaire, diagnostique ou thérapeutique et n'est pas recommandé pour un usage hors d'un cadre scientifique, professionnel et de recherche.";
 
 export const products: Product[] = [
   {

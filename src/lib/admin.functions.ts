@@ -591,7 +591,7 @@ async function buildInvoicePdf(opts: {
     rgb(0.55, 0.55, 0.6),
   );
   draw(
-    "Non destinés à un usage diagnostique, thérapeutique ou à la consommation humaine.",
+    "Non destinés à un usage vétérinaire, diagnostique ou thérapeutique.",
     40,
     78,
     8,

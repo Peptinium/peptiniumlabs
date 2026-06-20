@@ -281,7 +281,7 @@ function TestVialsPage() {
             <p className="mt-5 max-w-3xl text-[15px] leading-relaxed text-white/75">
               La vérification analytique d'une fiole s'inscrit dans une démarche scientifique
               rigoureuse de contrôle qualité des réactifs de recherche. Elle ne valide en aucun
-              cas une utilisation humaine, vétérinaire, diagnostique ou thérapeutique. Les
+              cas une utilisation vétérinaire, diagnostique ou thérapeutique. Les
               peptides commercialisés par Aetherion Labs sont strictement destinés à la recherche
               scientifique in vitro et à un usage exclusivement professionnel et de laboratoire.
             </p>

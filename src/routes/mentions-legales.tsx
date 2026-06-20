@@ -31,7 +31,7 @@ export const Route = createFileRoute("/mentions-legales")({
               <strong className="text-foreground">
                 exclusivement à la recherche scientifique en laboratoire
               </strong>{" "}
-              (Research Use Only — RUO). Ils ne sont pas destinés à un usage humain, vétérinaire,
+              (Research Use Only — RUO). Ils ne sont pas destinés à un usage vétérinaire,
               diagnostique, thérapeutique, alimentaire ou cosmétique. L'éditeur décline toute
               responsabilité en cas d'usage détourné.
             </p>

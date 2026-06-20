@@ -310,7 +310,7 @@ function HomePage() {
                 Les produits commercialisés par Aetherion Labs sont des{" "}
                 <strong className="text-white">réactifs chimiques destinés à la recherche scientifique in vitro</strong>{" "}
                 en environnement de laboratoire contrôlé. Ils ne sont pas destinés ni adaptés à un
-                usage humain, vétérinaire, diagnostique, thérapeutique, alimentaire ou cosmétique.
+                usage vétérinaire, diagnostique, thérapeutique, alimentaire ou cosmétique.
                 Toute manipulation doit être effectuée par un personnel qualifié, dans le respect
                 des bonnes pratiques de laboratoire et des réglementations en vigueur.
               </p>
