@@ -17,7 +17,6 @@ import {
 import { useEffect, useMemo, useState } from "react";
 import {
   Area,
-  AreaChart,
   Bar,
   CartesianGrid,
   ComposedChart,
