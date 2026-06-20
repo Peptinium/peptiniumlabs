@@ -14,7 +14,7 @@ import {
   CheckCircle2,
   Trash2,
 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   Area,
   Bar,
@@ -105,28 +105,19 @@ function ClientsPage() {
     refetchInterval: 30000,
   });
 
-  // Realtime: refresh on new page views & orders
-  useEffect(() => {
-    const ch = supabase
-      .channel("admin-clients-realtime")
-      .on(
-        "postgres_changes",
-        { event: "*", schema: "public", table: "page_views" },
-        () => qc.invalidateQueries({ queryKey: ["admin", "clients", "traffic"] }),
-      )
-      .on(
-        "postgres_changes",
-        { event: "*", schema: "public", table: "orders" },
-        () => {
-          qc.invalidateQueries({ queryKey: ["admin", "clients", "orders"] });
-          qc.invalidateQueries({ queryKey: ["admin", "clients", "items"] });
-        },
-      )
-      .subscribe();
-    return () => {
-      supabase.removeChannel(ch);
-    };
-  }, [qc]);
+  // Orders are refreshed periodically to reflect new entries
+  const ordersRefetch = useQuery({
+    queryKey: ["admin", "clients", "orders-tick"],
+    queryFn: async () => {
+      qc.invalidateQueries({ queryKey: ["admin", "clients", "orders"] });
+      qc.invalidateQueries({ queryKey: ["admin", "clients", "items"] });
+      return Date.now();
+    },
+    refetchInterval: 30000,
+    refetchIntervalInBackground: false,
+  });
+  void ordersRefetch;
+
 
   const updateFn = useServerFn(updateOrderStatus);
   const deleteFn = useServerFn(deleteOrder);
