@@ -211,6 +211,48 @@ function ClientsPage() {
     { label: "Taux conversion", value: `${conversion} %`, icon: MousePointerClick, color: "text-amber-400", bg: "bg-amber-400/10" },
   ];
 
+  // Build daily series for last 14 days from real page_views + orders
+  const chartData = useMemo(() => {
+    const DAYS = 14;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const buckets: Record<
+      string,
+      { date: string; label: string; visiteurs: Set<string>; vues: number; commandes: number }
+    > = {};
+    for (let i = DAYS - 1; i >= 0; i--) {
+      const d = new Date(today);
+      d.setDate(d.getDate() - i);
+      const key = d.toISOString().slice(0, 10);
+      buckets[key] = {
+        date: key,
+        label: d.toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit" }),
+        visiteurs: new Set<string>(),
+        vues: 0,
+        commandes: 0,
+      };
+    }
+    for (const v of views) {
+      const key = new Date(v.created_at).toISOString().slice(0, 10);
+      const b = buckets[key];
+      if (!b) continue;
+      b.vues += 1;
+      if (v.session_id) b.visiteurs.add(v.session_id);
+    }
+    for (const o of orders) {
+      const key = new Date(o.created_at).toISOString().slice(0, 10);
+      const b = buckets[key];
+      if (!b) continue;
+      b.commandes += 1;
+    }
+    return Object.values(buckets).map((b) => ({
+      label: b.label,
+      Visiteurs: b.visiteurs.size,
+      "Pages vues": b.vues,
+      Commandes: b.commandes,
+    }));
+  }, [views, orders]);
+
   const statusLabel = (s: string) =>
     ({
       pending: "En attente",
