@@ -5,7 +5,7 @@ export function Footer() {
     <footer className="mt-32 border-t border-border bg-surface">
       <div className="ruo-stripe border-b border-warning/20">
         <div className="container-prose py-3.5 text-center font-mono text-[10px] uppercase tracking-[0.22em] text-warning">
-          ⚠ Pour motif de recherche uniquement — Pas pour consommation humaine, vétérinaire ou thérapeutique
+          ⚠ Pour motif de recherche uniquement — Pas pour usage vétérinaire, diagnostique ou thérapeutique
         </div>
       </div>
       <div className="container-prose grid gap-12 py-16 md:grid-cols-12">
@@ -75,7 +75,7 @@ export function Footer() {
               vous reconnaissez et acceptez les conditions suivantes :
             </p>
             <ul className="mt-3 space-y-2 text-[12px] leading-relaxed text-muted-foreground">
-              <li><strong className="text-foreground">Utilisation réservée à la recherche :</strong> Tous nos produits sont exclusivement vendus à des fins de recherche. Ils ne sont pas destinés à un usage humain, ni à des applications thérapeutiques, diagnostiques ou cliniques.</li>
+              <li><strong className="text-foreground">Utilisation réservée à la recherche :</strong> Tous nos produits sont exclusivement vendus à des fins de recherche. Ils ne sont pas destinés à un usage vétérinaire, diagnostique, thérapeutique ou clinique.</li>
               <li><strong className="text-foreground">Absence de caractère médical :</strong> Aucun des produits présentés sur notre site n'est un dispositif médical, et ils ne doivent pas être présentés ou utilisés comme tels.</li>
               <li><strong className="text-foreground">Conformité et responsabilité :</strong> L'acheteur est seul responsable du respect de l'ensemble des lois et réglementations applicables. Aetherion-lab.com ne saurait être tenu responsable en cas d'utilisation inappropriée des produits ou de tout préjudice qui en découlerait.</li>
               <li><strong className="text-foreground">Non-retour :</strong> En raison de la nature des produits que nous commercialisons, nous n'acceptons aucun retour.</li>

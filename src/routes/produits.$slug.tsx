@@ -365,7 +365,7 @@ function ProductPage() {
                   Research Use Only — Usage laboratoire exclusif
                 </strong>
                 <p className="mt-2">
-                  Non destiné à un usage humain, vétérinaire, diagnostique ou thérapeutique.
+                  Non destiné à un usage vétérinaire, diagnostique ou thérapeutique.
                   Aucune indication d'utilisation in vivo. Manipulation par personnel qualifié exclusivement.
                 </p>
               </div>

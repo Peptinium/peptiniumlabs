@@ -179,7 +179,7 @@ function AboutPage() {
             },
             {
               t: "Engagement RUO",
-              d: "Nous ne commercialisons nos produits qu'à des chercheurs, laboratoires, CRO ou institutions reconnues. Aucun usage humain, vétérinaire ou diagnostique n'est promu ou supporté.",
+              d: "Nous ne commercialisons nos produits qu'à des chercheurs, laboratoires, CRO ou institutions reconnues. Aucun usage vétérinaire, diagnostique ou thérapeutique n'est promu ou supporté.",
             },
           ].map((b, i) => (
             <Reveal key={b.t} delay={i * 60}>
