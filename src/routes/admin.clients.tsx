@@ -14,7 +14,18 @@ import {
   CheckCircle2,
   Trash2,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import {
+  Area,
+  Bar,
+  CartesianGrid,
+  ComposedChart,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 import { supabase } from "@/integrations/supabase/client";
 import { updateOrderStatus, deleteOrder } from "@/lib/orders.functions";
 import { Button } from "@/components/ui/button";
@@ -91,7 +102,31 @@ function ClientsPage() {
       if (error) throw error;
       return data ?? [];
     },
+    refetchInterval: 30000,
   });
+
+  // Realtime: refresh on new page views & orders
+  useEffect(() => {
+    const ch = supabase
+      .channel("admin-clients-realtime")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "page_views" },
+        () => qc.invalidateQueries({ queryKey: ["admin", "clients", "traffic"] }),
+      )
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "orders" },
+        () => {
+          qc.invalidateQueries({ queryKey: ["admin", "clients", "orders"] });
+          qc.invalidateQueries({ queryKey: ["admin", "clients", "items"] });
+        },
+      )
+      .subscribe();
+    return () => {
+      supabase.removeChannel(ch);
+    };
+  }, [qc]);
 
   const updateFn = useServerFn(updateOrderStatus);
   const deleteFn = useServerFn(deleteOrder);
@@ -175,6 +210,48 @@ function ClientsPage() {
     { label: "Taux conversion", value: `${conversion} %`, icon: MousePointerClick, color: "text-amber-400", bg: "bg-amber-400/10" },
   ];
 
+  // Build daily series for last 14 days from real page_views + orders
+  const chartData = useMemo(() => {
+    const DAYS = 14;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const buckets: Record<
+      string,
+      { date: string; label: string; visiteurs: Set<string>; vues: number; commandes: number }
+    > = {};
+    for (let i = DAYS - 1; i >= 0; i--) {
+      const d = new Date(today);
+      d.setDate(d.getDate() - i);
+      const key = d.toISOString().slice(0, 10);
+      buckets[key] = {
+        date: key,
+        label: d.toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit" }),
+        visiteurs: new Set<string>(),
+        vues: 0,
+        commandes: 0,
+      };
+    }
+    for (const v of views) {
+      const key = new Date(v.created_at).toISOString().slice(0, 10);
+      const b = buckets[key];
+      if (!b) continue;
+      b.vues += 1;
+      if (v.session_id) b.visiteurs.add(v.session_id);
+    }
+    for (const o of orders) {
+      const key = new Date(o.created_at).toISOString().slice(0, 10);
+      const b = buckets[key];
+      if (!b) continue;
+      b.commandes += 1;
+    }
+    return Object.values(buckets).map((b) => ({
+      label: b.label,
+      Visiteurs: b.visiteurs.size,
+      "Pages vues": b.vues,
+      Commandes: b.commandes,
+    }));
+  }, [views, orders]);
+
   const statusLabel = (s: string) =>
     ({
       pending: "En attente",
@@ -200,7 +277,13 @@ function ClientsPage() {
       </div>
 
       <div>
-        <h3 className="mb-2 text-sm font-semibold">Trafic du site (30 derniers jours)</h3>
+        <div className="mb-2 flex items-center justify-between">
+          <h3 className="text-sm font-semibold">Trafic du site (30 derniers jours)</h3>
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-2 py-0.5 text-[10px] font-medium text-emerald-400">
+            <span className="size-1.5 animate-pulse rounded-full bg-emerald-400" />
+            Temps réel
+          </span>
+        </div>
         <div className="grid grid-cols-2 gap-3">
           {trafficStats.map((stat) => {
             const Icon = stat.icon;
@@ -214,6 +297,71 @@ function ClientsPage() {
               </div>
             );
           })}
+        </div>
+
+        <div className="mt-3 rounded-xl border border-border bg-card p-3">
+          <div className="mb-2 flex items-center justify-between">
+            <div>
+              <div className="text-xs font-semibold">Évolution sur 14 jours</div>
+              <div className="text-[10px] text-muted-foreground">
+                Visiteurs uniques, pages vues et commandes par jour
+              </div>
+            </div>
+          </div>
+          <div className="h-64 w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <ComposedChart data={chartData} margin={{ top: 8, right: 8, left: -16, bottom: 0 }}>
+                <defs>
+                  <linearGradient id="gVisits" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="hsl(199 89% 48%)" stopOpacity={0.5} />
+                    <stop offset="100%" stopColor="hsl(199 89% 48%)" stopOpacity={0} />
+                  </linearGradient>
+                  <linearGradient id="gViews" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="hsl(258 90% 66%)" stopOpacity={0.35} />
+                    <stop offset="100%" stopColor="hsl(258 90% 66%)" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
+                <XAxis
+                  dataKey="label"
+                  tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 10 }}
+                  tickLine={false}
+                  axisLine={false}
+                />
+                <YAxis
+                  tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 10 }}
+                  tickLine={false}
+                  axisLine={false}
+                  allowDecimals={false}
+                />
+                <Tooltip
+                  contentStyle={{
+                    background: "hsl(var(--card))",
+                    border: "1px solid hsl(var(--border))",
+                    borderRadius: 8,
+                    fontSize: 12,
+                  }}
+                  labelStyle={{ color: "hsl(var(--foreground))" }}
+                />
+                <Legend wrapperStyle={{ fontSize: 11 }} />
+                <Area
+                  type="monotone"
+                  dataKey="Pages vues"
+                  stroke="hsl(258 90% 66%)"
+                  fill="url(#gViews)"
+                  strokeWidth={2}
+                />
+                <Area
+                  type="monotone"
+                  dataKey="Visiteurs"
+                  stroke="hsl(199 89% 48%)"
+                  fill="url(#gVisits)"
+                  strokeWidth={2}
+                />
+                <Bar dataKey="Commandes" fill="hsl(142 71% 45%)" radius={[4, 4, 0, 0]} barSize={14} />
+              </ComposedChart>
+            </ResponsiveContainer>
+          </div>
         </div>
       </div>
 
