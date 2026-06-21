@@ -1,4 +1,5 @@
-import { createFileRoute, Link, Outlet, useLocation } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet, redirect, useLocation, useNavigate } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import {
   Package,
   CreditCard,
@@ -7,9 +8,19 @@ import {
   HeadphonesIcon,
   Globe,
   Home,
+  LogOut,
 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { amIAdmin } from "@/lib/orders.functions";
 
 export const Route = createFileRoute("/admin")({
+  ssr: false,
+  beforeLoad: async () => {
+    const { data, error } = await supabase.auth.getUser();
+    if (error || !data.user) {
+      throw redirect({ to: "/auth" });
+    }
+  },
   component: AdminLayout,
 });
 
@@ -23,12 +34,62 @@ const navItems = [
 
 function AdminLayout() {
   const location = useLocation();
+  const navigate = useNavigate();
   const currentPath = location.pathname;
+  const [authState, setAuthState] = useState<"checking" | "ok" | "denied">("checking");
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await amIAdmin();
+        if (cancelled) return;
+        setAuthState(res?.isAdmin ? "ok" : "denied");
+      } catch {
+        if (!cancelled) setAuthState("denied");
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const isActive = (path: string) => {
     if (path === "/admin" && currentPath === "/admin") return true;
     return currentPath.startsWith(path) && path !== "/admin";
   };
+
+  if (authState === "checking") {
+    return (
+      <div className="flex h-[100dvh] items-center justify-center bg-background text-sm text-muted-foreground">
+        Vérification de l'accès…
+      </div>
+    );
+  }
+
+  if (authState === "denied") {
+    return (
+      <div className="flex h-[100dvh] items-center justify-center bg-background px-4">
+        <div className="w-full max-w-md rounded-2xl border border-border bg-card p-6 text-center">
+          <h2 className="font-display text-lg font-medium">Accès refusé</h2>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Ce compte n'a pas les droits d'administration. Connecte-toi avec le
+            compte administrateur autorisé.
+          </p>
+          <button
+            onClick={async () => {
+              await supabase.auth.signOut();
+              navigate({ to: "/auth" });
+            }}
+            className="mt-5 inline-flex items-center justify-center gap-2 rounded-lg bg-foreground px-5 py-2.5 text-sm font-medium text-background hover:opacity-90"
+          >
+            <LogOut className="size-4" />
+            Se déconnecter
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex h-[100dvh] flex-col bg-background">
@@ -47,6 +108,16 @@ function AdminLayout() {
           <div className="flex size-8 items-center justify-center rounded-full bg-accent/20">
             <span className="text-xs font-bold text-accent">A</span>
           </div>
+          <button
+            onClick={async () => {
+              await supabase.auth.signOut();
+              navigate({ to: "/auth" });
+            }}
+            className="rounded-lg border border-border p-2 text-muted-foreground hover:bg-surface"
+            aria-label="Se déconnecter"
+          >
+            <LogOut className="size-4" />
+          </button>
         </div>
       </header>
 
