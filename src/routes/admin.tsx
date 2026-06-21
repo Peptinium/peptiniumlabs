@@ -108,6 +108,16 @@ function AdminLayout() {
           <div className="flex size-8 items-center justify-center rounded-full bg-accent/20">
             <span className="text-xs font-bold text-accent">A</span>
           </div>
+          <button
+            onClick={async () => {
+              await supabase.auth.signOut();
+              navigate({ to: "/auth" });
+            }}
+            className="rounded-lg border border-border p-2 text-muted-foreground hover:bg-surface"
+            aria-label="Se déconnecter"
+          >
+            <LogOut className="size-4" />
+          </button>
         </div>
       </header>
 
