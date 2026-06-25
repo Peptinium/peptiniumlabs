@@ -526,10 +526,9 @@ async function buildInvoicePdf(opts: {
   // Client
   draw("FACTURÉ À", 40, 710, 8, helvBold, rgb(0.45, 0.45, 0.5));
   draw(`${opts.order.first_name} ${opts.order.last_name}`, 40, 696, 11, helvBold);
-  draw(opts.order.email, 40, 682, 9);
-  draw(opts.order.address_line, 40, 668, 9);
-  draw(`${opts.order.postal_code} ${opts.order.city}`, 40, 656, 9);
-  draw(opts.order.country, 40, 644, 9);
+  draw(opts.order.address_line, 40, 682, 9);
+  draw(`${opts.order.postal_code} ${opts.order.city}`, 40, 670, 9);
+  draw(opts.order.country, 40, 658, 9);
 
   // Table header
   let y = 600;
