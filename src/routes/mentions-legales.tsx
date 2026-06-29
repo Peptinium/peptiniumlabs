@@ -4,8 +4,8 @@ import { SiteLayout } from "@/components/SiteLayout";
 export const Route = createFileRoute("/mentions-legales")({
   head: () => ({
     meta: [
-      { title: "Mentions légales — Aetherion Labs" },
-      { name: "description", content: "Mentions légales du site Aetherion Labs." },
+      { title: "Mentions légales — Peptinium Labs" },
+      { name: "description", content: "Mentions légales du site Peptinium Labs." },
       { name: "robots", content: "noindex" },
       { property: "og:url", content: "/mentions-legales" },
     ],
@@ -18,7 +18,7 @@ export const Route = createFileRoute("/mentions-legales")({
         <div className="mt-8 space-y-6 text-sm leading-relaxed text-muted-foreground">
           <section>
             <h2 className="text-base font-semibold text-foreground">Éditeur</h2>
-            <p>Aetherion Labs — fournisseur de réactifs de recherche.</p>
+            <p>Peptinium Labs — fournisseur de réactifs de recherche.</p>
           </section>
           <section>
             <h2 className="text-base font-semibold text-foreground">Hébergement</h2>

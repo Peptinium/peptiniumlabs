@@ -35,7 +35,7 @@ export function Header() {
           <Logo />
           <div className="leading-tight">
             <div className="font-display text-[15px] font-medium tracking-tight lg:text-[18px]">
-              Aetherion <span className="text-accent">Labs</span>
+              Peptinium <span className="text-accent">Labs</span>
             </div>
             <div className="font-mono text-[9px] uppercase tracking-[0.22em] text-muted-foreground lg:text-[10px]">
               Peptide de Recherche

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const KEY = "aetherion_ruo_ack_v2";
+const KEY = "peptinium_ruo_ack_v2";
 
 export function RuoModal() {
   const [open, setOpen] = useState(false);
@@ -59,7 +59,7 @@ export function RuoModal() {
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             Avant d'accéder au site, merci de confirmer les points suivants. Les produits de{" "}
-            <strong className="text-foreground">aetherion-lab.com</strong> sont des réactifs
+            <strong className="text-foreground">peptinium-labs.com</strong> sont des réactifs
             chimiques destinés exclusivement à la recherche scientifique en laboratoire.
           </p>
 

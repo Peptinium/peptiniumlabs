@@ -7,7 +7,7 @@ import { submitTicket } from "@/lib/support.functions";
 export const Route = createFileRoute("/support")({
   head: () => ({
     meta: [
-      { title: "Service après-vente — Aetherion Labs" },
+      { title: "Service après-vente — Peptinium Labs" },
       {
         name: "description",
         content:

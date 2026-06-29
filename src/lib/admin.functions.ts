@@ -505,10 +505,10 @@ async function buildInvoicePdf(opts: {
   ) => page.drawText(text, { x, y, size, font, color });
 
   // Header
-  draw("AETHERION", 40, 790, 22, helvBold, rgb(0.06, 0.06, 0.08));
+  draw("PEPTINIUM", 40, 790, 22, helvBold, rgb(0.06, 0.06, 0.08));
   draw("LABS", 158, 790, 22, helv, rgb(0.55, 0.22, 0.12));
   draw("Réactifs peptidiques de recherche (RUO)", 40, 772, 9, helv, rgb(0.45, 0.45, 0.5));
-  draw("contact@aetherion-lab.com  ·  www.aetherion-lab.com", 40, 760, 9);
+  draw("contact@peptinium-labs.com  ·  www.peptinium-labs.com", 40, 760, 9);
 
   draw("FACTURE", 420, 790, 16, helvBold);
   draw(`N° ${opts.invoiceNumber}`, 420, 770, 10, helvBold);
@@ -597,7 +597,7 @@ async function buildInvoicePdf(opts: {
     helv,
     rgb(0.55, 0.55, 0.6),
   );
-  draw("Aetherion Labs — TVA non applicable, art. 293 B du CGI.", 40, 60, 8);
+  draw("Peptinium Labs — TVA non applicable, art. 293 B du CGI.", 40, 60, 8);
   draw(`Paiement par virement bancaire — IBAN FR76 1695 8000 0144 9142 5679 871`, 40, 48, 8);
 
   return await doc.save();

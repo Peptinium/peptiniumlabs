@@ -53,7 +53,7 @@ import {
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
     meta: [
-      { title: "Admin — Aetherion Labs" },
+      { title: "Admin — Peptinium Labs" },
       { name: "robots", content: "noindex,nofollow" },
       { name: "theme-color", content: "#0c0d10" },
     ],
@@ -135,7 +135,7 @@ function AdminPage() {
             <TabIcon className="size-5 text-accent" />
             <div>
               <div className="font-mono text-[9px] uppercase tracking-[0.22em] text-muted-foreground">
-                Aetherion · Admin
+                Peptinium · Admin
               </div>
               <h1 className="font-display text-base font-medium leading-tight">
                 {TABS.find((t) => t.id === tab)?.label}

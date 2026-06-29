@@ -23,7 +23,7 @@ const Email = ({ subject, body, ticketRef }: Props) => (
     <Preview>Réponse à votre demande SAV</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Text style={brand}>AETHERION LABS — Support</Text>
+        <Text style={brand}>PEPTINIUM LABS — Support</Text>
         <Heading style={h1}>{subject ?? 'Réponse à votre demande'}</Heading>
         <Text style={text}>Bonjour,</Text>
         <Text style={text}>
@@ -36,7 +36,7 @@ const Email = ({ subject, body, ticketRef }: Props) => (
         <Text style={text}>
           Vous pouvez répondre à cet email pour poursuivre la conversation.
         </Text>
-        <Text style={footer}>Aetherion Labs — support@aetherion-lab.com</Text>
+        <Text style={footer}>Peptinium Labs — support@peptinium-labs.com</Text>
       </Container>
     </Body>
   </Html>

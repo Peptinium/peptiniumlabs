@@ -100,7 +100,7 @@ function AdminLayout() {
             <Home className="size-4 text-primary-foreground" />
           </div>
           <div>
-            <h1 className="text-sm font-semibold leading-none">Aetherion</h1>
+            <h1 className="text-sm font-semibold leading-none">Peptinium</h1>
             <span className="text-[10px] text-muted-foreground">Admin</span>
           </div>
         </div>

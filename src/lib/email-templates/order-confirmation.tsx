@@ -25,7 +25,7 @@ const Email = ({ customerName, orderNumber, totalEur, items }: Props) => (
     <Preview>Confirmation de votre commande {orderNumber ?? ''}</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Text style={brand}>AETHERION LABS</Text>
+        <Text style={brand}>PEPTINIUM LABS</Text>
         <Heading style={h1}>Commande confirmée</Heading>
         <Text style={text}>
           {customerName ? `Bonjour ${customerName},` : 'Bonjour,'}
@@ -47,7 +47,7 @@ const Email = ({ customerName, orderNumber, totalEur, items }: Props) => (
           Total : <strong>{(totalEur ?? 0).toFixed(2)} €</strong>
         </Text>
         <Text style={footer}>
-          Aetherion Labs — Réactifs peptidiques de recherche.
+          Peptinium Labs — Réactifs peptidiques de recherche.
           Réservé à un usage de laboratoire.
         </Text>
       </Container>

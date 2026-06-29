@@ -17,7 +17,7 @@ import { placeOrder } from "@/lib/orders.functions";
 export const Route = createFileRoute("/panier")({
   head: () => ({
     meta: [
-      { title: "Panier — Aetherion Labs" },
+      { title: "Panier — Peptinium Labs" },
       { name: "description", content: "Finalisez votre commande de réactifs peptidiques de recherche." },
       { name: "robots", content: "noindex,nofollow" },
     ],
@@ -28,7 +28,7 @@ export const Route = createFileRoute("/panier")({
 type Step = "livraison" | "paiement" | "virement" | "confirmation";
 
 const BANK = {
-  beneficiary: "Aetherion",
+  beneficiary: "Peptinium",
   iban: "FR76 1695 8000 0144 9142 5679 871",
   bic: "QNTOFRP1XXX",
 };
@@ -100,7 +100,7 @@ function PanierPage() {
     <SiteLayout>
       <div className="border-b border-border bg-surface">
         <div className="container-prose flex items-center gap-2 py-5 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-          <Link to="/" className="hover:text-foreground">Aetherion</Link>
+          <Link to="/" className="hover:text-foreground">Peptinium</Link>
           <span className="text-border">›</span>
           <span className="text-foreground">Panier</span>
         </div>
@@ -466,7 +466,7 @@ function PaiementBlock({
 
 function CgvFullText() {
   const sections: { h: string; p: string }[] = [
-    { h: "Article 1 – Objet et champ d'application", p: "Les présentes Conditions Générales de Vente (CGV) régissent les relations contractuelles entre le vendeur Aetherion – Micro-entreprise, 75017 Paris, SIRET 102 457 652 00018, TVA non applicable – franchise en base (article 293 B du CGI), et le client professionnel de recherche en laboratoire. Le site propose à la vente des produits chimiques et réactifs destinés exclusivement à la recherche scientifique en laboratoire (usage in vitro uniquement). Toute commande implique l'acceptation sans réserve des présentes CGV." },
+    { h: "Article 1 – Objet et champ d'application", p: "Les présentes Conditions Générales de Vente (CGV) régissent les relations contractuelles entre le vendeur Peptinium – Micro-entreprise, 75017 Paris, SIRET 102 457 652 00018, TVA non applicable – franchise en base (article 293 B du CGI), et le client professionnel de recherche en laboratoire. Le site propose à la vente des produits chimiques et réactifs destinés exclusivement à la recherche scientifique en laboratoire (usage in vitro uniquement). Toute commande implique l'acceptation sans réserve des présentes CGV." },
     { h: "Article 2 – Produits – Usage strictement réservé", p: "Les produits vendus sont strictement destinés à un usage de recherche en laboratoire (Research Use Only – RUO). Ils ne sont ni des médicaments, ni des compléments alimentaires, ni des produits destinés à un usage vétérinaire, diagnostique ou thérapeutique. Le client déclare et garantit qu'il utilise les produits exclusivement dans le cadre de travaux de recherche, d'études ou d'analyses en laboratoire. Le vendeur décline toute responsabilité en cas d'utilisation autre que celle expressément prévue (recherche in vitro), notamment en cas d'administration à des animaux, d'utilisation thérapeutique, cosmétique ou alimentaire." },
     { h: "Article 3 – Commande et acceptation", p: "Le client déclare avoir pris connaissance et accepté les présentes CGV avant de valider sa commande. Toute commande est ferme et définitive dès validation du paiement. Le vendeur se réserve le droit de refuser toute commande s'il a un doute sur l'usage réel qui sera fait des produits. L'acceptation des CGV est matérialisée par le cochement de la case « J'accepte les conditions générales de vente » avant la validation du paiement." },
     { h: "Article 4 – Prix et paiement", p: "Les prix sont indiqués en euros toutes taxes comprises (TTC). La TVA n'est pas applicable – franchise en base (article 293 B du CGI). Le paiement est exigible immédiatement à la commande et s'effectue par les moyens de paiement proposés sur le site." },

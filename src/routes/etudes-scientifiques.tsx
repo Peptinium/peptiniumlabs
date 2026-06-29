@@ -7,11 +7,11 @@ import { products } from "@/data/products";
 export const Route = createFileRoute("/etudes-scientifiques")({
   head: () => ({
     meta: [
-      { title: "Études scientifiques — Références PubMed · Aetherion Labs" },
+      { title: "Études scientifiques — Références PubMed · Peptinium Labs" },
       {
         name: "description",
         content:
-          "Bibliographie scientifique référencée sur PubMed et PMC pour chaque peptide de recherche du catalogue Aetherion Labs.",
+          "Bibliographie scientifique référencée sur PubMed et PMC pour chaque peptide de recherche du catalogue Peptinium Labs.",
       },
       { property: "og:url", content: "/etudes-scientifiques" },
     ],

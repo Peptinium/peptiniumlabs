@@ -6,11 +6,11 @@ import { RuoBadge } from "@/components/RuoBadge";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact laboratoire — Aetherion Labs" },
+      { title: "Contact laboratoire — Peptinium Labs" },
       {
         name: "description",
         content:
-          "Contactez l'équipe Aetherion Labs pour un devis recherche, une documentation technique ou une demande de Certificat d'Analyse (CoA).",
+          "Contactez l'équipe Peptinium Labs pour un devis recherche, une documentation technique ou une demande de Certificat d'Analyse (CoA).",
       },
       { property: "og:url", content: "/contact" },
     ],
@@ -43,11 +43,11 @@ function ContactPage() {
           <dl className="mt-5 space-y-4 text-sm">
             <div>
               <dt className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Email</dt>
-              <dd>research@aetherion-labs.com</dd>
+              <dd>research@peptinium-labs.com</dd>
             </div>
             <div>
               <dt className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Devis & CoA</dt>
-              <dd>quote@aetherion-labs.com</dd>
+              <dd>quote@peptinium-labs.com</dd>
             </div>
             <div>
               <dt className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Horaires</dt>
