@@ -22,9 +22,7 @@ export const Route = createFileRoute("/cgv")({
               Les présentes Conditions Générales de Vente (CGV) régissent les relations contractuelles entre :
             </p>
             <p className="mt-2">
-              <strong>Le vendeur :</strong> Aetherion-lab.com – Micro-entreprise<br />
-              Adresse : 75017 Paris<br />
-              SIRET : 102 457 652 00018<br />
+              <strong>Le vendeur :</strong> Aetherion-lab.com<br />
               N° TVA : Non applicable – franchise en base (article 293 B du CGI)
             </p>
             <p className="mt-2">
