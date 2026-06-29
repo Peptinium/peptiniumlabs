@@ -254,7 +254,7 @@ export const products: Product[] = [
   },
   {
     slug: "tesamoreline",
-    name: "Tésamoréline",
+    name: "Tesamorelin",
     cas: "218949-48-5",
     molecularFormula: "C221H366N72O67S",
     molecularWeight: "5135.8 g/mol",
@@ -266,7 +266,7 @@ export const products: Product[] = [
     researchSummary:
       "Peptide synthétique utilisé comme outil pharmacologique pour l'étude in vitro de la signalisation GHRH-R sur lignées hypophysaires.",
     detailedEffects:
-      "La Tésamoréline est un analogue stabilisé de la GHRH humaine (1-44) protégé contre la dégradation par la DPP-IV grâce à un groupement trans-3-hexenoyl en N-terminal. Les études (PMID 20554713, PMID 18690162, JAMA fullarticle/1889139) ont montré que la Tésamoréline se lie au récepteur GHRH-R des cellules somatotropes hypophysaires, activant la voie Gαs → AMPc → PKA et stimulant la libération pulsatile physiologique de GH endogène. En aval, l'IGF-1 hépatique augmente. Au niveau corporel, les travaux cliniques (population VIH avec lipodystrophie) ont documenté une réduction sélective et significative du tissu adipeux viscéral (−18 % en 26 semaines), sans perte de tissu sous-cutané ni effet majeur sur la glycémie ou la sensibilité à l'insuline. Les études décrivent également une modulation favorable des marqueurs lipidiques (triglycérides à la baisse). " +
+      "La Tesamorelin est un analogue stabilisé de la GHRH humaine (1-44) protégé contre la dégradation par la DPP-IV grâce à un groupement trans-3-hexenoyl en N-terminal. Les études (PMID 20554713, PMID 18690162, JAMA fullarticle/1889139) ont montré que la Tesamorelin se lie au récepteur GHRH-R des cellules somatotropes hypophysaires, activant la voie Gαs → AMPc → PKA et stimulant la libération pulsatile physiologique de GH endogène. En aval, l'IGF-1 hépatique augmente. Au niveau corporel, les travaux cliniques (population VIH avec lipodystrophie) ont documenté une réduction sélective et significative du tissu adipeux viscéral (−18 % en 26 semaines), sans perte de tissu sous-cutané ni effet majeur sur la glycémie ou la sensibilité à l'insuline. Les études décrivent également une modulation favorable des marqueurs lipidiques (triglycérides à la baisse). " +
       RUO_DISCLAIMER,
     storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
     reconstitution: "Eau bactériostatique stérile.",
@@ -480,7 +480,7 @@ export const packs = [
     name: "Pack Recherche — Métabolisme",
     description:
       "Ensemble de réactifs pour l'étude in vitro des récepteurs incrétines et de l'axe somatotrope.",
-    items: ["Retatrutide 10 mg", "Tésamoréline 10 mg", "Eau bactériostatique 30 mL"],
+    items: ["Retatrutide 10 mg", "Tesamorelin 10 mg", "Eau bactériostatique 30 mL"],
     price: 207.9,
     saving: 12,
   },

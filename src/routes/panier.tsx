@@ -33,6 +33,9 @@ const BANK = {
   bic: "QNTOFRP1XXX",
 };
 
+const PROMO_CODE = "WELCOME10";
+const PROMO_RATE = 0.10;
+
 function PanierPage() {
   const cart = useCart();
   const submitOrderFn = useServerFn(placeOrder);
@@ -51,19 +54,27 @@ function PanierPage() {
   const [orderRef, setOrderRef] = useState<string>("");
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [promoApplied, setPromoApplied] = useState(false);
+  const [researchAcceptedAt, setResearchAcceptedAt] = useState<string | null>(null);
+  const [cgvAcceptedAt, setCgvAcceptedAt] = useState<string | null>(null);
 
   const isEmpty = cart.items.length === 0;
   const motif = "ton nom + prénom";
 
   const subtotal = cart.subtotal;
   const shippingFee = subtotal >= FREE_SHIPPING_THRESHOLD || subtotal === 0 ? 0 : SHIPPING;
-  const total = subtotal + shippingFee;
+  const discount = promoApplied ? subtotal * PROMO_RATE : 0;
+  const total = Math.max(0, subtotal - discount + shippingFee);
 
   const handleConfirmPaiement = async () => {
     if (submitting) return;
     setSubmitError(null);
     setSubmitting(true);
     try {
+      const consentNote =
+        `[Certification RUO acceptée le ${researchAcceptedAt ?? new Date().toISOString()}]\n` +
+        `[CGV acceptées le ${cgvAcceptedAt ?? new Date().toISOString()}]` +
+        (promoApplied ? `\n[Code promo ${PROMO_CODE} appliqué : −${(PROMO_RATE * 100).toFixed(0)} %]` : "");
       const res = await submitOrderFn({
         data: {
           shipping: {
@@ -76,6 +87,7 @@ function PanierPage() {
             postal: shipping.postal,
             city: shipping.city,
             country: shipping.country,
+            notes: consentNote,
           },
           items: cart.items.map((it) => ({
             slug: it.slug,
@@ -94,6 +106,7 @@ function PanierPage() {
       setSubmitting(false);
     }
   };
+
 
 
   return (
@@ -124,7 +137,17 @@ function PanierPage() {
               cart={cart}
               subtotal={subtotal}
               shipping={shippingFee}
+              discount={discount}
               total={total}
+              promoApplied={promoApplied}
+              onApplyPromo={(code) => {
+                if (code.trim().toUpperCase() === PROMO_CODE) {
+                  setPromoApplied(true);
+                  return true;
+                }
+                return false;
+              }}
+              onRemovePromo={() => setPromoApplied(false)}
               editable
             />
           </div>
@@ -136,13 +159,19 @@ function PanierPage() {
               onConfirm={handleConfirmPaiement}
               submitting={submitting}
               error={submitError}
+              researchAcceptedAt={researchAcceptedAt}
+              setResearchAcceptedAt={setResearchAcceptedAt}
+              cgvAcceptedAt={cgvAcceptedAt}
+              setCgvAcceptedAt={setCgvAcceptedAt}
             />
 
             <Recap
               cart={cart}
               subtotal={subtotal}
               shipping={shippingFee}
+              discount={discount}
               total={total}
+              promoApplied={promoApplied}
               collapsed
             />
           </div>
@@ -156,6 +185,7 @@ function PanierPage() {
             shippingFee={shippingFee}
             onSignaled={() => setStep("confirmation")}
           />
+
         ) : (
           <ConfirmationBlock
             total={total}
@@ -343,16 +373,28 @@ function PaiementBlock({
   onConfirm,
   submitting = false,
   error = null,
+  researchAcceptedAt,
+  setResearchAcceptedAt,
+  cgvAcceptedAt,
+  setCgvAcceptedAt,
 }: {
   shipping: any;
   onBack: () => void;
   onConfirm: () => void | Promise<void>;
   submitting?: boolean;
   error?: string | null;
+  researchAcceptedAt: string | null;
+  setResearchAcceptedAt: (v: string | null) => void;
+  cgvAcceptedAt: string | null;
+  setCgvAcceptedAt: (v: string | null) => void;
 }) {
   const [method, setMethod] = useState<"bank">("bank");
-  const [acceptedCgv, setAcceptedCgv] = useState(false);
+  const acceptedResearch = !!researchAcceptedAt;
+  const acceptedCgv = !!cgvAcceptedAt;
   const [cgvOpen, setCgvOpen] = useState(false);
+  const fmtTs = (iso: string) =>
+    new Date(iso).toLocaleString("fr-FR", { dateStyle: "short", timeStyle: "medium" });
+
   return (
     <div className="space-y-4">
       <div className="flex items-start gap-3 rounded-2xl border border-success/40 bg-success/5 p-4">
@@ -417,12 +459,31 @@ function PaiementBlock({
         <span><strong className="text-foreground">Transaction sécurisée :</strong> votre paiement est traité avec discrétion par notre partenaire financier certifié.</span>
       </div>
 
+      <div className={`rounded-2xl border p-4 ${acceptedResearch ? "border-success/50 bg-success/5" : "border-border bg-card"}`}>
+        <label className="flex cursor-pointer items-start gap-3">
+          <input
+            type="checkbox"
+            checked={acceptedResearch}
+            onChange={(e) => setResearchAcceptedAt(e.target.checked ? new Date().toISOString() : null)}
+            className="mt-0.5 size-4 shrink-0 cursor-pointer accent-[color:var(--color-accent)]"
+          />
+          <span className="text-sm text-foreground">
+            Je certifie acheter ces composés <strong>exclusivement à des fins de recherche scientifique en laboratoire</strong> (Research Use Only) et m'engage à ne les destiner à <strong>aucun usage humain ou animal</strong>.
+            <span className="mt-1 block font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+              {acceptedResearch
+                ? `✓ Certifié le ${fmtTs(researchAcceptedAt!)}`
+                : "Certification horodatée et conservée comme preuve"}
+            </span>
+          </span>
+        </label>
+      </div>
+
       <div className={`rounded-2xl border p-4 ${acceptedCgv ? "border-success/50 bg-success/5" : "border-border bg-card"}`}>
         <label className="flex cursor-pointer items-start gap-3">
           <input
             type="checkbox"
             checked={acceptedCgv}
-            onChange={(e) => setAcceptedCgv(e.target.checked)}
+            onChange={(e) => setCgvAcceptedAt(e.target.checked ? new Date().toISOString() : null)}
             className="mt-0.5 size-4 shrink-0 cursor-pointer accent-[color:var(--color-accent)]"
           />
           <span className="text-sm text-foreground">
@@ -435,6 +496,11 @@ function PaiementBlock({
               Conditions Générales de Vente
             </button>
             {" "}ci-dessous.
+            <span className="mt-1 block font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+              {acceptedCgv
+                ? `✓ Accepté le ${fmtTs(cgvAcceptedAt!)}`
+                : "Acceptation horodatée et conservée comme preuve"}
+            </span>
           </span>
         </label>
         {cgvOpen && (
@@ -452,7 +518,7 @@ function PaiementBlock({
 
       <button
         onClick={onConfirm}
-        disabled={!acceptedCgv || submitting}
+        disabled={!acceptedCgv || !acceptedResearch || submitting}
         className="group relative w-full overflow-hidden rounded-xl bg-accent px-6 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-background transition-colors hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-50"
       >
         <span className="inline-flex items-center justify-center gap-2">
@@ -460,6 +526,7 @@ function PaiementBlock({
           {submitting ? "Enregistrement…" : "Confirmer la commande"}
         </span>
       </button>
+
     </div>
   );
 }
@@ -495,18 +562,29 @@ function Recap({
   cart,
   subtotal,
   shipping,
+  discount = 0,
   total,
+  promoApplied = false,
+  onApplyPromo,
+  onRemovePromo,
   editable = false,
   collapsed = false,
 }: {
   cart: ReturnType<typeof useCart>;
   subtotal: number;
   shipping: number;
+  discount?: number;
   total: number;
+  promoApplied?: boolean;
+  onApplyPromo?: (code: string) => boolean;
+  onRemovePromo?: () => void;
   editable?: boolean;
   collapsed?: boolean;
 }) {
   const [open, setOpen] = useState(!collapsed);
+  const [promoOpen, setPromoOpen] = useState(false);
+  const [promoInput, setPromoInput] = useState("");
+  const [promoError, setPromoError] = useState<string | null>(null);
   const remaining = Math.max(0, FREE_SHIPPING_THRESHOLD - subtotal);
   const progress = Math.min(100, (subtotal / FREE_SHIPPING_THRESHOLD) * 100);
 
@@ -552,15 +630,71 @@ function Recap({
         </div>
       )}
 
-      <button className="block w-full text-left font-mono text-[11px] uppercase tracking-[0.18em] text-accent underline-offset-4 hover:underline">
-        Saisir un code de réduction
-      </button>
+      {editable && (
+        <div className="rounded-2xl border border-border bg-card p-4">
+          {promoApplied ? (
+            <div className="flex items-center justify-between text-sm">
+              <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-success">
+                ✓ {PROMO_CODE} appliqué (−{(PROMO_RATE * 100).toFixed(0)} %)
+              </span>
+              <button
+                type="button"
+                onClick={() => { onRemovePromo?.(); setPromoInput(""); setPromoError(null); }}
+                className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground hover:text-destructive"
+              >
+                Retirer
+              </button>
+            </div>
+          ) : !promoOpen ? (
+            <button
+              type="button"
+              onClick={() => setPromoOpen(true)}
+              className="block w-full text-left font-mono text-[11px] uppercase tracking-[0.18em] text-accent underline-offset-4 hover:underline"
+            >
+              Saisir un code de réduction
+            </button>
+          ) : (
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                setPromoError(null);
+                const ok = onApplyPromo?.(promoInput) ?? false;
+                if (!ok) setPromoError("Code promo invalide.");
+              }}
+              className="space-y-2"
+            >
+              <div className="flex gap-2">
+                <input
+                  value={promoInput}
+                  onChange={(e) => setPromoInput(e.target.value)}
+                  placeholder="Code de réduction"
+                  className="flex-1 rounded-lg border border-border bg-background px-3 py-2 text-sm uppercase tracking-wider outline-none focus:border-accent"
+                />
+                <button
+                  type="submit"
+                  className="rounded-lg bg-accent px-4 py-2 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-background hover:bg-accent/90"
+                >
+                  Appliquer
+                </button>
+              </div>
+              {promoError && <div className="text-xs text-destructive">{promoError}</div>}
+            </form>
+          )}
+        </div>
+      )}
 
       <div className="space-y-1.5 rounded-2xl border border-border bg-card p-5 text-sm">
         <Row label="Sous-total" value={formatPrice(subtotal)} />
+        {discount > 0 && (
+          <div className="flex items-center justify-between text-success">
+            <span>Remise {PROMO_CODE}</span>
+            <span>−{formatPrice(discount)}</span>
+          </div>
+        )}
         <Row label="Livraison 48-72h" value={shipping === 0 ? "Gratuit" : formatPrice(shipping)} />
         <div className="mt-3 flex items-baseline justify-between border-t border-border pt-3">
           <span className="font-display text-base font-semibold uppercase tracking-[0.12em]">Total</span>
+
           <span className="font-display text-2xl font-medium text-accent">{formatPrice(total)}</span>
         </div>
       </div>

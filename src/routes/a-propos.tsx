@@ -125,7 +125,7 @@ const coas: CoaItem[] = [
     src: coaNad.url,
   },
   {
-    name: "Tésamoréline",
+    name: "Tesamorelin",
     dosage: "10 mg",
     taskNumber: "#77839",
     purity: "99.209 % / 99.305 %",
