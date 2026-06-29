@@ -57,7 +57,7 @@ export const Route = createFileRoute("/produits/$slug")({
       : "";
     return {
       meta: [
-        { title: p ? `${p.name} ${dosages} — Acheter peptide de recherche HPLC ≥ 98 % · Peptinium Labs` : "Produit · Peptinium Labs" },
+        { title: p ? `${p.name} ${dosages} — Acheter peptide de recherche HPLC ≥ 99 % · Peptinium Labs` : "Produit · Peptinium Labs" },
         {
           name: "description",
           content: p

@@ -286,7 +286,7 @@ function TestVialsPage() {
               scientifique in vitro et à un usage exclusivement professionnel et de laboratoire.
             </p>
             <div className="mt-8 flex flex-wrap gap-2">
-              {["HPLC ≥ 98 %", "MS · CoA par lot", "ISO 9001", "RUO strict"].map((t) => (
+              {["HPLC ≥ 99 %", "MS · CoA par lot", "ISO 9001", "RUO strict"].map((t) => (
                 <span
                   key={t}
                   className="rounded-full border border-white/15 bg-white/5 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-white/70 backdrop-blur"

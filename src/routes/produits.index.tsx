@@ -15,7 +15,7 @@ export const Route = createFileRoute("/produits/")({
       {
         name: "description",
         content:
-          "Catalogue complet de peptides de recherche : Retatrutide, GHK-Cu, AHK-Cu, CJC-1295/Ipamorelin, Semax, BPC-157, Melanotan I & II, KLOW, NAD+, Tésamoréline, eau bactériostatique. HPLC ≥ 98 %, CoA, RUO.",
+          "Catalogue complet de peptides de recherche : Retatrutide, GHK-Cu, AHK-Cu, CJC-1295/Ipamorelin, Semax, BPC-157, Melanotan I & II, KLOW, NAD+, Tésamoréline, eau bactériostatique. HPLC ≥ 99 %, CoA, RUO.",
       },
       {
         name: "keywords",
@@ -26,7 +26,7 @@ export const Route = createFileRoute("/produits/")({
       {
         property: "og:description",
         content:
-          "Retatrutide, BPC-157, GHK-Cu, CJC-1295/Ipamorelin, Semax, Melanotan, KLOW, NAD+, Tésamoréline. Pureté HPLC ≥ 98 %, CoA fourni.",
+          "Retatrutide, BPC-157, GHK-Cu, CJC-1295/Ipamorelin, Semax, Melanotan, KLOW, NAD+, Tésamoréline. Pureté HPLC ≥ 99 %, CoA fourni.",
       },
       { property: "og:url", content: `${SITE_URL}/produits` },
       { property: "og:type", content: "website" },
