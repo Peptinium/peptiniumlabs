@@ -562,18 +562,29 @@ function Recap({
   cart,
   subtotal,
   shipping,
+  discount = 0,
   total,
+  promoApplied = false,
+  onApplyPromo,
+  onRemovePromo,
   editable = false,
   collapsed = false,
 }: {
   cart: ReturnType<typeof useCart>;
   subtotal: number;
   shipping: number;
+  discount?: number;
   total: number;
+  promoApplied?: boolean;
+  onApplyPromo?: (code: string) => boolean;
+  onRemovePromo?: () => void;
   editable?: boolean;
   collapsed?: boolean;
 }) {
   const [open, setOpen] = useState(!collapsed);
+  const [promoOpen, setPromoOpen] = useState(false);
+  const [promoInput, setPromoInput] = useState("");
+  const [promoError, setPromoError] = useState<string | null>(null);
   const remaining = Math.max(0, FREE_SHIPPING_THRESHOLD - subtotal);
   const progress = Math.min(100, (subtotal / FREE_SHIPPING_THRESHOLD) * 100);
 
@@ -619,15 +630,71 @@ function Recap({
         </div>
       )}
 
-      <button className="block w-full text-left font-mono text-[11px] uppercase tracking-[0.18em] text-accent underline-offset-4 hover:underline">
-        Saisir un code de réduction
-      </button>
+      {editable && (
+        <div className="rounded-2xl border border-border bg-card p-4">
+          {promoApplied ? (
+            <div className="flex items-center justify-between text-sm">
+              <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-success">
+                ✓ {PROMO_CODE} appliqué (−{(PROMO_RATE * 100).toFixed(0)} %)
+              </span>
+              <button
+                type="button"
+                onClick={() => { onRemovePromo?.(); setPromoInput(""); setPromoError(null); }}
+                className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground hover:text-destructive"
+              >
+                Retirer
+              </button>
+            </div>
+          ) : !promoOpen ? (
+            <button
+              type="button"
+              onClick={() => setPromoOpen(true)}
+              className="block w-full text-left font-mono text-[11px] uppercase tracking-[0.18em] text-accent underline-offset-4 hover:underline"
+            >
+              Saisir un code de réduction
+            </button>
+          ) : (
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                setPromoError(null);
+                const ok = onApplyPromo?.(promoInput) ?? false;
+                if (!ok) setPromoError("Code promo invalide.");
+              }}
+              className="space-y-2"
+            >
+              <div className="flex gap-2">
+                <input
+                  value={promoInput}
+                  onChange={(e) => setPromoInput(e.target.value)}
+                  placeholder="Code de réduction"
+                  className="flex-1 rounded-lg border border-border bg-background px-3 py-2 text-sm uppercase tracking-wider outline-none focus:border-accent"
+                />
+                <button
+                  type="submit"
+                  className="rounded-lg bg-accent px-4 py-2 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-background hover:bg-accent/90"
+                >
+                  Appliquer
+                </button>
+              </div>
+              {promoError && <div className="text-xs text-destructive">{promoError}</div>}
+            </form>
+          )}
+        </div>
+      )}
 
       <div className="space-y-1.5 rounded-2xl border border-border bg-card p-5 text-sm">
         <Row label="Sous-total" value={formatPrice(subtotal)} />
+        {discount > 0 && (
+          <div className="flex items-center justify-between text-success">
+            <span>Remise {PROMO_CODE}</span>
+            <span>−{formatPrice(discount)}</span>
+          </div>
+        )}
         <Row label="Livraison 48-72h" value={shipping === 0 ? "Gratuit" : formatPrice(shipping)} />
         <div className="mt-3 flex items-baseline justify-between border-t border-border pt-3">
           <span className="font-display text-base font-semibold uppercase tracking-[0.12em]">Total</span>
+
           <span className="font-display text-2xl font-medium text-accent">{formatPrice(total)}</span>
         </div>
       </div>
