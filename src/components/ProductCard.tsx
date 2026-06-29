@@ -130,7 +130,7 @@ function getProductImageUrl(slug: Product["slug"], dosage?: string) {
     case "ghk-cu":
       return dosage?.includes("100") ? ghkCu100.url : ghkCu50.url;
     case "ahk-cu":
-      return dosage?.includes("50") ? ahkCu50.url : ahkCu100mg.url;
+      return dosage?.includes("50") ? ahkCu50mg.url : ahkCu100mg.url;
     case "bpc-157":
       return bpc15715.url;
     case "cjc-1295-ipamorelin":
