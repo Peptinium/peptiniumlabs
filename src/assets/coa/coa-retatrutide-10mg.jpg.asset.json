@@ -1,11 +1,11 @@
 {
-  "version": 1,
   "asset_id": "17f025b6-2005-4632-9601-885cdb334b57",
-  "project_id": "3d1c3f71-80bd-41c9-925a-88fd7176bb45",
-  "url": "/__l5e/assets-v1/17f025b6-2005-4632-9601-885cdb334b57/coa-retatrutide-10mg.jpg",
-  "r2_key": "a/v1/3d1c3f71-80bd-41c9-925a-88fd7176bb45/17f025b6-2005-4632-9601-885cdb334b57/coa-retatrutide-10mg.jpg",
-  "original_filename": "coa-retatrutide-10mg.jpg",
-  "size": 156731,
   "content_type": "image/jpeg",
-  "created_at": "2026-06-25T18:16:12Z"
+  "created_at": "2026-06-25T18:16:12Z",
+  "original_filename": "coa-retatrutide-10mg.jpg",
+  "project_id": "ea176868-e777-4e2b-ab6f-cbfa2298cd94",
+  "r2_key": "a/v1/ea176868-e777-4e2b-ab6f-cbfa2298cd94/17f025b6-2005-4632-9601-885cdb334b57/coa-retatrutide-10mg.jpg",
+  "size": 156731,
+  "url": "/__l5e/assets-v1/17f025b6-2005-4632-9601-885cdb334b57/coa-retatrutide-10mg.jpg",
+  "version": 1
 }

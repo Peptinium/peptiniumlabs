@@ -1,11 +1,11 @@
 {
-  "version": 1,
   "asset_id": "f8bb23ee-3726-4648-8b2a-f92b0915be72",
-  "project_id": "3d1c3f71-80bd-41c9-925a-88fd7176bb45",
-  "url": "/__l5e/assets-v1/f8bb23ee-3726-4648-8b2a-f92b0915be72/klow-80mg.png",
-  "r2_key": "a/v1/3d1c3f71-80bd-41c9-925a-88fd7176bb45/f8bb23ee-3726-4648-8b2a-f92b0915be72/klow-80mg.png",
-  "original_filename": "klow-80mg.png",
-  "size": 1390052,
   "content_type": "image/png",
-  "created_at": "2026-06-17T01:28:07Z"
+  "created_at": "2026-06-17T01:28:07Z",
+  "original_filename": "klow-80mg.png",
+  "project_id": "ea176868-e777-4e2b-ab6f-cbfa2298cd94",
+  "r2_key": "a/v1/ea176868-e777-4e2b-ab6f-cbfa2298cd94/f8bb23ee-3726-4648-8b2a-f92b0915be72/klow-80mg.png",
+  "size": 1390052,
+  "url": "/__l5e/assets-v1/f8bb23ee-3726-4648-8b2a-f92b0915be72/klow-80mg.png",
+  "version": 1
 }

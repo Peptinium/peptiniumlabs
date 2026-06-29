@@ -1,11 +1,11 @@
 {
-  "version": 1,
   "asset_id": "e4cf0872-bc23-4745-bbda-9159fac721e2",
-  "project_id": "3d1c3f71-80bd-41c9-925a-88fd7176bb45",
-  "url": "/__l5e/assets-v1/e4cf0872-bc23-4745-bbda-9159fac721e2/retatrutide-20mg.png",
-  "r2_key": "a/v1/3d1c3f71-80bd-41c9-925a-88fd7176bb45/e4cf0872-bc23-4745-bbda-9159fac721e2/retatrutide-20mg.png",
-  "original_filename": "retatrutide-20mg.png",
-  "size": 1347953,
   "content_type": "image/png",
-  "created_at": "2026-06-17T01:27:44Z"
+  "created_at": "2026-06-17T01:27:44Z",
+  "original_filename": "retatrutide-20mg.png",
+  "project_id": "ea176868-e777-4e2b-ab6f-cbfa2298cd94",
+  "r2_key": "a/v1/ea176868-e777-4e2b-ab6f-cbfa2298cd94/e4cf0872-bc23-4745-bbda-9159fac721e2/retatrutide-20mg.png",
+  "size": 1347953,
+  "url": "/__l5e/assets-v1/e4cf0872-bc23-4745-bbda-9159fac721e2/retatrutide-20mg.png",
+  "version": 1
 }

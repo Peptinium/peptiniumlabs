@@ -1,11 +1,11 @@
 {
-  "version": 1,
   "asset_id": "8ec2fe68-fdeb-4106-8766-1d2ebc627a9d",
-  "project_id": "3d1c3f71-80bd-41c9-925a-88fd7176bb45",
-  "url": "/__l5e/assets-v1/8ec2fe68-fdeb-4106-8766-1d2ebc627a9d/coa-cjc-1295-ipamorelin.jpg",
-  "r2_key": "a/v1/3d1c3f71-80bd-41c9-925a-88fd7176bb45/8ec2fe68-fdeb-4106-8766-1d2ebc627a9d/coa-cjc-1295-ipamorelin.jpg",
-  "original_filename": "coa-cjc-1295-ipamorelin.jpg",
-  "size": 139345,
   "content_type": "image/jpeg",
-  "created_at": "2026-06-25T18:15:58Z"
+  "created_at": "2026-06-25T18:15:58Z",
+  "original_filename": "coa-cjc-1295-ipamorelin.jpg",
+  "project_id": "ea176868-e777-4e2b-ab6f-cbfa2298cd94",
+  "r2_key": "a/v1/ea176868-e777-4e2b-ab6f-cbfa2298cd94/8ec2fe68-fdeb-4106-8766-1d2ebc627a9d/coa-cjc-1295-ipamorelin.jpg",
+  "size": 139345,
+  "url": "/__l5e/assets-v1/8ec2fe68-fdeb-4106-8766-1d2ebc627a9d/coa-cjc-1295-ipamorelin.jpg",
+  "version": 1
 }

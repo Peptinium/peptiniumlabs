@@ -1,11 +1,11 @@
 {
-  "version": 1,
   "asset_id": "eea1f18d-6209-4919-bba3-a9678cd2b292",
-  "project_id": "3d1c3f71-80bd-41c9-925a-88fd7176bb45",
-  "url": "/__l5e/assets-v1/eea1f18d-6209-4919-bba3-a9678cd2b292/coa-klow.jpg",
-  "r2_key": "a/v1/3d1c3f71-80bd-41c9-925a-88fd7176bb45/eea1f18d-6209-4919-bba3-a9678cd2b292/coa-klow.jpg",
-  "original_filename": "coa-klow.jpg",
-  "size": 167942,
   "content_type": "image/jpeg",
-  "created_at": "2026-06-25T18:16:01Z"
+  "created_at": "2026-06-25T18:16:01Z",
+  "original_filename": "coa-klow.jpg",
+  "project_id": "ea176868-e777-4e2b-ab6f-cbfa2298cd94",
+  "r2_key": "a/v1/ea176868-e777-4e2b-ab6f-cbfa2298cd94/eea1f18d-6209-4919-bba3-a9678cd2b292/coa-klow.jpg",
+  "size": 167942,
+  "url": "/__l5e/assets-v1/eea1f18d-6209-4919-bba3-a9678cd2b292/coa-klow.jpg",
+  "version": 1
 }
