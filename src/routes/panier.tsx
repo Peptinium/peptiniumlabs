@@ -33,6 +33,9 @@ const BANK = {
   bic: "QNTOFRP1XXX",
 };
 
+const PROMO_CODE = "WELCOME10";
+const PROMO_RATE = 0.10;
+
 function PanierPage() {
   const cart = useCart();
   const submitOrderFn = useServerFn(placeOrder);
@@ -51,19 +54,27 @@ function PanierPage() {
   const [orderRef, setOrderRef] = useState<string>("");
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [promoApplied, setPromoApplied] = useState(false);
+  const [researchAcceptedAt, setResearchAcceptedAt] = useState<string | null>(null);
+  const [cgvAcceptedAt, setCgvAcceptedAt] = useState<string | null>(null);
 
   const isEmpty = cart.items.length === 0;
   const motif = "ton nom + prénom";
 
   const subtotal = cart.subtotal;
   const shippingFee = subtotal >= FREE_SHIPPING_THRESHOLD || subtotal === 0 ? 0 : SHIPPING;
-  const total = subtotal + shippingFee;
+  const discount = promoApplied ? subtotal * PROMO_RATE : 0;
+  const total = Math.max(0, subtotal - discount + shippingFee);
 
   const handleConfirmPaiement = async () => {
     if (submitting) return;
     setSubmitError(null);
     setSubmitting(true);
     try {
+      const consentNote =
+        `[Certification RUO acceptée le ${researchAcceptedAt ?? new Date().toISOString()}]\n` +
+        `[CGV acceptées le ${cgvAcceptedAt ?? new Date().toISOString()}]` +
+        (promoApplied ? `\n[Code promo ${PROMO_CODE} appliqué : −${(PROMO_RATE * 100).toFixed(0)} %]` : "");
       const res = await submitOrderFn({
         data: {
           shipping: {
@@ -76,6 +87,7 @@ function PanierPage() {
             postal: shipping.postal,
             city: shipping.city,
             country: shipping.country,
+            notes: consentNote,
           },
           items: cart.items.map((it) => ({
             slug: it.slug,
@@ -94,6 +106,7 @@ function PanierPage() {
       setSubmitting(false);
     }
   };
+
 
 
   return (
