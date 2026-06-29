@@ -25,7 +25,7 @@ export const Route = createFileRoute("/admin")({
 });
 
 const navItems = [
-  { to: "/admin/commandes" as const, label: "Commandes", icon: Package },
+  { to: "/admin" as const, label: "Commandes", icon: Package },
   { to: "/admin/paiements" as const, label: "Paiements", icon: CreditCard },
   { to: "/admin/stocks" as const, label: "Stocks", icon: Warehouse },
   { to: "/admin/clients" as const, label: "Clients", icon: Users },
@@ -93,7 +93,6 @@ function AdminLayout() {
 
   return (
     <div className="flex h-[100dvh] flex-col bg-background">
-      {/* Header */}
       <header className="flex items-center justify-between border-b border-border bg-card px-4 py-3">
         <div className="flex items-center gap-2">
           <div className="flex size-8 items-center justify-center rounded-lg bg-primary">
@@ -121,12 +120,10 @@ function AdminLayout() {
         </div>
       </header>
 
-      {/* Content */}
       <main className="flex-1 overflow-y-auto">
         <Outlet />
       </main>
 
-      {/* Bottom Navigation */}
       <nav className="shrink-0 border-t border-border bg-card pb-[env(safe-area-inset-bottom)]">
         <div className="flex items-center justify-around">
           {navItems.map((item) => {
@@ -137,9 +134,7 @@ function AdminLayout() {
                 key={item.to}
                 to={item.to}
                 className={`flex flex-col items-center gap-0.5 px-2 py-2 transition-colors ${
-                  active
-                    ? "text-primary"
-                    : "text-muted-foreground hover:text-foreground"
+                  active ? "text-primary" : "text-muted-foreground hover:text-foreground"
                 }`}
               >
                 <div
@@ -156,7 +151,6 @@ function AdminLayout() {
             );
           })}
 
-          {/* Site Web — bouton distinct à droite */}
           <Link
             to="/admin/site-web"
             className={`flex flex-col items-center gap-0.5 px-2 py-2 transition-colors ${
