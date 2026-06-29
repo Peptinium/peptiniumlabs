@@ -86,31 +86,48 @@
 :root {
   --radius: 6px;
   --background: oklch(1 0 0);
-  --surface: oklch(0.985 0.003 230);
-  --surface-2: oklch(0.965 0.006 230);
-  --ink: oklch(0.18 0.04 245);
-  --foreground: oklch(0.18 0.04 245);
+  --surface: oklch(0.985 0.005 230);
+  --surface-2: oklch(0.965 0.008 240);
+  --ink: oklch(0.18 0.05 270);
+  --foreground: oklch(0.18 0.05 270);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.18 0.04 245);
+  --card-foreground: oklch(0.18 0.05 270);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.18 0.04 245);
-  --primary: oklch(0.22 0.06 250);
+  --popover-foreground: oklch(0.18 0.05 270);
+  /* Peptinium brand: cyan → blue → violet → magenta */
+  --brand-cyan: oklch(0.81 0.13 200);
+  --brand-blue: oklch(0.61 0.18 260);
+  --brand-violet: oklch(0.50 0.26 296);
+  --brand-magenta: oklch(0.65 0.24 0);
+  --gradient-brand: linear-gradient(135deg, var(--brand-cyan) 0%, var(--brand-blue) 35%, var(--brand-violet) 70%, var(--brand-magenta) 100%);
+  --primary: oklch(0.50 0.26 296);
   --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.965 0.006 230);
-  --secondary-foreground: oklch(0.22 0.06 250);
-  --muted: oklch(0.965 0.006 230);
-  --muted-foreground: oklch(0.5 0.02 240);
-  --accent: oklch(0.7 0.12 200);
-  --accent-foreground: oklch(0.12 0.04 245);
+  --secondary: oklch(0.965 0.008 240);
+  --secondary-foreground: oklch(0.22 0.06 280);
+  --muted: oklch(0.965 0.008 240);
+  --muted-foreground: oklch(0.5 0.03 270);
+  --accent: oklch(0.78 0.14 200);
+  --accent-foreground: oklch(0.18 0.05 270);
   --warning: oklch(0.55 0.18 38);
   --warning-foreground: oklch(0.99 0 0);
   --success: oklch(0.62 0.16 155);
   --success-foreground: oklch(0.99 0 0);
   --destructive: oklch(0.55 0.22 27);
   --destructive-foreground: oklch(0.99 0 0);
-  --border: oklch(0.92 0.005 240);
-  --input: oklch(0.92 0.005 240);
-  --ring: oklch(0.7 0.12 200);
+  --border: oklch(0.92 0.008 260);
+  --input: oklch(0.92 0.008 260);
+  --ring: oklch(0.61 0.18 260);
+}
+
+@utility brand-gradient-text {
+  background: var(--gradient-brand);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+@utility brand-gradient-bg {
+  background: var(--gradient-brand);
 }
 
 @layer base {
