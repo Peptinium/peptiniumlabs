@@ -259,10 +259,7 @@ export const products: Product[] = [
     molecularFormula: "C221H366N72O67S",
     molecularWeight: "5135.8 g/mol",
     purity: "≥ 99.0 % (HPLC)",
-    variants: [
-      { dosage: "5 mg", price: 79.99 },
-      { dosage: "10 mg", price: 129.99, soldOut: true },
-    ],
+    variants: [{ dosage: "10 mg", price: 119.0 }],
     category: "Croissance",
     shortDescription:
       "Analogue stabilisé du GHRH — outil de référence pour la caractérisation in vitro du récepteur GHRH-R.",
