@@ -291,7 +291,8 @@ function ProductPage() {
                 </div>
               </div>
 
-              {/* Solvent toggle */}
+              {/* Solvent toggle — hidden on the solvent product itself */}
+              {product.slug !== "eau-bacteriostatique" && (
               <div className="mt-5 flex items-center gap-4 rounded-xl border border-border bg-card p-4">
                 <div className="grid size-11 place-items-center rounded-lg border border-border bg-surface text-accent">
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -327,6 +328,7 @@ function ProductPage() {
                   </button>
                 </div>
               </div>
+              )}
 
               {/* Qty + total */}
               <div className="mt-6 flex items-center justify-between border-t border-border pt-6">
