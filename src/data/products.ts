@@ -288,6 +288,7 @@ export const products: Product[] = [
     storage: "Température ambiante (15–25 °C), à l'abri de la lumière.",
     reconstitution: "Prêt à l'emploi — prélever avec une seringue stérile.",
     references: [],
+  },
   {
     slug: "dsip",
     name: "DSIP",
