@@ -288,6 +288,185 @@ export const products: Product[] = [
     storage: "Température ambiante (15–25 °C), à l'abri de la lumière.",
     reconstitution: "Prêt à l'emploi — prélever avec une seringue stérile.",
     references: [],
+  {
+    slug: "dsip",
+    name: "DSIP",
+    cas: "62568-57-4",
+    molecularFormula: "C35H48N10O15",
+    molecularWeight: "848.81 g/mol",
+    purity: "≥ 99.0 % (HPLC)",
+    variants: [{ dosage: "10 mg", price: 39.0 }],
+    category: "Cognitif",
+    shortDescription:
+      "Delta Sleep-Inducing Peptide — nonapeptide étudié in vitro pour ses effets sur les rythmes circadiens et le stress oxydatif.",
+    researchSummary:
+      "Nonapeptide endogène utilisé comme outil de recherche in vitro pour la caractérisation de la modulation du sommeil delta et des réponses au stress.",
+    detailedEffects:
+      "Le DSIP (Delta Sleep-Inducing Peptide) est un nonapeptide isolé du sang de lapin en sommeil delta induit. Les études (PMID 6087901, PMID 6504737) décrivent une modulation des ondes EEG delta dans des modèles précliniques, une atténuation de la libération de somatostatine et une stimulation modeste de la GH. Au niveau hormonal, les travaux observent une réduction du cortisol basal, une normalisation de l'axe HPA en condition de stress chronique et une augmentation transitoire de la LH. In vitro, le DSIP montre des propriétés antioxydantes (réduction de la peroxydation lipidique, augmentation de la SOD et de la catalase). Des effets neuroprotecteurs et anti-nociceptifs ont également été documentés. " +
+      RUO_DISCLAIMER,
+    storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
+    reconstitution: "Eau bactériostatique stérile.",
+    references: [pubmed("6087901"), pubmed("6504737")],
+  },
+  {
+    slug: "epithalon",
+    name: "Epithalon",
+    cas: "307297-39-8",
+    molecularFormula: "C14H22N4O9",
+    molecularWeight: "390.35 g/mol",
+    purity: "≥ 99.0 % (HPLC)",
+    variants: [{ dosage: "10 mg", price: 44.0 }],
+    category: "Anti-âge",
+    shortDescription:
+      "Tétrapeptide (Ala-Glu-Asp-Gly) — outil de recherche in vitro sur l'activité télomérase et la sénescence cellulaire.",
+    researchSummary:
+      "Peptide synthétique utilisé comme outil expérimental pour l'étude in vitro de l'expression de la télomérase (hTERT) et de la pinéale.",
+    detailedEffects:
+      "L'Epithalon (Epitalon) est un tétrapeptide synthétique inspiré de l'Epithalamine pinéale. Les études (PMID 12937682, PMID 14708087) décrivent une stimulation de l'expression de la sous-unité catalytique de la télomérase (hTERT) et un allongement des télomères dans des cultures de fibroblastes humains. Au niveau hormonal, les travaux observent une normalisation du rythme circadien de la mélatonine, une restauration partielle de la fonction pinéale sénescente et une modulation de l'axe gonadotrope chez le rat âgé. Des effets sur la sénescence cellulaire (réduction de p21, β-galactosidase associée à la sénescence) et une activité antioxydante ont également été rapportés in vitro. " +
+      RUO_DISCLAIMER,
+    storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
+    reconstitution: "Eau bactériostatique stérile.",
+    references: [pubmed("12937682"), pubmed("14708087")],
+  },
+  {
+    slug: "kpv",
+    name: "KPV",
+    cas: "67727-97-3",
+    molecularFormula: "C19H26N4O4",
+    molecularWeight: "390.43 g/mol",
+    purity: "≥ 99.0 % (HPLC)",
+    variants: [{ dosage: "10 mg", price: 44.0 }],
+    category: "Réparation",
+    shortDescription:
+      "Tripeptide C-terminal de l'α-MSH (Lys-Pro-Val) — outil d'étude in vitro de la voie NF-κB.",
+    researchSummary:
+      "Tripeptide utilisé comme outil expérimental pour l'inhibition de la voie pro-inflammatoire NF-κB dans les modèles cellulaires.",
+    detailedEffects:
+      "Le KPV est le tripeptide C-terminal de l'α-MSH (résidus 11-13). Contrairement à l'α-MSH entière, il ne présente pas d'affinité significative pour les récepteurs mélanocortines et agit principalement en intracellulaire. Les études (PMID 18789754, PMC2241650) décrivent une inhibition de la voie NF-κB par interaction avec les sous-unités p65/p50, conduisant à une réduction de la production des cytokines pro-inflammatoires IL-1β, TNF-α, IL-6 et IL-8. In vitro, le KPV diminue la chimiotaxie des neutrophiles et la phosphorylation de l'IκB. Des effets antimicrobiens directs et une modulation de la barrière épithéliale intestinale (renforcement des jonctions serrées) ont également été documentés. Aucun effet hormonal n'est rapporté. " +
+      RUO_DISCLAIMER,
+    storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
+    reconstitution: "Eau bactériostatique stérile.",
+    references: [pubmed("18789754"), pmc("PMC2241650")],
+  },
+  {
+    slug: "mots-c",
+    name: "MOTS-c",
+    cas: "1627580-64-6",
+    molecularFormula: "C82H133N21O22S2",
+    molecularWeight: "1820.2 g/mol",
+    purity: "≥ 99.0 % (HPLC)",
+    variants: [{ dosage: "10 mg", price: 69.0 }],
+    category: "Anti-âge",
+    shortDescription:
+      "Peptide mitochondrial codé par l'ADN mitochondrial (16S rRNA) — outil d'étude in vitro du métabolisme AMPK / glucose.",
+    researchSummary:
+      "Peptide d'origine mitochondriale utilisé comme outil de recherche in vitro pour la voie AMPK et la sensibilité à l'insuline.",
+    detailedEffects:
+      "Le MOTS-c (Mitochondrial Open Reading frame of the Twelve S rRNA-c) est un peptide de 16 acides aminés codé par l'ARN ribosomal 12S mitochondrial. Les études (PMID 25738459, PMC4753972) décrivent une activation de la voie AMPK indépendante du ratio AMP/ATP, conduisant à une augmentation de la capture du glucose musculaire, une stimulation de la β-oxydation des acides gras et une inhibition de la lipogenèse hépatique. Au niveau hormonal, les travaux observent une amélioration de la sensibilité à l'insuline, une réduction de l'hyperglycémie induite par un régime hypercalorique et une modulation de l'axe folate-méthionine via la voie AICAR. Une translocation nucléaire du MOTS-c en condition de stress métabolique régule l'expression de gènes de réponse antioxydante. " +
+      RUO_DISCLAIMER,
+    storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
+    reconstitution: "Eau bactériostatique stérile.",
+    references: [pubmed("25738459"), pmc("PMC4753972")],
+  },
+  {
+    slug: "oxytocin",
+    name: "Oxytocine",
+    cas: "50-56-6",
+    molecularFormula: "C43H66N12O12S2",
+    molecularWeight: "1007.19 g/mol",
+    purity: "≥ 99.0 % (HPLC)",
+    variants: [{ dosage: "10 mg", price: 49.0 }],
+    category: "Cognitif",
+    shortDescription:
+      "Nonapeptide cyclique — outil de référence pour l'étude in vitro du récepteur OXTR.",
+    researchSummary:
+      "Hormone neurohypophysaire utilisée comme ligand de référence dans la caractérisation in vitro du récepteur ocytocine.",
+    detailedEffects:
+      "L'ocytocine est un nonapeptide cyclique synthétisé par les noyaux paraventriculaire et supraoptique de l'hypothalamus. Les études (PMID 21750565, PMC3656338) décrivent une activation du récepteur OXTR couplé à Gαq, conduisant à une mobilisation du calcium intracellulaire via la voie PLC/IP3. Au niveau hormonal et comportemental, les travaux documentent une modulation des comportements sociaux et affiliatifs, une réduction de l'amygdale en réponse au stress social, une diminution du cortisol et une modulation de la sérotonine et de la dopamine. Sur le plan périphérique, l'OXTR est présent dans l'utérus, les glandes mammaires et les ostéoclastes ; in vitro, l'ocytocine module le remodelage osseux et la prolifération des cellules β pancréatiques. " +
+      RUO_DISCLAIMER,
+    storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
+    reconstitution: "Eau bactériostatique stérile.",
+    references: [pubmed("21750565"), pmc("PMC3656338")],
+  },
+  {
+    slug: "pt-141",
+    name: "PT-141",
+    cas: "189691-06-3",
+    molecularFormula: "C50H68N14O10",
+    molecularWeight: "1025.18 g/mol",
+    purity: "≥ 99.0 % (HPLC)",
+    variants: [{ dosage: "10 mg", price: 54.0 }],
+    category: "Mélanocortine",
+    shortDescription:
+      "Bremelanotide — analogue sélectif MC4R/MC3R, outil d'étude in vitro de l'axe mélanocortinergique central.",
+    researchSummary:
+      "Heptapeptide cyclique utilisé comme outil pharmacologique pour la signalisation MC4R sur les neurones hypothalamiques.",
+    detailedEffects:
+      "Le PT-141 (Bremelanotide) est un heptapeptide cyclique dérivé du Melanotan II avec une sélectivité accrue pour les récepteurs MC4R et MC3R, et une affinité réduite pour MC1R (donc effet pigmentaire minimal). Les études (PMID 18684229, PMC5310636) caractérisent une activation des neurones pro-opiomélanocortinergiques du noyau paraventriculaire hypothalamique, modulant la libération centrale d'oxyde nitrique et de dopamine. Au niveau hormonal, contrairement aux composés vasoactifs, le PT-141 agit par voie centrale sans modifier significativement la pression artérielle systémique aux doses pharmacologiques. Les travaux décrivent une stimulation du comportement copulatoire dans des modèles précliniques et un effet sur la satiété via la voie MC4R-leptine. " +
+      RUO_DISCLAIMER,
+    storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
+    reconstitution: "Eau bactériostatique stérile.",
+    references: [pubmed("18684229"), pmc("PMC5310636")],
+  },
+  {
+    slug: "selank",
+    name: "Selank",
+    cas: "129954-34-3",
+    molecularFormula: "C33H57N11O9",
+    molecularWeight: "751.88 g/mol",
+    purity: "≥ 99.0 % (HPLC)",
+    variants: [{ dosage: "5 mg", price: 44.0 }],
+    category: "Cognitif",
+    shortDescription:
+      "Heptapeptide analogue de la tuftsine — outil d'étude in vitro des voies GABAergique et anxiolytique.",
+    researchSummary:
+      "Peptide synthétique russe utilisé comme outil expérimental pour la modulation de l'expression du BDNF et du système GABA.",
+    detailedEffects:
+      "Le Selank est un heptapeptide synthétique dérivé de la tuftsine (Thr-Lys-Pro-Arg) stabilisée par l'ajout du tripeptide Pro-Gly-Pro. Les études (PMID 26228446, PMID 21390649) décrivent une modulation de l'expression hippocampique du BDNF et du NGF, ainsi qu'une potentialisation de la transmission GABAergique sans affinité directe pour le récepteur GABA-A (contrairement aux benzodiazépines). Au niveau hormonal, les travaux observent une réduction modérée du cortisol en condition de stress aigu, une modulation de la sérotonine et de la noradrénaline, et une augmentation de l'enképhaline endogène. Des effets anxiolytiques sans sédation, antidépresseurs et immunomodulateurs (modulation IL-6 et IFN-α) sont documentés dans des modèles précliniques et études cliniques russes. " +
+      RUO_DISCLAIMER,
+    storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
+    reconstitution: "Eau bactériostatique stérile.",
+    references: [pubmed("26228446"), pubmed("21390649")],
+  },
+  {
+    slug: "snap-8",
+    name: "SNAP-8",
+    cas: "868844-74-0",
+    molecularFormula: "C40H67N11O13",
+    molecularWeight: "910.03 g/mol",
+    purity: "≥ 98.5 % (HPLC)",
+    variants: [{ dosage: "10 mg", price: 49.0 }],
+    category: "Réparation",
+    shortDescription:
+      "Octapeptide-mimétique du domaine N-terminal de la SNAP-25 — outil d'étude in vitro du complexe SNARE.",
+    researchSummary:
+      "Peptide synthétique utilisé comme outil de recherche in vitro pour la modulation de l'exocytose neuronale et du complexe SNARE.",
+    detailedEffects:
+      "Le SNAP-8 est un octapeptide mimétique du domaine N-terminal de la protéine SNAP-25, composante essentielle du complexe SNARE qui régule la fusion des vésicules synaptiques avec la membrane présynaptique. Les études in vitro (PMID 16641057) décrivent une compétition partielle avec la SNAP-25 endogène, réduisant la formation du complexe SNARE et atténuant la libération calcium-dépendante des neurotransmetteurs. Au niveau cutané, les modèles précliniques rapportent une réduction transitoire des contractions musculaires faciales (effet myorelaxant local) sans diffusion systémique. Aucun effet hormonal n'a été documenté. " +
+      RUO_DISCLAIMER,
+    storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
+    reconstitution: "Eau bactériostatique stérile.",
+    references: [pubmed("16641057")],
+  },
+  {
+    slug: "tb-500",
+    name: "TB-500",
+    cas: "77591-33-4",
+    molecularFormula: "C212H350N56O78S",
+    molecularWeight: "4963.4 g/mol",
+    purity: "≥ 99.0 % (HPLC)",
+    variants: [{ dosage: "5 mg", price: 54.0 }],
+    category: "Réparation",
+    shortDescription:
+      "Fragment synthétique de la Thymosine β4 — outil d'étude in vitro de la migration cellulaire et de l'angiogenèse.",
+    researchSummary:
+      "Peptide synthétique correspondant à un fragment actif de la Thymosine β4, utilisé pour l'étude in vitro de la séquestration de la G-actine.",
+    detailedEffects:
+      "Le TB-500 reproduit la séquence active de la Thymosine β4 (Tβ4), peptide endogène impliqué dans la régulation du cytosquelette d'actine. Les études (PMID 22315649, PMC3679553) décrivent une séquestration de la G-actine, modulant la polymérisation en F-actine et favorisant la migration cellulaire (kératinocytes, cellules endothéliales, cellules souches). Au niveau angiogénique, le TB-500 stimule la formation de tubes capillaires par les HUVEC et active la voie PINCH-ILK-α-parvin. Les modèles précliniques décrivent une accélération de la cicatrisation cutanée, cardiaque et tendineuse, ainsi qu'une modulation des cytokines pro-inflammatoires. Aucun effet hormonal direct n'est rapporté. " +
+      RUO_DISCLAIMER,
+    storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
+    reconstitution: "Eau bactériostatique stérile.",
+    references: [pubmed("22315649"), pmc("PMC3679553")],
   },
 ];
 
