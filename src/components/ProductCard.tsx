@@ -38,6 +38,7 @@ type ProductVisualProps = {
 export function ProductCard({ product }: { product: Product }) {
   const hasMultiple = product.variants.length > 1;
   const price = minPrice(product);
+  const allSoldOut = product.variants.every((v) => v.soldOut);
 
   return (
     <Link
@@ -58,6 +59,11 @@ export function ProductCard({ product }: { product: Product }) {
           {hasMultiple ? <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-muted-foreground">dès </span> : null}
           {formatPrice(price)}
         </div>
+        {allSoldOut && (
+          <div className="absolute left-3 top-3 rounded-full border border-warning/40 bg-warning/15 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.18em] text-warning backdrop-blur-sm">
+            Rupture de stock
+          </div>
+        )}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-background/35 via-background/8 to-transparent" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
       </div>
