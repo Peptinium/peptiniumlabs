@@ -11,7 +11,7 @@ import {
   MessageSquare,
   Send,
 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { type ReactNode, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { listTickets, replyTicket, updateTicket } from "@/lib/admin.functions";
