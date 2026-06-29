@@ -57,19 +57,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const eauItem = items.find((i) => i.slug === EAU_SLUG);
 
-  // Clamp eau qty to peptideCount on changes
-  useEffect(() => {
-    if (!hydrated) return;
-    if (eauItem && eauItem.qty > peptideCount) {
-      if (peptideCount === 0) {
-        setItems((prev) => prev.filter((i) => i.slug !== EAU_SLUG));
-      } else {
-        setItems((prev) =>
-          prev.map((i) => (i.slug === EAU_SLUG ? { ...i, qty: peptideCount } : i)),
-        );
-      }
-    }
-  }, [peptideCount, eauItem, hydrated]);
+  // Note: eau bactériostatique can be purchased standalone, so we don't auto-clamp here.
 
   const ctx: CartCtx = useMemo(() => {
     const add: CartCtx["add"] = (item, qty = 1) => {
