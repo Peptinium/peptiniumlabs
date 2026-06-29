@@ -8,7 +8,6 @@ import mt110 from "@/assets/products/Melanotan_1_10mg.png.asset.json";
 import mt210mg from "@/assets/products/Melanotan_2_10mg.png.asset.json";
 import ghkCu50 from "@/assets/products/GHK_CU_50mg.png.asset.json";
 import ghkCu100 from "@/assets/products/GHK_CU_100mg.png.asset.json";
-import tesa5mg from "@/assets/products/tesamoreline-5mg.png.asset.json";
 import tesa10mg from "@/assets/products/Tesamorelin_10mg.png.asset.json";
 import nad1000 from "@/assets/products/NAD_1000mg.png.asset.json";
 import klow80mg from "@/assets/products/KLOW_80mg.png.asset.json";
@@ -148,7 +147,7 @@ function getProductImageUrl(slug: Product["slug"], dosage?: string) {
     case "mt-2":
       return mt210mg.url;
     case "tesamoreline":
-      return dosage?.includes("10") ? tesa10mg.url : tesa5mg.url;
+      return tesa10mg.url;
     case "nad-plus":
       return nad1000.url;
     case "klow":

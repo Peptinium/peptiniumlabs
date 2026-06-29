@@ -259,10 +259,7 @@ export const products: Product[] = [
     molecularFormula: "C221H366N72O67S",
     molecularWeight: "5135.8 g/mol",
     purity: "≥ 99.0 % (HPLC)",
-    variants: [
-      { dosage: "5 mg", price: 79.99 },
-      { dosage: "10 mg", price: 129.99, soldOut: true },
-    ],
+    variants: [{ dosage: "10 mg", price: 119.0 }],
     category: "Croissance",
     shortDescription:
       "Analogue stabilisé du GHRH — outil de référence pour la caractérisation in vitro du récepteur GHRH-R.",
@@ -483,8 +480,8 @@ export const packs = [
     name: "Pack Recherche — Métabolisme",
     description:
       "Ensemble de réactifs pour l'étude in vitro des récepteurs incrétines et de l'axe somatotrope.",
-    items: ["Retatrutide 10 mg", "Tésamoréline 5 mg", "Eau bactériostatique 30 mL"],
-    price: 144.99,
+    items: ["Retatrutide 10 mg", "Tésamoréline 10 mg", "Eau bactériostatique 30 mL"],
+    price: 207.9,
     saving: 12,
   },
   {
