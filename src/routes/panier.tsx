@@ -53,7 +53,7 @@ function PanierPage() {
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   const isEmpty = cart.items.length === 0;
-  const motif = `${shipping.firstName} ${shipping.lastName}`.trim();
+  const motif = orderRef ? `Commande ${orderRef}` : "";
 
   const subtotal = cart.subtotal;
   const shippingFee = subtotal >= FREE_SHIPPING_THRESHOLD || subtotal === 0 ? 0 : SHIPPING;
