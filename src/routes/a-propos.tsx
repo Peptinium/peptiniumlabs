@@ -126,7 +126,7 @@ const coas: CoaItem[] = [
   },
   {
     name: "Tésamoréline",
-    dosage: "5 mg",
+    dosage: "10 mg",
     taskNumber: "#77839",
     purity: "99.209 % / 99.305 %",
     verifyKey: "HR5QHQXCUSEX",

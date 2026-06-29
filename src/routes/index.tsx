@@ -364,7 +364,7 @@ const specsMarquee = [
   "Melanotan II 10 mg",
   "KLOW 80 mg",
   "NAD+ 1000 mg",
-  "Tésamoréline 5 mg",
+  "Tésamoréline 10 mg",
   "Eau bactériostatique 30 mL",
 ];
 

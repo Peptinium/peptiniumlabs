@@ -480,8 +480,8 @@ export const packs = [
     name: "Pack Recherche — Métabolisme",
     description:
       "Ensemble de réactifs pour l'étude in vitro des récepteurs incrétines et de l'axe somatotrope.",
-    items: ["Retatrutide 10 mg", "Tésamoréline 5 mg", "Eau bactériostatique 30 mL"],
-    price: 144.99,
+    items: ["Retatrutide 10 mg", "Tésamoréline 10 mg", "Eau bactériostatique 30 mL"],
+    price: 207.9,
     saving: 12,
   },
   {
