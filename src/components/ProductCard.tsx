@@ -124,29 +124,47 @@ export function ProductVisual({
 function getProductImageUrl(slug: Product["slug"], dosage?: string) {
   switch (slug) {
     case "retatrutide":
-      return dosage?.includes("20") ? retatrutide20mg.url : retatrutide10mg.url;
+      return dosage?.includes("20") ? reta20.url : reta10.url;
     case "ghk-cu":
-      return ghkCu50mg.url;
+      return dosage?.includes("100") ? ghkCu100.url : ghkCu50.url;
     case "ahk-cu":
       return ahkCu100mg.url;
     case "bpc-157":
-      return bpc15710mg.url;
+      return bpc15715.url;
     case "cjc-1295-ipamorelin":
-      return cjc1295Ipamorelin.url;
+      return cjcIpa.url;
     case "semax":
-      return semax10mg.url;
+      return semax5.url;
     case "mt-1":
-      return mt110mg.url;
+      return mt110.url;
     case "mt-2":
       return mt210mg.url;
     case "tesamoreline":
       return tesamoreline5mg.url;
     case "nad-plus":
-      return nadPlus1000mg.url;
+      return nad1000.url;
     case "klow":
       return klow80mg.url;
     case "eau-bacteriostatique":
       return eauBac.url;
+    case "dsip":
+      return dsip10.url;
+    case "epithalon":
+      return epithalon10.url;
+    case "kpv":
+      return kpv10.url;
+    case "mots-c":
+      return motsc10.url;
+    case "oxytocin":
+      return oxytocin10.url;
+    case "pt-141":
+      return pt14110.url;
+    case "selank":
+      return selank5.url;
+    case "snap-8":
+      return snap810.url;
+    case "tb-500":
+      return tb5005.url;
     default:
       return null;
   }
