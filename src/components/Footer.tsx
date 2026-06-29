@@ -64,7 +64,7 @@ export function Footer() {
             Qualité
           </div>
           <ul className="mt-4 space-y-2.5 text-xs text-muted-foreground">
-            <li className="flex items-center gap-2"><Tick /> HPLC en phase inverse ≥ 98 %</li>
+            <li className="flex items-center gap-2"><Tick /> HPLC en phase inverse ≥ 99 %</li>
             <li className="flex items-center gap-2"><Tick /> Spectrométrie de masse (MS)</li>
             <li className="flex items-center gap-2"><Tick /> CoA fourni avec chaque lot</li>
             <li className="flex items-center gap-2"><Tick /> Flacons verre type I borosilicate</li>
@@ -97,7 +97,7 @@ export function Footer() {
         <div className="container-prose flex flex-col gap-2 py-5 text-[11px] text-muted-foreground sm:flex-row sm:justify-between">
           <div>© {new Date().getFullYear()} peptinium-labs.com — Tous droits réservés.</div>
           <div className="font-mono uppercase tracking-[0.2em]">
-            Réservé à la recherche · HPLC ≥ 98 %
+            Réservé à la recherche · HPLC ≥ 99 %
           </div>
         </div>
       </div>
