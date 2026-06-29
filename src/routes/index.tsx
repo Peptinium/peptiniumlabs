@@ -19,7 +19,7 @@ const ALL_PEPTIDES_KEYWORDS = [
   "Melanotan", "Melanotan I", "Melanotan II", "MT-1", "MT-2", "mélanocortine",
   "KLOW", "blend KLOW", "GHK-Cu BPC-157 TB-500",
   "NAD+", "NAD plus", "nicotinamide adénine dinucléotide", "anti-âge cellulaire",
-  "Tésamoréline", "tesamorelin",
+  "Tesamorelin", "tesamorelin",
   "eau bactériostatique", "solvant peptides", "reconstitution peptides",
   "CAS", "pureté HPLC", "spectrométrie de masse", "certificat d'analyse", "CoA",
   "calculatrice dilution peptides", "tester ses fioles", "laboratoire CRO", "in vitro",
@@ -32,19 +32,19 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Achetez vos peptides de recherche en France : Retatrutide, Tirzepatide, Semaglutide, BPC-157, GHK-Cu, AHK-Cu, CJC-1295/Ipamorelin, Semax, Melanotan I/II, KLOW, NAD+, Tésamoréline. Pureté HPLC ≥ 99 %, Certificat d'Analyse, livraison rapide. RUO.",
+          "Achetez vos peptides de recherche en France : Retatrutide, Tirzepatide, Semaglutide, BPC-157, GHK-Cu, AHK-Cu, CJC-1295/Ipamorelin, Semax, Melanotan I/II, KLOW, NAD+, Tesamorelin. Pureté HPLC ≥ 99 %, Certificat d'Analyse, livraison rapide. RUO.",
       },
       { name: "keywords", content: ALL_PEPTIDES_KEYWORDS },
       { property: "og:title", content: "Peptinium Labs — Peptides de recherche (Retatrutide, BPC-157, GHK-Cu, CJC-1295…)" },
       {
         property: "og:description",
         content:
-          "Peptides synthétiques HPLC ≥ 99 % livrés avec CoA : Retatrutide, BPC-157, GHK-Cu, CJC-1295/Ipamorelin, Semax, Melanotan, KLOW, NAD+, Tésamoréline.",
+          "Peptides synthétiques HPLC ≥ 99 % livrés avec CoA : Retatrutide, BPC-157, GHK-Cu, CJC-1295/Ipamorelin, Semax, Melanotan, KLOW, NAD+, Tesamorelin.",
       },
       { property: "og:url", content: `${SITE_URL}/` },
       { property: "og:type", content: "website" },
       { name: "twitter:title", content: "Peptinium Labs — Peptides de recherche RUO" },
-      { name: "twitter:description", content: "Retatrutide, BPC-157, GHK-Cu, CJC-1295/Ipamorelin, Semax, Melanotan, KLOW, NAD+, Tésamoréline. HPLC ≥ 99 %, CoA." },
+      { name: "twitter:description", content: "Retatrutide, BPC-157, GHK-Cu, CJC-1295/Ipamorelin, Semax, Melanotan, KLOW, NAD+, Tesamorelin. HPLC ≥ 99 %, CoA." },
     ],
     links: [{ rel: "canonical", href: `${SITE_URL}/` }],
     scripts: [
@@ -70,7 +70,7 @@ export const Route = createFileRoute("/")({
           name: "Peptinium Labs",
           url: SITE_URL,
           description:
-            "Fournisseur français de peptides synthétiques de qualité recherche (RUO) : Retatrutide, BPC-157, GHK-Cu, CJC-1295/Ipamorelin, Semax, Melanotan, KLOW, NAD+, Tésamoréline.",
+            "Fournisseur français de peptides synthétiques de qualité recherche (RUO) : Retatrutide, BPC-157, GHK-Cu, CJC-1295/Ipamorelin, Semax, Melanotan, KLOW, NAD+, Tesamorelin.",
         }),
       },
     ],
@@ -364,7 +364,7 @@ const specsMarquee = [
   "Melanotan II 10 mg",
   "KLOW 80 mg",
   "NAD+ 1000 mg",
-  "Tésamoréline 10 mg",
+  "Tesamorelin 10 mg",
   "Eau bactériostatique 30 mL",
 ];
 
