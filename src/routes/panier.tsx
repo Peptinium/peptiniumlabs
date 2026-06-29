@@ -53,7 +53,7 @@ function PanierPage() {
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   const isEmpty = cart.items.length === 0;
-  const motif = `${shipping.firstName} ${shipping.lastName}`.trim();
+  const motif = orderRef ? `Commande ${orderRef}` : "";
 
   const subtotal = cart.subtotal;
   const shippingFee = subtotal >= FREE_SHIPPING_THRESHOLD || subtotal === 0 ? 0 : SHIPPING;
@@ -706,7 +706,7 @@ function VirementBlock({
           </button>
           <p className="mt-3 text-center text-[11px] leading-relaxed text-muted-foreground">
             Votre commande sera expédiée dès réception des fonds (délai habituel 48 à 72h ouvrées).
-            Utilisez vos <strong className="text-foreground">Nom + Prénom</strong> comme motif de virement.
+            Utilisez votre <strong className="text-foreground">numéro de commande</strong> comme motif de virement.
           </p>
         </div>
       </div>
