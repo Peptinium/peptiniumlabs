@@ -75,6 +75,7 @@ export const products: Product[] = [
     purity: "≥ 99.0 % (HPLC)",
     variants: [
       { dosage: "50 mg", price: 59.0 },
+      { dosage: "100 mg", price: 99.0 },
     ],
     category: "Réparation",
     shortDescription:
