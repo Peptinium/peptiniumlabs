@@ -35,7 +35,7 @@ export function Header() {
           <Logo />
           <div className="leading-tight">
             <div className="font-display text-[15px] font-medium tracking-tight lg:text-[18px]">
-              Peptinium <span className="text-accent">Labs</span>
+              <span className="brand-gradient-text font-semibold">Peptinium</span> <span className="text-muted-foreground">Labs</span>
             </div>
             <div className="font-mono text-[9px] uppercase tracking-[0.22em] text-muted-foreground lg:text-[10px]">
               Peptide de Recherche
@@ -108,14 +108,25 @@ export function Header() {
 
 function Logo() {
   return (
-    <span className="relative grid size-9 place-items-center overflow-hidden rounded-full bg-foreground text-background">
-      <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.6">
-        <path d="M9 3v6.5L4.2 17.2A3 3 0 0 0 6.7 22h10.6a3 3 0 0 0 2.5-4.8L15 9.5V3" />
-        <path d="M8.5 3h7" />
-        <circle cx="13.5" cy="15" r="0.8" fill="currentColor" />
-        <circle cx="10.5" cy="18" r="0.6" fill="currentColor" />
+    <span className="relative grid size-9 place-items-center overflow-hidden rounded-full bg-background ring-1 ring-border">
+      <svg viewBox="0 0 40 40" className="size-7" fill="none" aria-hidden>
+        <defs>
+          <linearGradient id="pep-grad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="oklch(0.81 0.13 200)" />
+            <stop offset="40%" stopColor="oklch(0.61 0.18 260)" />
+            <stop offset="75%" stopColor="oklch(0.50 0.26 296)" />
+            <stop offset="100%" stopColor="oklch(0.65 0.24 0)" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M13 8h9.5a7.5 7.5 0 0 1 0 15H17v9h-4V8Zm4 4v7h5.5a3.5 3.5 0 0 0 0-7H17Z"
+          fill="url(#pep-grad)"
+        />
+        <circle cx="10" cy="14" r="1.6" fill="url(#pep-grad)" opacity="0.85" />
+        <circle cx="7.5" cy="20" r="1.1" fill="url(#pep-grad)" opacity="0.7" />
+        <circle cx="30" cy="29" r="1.2" fill="url(#pep-grad)" opacity="0.75" />
       </svg>
-      <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-accent/40 to-transparent group-hover:translate-x-full group-hover:transition-transform group-hover:duration-700" />
+      <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:translate-x-full group-hover:transition-transform group-hover:duration-700" />
     </span>
   );
 }
