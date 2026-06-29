@@ -17,11 +17,11 @@ import coaTesa from "@/assets/coa/coa-tesamoreline.jpg.asset.json";
 export const Route = createFileRoute("/a-propos")({
   head: () => ({
     meta: [
-      { title: "Laboratoire — Preuves de pureté Janoshik · Aetherion Labs" },
+      { title: "Laboratoire — Preuves de pureté Janoshik · Peptinium Labs" },
       {
         name: "description",
         content:
-          "Aetherion Labs : preuves de pureté Janoshik (HPLC ≥ 99 %) pour chaque peptide de recherche. Vérification indépendante disponible sur janoshik.com.",
+          "Peptinium Labs : preuves de pureté Janoshik (HPLC ≥ 99 %) pour chaque peptide de recherche. Vérification indépendante disponible sur janoshik.com.",
       },
       { property: "og:url", content: "/a-propos" },
     ],
@@ -147,12 +147,12 @@ function AboutPage() {
           </Reveal>
           <Reveal delay={80}>
             <h1 className="mt-5 font-display text-4xl font-medium tracking-tight sm:text-5xl">
-              Laboratoire Aetherion — <span className="shimmer-text">transparence analytique</span>
+              Laboratoire Peptinium — <span className="shimmer-text">transparence analytique</span>
             </h1>
           </Reveal>
           <Reveal delay={160}>
             <p className="mt-5 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-              Aetherion Labs est un fournisseur spécialisé dans la mise à disposition de peptides
+              Peptinium Labs est un fournisseur spécialisé dans la mise à disposition de peptides
               synthétiques destinés à la recherche scientifique en laboratoire. Nos réactifs sont
               utilisés par des équipes académiques, des CRO et des instituts publics pour la
               caractérisation pharmacologique in vitro.

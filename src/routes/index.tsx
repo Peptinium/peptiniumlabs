@@ -6,7 +6,7 @@ import { Reveal } from "@/components/Reveal";
 import { products, formatPrice } from "@/data/products";
 import labBg from "@/assets/lab-bg-ruo.jpg";
 
-const SITE_URL = "https://aetherion-lab.com";
+const SITE_URL = "https://peptinium-labs.com";
 const ALL_PEPTIDES_KEYWORDS = [
   "peptides", "peptides de recherche", "peptides France", "acheter peptides", "vente peptides",
   "peptides RUO", "peptides HPLC", "peptides qualité recherche", "réactifs peptidiques",
@@ -28,14 +28,14 @@ const ALL_PEPTIDES_KEYWORDS = [
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Peptides de recherche — Retatrutide, BPC-157, GHK-Cu, CJC-1295, Semax · Aetherion Labs" },
+      { title: "Peptides de recherche — Retatrutide, BPC-157, GHK-Cu, CJC-1295, Semax · Peptinium Labs" },
       {
         name: "description",
         content:
           "Achetez vos peptides de recherche en France : Retatrutide, Tirzepatide, Semaglutide, BPC-157, GHK-Cu, AHK-Cu, CJC-1295/Ipamorelin, Semax, Melanotan I/II, KLOW, NAD+, Tésamoréline. Pureté HPLC ≥ 98 %, Certificat d'Analyse, livraison rapide. RUO.",
       },
       { name: "keywords", content: ALL_PEPTIDES_KEYWORDS },
-      { property: "og:title", content: "Aetherion Labs — Peptides de recherche (Retatrutide, BPC-157, GHK-Cu, CJC-1295…)" },
+      { property: "og:title", content: "Peptinium Labs — Peptides de recherche (Retatrutide, BPC-157, GHK-Cu, CJC-1295…)" },
       {
         property: "og:description",
         content:
@@ -43,7 +43,7 @@ export const Route = createFileRoute("/")({
       },
       { property: "og:url", content: `${SITE_URL}/` },
       { property: "og:type", content: "website" },
-      { name: "twitter:title", content: "Aetherion Labs — Peptides de recherche RUO" },
+      { name: "twitter:title", content: "Peptinium Labs — Peptides de recherche RUO" },
       { name: "twitter:description", content: "Retatrutide, BPC-157, GHK-Cu, CJC-1295/Ipamorelin, Semax, Melanotan, KLOW, NAD+, Tésamoréline. HPLC ≥ 98 %, CoA." },
     ],
     links: [{ rel: "canonical", href: `${SITE_URL}/` }],
@@ -53,7 +53,7 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "WebSite",
-          name: "Aetherion Labs",
+          name: "Peptinium Labs",
           url: SITE_URL,
           potentialAction: {
             "@type": "SearchAction",
@@ -67,7 +67,7 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",
-          name: "Aetherion Labs",
+          name: "Peptinium Labs",
           url: SITE_URL,
           description:
             "Fournisseur français de peptides synthétiques de qualité recherche (RUO) : Retatrutide, BPC-157, GHK-Cu, CJC-1295/Ipamorelin, Semax, Melanotan, KLOW, NAD+, Tésamoréline.",
@@ -116,7 +116,7 @@ function HomePage() {
 
             <Reveal delay={160}>
               <p className="mt-8 max-w-xl text-[15px] leading-[1.75] text-muted-foreground sm:mt-7 sm:leading-relaxed">
-                Aetherion Labs fournit aux laboratoires académiques, CRO et instituts des
+                Peptinium Labs fournit aux laboratoires académiques, CRO et instituts des
                 peptides synthétiques validés par HPLC et spectrométrie de masse. Chaque lot
                 est livré avec son Certificat d'Analyse —{" "}
                 <strong className="text-foreground">
@@ -307,7 +307,7 @@ function HomePage() {
                 Avis réglementaire — Research Use Only (RUO)
               </h2>
               <p className="mt-7 text-[15px] leading-[1.75] text-white/75 sm:mt-6 sm:leading-relaxed">
-                Les produits commercialisés par Aetherion Labs sont des{" "}
+                Les produits commercialisés par Peptinium Labs sont des{" "}
                 <strong className="text-white">réactifs chimiques destinés à la recherche scientifique in vitro</strong>{" "}
                 en environnement de laboratoire contrôlé. Ils ne sont pas destinés ni adaptés à un
                 usage vétérinaire, diagnostique, thérapeutique, alimentaire ou cosmétique.

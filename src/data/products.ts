@@ -49,8 +49,9 @@ export const products: Product[] = [
     molecularWeight: "4731.4 g/mol",
     purity: "≥ 99.1 % (HPLC)",
     variants: [
-      { dosage: "10 mg", price: 64.99 },
-      { dosage: "20 mg", price: 109.99 },
+      { dosage: "5 mg", price: 54.0 },
+      { dosage: "10 mg", price: 89.0 },
+      { dosage: "20 mg", price: 149.0 },
     ],
     category: "GLP-1/GIP",
     featured: true,
@@ -73,8 +74,7 @@ export const products: Product[] = [
     molecularWeight: "402.92 g/mol",
     purity: "≥ 99.0 % (HPLC)",
     variants: [
-      { dosage: "50 mg", price: 44.99 },
-      { dosage: "100 mg", price: 59.99 },
+      { dosage: "50 mg", price: 59.0 },
     ],
     category: "Réparation",
     shortDescription:
@@ -95,7 +95,7 @@ export const products: Product[] = [
     molecularFormula: "C152H252N44O42 / C38H49N9O5",
     molecularWeight: "3367.9 / 711.9 g/mol",
     purity: "≥ 99.0 % (HPLC)",
-    variants: [{ dosage: "5 mg + 5 mg", price: 59.99 }],
+    variants: [{ dosage: "5 mg + 5 mg", price: 64.0 }],
     category: "Croissance",
     shortDescription:
       "Combinaison analogue GHRH (CJC-1295 no-DAC) + agoniste GHS-R1a (Ipamorelin) — outil de référence pour l'étude in vitro de l'axe somatotrope.",
@@ -115,7 +115,7 @@ export const products: Product[] = [
     molecularFormula: "C37H51N9O10S",
     molecularWeight: "813.92 g/mol",
     purity: "≥ 99.0 % (HPLC)",
-    variants: [{ dosage: "10 mg", price: 54.99 }],
+    variants: [{ dosage: "5 mg", price: 44.0 }],
     category: "Cognitif",
     shortDescription:
       "Heptapeptide synthétique dérivé de l'ACTH(4-10) — outil de recherche in vitro sur les voies neurotrophiques.",
@@ -155,7 +155,7 @@ export const products: Product[] = [
     molecularFormula: "C62H98N16O22",
     molecularWeight: "1419.5 g/mol",
     purity: "≥ 99.0 % (HPLC)",
-    variants: [{ dosage: "10 mg", price: 59.99 }],
+    variants: [{ dosage: "15 mg", price: 64.0 }],
     category: "Réparation",
     shortDescription:
       "Pentadécapeptide étudié in vitro pour ses effets sur les modèles cellulaires de réparation tissulaire.",
@@ -175,7 +175,7 @@ export const products: Product[] = [
     molecularFormula: "C78H111N21O19",
     molecularWeight: "1646.85 g/mol",
     purity: "≥ 98.5 % (HPLC)",
-    variants: [{ dosage: "10 mg", price: 49.99 }],
+    variants: [{ dosage: "10 mg", price: 59.0 }],
     category: "Mélanocortine",
     shortDescription:
       "Analogue synthétique α-MSH (afamelanotide) — outil d'étude in vitro du récepteur MC1R.",
@@ -235,7 +235,7 @@ export const products: Product[] = [
     molecularFormula: "C21H27N7O14P2",
     molecularWeight: "663.43 g/mol",
     purity: "≥ 99.0 % (HPLC)",
-    variants: [{ dosage: "1000 mg", price: 89.99 }],
+    variants: [{ dosage: "1000 mg", price: 109.0 }],
     category: "Anti-âge",
     shortDescription:
       "Nicotinamide Adénine Dinucléotide — cofacteur de référence pour l'étude in vitro du métabolisme énergétique cellulaire.",
@@ -275,7 +275,7 @@ export const products: Product[] = [
     molecularFormula: "H₂O + C7H8O",
     molecularWeight: "—",
     purity: "USP grade",
-    variants: [{ dosage: "30 mL", price: 5.99 }],
+    variants: [{ dosage: "10 mL", price: 11.9 }],
     category: "Reconstitution",
     shortDescription:
       "Solvant de reconstitution stérile à 0,9 % d'alcool benzylique — usage exclusivement laboratoire.",

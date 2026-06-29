@@ -42,7 +42,7 @@ export const Route = createFileRoute("/produits/$slug")({
     return { product };
   },
   head: ({ loaderData, params }) => {
-    const SITE = "https://aetherion-lab.com";
+    const SITE = "https://peptinium-labs.com";
     const p = loaderData?.product;
     const dosages = p?.variants.map((v) => v.dosage).join(" / ");
     const minP = p ? Math.min(...p.variants.map((v) => v.price)) : 0;
@@ -57,22 +57,22 @@ export const Route = createFileRoute("/produits/$slug")({
       : "";
     return {
       meta: [
-        { title: p ? `${p.name} ${dosages} — Acheter peptide de recherche HPLC ≥ 98 % · Aetherion Labs` : "Produit · Aetherion Labs" },
+        { title: p ? `${p.name} ${dosages} — Acheter peptide de recherche HPLC ≥ 98 % · Peptinium Labs` : "Produit · Peptinium Labs" },
         {
           name: "description",
           content: p
             ? `Achetez ${p.name} (CAS ${p.cas ?? "—"}) — peptide de recherche, pureté ${p.purity}, dosages ${dosages}, livré avec Certificat d'Analyse. ${p.shortDescription} RUO uniquement.`
-            : "Fiche produit Aetherion Labs.",
+            : "Fiche produit Peptinium Labs.",
         },
         { name: "keywords", content: kw },
-        { property: "og:title", content: p ? `${p.name} ${dosages} — Aetherion Labs` : "Aetherion Labs" },
+        { property: "og:title", content: p ? `${p.name} ${dosages} — Peptinium Labs` : "Peptinium Labs" },
         {
           property: "og:description",
           content: p ? `${p.shortDescription} Pureté ${p.purity}. CoA fourni. RUO.` : "",
         },
         { property: "og:url", content: `${SITE}/produits/${params.slug}` },
         { property: "og:type", content: "product" },
-        { name: "twitter:title", content: p ? `${p.name} — Aetherion Labs` : "Aetherion Labs" },
+        { name: "twitter:title", content: p ? `${p.name} — Peptinium Labs` : "Peptinium Labs" },
         { name: "twitter:description", content: p?.shortDescription ?? "" },
       ],
       links: [{ rel: "canonical", href: `${SITE}/produits/${params.slug}` }],
@@ -87,7 +87,7 @@ export const Route = createFileRoute("/produits/$slug")({
                 description: p.shortDescription,
                 category: p.category,
                 sku: p.slug,
-                brand: { "@type": "Brand", name: "Aetherion Labs" },
+                brand: { "@type": "Brand", name: "Peptinium Labs" },
                 ...(p.cas ? { additionalProperty: [{ "@type": "PropertyValue", name: "CAS", value: p.cas }] } : {}),
                 offers: {
                   "@type": "AggregateOffer",

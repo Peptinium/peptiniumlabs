@@ -30,7 +30,7 @@ type CartCtx = {
 export const itemKey = (slug: string, dosage: string) => `${slug}::${dosage}`;
 
 const Ctx = createContext<CartCtx | null>(null);
-const STORAGE_KEY = "aetherion_cart_v1";
+const STORAGE_KEY = "peptinium_cart_v1";
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);

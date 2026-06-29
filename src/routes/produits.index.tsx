@@ -6,12 +6,12 @@ import { Reveal } from "@/components/Reveal";
 import { RuoBadge } from "@/components/RuoBadge";
 import { products } from "@/data/products";
 
-const SITE_URL = "https://aetherion-lab.com";
+const SITE_URL = "https://peptinium-labs.com";
 
 export const Route = createFileRoute("/produits/")({
   head: () => ({
     meta: [
-      { title: "Catalogue de peptides — Retatrutide, BPC-157, GHK-Cu, CJC-1295, Semax, Melanotan, NAD+ · Aetherion Labs" },
+      { title: "Catalogue de peptides — Retatrutide, BPC-157, GHK-Cu, CJC-1295, Semax, Melanotan, NAD+ · Peptinium Labs" },
       {
         name: "description",
         content:
@@ -22,7 +22,7 @@ export const Route = createFileRoute("/produits/")({
         content:
           "peptides, peptides de recherche, acheter peptides France, Retatrutide, GHK-Cu, AHK-Cu, CJC-1295, Ipamorelin, Semax, BPC-157, Melanotan I, Melanotan II, MT-1, MT-2, KLOW, NAD+, Tésamoréline, eau bactériostatique, GLP-1, GIP, GHRP, mélanocortine, HPLC, certificat d'analyse, CoA, RUO",
       },
-      { property: "og:title", content: "Catalogue de peptides de recherche — Aetherion Labs" },
+      { property: "og:title", content: "Catalogue de peptides de recherche — Peptinium Labs" },
       {
         property: "og:description",
         content:

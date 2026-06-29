@@ -5,7 +5,7 @@ import { SiteLayout } from '@/components/SiteLayout'
 export const Route = createFileRoute('/unsubscribe')({
   head: () => ({
     meta: [
-      { title: 'Désabonnement — Aetherion Labs' },
+      { title: 'Désabonnement — Peptinium Labs' },
       { name: 'robots', content: 'noindex,nofollow' },
     ],
   }),

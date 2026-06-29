@@ -7,7 +7,7 @@ import { lovable } from "@/integrations/lovable";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Connexion admin — Aetherion Labs" },
+      { title: "Connexion admin — Peptinium Labs" },
       { name: "robots", content: "noindex,nofollow" },
     ],
   }),

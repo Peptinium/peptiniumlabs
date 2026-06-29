@@ -1,12 +1,12 @@
 {
-  "name": "Aetherion Labs",
-  "short_name": "Aetherion",
-  "description": "Aetherion Labs — Peptides de recherche (RUO). Gérez vos commandes, tickets SAV et suivi.",
+  "name": "Peptinium Labs",
+  "short_name": "Peptinium",
+  "description": "Peptinium Labs — Peptides de recherche (RUO). Gérez vos commandes, tickets SAV et suivi.",
   "start_url": "/admin",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#0c0d10",
-  "theme_color": "#0c0d10",
+  "background_color": "#ffffff",
+  "theme_color": "#7C3AED",
   "orientation": "portrait",
   "icons": [
     {

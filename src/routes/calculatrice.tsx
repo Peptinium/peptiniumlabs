@@ -6,7 +6,7 @@ import { RuoBadge } from "@/components/RuoBadge";
 export const Route = createFileRoute("/calculatrice")({
   head: () => ({
     meta: [
-      { title: "Calculatrice de reconstitution de peptide — Aetherion Labs" },
+      { title: "Calculatrice de reconstitution de peptide — Peptinium Labs" },
       {
         name: "description",
         content:

@@ -78,16 +78,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Aetherion Labs — Réactifs peptidiques de recherche (RUO)" },
+      { title: "Peptinium Labs — Réactifs peptidiques de recherche (RUO)" },
       {
         name: "description",
         content:
-          "Aetherion Labs : peptides synthétiques de qualité recherche, pureté ≥ 98 % HPLC, livrés avec CoA. Réservés strictement à la recherche scientifique en laboratoire (RUO).",
+          "Peptinium Labs : peptides synthétiques de qualité recherche, pureté ≥ 98 % HPLC, livrés avec CoA. Réservés strictement à la recherche scientifique en laboratoire (RUO).",
       },
       { name: "robots", content: "index,follow" },
-      { property: "og:site_name", content: "Aetherion Labs" },
+      { property: "og:site_name", content: "Peptinium Labs" },
       { property: "og:type", content: "website" },
-      { property: "og:title", content: "Aetherion Labs — Réactifs peptidiques de recherche" },
+      { property: "og:title", content: "Peptinium Labs — Réactifs peptidiques de recherche" },
       {
         property: "og:description",
         content:
@@ -96,11 +96,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-      { name: "apple-mobile-web-app-title", content: "Aetherion Labs" },
+      { name: "apple-mobile-web-app-title", content: "Peptinium Labs" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "manifest", href: "/manifest.webmanifest" },
+      { rel: "icon", type: "image/png", sizes: "64x64", href: "/favicon-64.png" },
+      { rel: "icon", type: "image/png", sizes: "192x192", href: "/icon-192x192.png" },
       { rel: "apple-touch-icon", href: "/icon-192x192.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },

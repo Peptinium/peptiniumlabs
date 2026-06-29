@@ -8,13 +8,13 @@ import labBg from "@/assets/lab-bg-ruo.jpg";
 export const Route = createFileRoute("/tester-fioles")({
   head: () => ({
     meta: [
-      { title: "Tester ses fioles de recherche — Janoshik, Fínnrick, Trustpoint · Aetherion Labs" },
+      { title: "Tester ses fioles de recherche — Janoshik, Fínnrick, Trustpoint · Peptinium Labs" },
       {
         name: "description",
         content:
           "Guide complet pour faire analyser ses fioles de peptides de recherche par les laboratoires indépendants : Janoshik Analytical (UE), Fínnrick (US), Trustpoint Labs. Procédure d'envoi, coûts, vérification HPLC.",
       },
-      { property: "og:title", content: "Tester ses fioles de recherche — Aetherion Labs" },
+      { property: "og:title", content: "Tester ses fioles de recherche — Peptinium Labs" },
       { property: "og:url", content: "/tester-fioles" },
     ],
     links: [{ rel: "canonical", href: "/tester-fioles" }],
@@ -167,7 +167,7 @@ function TestVialsPage() {
               Laboratoires indépendants d'analyse de peptides
             </h2>
             <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-              Chacun de ces laboratoires est indépendant d'Aetherion Labs. Les informations
+              Chacun de ces laboratoires est indépendant d'Peptinium Labs. Les informations
               ci-dessous sont fournies à titre indicatif — tarifs et délais peuvent évoluer ;
               référez-vous aux sites officiels pour les conditions à jour.
             </p>
@@ -282,7 +282,7 @@ function TestVialsPage() {
               La vérification analytique d'une fiole s'inscrit dans une démarche scientifique
               rigoureuse de contrôle qualité des réactifs de recherche. Elle ne valide en aucun
               cas une utilisation vétérinaire, diagnostique ou thérapeutique. Les
-              peptides commercialisés par Aetherion Labs sont strictement destinés à la recherche
+              peptides commercialisés par Peptinium Labs sont strictement destinés à la recherche
               scientifique in vitro et à un usage exclusivement professionnel et de laboratoire.
             </p>
             <div className="mt-8 flex flex-wrap gap-2">
