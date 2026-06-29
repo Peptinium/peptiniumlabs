@@ -137,7 +137,17 @@ function PanierPage() {
               cart={cart}
               subtotal={subtotal}
               shipping={shippingFee}
+              discount={discount}
               total={total}
+              promoApplied={promoApplied}
+              onApplyPromo={(code) => {
+                if (code.trim().toUpperCase() === PROMO_CODE) {
+                  setPromoApplied(true);
+                  return true;
+                }
+                return false;
+              }}
+              onRemovePromo={() => setPromoApplied(false)}
               editable
             />
           </div>
@@ -149,13 +159,19 @@ function PanierPage() {
               onConfirm={handleConfirmPaiement}
               submitting={submitting}
               error={submitError}
+              researchAcceptedAt={researchAcceptedAt}
+              setResearchAcceptedAt={setResearchAcceptedAt}
+              cgvAcceptedAt={cgvAcceptedAt}
+              setCgvAcceptedAt={setCgvAcceptedAt}
             />
 
             <Recap
               cart={cart}
               subtotal={subtotal}
               shipping={shippingFee}
+              discount={discount}
               total={total}
+              promoApplied={promoApplied}
               collapsed
             />
           </div>
@@ -169,6 +185,7 @@ function PanierPage() {
             shippingFee={shippingFee}
             onSignaled={() => setStep("confirmation")}
           />
+
         ) : (
           <ConfirmationBlock
             total={total}
