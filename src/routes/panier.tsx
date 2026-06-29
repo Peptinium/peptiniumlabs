@@ -373,16 +373,28 @@ function PaiementBlock({
   onConfirm,
   submitting = false,
   error = null,
+  researchAcceptedAt,
+  setResearchAcceptedAt,
+  cgvAcceptedAt,
+  setCgvAcceptedAt,
 }: {
   shipping: any;
   onBack: () => void;
   onConfirm: () => void | Promise<void>;
   submitting?: boolean;
   error?: string | null;
+  researchAcceptedAt: string | null;
+  setResearchAcceptedAt: (v: string | null) => void;
+  cgvAcceptedAt: string | null;
+  setCgvAcceptedAt: (v: string | null) => void;
 }) {
   const [method, setMethod] = useState<"bank">("bank");
-  const [acceptedCgv, setAcceptedCgv] = useState(false);
+  const acceptedResearch = !!researchAcceptedAt;
+  const acceptedCgv = !!cgvAcceptedAt;
   const [cgvOpen, setCgvOpen] = useState(false);
+  const fmtTs = (iso: string) =>
+    new Date(iso).toLocaleString("fr-FR", { dateStyle: "short", timeStyle: "medium" });
+
   return (
     <div className="space-y-4">
       <div className="flex items-start gap-3 rounded-2xl border border-success/40 bg-success/5 p-4">
