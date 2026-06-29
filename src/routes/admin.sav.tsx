@@ -281,7 +281,7 @@ function ReplyComposer({
   );
 }
 
-function Badge({ tone, children }: { tone: string; children: React.ReactNode }) {
+function Badge({ tone, children }: { tone: string; children: ReactNode }) {
   return <span className={`inline-flex rounded-full border px-2 py-0.5 text-[10px] font-medium ${tone}`}>{children}</span>;
 }
 
