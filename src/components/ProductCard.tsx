@@ -1,18 +1,28 @@
 import { Link } from "@tanstack/react-router";
 import { minPrice, formatPrice, type Product } from "@/data/products";
-import retatrutide10mg from "@/assets/products/retatrutide-10mg.png.asset.json";
-import retatrutide20mg from "@/assets/products/retatrutide-20mg.png.asset.json";
-import cjc1295Ipamorelin from "@/assets/products/cjc-1295-ipamorelin.png.asset.json";
-import semax10mg from "@/assets/products/semax-10mg.png.asset.json";
-import mt110mg from "@/assets/products/mt-1-10mg.png.asset.json";
+import reta10 from "@/assets/products/Reta_10mg.png.asset.json";
+import reta20 from "@/assets/products/Reta_20mg.png.asset.json";
+import cjcIpa from "@/assets/products/CJC_1295_IPAMORELIN_5_5mg.png.asset.json";
+import semax5 from "@/assets/products/Semax_5mg.png.asset.json";
+import mt110 from "@/assets/products/Melanotan_1_10mg.png.asset.json";
 import mt210mg from "@/assets/products/mt-2-10mg.png.asset.json";
-import ghkCu50mg from "@/assets/products/ghk-cu-50mg.png.asset.json";
+import ghkCu50 from "@/assets/products/GHK_CU_50mg.png.asset.json";
+import ghkCu100 from "@/assets/products/GHK_CU_100mg.png.asset.json";
 import tesamoreline5mg from "@/assets/products/tesamoreline-5mg.png.asset.json";
-import nadPlus1000mg from "@/assets/products/nad-plus-1000mg.png.asset.json";
+import nad1000 from "@/assets/products/NAD_1000mg.png.asset.json";
 import klow80mg from "@/assets/products/klow-80mg.png.asset.json";
 import ahkCu100mg from "@/assets/products/ahk-cu-100mg.png.asset.json";
-import bpc15710mg from "@/assets/products/bpc-157-10mg.png.asset.json";
-import eauBac from "@/assets/products/eau-bacteriostatique.png.asset.json";
+import bpc15715 from "@/assets/products/BPC_157_15mg.png.asset.json";
+import eauBac from "@/assets/products/Eau_bac_10ml.png.asset.json";
+import dsip10 from "@/assets/products/DSIP_10mg.png.asset.json";
+import epithalon10 from "@/assets/products/Epithalon_10mg.png.asset.json";
+import kpv10 from "@/assets/products/KPV_10mg.png.asset.json";
+import motsc10 from "@/assets/products/MOTS_C_10_mg.png.asset.json";
+import oxytocin10 from "@/assets/products/Oxytocin_10mg.png.asset.json";
+import pt14110 from "@/assets/products/PT_141_10mg.png.asset.json";
+import selank5 from "@/assets/products/Selank_5mg.png.asset.json";
+import snap810 from "@/assets/products/Snap_8_10mg.png.asset.json";
+import tb5005 from "@/assets/products/TB_500_5mg.png.asset.json";
 
 type ProductVisualProps = {
   product: Pick<Product, "slug" | "name">;
