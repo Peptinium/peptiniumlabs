@@ -459,12 +459,31 @@ function PaiementBlock({
         <span><strong className="text-foreground">Transaction sécurisée :</strong> votre paiement est traité avec discrétion par notre partenaire financier certifié.</span>
       </div>
 
+      <div className={`rounded-2xl border p-4 ${acceptedResearch ? "border-success/50 bg-success/5" : "border-border bg-card"}`}>
+        <label className="flex cursor-pointer items-start gap-3">
+          <input
+            type="checkbox"
+            checked={acceptedResearch}
+            onChange={(e) => setResearchAcceptedAt(e.target.checked ? new Date().toISOString() : null)}
+            className="mt-0.5 size-4 shrink-0 cursor-pointer accent-[color:var(--color-accent)]"
+          />
+          <span className="text-sm text-foreground">
+            Je certifie acheter ces composés <strong>exclusivement à des fins de recherche scientifique en laboratoire</strong> (Research Use Only) et m'engage à ne les destiner à <strong>aucun usage humain ou animal</strong>.
+            <span className="mt-1 block font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+              {acceptedResearch
+                ? `✓ Certifié le ${fmtTs(researchAcceptedAt!)}`
+                : "Certification horodatée et conservée comme preuve"}
+            </span>
+          </span>
+        </label>
+      </div>
+
       <div className={`rounded-2xl border p-4 ${acceptedCgv ? "border-success/50 bg-success/5" : "border-border bg-card"}`}>
         <label className="flex cursor-pointer items-start gap-3">
           <input
             type="checkbox"
             checked={acceptedCgv}
-            onChange={(e) => setAcceptedCgv(e.target.checked)}
+            onChange={(e) => setCgvAcceptedAt(e.target.checked ? new Date().toISOString() : null)}
             className="mt-0.5 size-4 shrink-0 cursor-pointer accent-[color:var(--color-accent)]"
           />
           <span className="text-sm text-foreground">
@@ -477,6 +496,11 @@ function PaiementBlock({
               Conditions Générales de Vente
             </button>
             {" "}ci-dessous.
+            <span className="mt-1 block font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+              {acceptedCgv
+                ? `✓ Accepté le ${fmtTs(cgvAcceptedAt!)}`
+                : "Acceptation horodatée et conservée comme preuve"}
+            </span>
           </span>
         </label>
         {cgvOpen && (
@@ -494,7 +518,7 @@ function PaiementBlock({
 
       <button
         onClick={onConfirm}
-        disabled={!acceptedCgv || submitting}
+        disabled={!acceptedCgv || !acceptedResearch || submitting}
         className="group relative w-full overflow-hidden rounded-xl bg-accent px-6 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-background transition-colors hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-50"
       >
         <span className="inline-flex items-center justify-center gap-2">
@@ -502,6 +526,7 @@ function PaiementBlock({
           {submitting ? "Enregistrement…" : "Confirmer la commande"}
         </span>
       </button>
+
     </div>
   );
 }
