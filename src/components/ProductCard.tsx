@@ -1,18 +1,28 @@
 import { Link } from "@tanstack/react-router";
 import { minPrice, formatPrice, type Product } from "@/data/products";
-import retatrutide10mg from "@/assets/products/retatrutide-10mg.png.asset.json";
-import retatrutide20mg from "@/assets/products/retatrutide-20mg.png.asset.json";
-import cjc1295Ipamorelin from "@/assets/products/cjc-1295-ipamorelin.png.asset.json";
-import semax10mg from "@/assets/products/semax-10mg.png.asset.json";
-import mt110mg from "@/assets/products/mt-1-10mg.png.asset.json";
+import reta10 from "@/assets/products/Reta_10mg.png.asset.json";
+import reta20 from "@/assets/products/Reta_20mg.png.asset.json";
+import cjcIpa from "@/assets/products/CJC_1295_IPAMORELIN_5_5mg.png.asset.json";
+import semax5 from "@/assets/products/Semax_5mg.png.asset.json";
+import mt110 from "@/assets/products/Melanotan_1_10mg.png.asset.json";
 import mt210mg from "@/assets/products/mt-2-10mg.png.asset.json";
-import ghkCu50mg from "@/assets/products/ghk-cu-50mg.png.asset.json";
+import ghkCu50 from "@/assets/products/GHK_CU_50mg.png.asset.json";
+import ghkCu100 from "@/assets/products/GHK_CU_100mg.png.asset.json";
 import tesamoreline5mg from "@/assets/products/tesamoreline-5mg.png.asset.json";
-import nadPlus1000mg from "@/assets/products/nad-plus-1000mg.png.asset.json";
+import nad1000 from "@/assets/products/NAD_1000mg.png.asset.json";
 import klow80mg from "@/assets/products/klow-80mg.png.asset.json";
 import ahkCu100mg from "@/assets/products/ahk-cu-100mg.png.asset.json";
-import bpc15710mg from "@/assets/products/bpc-157-10mg.png.asset.json";
-import eauBac from "@/assets/products/eau-bacteriostatique.png.asset.json";
+import bpc15715 from "@/assets/products/BPC_157_15mg.png.asset.json";
+import eauBac from "@/assets/products/Eau_bac_10ml.png.asset.json";
+import dsip10 from "@/assets/products/DSIP_10mg.png.asset.json";
+import epithalon10 from "@/assets/products/Epithalon_10mg.png.asset.json";
+import kpv10 from "@/assets/products/KPV_10mg.png.asset.json";
+import motsc10 from "@/assets/products/MOTS_C_10_mg.png.asset.json";
+import oxytocin10 from "@/assets/products/Oxytocin_10mg.png.asset.json";
+import pt14110 from "@/assets/products/PT_141_10mg.png.asset.json";
+import selank5 from "@/assets/products/Selank_5mg.png.asset.json";
+import snap810 from "@/assets/products/Snap_8_10mg.png.asset.json";
+import tb5005 from "@/assets/products/TB_500_5mg.png.asset.json";
 
 type ProductVisualProps = {
   product: Pick<Product, "slug" | "name">;
@@ -114,29 +124,47 @@ export function ProductVisual({
 function getProductImageUrl(slug: Product["slug"], dosage?: string) {
   switch (slug) {
     case "retatrutide":
-      return dosage?.includes("20") ? retatrutide20mg.url : retatrutide10mg.url;
+      return dosage?.includes("20") ? reta20.url : reta10.url;
     case "ghk-cu":
-      return ghkCu50mg.url;
+      return dosage?.includes("100") ? ghkCu100.url : ghkCu50.url;
     case "ahk-cu":
       return ahkCu100mg.url;
     case "bpc-157":
-      return bpc15710mg.url;
+      return bpc15715.url;
     case "cjc-1295-ipamorelin":
-      return cjc1295Ipamorelin.url;
+      return cjcIpa.url;
     case "semax":
-      return semax10mg.url;
+      return semax5.url;
     case "mt-1":
-      return mt110mg.url;
+      return mt110.url;
     case "mt-2":
       return mt210mg.url;
     case "tesamoreline":
       return tesamoreline5mg.url;
     case "nad-plus":
-      return nadPlus1000mg.url;
+      return nad1000.url;
     case "klow":
       return klow80mg.url;
     case "eau-bacteriostatique":
       return eauBac.url;
+    case "dsip":
+      return dsip10.url;
+    case "epithalon":
+      return epithalon10.url;
+    case "kpv":
+      return kpv10.url;
+    case "mots-c":
+      return motsc10.url;
+    case "oxytocin":
+      return oxytocin10.url;
+    case "pt-141":
+      return pt14110.url;
+    case "selank":
+      return selank5.url;
+    case "snap-8":
+      return snap810.url;
+    case "tb-500":
+      return tb5005.url;
     default:
       return null;
   }
