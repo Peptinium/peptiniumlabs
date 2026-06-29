@@ -167,7 +167,7 @@ function AboutPage() {
           {[
             {
               t: "Contrôle qualité analytique",
-              d: "Chaque lot est analysé par HPLC en phase inverse (pureté ≥ 98 %) et par spectrométrie de masse pour validation d'identité. Le Certificat d'Analyse (CoA) est joint à chaque expédition.",
+              d: "Chaque lot est analysé par HPLC en phase inverse (pureté ≥ 99 %) et par spectrométrie de masse pour validation d'identité. Le Certificat d'Analyse (CoA) est joint à chaque expédition.",
             },
             {
               t: "Synthèse & sourcing",

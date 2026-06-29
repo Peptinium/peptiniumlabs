@@ -32,19 +32,19 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Achetez vos peptides de recherche en France : Retatrutide, Tirzepatide, Semaglutide, BPC-157, GHK-Cu, AHK-Cu, CJC-1295/Ipamorelin, Semax, Melanotan I/II, KLOW, NAD+, Tésamoréline. Pureté HPLC ≥ 98 %, Certificat d'Analyse, livraison rapide. RUO.",
+          "Achetez vos peptides de recherche en France : Retatrutide, Tirzepatide, Semaglutide, BPC-157, GHK-Cu, AHK-Cu, CJC-1295/Ipamorelin, Semax, Melanotan I/II, KLOW, NAD+, Tésamoréline. Pureté HPLC ≥ 99 %, Certificat d'Analyse, livraison rapide. RUO.",
       },
       { name: "keywords", content: ALL_PEPTIDES_KEYWORDS },
       { property: "og:title", content: "Peptinium Labs — Peptides de recherche (Retatrutide, BPC-157, GHK-Cu, CJC-1295…)" },
       {
         property: "og:description",
         content:
-          "Peptides synthétiques HPLC ≥ 98 % livrés avec CoA : Retatrutide, BPC-157, GHK-Cu, CJC-1295/Ipamorelin, Semax, Melanotan, KLOW, NAD+, Tésamoréline.",
+          "Peptides synthétiques HPLC ≥ 99 % livrés avec CoA : Retatrutide, BPC-157, GHK-Cu, CJC-1295/Ipamorelin, Semax, Melanotan, KLOW, NAD+, Tésamoréline.",
       },
       { property: "og:url", content: `${SITE_URL}/` },
       { property: "og:type", content: "website" },
       { name: "twitter:title", content: "Peptinium Labs — Peptides de recherche RUO" },
-      { name: "twitter:description", content: "Retatrutide, BPC-157, GHK-Cu, CJC-1295/Ipamorelin, Semax, Melanotan, KLOW, NAD+, Tésamoréline. HPLC ≥ 98 %, CoA." },
+      { name: "twitter:description", content: "Retatrutide, BPC-157, GHK-Cu, CJC-1295/Ipamorelin, Semax, Melanotan, KLOW, NAD+, Tésamoréline. HPLC ≥ 99 %, CoA." },
     ],
     links: [{ rel: "canonical", href: `${SITE_URL}/` }],
     scripts: [
@@ -154,7 +154,7 @@ function HomePage() {
             <Reveal delay={320}>
               <dl className="mt-16 grid grid-cols-3 gap-6 border-t border-border pt-10 sm:mt-14 sm:pt-8">
                 {[
-                  { k: "≥ 98 %", v: "Pureté HPLC" },
+                  { k: "≥ 99 %", v: "Pureté HPLC" },
                   { k: "CoA", v: "Pour chaque lot" },
                   { k: "RUO", v: "Recherche uniquement" },
                 ].map((s) => (
@@ -332,7 +332,7 @@ function SideOrnaments() {
         <div className="absolute right-10 top-1/2 size-1.5 rounded-full bg-accent/60 [animation:pulse-ring_3s_ease-in-out_infinite]" />
         <div className="absolute right-4 top-2/3 size-12 rounded-full border border-dashed border-accent/25 [animation:spin_30s_linear_infinite]" />
         <div className="absolute right-2 bottom-1/4 rotate-90 font-mono text-[9px] uppercase tracking-[0.4em] text-muted-foreground/60 origin-bottom-right whitespace-nowrap">
-          ◆ Lot QC-2026.06 · HPLC ≥ 98 %
+          ◆ Lot QC-2026.06 · HPLC ≥ 99 %
         </div>
       </div>
       {/* Right rail */}

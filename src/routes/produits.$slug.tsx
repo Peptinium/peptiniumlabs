@@ -57,7 +57,7 @@ export const Route = createFileRoute("/produits/$slug")({
       : "";
     return {
       meta: [
-        { title: p ? `${p.name} ${dosages} — Acheter peptide de recherche HPLC ≥ 98 % · Peptinium Labs` : "Produit · Peptinium Labs" },
+        { title: p ? `${p.name} ${dosages} — Acheter peptide de recherche HPLC ≥ 99 % · Peptinium Labs` : "Produit · Peptinium Labs" },
         {
           name: "description",
           content: p
@@ -118,7 +118,8 @@ export const Route = createFileRoute("/produits/$slug")({
 
 function ProductPage() {
   const { product } = Route.useLoaderData() as { product: Product };
-  const [variantIdx, setVariantIdx] = useState(0);
+  const firstAvailableIdx = product.variants.findIndex((v) => !v.soldOut);
+  const [variantIdx, setVariantIdx] = useState(firstAvailableIdx >= 0 ? firstAvailableIdx : 0);
   const [withSolvent, setWithSolvent] = useState(false);
   const [qty, setQty] = useState(1);
   const [slide, setSlide] = useState<0 | 1>(0); // 0 = vial, 1 = CoA
@@ -265,18 +266,26 @@ function ProductPage() {
                 <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
                   {product.variants.map((v, i) => {
                     const active = i === variantIdx;
+                    const soldOut = !!v.soldOut;
                     return (
                       <button
                         key={v.dosage}
-                        onClick={() => setVariantIdx(i)}
-                        disabled={!hasMultiple}
+                        onClick={() => !soldOut && setVariantIdx(i)}
+                        disabled={soldOut || !hasMultiple}
                         className={`relative rounded-xl border px-4 py-4 text-center transition-all ${
-                          active
+                          soldOut
+                            ? "border-border bg-card opacity-50 cursor-not-allowed"
+                            : active
                             ? "border-accent bg-accent/10 ring-1 ring-accent"
                             : "border-border bg-card hover:border-foreground/60"
                         }`}
                       >
-                        {active && (
+                        {soldOut && (
+                          <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 rounded-full bg-warning px-2 py-0.5 font-mono text-[8px] uppercase tracking-[0.22em] text-background">
+                            Rupture
+                          </span>
+                        )}
+                        {!soldOut && active && (
                           <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 rounded-full bg-accent px-2 py-0.5 font-mono text-[8px] uppercase tracking-[0.22em] text-background">
                             Standard
                           </span>
@@ -359,6 +368,7 @@ function ProductPage() {
                   price={variant.price}
                   qty={qty}
                   withSolvent={withSolvent}
+                  soldOut={!!variant.soldOut}
                 />
               </div>
 
@@ -471,6 +481,7 @@ function AddToCartButton({
   price,
   qty,
   withSolvent,
+  soldOut,
 }: {
   slug: string;
   productName: string;
@@ -478,15 +489,26 @@ function AddToCartButton({
   price: number;
   qty: number;
   withSolvent: boolean;
+  soldOut?: boolean;
 }) {
   const { add, setEau, eauQty, peptideCount } = useCart();
   const [added, setAdded] = useState(false);
+  if (soldOut) {
+    return (
+      <button
+        disabled
+        aria-label={`${productName} ${dosage} en rupture de stock`}
+        className="w-full cursor-not-allowed rounded-full border border-border bg-card px-6 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground"
+      >
+        Rupture de stock
+      </button>
+    );
+  }
   return (
     <button
       onClick={() => {
         add({ slug, name: productName, dosage, price }, qty);
         if (withSolvent) {
-          // ensure at least one eau per peptide added (capped to total peptides after add)
           const targetEau = Math.min(eauQty + qty, peptideCount + qty);
           setEau(targetEau);
         }

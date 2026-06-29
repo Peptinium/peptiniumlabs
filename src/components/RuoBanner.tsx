@@ -3,7 +3,7 @@ export function RuoBanner() {
     "Research Use Only",
     "Réactifs de laboratoire",
     "Non destiné à un usage vétérinaire, diagnostique ou thérapeutique",
-    "HPLC ≥ 98 %",
+    "HPLC ≥ 99 %",
     "CoA par lot",
   ];
   const loop = [...items, ...items];

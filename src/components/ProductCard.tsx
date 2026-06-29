@@ -5,12 +5,14 @@ import reta20 from "@/assets/products/Reta_20mg.png.asset.json";
 import cjcIpa from "@/assets/products/CJC_1295_IPAMORELIN_5_5mg.png.asset.json";
 import semax5 from "@/assets/products/Semax_5mg.png.asset.json";
 import mt110 from "@/assets/products/Melanotan_1_10mg.png.asset.json";
-import mt210mg from "@/assets/products/mt-2-10mg.png.asset.json";
+import mt210mg from "@/assets/products/Melanotan_2_10mg.png.asset.json";
 import ghkCu50 from "@/assets/products/GHK_CU_50mg.png.asset.json";
 import ghkCu100 from "@/assets/products/GHK_CU_100mg.png.asset.json";
-import tesamoreline5mg from "@/assets/products/tesamoreline-5mg.png.asset.json";
+import tesa5mg from "@/assets/products/tesamoreline-5mg.png.asset.json";
+import tesa10mg from "@/assets/products/Tesamorelin_10mg.png.asset.json";
 import nad1000 from "@/assets/products/NAD_1000mg.png.asset.json";
-import klow80mg from "@/assets/products/klow-80mg.png.asset.json";
+import klow80mg from "@/assets/products/KLOW_80mg.png.asset.json";
+import ahkCu50mg from "@/assets/products/AHK_CU_50mg.png.asset.json";
 import ahkCu100mg from "@/assets/products/ahk-cu-100mg.png.asset.json";
 import bpc15715 from "@/assets/products/BPC_157_15mg.png.asset.json";
 import eauBac from "@/assets/products/Eau_bac_10ml.png.asset.json";
@@ -36,6 +38,7 @@ type ProductVisualProps = {
 export function ProductCard({ product }: { product: Product }) {
   const hasMultiple = product.variants.length > 1;
   const price = minPrice(product);
+  const allSoldOut = product.variants.every((v) => v.soldOut);
 
   return (
     <Link
@@ -56,6 +59,11 @@ export function ProductCard({ product }: { product: Product }) {
           {hasMultiple ? <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-muted-foreground">dès </span> : null}
           {formatPrice(price)}
         </div>
+        {allSoldOut && (
+          <div className="absolute left-3 top-3 rounded-full border border-warning/40 bg-warning/15 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.18em] text-warning backdrop-blur-sm">
+            Rupture de stock
+          </div>
+        )}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-background/35 via-background/8 to-transparent" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
       </div>
@@ -128,7 +136,7 @@ function getProductImageUrl(slug: Product["slug"], dosage?: string) {
     case "ghk-cu":
       return dosage?.includes("100") ? ghkCu100.url : ghkCu50.url;
     case "ahk-cu":
-      return ahkCu100mg.url;
+      return dosage?.includes("50") ? ahkCu50mg.url : ahkCu100mg.url;
     case "bpc-157":
       return bpc15715.url;
     case "cjc-1295-ipamorelin":
@@ -140,7 +148,7 @@ function getProductImageUrl(slug: Product["slug"], dosage?: string) {
     case "mt-2":
       return mt210mg.url;
     case "tesamoreline":
-      return tesamoreline5mg.url;
+      return dosage?.includes("10") ? tesa10mg.url : tesa5mg.url;
     case "nad-plus":
       return nad1000.url;
     case "klow":

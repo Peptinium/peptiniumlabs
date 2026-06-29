@@ -1,4 +1,4 @@
-export type Variant = { dosage: string; price: number };
+export type Variant = { dosage: string; price: number; soldOut?: boolean };
 
 export type Product = {
   slug: string;
@@ -49,7 +49,7 @@ export const products: Product[] = [
     molecularWeight: "4731.4 g/mol",
     purity: "≥ 99.1 % (HPLC)",
     variants: [
-      { dosage: "5 mg", price: 54.0 },
+      { dosage: "5 mg", price: 54.0, soldOut: true },
       { dosage: "10 mg", price: 89.0 },
       { dosage: "20 mg", price: 149.0 },
     ],
@@ -135,8 +135,11 @@ export const products: Product[] = [
     cas: "147658-05-9",
     molecularFormula: "C16H25CuN7O3",
     molecularWeight: "427.0 g/mol",
-    purity: "≥ 98.5 % (HPLC)",
-    variants: [{ dosage: "100 mg", price: 49.99 }],
+    purity: "≥ 99.0 % (HPLC)",
+    variants: [
+      { dosage: "50 mg", price: 34.99, soldOut: true },
+      { dosage: "100 mg", price: 49.99 },
+    ],
     category: "Réparation",
     shortDescription:
       "Complexe tripeptide-cuivre (Ala-His-Lys-Cu²⁺) — outil de recherche in vitro sur les follicules pileux et la matrice extracellulaire.",
@@ -175,7 +178,7 @@ export const products: Product[] = [
     cas: "75921-69-6",
     molecularFormula: "C78H111N21O19",
     molecularWeight: "1646.85 g/mol",
-    purity: "≥ 98.5 % (HPLC)",
+    purity: "≥ 99.0 % (HPLC)",
     variants: [{ dosage: "10 mg", price: 59.0 }],
     category: "Mélanocortine",
     shortDescription:
@@ -215,8 +218,8 @@ export const products: Product[] = [
     cas: "Mélange — multi-CAS",
     molecularFormula: "GHK-Cu + BPC-157 + TB-500 + KPV",
     molecularWeight: "—",
-    purity: "≥ 98.0 % (HPLC, par composant)",
-    variants: [{ dosage: "80 mg", price: 159.99 }],
+    purity: "≥ 99.0 % (HPLC, par composant)",
+    variants: [{ dosage: "80 mg", price: 159.99, soldOut: true }],
     category: "Réparation",
     shortDescription:
       "Blend de quatre peptides (GHK-Cu, BPC-157, TB-500, KPV) — outil de recherche in vitro pour les protocoles de réparation tissulaire combinée.",
@@ -256,7 +259,10 @@ export const products: Product[] = [
     molecularFormula: "C221H366N72O67S",
     molecularWeight: "5135.8 g/mol",
     purity: "≥ 99.0 % (HPLC)",
-    variants: [{ dosage: "5 mg", price: 79.99 }],
+    variants: [
+      { dosage: "5 mg", price: 79.99 },
+      { dosage: "10 mg", price: 129.99, soldOut: true },
+    ],
     category: "Croissance",
     shortDescription:
       "Analogue stabilisé du GHRH — outil de référence pour la caractérisation in vitro du récepteur GHRH-R.",
@@ -435,7 +441,7 @@ export const products: Product[] = [
     cas: "868844-74-0",
     molecularFormula: "C40H67N11O13",
     molecularWeight: "910.03 g/mol",
-    purity: "≥ 98.5 % (HPLC)",
+    purity: "≥ 99.0 % (HPLC)",
     variants: [{ dosage: "10 mg", price: 49.0 }],
     category: "Réparation",
     shortDescription:
