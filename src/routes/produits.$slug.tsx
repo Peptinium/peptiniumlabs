@@ -118,10 +118,8 @@ export const Route = createFileRoute("/produits/$slug")({
 
 function ProductPage() {
   const { product } = Route.useLoaderData() as { product: Product };
-  const [variantIdx, setVariantIdx] = useState(() => {
-    const i = (Route.useLoaderData() as { product: Product }).product.variants.findIndex((v) => !v.soldOut);
-    return i >= 0 ? i : 0;
-  });
+  const firstAvailableIdx = product.variants.findIndex((v) => !v.soldOut);
+  const [variantIdx, setVariantIdx] = useState(firstAvailableIdx >= 0 ? firstAvailableIdx : 0);
   const [withSolvent, setWithSolvent] = useState(false);
   const [qty, setQty] = useState(1);
   const [slide, setSlide] = useState<0 | 1>(0); // 0 = vial, 1 = CoA
