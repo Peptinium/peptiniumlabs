@@ -87,7 +87,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "robots", content: "index,follow" },
       { property: "og:site_name", content: "Peptinium Labs" },
       { property: "og:type", content: "website" },
-      { property: "og:title", content: "Peptinium Labs — Réactifs peptidiques de recherche" },
+      { property: "og:title", content: "Peptinium Labs — Réactifs peptidiques de recherche (RUO)" },
       {
         property: "og:description",
         content:
@@ -97,6 +97,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "apple-mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
       { name: "apple-mobile-web-app-title", content: "Peptinium Labs" },
+      { name: "twitter:title", content: "Peptinium Labs — Réactifs peptidiques de recherche (RUO)" },
+      { name: "description", content: "PeptiniumLabs is a professional e-commerce platform for scientific laboratory research chemicals." },
+      { property: "og:description", content: "PeptiniumLabs is a professional e-commerce platform for scientific laboratory research chemicals." },
+      { name: "twitter:description", content: "PeptiniumLabs is a professional e-commerce platform for scientific laboratory research chemicals." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e9ed2c78-d213-45e4-b7a8-2716d2a14945/id-preview-7681a0b9--ea176868-e777-4e2b-ab6f-cbfa2298cd94.lovable.app-1782775198357.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e9ed2c78-d213-45e4-b7a8-2716d2a14945/id-preview-7681a0b9--ea176868-e777-4e2b-ab6f-cbfa2298cd94.lovable.app-1782775198357.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
