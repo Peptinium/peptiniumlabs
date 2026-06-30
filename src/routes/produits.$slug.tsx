@@ -20,7 +20,7 @@ import coaKlow from "@/assets/coa/coa-klow.jpg.asset.json";
 import coaNad from "@/assets/coa/coa-nad-plus.jpg.asset.json";
 import coaTesa from "@/assets/coa/coa-tesamoreline.jpg.asset.json";
 
-const SOLVENT_PRICE = 5.99;
+const SOLVENT_PRICE = 9.90;
 
 const COA_MAP: Record<string, string> = {
   retatrutide: coaRetatrutide.url,
