@@ -40,6 +40,18 @@ function CommandesPage() {
   const deleteFn = useServerFn(deleteOrder);
   const trackingFn = useServerFn(setTrackingNumber);
   const invoiceFn = useServerFn(generateInvoice);
+  const testEmailsFn = useServerFn(sendBrandedEmailTests);
+  const testEmailsMut = useMutation({
+    mutationFn: (recipient: string) => testEmailsFn({ data: { recipient } }),
+    onSuccess: (res) => {
+      const ok = res.results.filter((r: any) => r.ok).length;
+      const total = res.results.length;
+      if (ok === total) toast.success(`${total} emails de test envoyés à ${res.recipient}`);
+      else toast.warning(`${ok}/${total} envoyés — vérifier les logs`);
+    },
+    onError: (e: Error) => toast.error(e.message || "Envoi impossible"),
+  });
+
 
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [filter, setFilter] = useState<string>("all");
