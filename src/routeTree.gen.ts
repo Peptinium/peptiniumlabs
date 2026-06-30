@@ -13,6 +13,7 @@ import { Route as UnsubscribeRouteImport } from './routes/unsubscribe'
 import { Route as TesterFiolesRouteImport } from './routes/tester-fioles'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as PanierRouteImport } from './routes/panier'
 import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
 import { Route as EtudesScientifiquesRouteImport } from './routes/etudes-scientifiques'
@@ -67,6 +68,11 @@ const SupportRoute = SupportRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PanierRoute = PanierRouteImport.update({
@@ -262,6 +268,7 @@ export interface FileRoutesByFullPath {
   '/etudes-scientifiques': typeof EtudesScientifiquesRoute
   '/mentions-legales': typeof MentionsLegalesRoute
   '/panier': typeof PanierRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/support': typeof SupportRoute
   '/tester-fioles': typeof TesterFiolesRoute
@@ -301,6 +308,7 @@ export interface FileRoutesByTo {
   '/etudes-scientifiques': typeof EtudesScientifiquesRoute
   '/mentions-legales': typeof MentionsLegalesRoute
   '/panier': typeof PanierRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/support': typeof SupportRoute
   '/tester-fioles': typeof TesterFiolesRoute
@@ -342,6 +350,7 @@ export interface FileRoutesById {
   '/etudes-scientifiques': typeof EtudesScientifiquesRoute
   '/mentions-legales': typeof MentionsLegalesRoute
   '/panier': typeof PanierRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/support': typeof SupportRoute
   '/tester-fioles': typeof TesterFiolesRoute
@@ -384,6 +393,7 @@ export interface FileRouteTypes {
     | '/etudes-scientifiques'
     | '/mentions-legales'
     | '/panier'
+    | '/reset-password'
     | '/sitemap.xml'
     | '/support'
     | '/tester-fioles'
@@ -423,6 +433,7 @@ export interface FileRouteTypes {
     | '/etudes-scientifiques'
     | '/mentions-legales'
     | '/panier'
+    | '/reset-password'
     | '/sitemap.xml'
     | '/support'
     | '/tester-fioles'
@@ -463,6 +474,7 @@ export interface FileRouteTypes {
     | '/etudes-scientifiques'
     | '/mentions-legales'
     | '/panier'
+    | '/reset-password'
     | '/sitemap.xml'
     | '/support'
     | '/tester-fioles'
@@ -505,6 +517,7 @@ export interface RootRouteChildren {
   EtudesScientifiquesRoute: typeof EtudesScientifiquesRoute
   MentionsLegalesRoute: typeof MentionsLegalesRoute
   PanierRoute: typeof PanierRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SupportRoute: typeof SupportRoute
   TesterFiolesRoute: typeof TesterFiolesRoute
@@ -551,6 +564,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/panier': {
@@ -873,6 +893,7 @@ const rootRouteChildren: RootRouteChildren = {
   EtudesScientifiquesRoute: EtudesScientifiquesRoute,
   MentionsLegalesRoute: MentionsLegalesRoute,
   PanierRoute: PanierRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SupportRoute: SupportRoute,
   TesterFiolesRoute: TesterFiolesRoute,
