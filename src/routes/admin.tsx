@@ -61,7 +61,7 @@ function AdminLayout() {
 
   if (authState === "checking") {
     return (
-      <div className="flex h-[100dvh] items-center justify-center bg-background text-sm text-muted-foreground">
+      <div className="dark flex h-[100dvh] items-center justify-center bg-background text-sm text-muted-foreground">
         Vérification de l'accès…
       </div>
     );
