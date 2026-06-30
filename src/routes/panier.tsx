@@ -657,6 +657,8 @@ function Recap({
   discount = 0,
   total,
   promoApplied = false,
+  promoCode = null,
+  promoRate = null,
   onApplyPromo,
   onRemovePromo,
   editable = false,
@@ -668,7 +670,9 @@ function Recap({
   discount?: number;
   total: number;
   promoApplied?: boolean;
-  onApplyPromo?: (code: string) => boolean;
+  promoCode?: string | null;
+  promoRate?: number | null;
+  onApplyPromo?: (code: string) => boolean | Promise<boolean>;
   onRemovePromo?: () => void;
   editable?: boolean;
   collapsed?: boolean;
