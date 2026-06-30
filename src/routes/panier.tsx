@@ -414,6 +414,8 @@ function PaiementBlock({
   setResearchAcceptedAt,
   cgvAcceptedAt,
   setCgvAcceptedAt,
+  paymentMethod,
+  setPaymentMethod,
 }: {
   shipping: any;
   onBack: () => void;
@@ -424,13 +426,55 @@ function PaiementBlock({
   setResearchAcceptedAt: (v: string | null) => void;
   cgvAcceptedAt: string | null;
   setCgvAcceptedAt: (v: string | null) => void;
+  paymentMethod: PayMethod;
+  setPaymentMethod: (v: PayMethod) => void;
 }) {
-  const [method, setMethod] = useState<"bank">("bank");
   const acceptedResearch = !!researchAcceptedAt;
   const acceptedCgv = !!cgvAcceptedAt;
   const [cgvOpen, setCgvOpen] = useState(false);
   const fmtTs = (iso: string) =>
     new Date(iso).toLocaleString("fr-FR", { dateStyle: "short", timeStyle: "medium" });
+
+  const methods: Array<{
+    id: PayMethod;
+    title: string;
+    icon: React.ReactNode;
+    lines: React.ReactNode[];
+  }> = [
+    {
+      id: "bank",
+      title: "Virement Bancaire",
+      icon: (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"><path d="M3 21h18M5 21V10M19 21V10M3 10l9-6 9 6M9 21v-7M15 21v-7"/></svg>
+      ),
+      lines: [
+        <>Coordonnées IBAN envoyées par email après validation.</>,
+        <><strong className="text-foreground">Délai d'envoi : sous 24 h.</strong> Expédition à réception des fonds.</>,
+      ],
+    },
+    {
+      id: "card",
+      title: "Carte Bancaire (lien sécurisé)",
+      icon: (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/></svg>
+      ),
+      lines: [
+        <>Lien Revolut sécurisé envoyé par email après validation.</>,
+        <><strong className="text-foreground">Délai d'envoi : sous 24 h.</strong> Paiement instantané ensuite.</>,
+      ],
+    },
+    {
+      id: "crypto",
+      title: "Crypto — Bitcoin (BTC)",
+      icon: (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"><path d="M11.767 19.089c4.924.868 6.14-6.025 1.216-6.894m-1.216 6.894L5.86 18.047m5.908 1.042-.347 1.97m1.563-8.864c4.924.869 6.14-6.025 1.215-6.893m-1.215 6.893L7.116 11.15m6.224-6.91-1.5 8.508m-3.776-.066-1.5 8.509m6.526-15.85L8.34 4.244m6.224 6.91L8.34 4.243"/></svg>
+      ),
+      lines: [
+        <>Adresse BTC unique envoyée par email après validation.</>,
+        <><strong className="text-foreground">Délai d'envoi : sous 24 h.</strong> Expédition après confirmation on-chain.</>,
+      ],
+    },
+  ];
 
   return (
     <div className="space-y-4">
@@ -452,44 +496,47 @@ function PaiementBlock({
 
       <div>
         <h2 className="mb-3 font-display text-base font-semibold">Sélectionnez votre mode de paiement</h2>
-        <label
-          className={`block cursor-pointer rounded-2xl border p-5 transition-all ${
-            method === "bank" ? "border-accent ring-1 ring-accent bg-accent/5" : "border-border bg-card"
-          }`}
-        >
-          <div className="flex items-center gap-3">
-            <span
-              className={`grid size-5 place-items-center rounded-full border-2 ${
-                method === "bank" ? "border-accent" : "border-border"
-              }`}
-            >
-              <span className={`size-2.5 rounded-full ${method === "bank" ? "bg-accent" : ""}`} />
-            </span>
-            <span className="flex items-center gap-2 font-display text-base font-medium">
-              Virement Bancaire
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"><path d="M3 21h18M5 21V10M19 21V10M3 10l9-6 9 6M9 21v-7M15 21v-7"/></svg>
-            </span>
-          </div>
-          <div className="mt-3 space-y-1 pl-8 text-sm text-muted-foreground">
-            <div>Transférez les fonds depuis votre banque.</div>
-            <div><strong className="text-foreground">Délai : 48 à 72h ouvrées.</strong> Expédition à réception.</div>
-          </div>
-          <input type="radio" name="method" checked readOnly className="sr-only" />
-        </label>
-
-        <div className="mt-3 rounded-2xl border border-border bg-card/50 p-5 opacity-60">
-          <div className="flex items-center gap-2">
-            <span className="grid size-5 place-items-center rounded-full border-2 border-border" />
-            <span className="font-display text-base font-medium text-muted-foreground">Carte Bancaire / Apple Pay</span>
-            <span className="rounded-full border border-warning/40 bg-warning/10 px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.18em] text-warning">
-              Indisponible
-            </span>
-          </div>
-          <div className="mt-2 pl-8 text-xs text-warning/90">
-            Option temporairement indisponible. Veuillez privilégier le Virement Bancaire pour valider votre commande aujourd'hui.
-          </div>
+        <div className="space-y-3">
+          {methods.map((m) => {
+            const active = paymentMethod === m.id;
+            return (
+              <label
+                key={m.id}
+                className={`block cursor-pointer rounded-2xl border p-5 transition-all ${
+                  active ? "border-accent ring-1 ring-accent bg-accent/5" : "border-border bg-card"
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <span className={`grid size-5 place-items-center rounded-full border-2 ${active ? "border-accent" : "border-border"}`}>
+                    <span className={`size-2.5 rounded-full ${active ? "bg-accent" : ""}`} />
+                  </span>
+                  <span className="flex items-center gap-2 font-display text-base font-medium">
+                    {m.title}
+                    {m.icon}
+                  </span>
+                </div>
+                <div className="mt-3 space-y-1 pl-8 text-sm text-muted-foreground">
+                  {m.lines.map((l, i) => (
+                    <div key={i}>{l}</div>
+                  ))}
+                </div>
+                <input
+                  type="radio"
+                  name="method"
+                  checked={active}
+                  onChange={() => setPaymentMethod(m.id)}
+                  className="sr-only"
+                />
+              </label>
+            );
+          })}
+        </div>
+        <div className="mt-3 flex items-start gap-2 rounded-lg border border-accent/30 bg-accent/5 p-3 text-xs text-foreground">
+          <svg width="14" height="14" className="mt-0.5 shrink-0 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+          <span>Tous nos paiements sont <strong>traités manuellement sous 24 h</strong> pour garantir la confidentialité et la sécurité de votre commande.</span>
         </div>
       </div>
+
 
       <div className="flex items-start gap-2.5 rounded-lg border border-border bg-surface/60 p-3.5 text-xs text-muted-foreground">
         <svg width="14" height="14" className="mt-0.5 shrink-0 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
