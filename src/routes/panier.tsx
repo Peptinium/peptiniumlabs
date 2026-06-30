@@ -817,11 +817,11 @@ function SolventLine() {
   );
 }
 
-// ─────────────────────────── VIREMENT ───────────────────────────
+// ─────────────────────────── CONFIRMATION DE COMMANDE (post-checkout) ───────
 function VirementBlock({
   total,
   orderRef,
-  motif,
+  paymentMethod,
   cart,
   subtotal,
   shippingFee,
@@ -829,46 +829,89 @@ function VirementBlock({
 }: {
   total: number;
   orderRef: string;
-  motif: string;
+  paymentMethod: PayMethod;
   cart: ReturnType<typeof useCart>;
   subtotal: number;
   shippingFee: number;
   onSignaled: () => void;
 }) {
+  const config = (() => {
+    if (paymentMethod === "card") {
+      return {
+        icon: (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
+            <rect x="2" y="6" width="20" height="12" rx="2" />
+            <path d="M2 10h20" />
+          </svg>
+        ),
+        title: "Votre lien de paiement arrive",
+        intro: "Vous recevrez sous 24 h par email un lien sécurisé pour régler par carte bancaire.",
+        boxTitle: "En attente du lien de paiement",
+        boxText: "Notre équipe valide votre commande, puis vous envoie un lien Revolut sécurisé à l'adresse email indiquée. Le délai d'envoi est généralement de quelques heures (max 24 h ouvrées).",
+        cta: "J'ai compris, je patiente",
+      };
+    }
+    if (paymentMethod === "crypto") {
+      return {
+        icon: (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
+            <path d="M11.767 19.089c4.924.868 6.14-6.025 1.216-6.894m-1.216 6.894L5.86 18.047m5.908 1.042-.347 1.97m1.563-8.864c4.924.869 6.14-6.025 1.215-6.893m-1.215 6.893L7.116 11.15m6.224-6.91-1.5 8.508m-3.776-.066-1.5 8.509m6.526-15.85L8.34 4.244m6.224 6.91L8.34 4.243m-.225 1.281L4 4.808" />
+          </svg>
+        ),
+        title: "Adresse de paiement crypto",
+        intro: "Vous recevrez sous 24 h par email l'adresse Bitcoin de réception pour régler votre commande.",
+        boxTitle: "En attente de l'adresse Bitcoin",
+        boxText: "Notre équipe valide votre commande et vous envoie l'adresse BTC unique à utiliser. Le délai d'envoi est généralement de quelques heures (max 24 h ouvrées).",
+        cta: "J'ai compris, je patiente",
+      };
+    }
+    return {
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
+          <path d="M3 21h18M5 21V10M19 21V10M3 10l9-6 9 6" />
+        </svg>
+      ),
+      title: "Coordonnées de virement",
+      intro: "Effectuez le virement bancaire ci-dessous pour confirmer votre commande.",
+      boxTitle: "Coordonnées bancaires",
+      boxText: "Vous recevrez sous 24 h par email les coordonnées bancaires (IBAN/BIC) pour effectuer votre virement. Notre équipe valide manuellement chaque commande avant envoi.",
+      cta: "J'ai compris, j'attends les coordonnées",
+    };
+  })();
+
   return (
     <div className="mx-auto max-w-xl">
       <div className="text-center">
         <div className="mx-auto grid size-14 place-items-center rounded-full border border-border bg-card text-accent">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"><path d="M3 21h18M5 21V10M19 21V10M3 10l9-6 9 6"/></svg>
+          {config.icon}
         </div>
-        <h1 className="mt-4 font-display text-3xl font-medium">Action requise</h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Effectuez le virement bancaire ci-dessous pour confirmer votre commande.
-        </p>
+        <h1 className="mt-4 font-display text-3xl font-medium">Commande enregistrée</h1>
+        <p className="mt-2 text-sm text-muted-foreground">{config.intro}</p>
       </div>
 
       <div className="mt-8 overflow-hidden rounded-2xl border border-border bg-card">
-        <CopyRow label="Bénéficiaire" value={BANK.beneficiary} />
-        <CopyRow label="IBAN" value={BANK.iban} mono />
-        <CopyRow label="BIC / SWIFT" value={BANK.bic} mono />
-        <CopyRow label="Motif (obligatoire)" value={motif || orderRef} mono highlight />
-        <div className="border-t border-border p-5">
+        <div className="border-b border-border p-5">
+          <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">Référence commande</div>
+          <div className="mt-1 font-mono text-base font-semibold tracking-wide text-foreground">{orderRef}</div>
+        </div>
+        <div className="border-b border-border p-5">
           <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">Montant</div>
           <div className="mt-1 font-display text-xl font-semibold">{formatPrice(total).replace(" €", "")} EUR</div>
         </div>
+        <div className="border-b border-border bg-accent/5 p-5">
+          <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-accent">{config.boxTitle}</div>
+          <p className="mt-2 text-sm leading-relaxed text-foreground">{config.boxText}</p>
+        </div>
 
-        <div className="border-t border-border bg-surface p-5">
+        <div className="bg-surface p-5">
           <button
             onClick={onSignaled}
             className="group relative w-full overflow-hidden rounded-xl bg-accent px-6 py-4 text-sm font-semibold uppercase tracking-[0.16em] text-background transition-colors hover:bg-accent/90"
           >
-            <span className="inline-flex items-center justify-center gap-2">
-              ✓ Je confirme avoir effectué le virement
-            </span>
+            <span className="inline-flex items-center justify-center gap-2">✓ {config.cta}</span>
           </button>
           <p className="mt-3 text-center text-[11px] leading-relaxed text-muted-foreground">
-            Votre commande sera expédiée dès réception des fonds (délai habituel 48 à 72h ouvrées).
-            Utilisez vos <strong className="text-foreground">Nom + Prénom</strong> comme motif de virement.
+            Vous pouvez suivre l'état de votre commande dans votre espace client.
           </p>
         </div>
       </div>
