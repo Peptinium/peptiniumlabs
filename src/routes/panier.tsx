@@ -174,15 +174,22 @@ function PanierPage() {
               shipping={shippingFee}
               discount={discount}
               total={total}
-              promoApplied={promoApplied}
-              onApplyPromo={(code) => {
-                if (code.trim().toUpperCase() === PROMO_CODE) {
-                  setPromoApplied(true);
-                  return true;
+              promoApplied={!!promo}
+              promoCode={promo?.code ?? null}
+              promoRate={promo?.rate ?? null}
+              onApplyPromo={async (code) => {
+                try {
+                  const res = await checkPromo({ data: { code } });
+                  if (res.valid) {
+                    setPromo({ code: res.code, rate: res.rate });
+                    return true;
+                  }
+                } catch {
+                  // ignore
                 }
                 return false;
               }}
-              onRemovePromo={() => setPromoApplied(false)}
+              onRemovePromo={() => setPromo(null)}
               editable
             />
           </div>
