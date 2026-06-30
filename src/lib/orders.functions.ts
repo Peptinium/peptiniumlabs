@@ -207,7 +207,26 @@ export const placeOrder = createServerFn({ method: "POST" })
     };
   });
 
+// Public: validate a promo code (returns rate if active, otherwise null)
+export const validatePromoCode = createServerFn({ method: "POST" })
+  .inputValidator((d: unknown) =>
+    z.object({ code: z.string().trim().min(1).max(40) }).parse(d),
+  )
+  .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const code = data.code.trim().toUpperCase();
+    const { data: promo } = await supabaseAdmin
+      .from("promo_codes")
+      .select("code,rate,active")
+      .eq("code", code)
+      .eq("active", true)
+      .maybeSingle();
+    if (!promo) return { valid: false as const };
+    return { valid: true as const, code: promo.code, rate: Number(promo.rate) };
+  });
+
 // ─────── Admin server functions ───────
+
 
 export const listOrders = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
