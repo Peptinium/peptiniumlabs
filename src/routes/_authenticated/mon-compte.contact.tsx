@@ -29,7 +29,7 @@ function ContactPage() {
         </a>
 
         <a
-          href="mailto:quote@peptinium-labs.com"
+          href="mailto:quote@peptinium.com"
           className="flex items-start gap-3 rounded-xl border border-border bg-card p-4 hover:border-accent"
         >
           <ShieldCheck className="mt-0.5 size-5 text-accent" />
