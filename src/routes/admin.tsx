@@ -69,7 +69,8 @@ function AdminLayout() {
 
   if (authState === "denied") {
     return (
-      <div className="flex h-[100dvh] items-center justify-center bg-background px-4">
+      <div className="dark flex h-[100dvh] items-center justify-center bg-background px-4">
+
         <div className="w-full max-w-md rounded-2xl border border-border bg-card p-6 text-center">
           <h2 className="font-display text-lg font-medium">Accès administrateur</h2>
           <p className="mt-2 text-sm text-muted-foreground">
