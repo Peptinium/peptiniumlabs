@@ -704,7 +704,7 @@ function Recap({
 
       {open && (
         <div className="space-y-3">
-          {cart.items.map((it) => (
+          {cart.items.filter((it) => it.slug !== EAU_SLUG).map((it) => (
             <CartLine key={itemKey(it.slug, it.dosage)} item={it} editable={editable} />
           ))}
 
