@@ -46,5 +46,17 @@ export const submitTicket = createServerFn({ method: "POST" })
       body: data.body,
     });
 
+    try {
+      const { broadcastToAdmins } = await import("./push.server");
+      await broadcastToAdmins({
+        title: "Nouveau ticket SAV",
+        body: `${t.ticket_number} · ${data.subject}`,
+        url: "/admin/sav",
+        tag: `ticket-${t.id}`,
+      });
+    } catch (e) {
+      console.error("admin push failed", e);
+    }
+
     return { ticketNumber: t.ticket_number };
   });
