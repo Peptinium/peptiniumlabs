@@ -28,12 +28,7 @@ export const Route = createFileRoute("/panier")({
 });
 
 type Step = "livraison" | "paiement" | "virement" | "confirmation";
-
-const BANK = {
-  beneficiary: "Peptinium",
-  iban: "À compléter",
-  bic: "À compléter",
-};
+type PayMethod = "bank" | "card" | "crypto";
 
 const PROMO_CODE = "WELCOME10";
 const PROMO_RATE = 0.10;
@@ -54,6 +49,7 @@ function PanierPage() {
     country: "France",
   });
   const [orderRef, setOrderRef] = useState<string>("");
+  const [paymentMethod, setPaymentMethod] = useState<PayMethod>("bank");
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [promoApplied, setPromoApplied] = useState(false);
