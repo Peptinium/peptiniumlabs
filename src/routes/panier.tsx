@@ -788,7 +788,7 @@ function Recap({
         <Row label="Sous-total" value={formatPrice(subtotal)} />
         {discount > 0 && (
           <div className="flex items-center justify-between text-success">
-            <span>Remise {PROMO_CODE}</span>
+            <span>Remise {promoCode ?? ""}</span>
             <span>−{formatPrice(discount)}</span>
           </div>
         )}
