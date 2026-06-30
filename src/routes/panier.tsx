@@ -705,15 +705,20 @@ function Recap({
 
       {open && (
         <div className="space-y-3">
-          {cart.items.filter((it) => it.slug !== EAU_SLUG).map((it) => (
-            <CartLine key={itemKey(it.slug, it.dosage)} item={it} editable={editable} />
-          ))}
+          {cart.items
+            // Hide water row only when at least one peptide is in the cart —
+            // in that case water is managed by the dedicated "Solvant" panel below.
+            .filter((it) => !(it.slug === EAU_SLUG && cart.peptideCount > 0))
+            .map((it) => (
+              <CartLine key={itemKey(it.slug, it.dosage)} item={it} editable={editable} />
+            ))}
 
           {editable && cart.peptideCount > 0 && (
             <SolventLine />
           )}
         </div>
       )}
+
 
       {editable && (
         <div className="rounded-2xl border border-border bg-card p-4">
