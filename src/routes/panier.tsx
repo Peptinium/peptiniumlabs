@@ -12,7 +12,7 @@ import {
   FREE_SHIPPING_THRESHOLD,
 } from "@/lib/cart";
 import { formatPrice } from "@/data/products";
-import { placeOrder } from "@/lib/orders.functions";
+import { placeOrder, validatePromoCode } from "@/lib/orders.functions";
 import { getMyProfile } from "@/lib/account.functions";
 import { supabase } from "@/integrations/supabase/client";
 
