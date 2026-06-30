@@ -74,8 +74,8 @@ export const products: Product[] = [
     molecularWeight: "402.92 g/mol",
     purity: "≥ 99.0 % (HPLC)",
     variants: [
-      { dosage: "50 mg", price: 59.0 },
-      { dosage: "100 mg", price: 99.0 },
+      { dosage: "50 mg", price: 49.0 },
+      { dosage: "100 mg", price: 79.0 },
     ],
     category: "Réparation",
     shortDescription:
@@ -137,8 +137,8 @@ export const products: Product[] = [
     molecularWeight: "427.0 g/mol",
     purity: "≥ 99.0 % (HPLC)",
     variants: [
-      { dosage: "50 mg", price: 34.99, soldOut: true },
-      { dosage: "100 mg", price: 49.99 },
+      { dosage: "50 mg", price: 49.0 },
+      { dosage: "100 mg", price: 79.0 },
     ],
     category: "Réparation",
     shortDescription:
@@ -199,7 +199,7 @@ export const products: Product[] = [
     molecularFormula: "C50H69N15O9",
     molecularWeight: "1024.18 g/mol",
     purity: "≥ 99.0 % (HPLC)",
-    variants: [{ dosage: "10 mg", price: 54.99 }],
+    variants: [{ dosage: "10 mg", price: 59.0 }],
     category: "Mélanocortine",
     shortDescription:
       "Analogue synthétique α-MSH — réactif pour l'étude in vitro des récepteurs MC1R / MC4R.",
@@ -219,7 +219,7 @@ export const products: Product[] = [
     molecularFormula: "GHK-Cu + BPC-157 + TB-500 + KPV",
     molecularWeight: "—",
     purity: "≥ 99.0 % (HPLC, par composant)",
-    variants: [{ dosage: "80 mg", price: 159.99, soldOut: true }],
+    variants: [{ dosage: "80 mg", price: 159.0 }],
     category: "Réparation",
     shortDescription:
       "Blend de quatre peptides (GHK-Cu, BPC-157, TB-500, KPV) — outil de recherche in vitro pour les protocoles de réparation tissulaire combinée.",
@@ -259,7 +259,7 @@ export const products: Product[] = [
     molecularFormula: "C221H366N72O67S",
     molecularWeight: "5135.8 g/mol",
     purity: "≥ 99.0 % (HPLC)",
-    variants: [{ dosage: "10 mg", price: 119.0 }],
+    variants: [{ dosage: "10 mg", price: 109.0 }],
     category: "Croissance",
     shortDescription:
       "Analogue stabilisé du GHRH — outil de référence pour la caractérisation in vitro du récepteur GHRH-R.",
@@ -279,7 +279,7 @@ export const products: Product[] = [
     molecularFormula: "H₂O + C7H8O",
     molecularWeight: "—",
     purity: "USP grade",
-    variants: [{ dosage: "10 mL", price: 11.9 }],
+    variants: [{ dosage: "10 mL", price: 9.9 }],
     category: "Reconstitution",
     shortDescription:
       "Solvant de reconstitution stérile à 0,9 % d'alcool benzylique — usage exclusivement laboratoire.",
@@ -299,7 +299,7 @@ export const products: Product[] = [
     molecularFormula: "C35H48N10O15",
     molecularWeight: "848.81 g/mol",
     purity: "≥ 99.0 % (HPLC)",
-    variants: [{ dosage: "10 mg", price: 39.0 }],
+    variants: [{ dosage: "10 mg", price: 44.0 }],
     category: "Cognitif",
     shortDescription:
       "Delta Sleep-Inducing Peptide — nonapeptide étudié in vitro pour ses effets sur les rythmes circadiens et le stress oxydatif.",
