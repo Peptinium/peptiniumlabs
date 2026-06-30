@@ -118,6 +118,7 @@ export const placeOrder = createServerFn({ method: "POST" })
     return {
       orderNumber: order.order_number as string,
       total: Number(order.total_eur),
+      paymentMethod: order.payment_method as string,
     };
   });
 
