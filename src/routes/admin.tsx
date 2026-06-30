@@ -11,7 +11,7 @@ import {
   LogOut,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { amIAdmin } from "@/lib/orders.functions";
+import { amIAdmin, claimAdminIfNone } from "@/lib/orders.functions";
 
 export const Route = createFileRoute("/admin")({
   ssr: false,
@@ -71,17 +71,34 @@ function AdminLayout() {
     return (
       <div className="flex h-[100dvh] items-center justify-center bg-background px-4">
         <div className="w-full max-w-md rounded-2xl border border-border bg-card p-6 text-center">
-          <h2 className="font-display text-lg font-medium">Accès refusé</h2>
+          <h2 className="font-display text-lg font-medium">Accès administrateur</h2>
           <p className="mt-2 text-sm text-muted-foreground">
-            Ce compte n'a pas les droits d'administration. Connecte-toi avec le
-            compte administrateur autorisé.
+            Ce compte n'a pas encore les droits d'administration. Si aucun admin
+            n'existe encore sur le projet, vous pouvez revendiquer le rôle ici.
           </p>
+          <button
+            onClick={async () => {
+              try {
+                const res = await claimAdminIfNone();
+                if (res?.isAdmin) {
+                  setAuthState("ok");
+                } else {
+                  alert("Un autre administrateur existe déjà sur ce projet.");
+                }
+              } catch (e: any) {
+                alert(e?.message ?? "Erreur");
+              }
+            }}
+            className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground hover:opacity-90"
+          >
+            Devenir administrateur
+          </button>
           <button
             onClick={async () => {
               await supabase.auth.signOut();
               navigate({ to: "/auth" });
             }}
-            className="mt-5 inline-flex items-center justify-center gap-2 rounded-lg bg-foreground px-5 py-2.5 text-sm font-medium text-background hover:opacity-90"
+            className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-border bg-background px-5 py-2.5 text-sm font-medium text-foreground hover:bg-surface"
           >
             <LogOut className="size-4" />
             Se déconnecter
