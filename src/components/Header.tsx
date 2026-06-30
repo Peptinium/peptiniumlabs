@@ -16,6 +16,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { count } = useCart();
 
   useEffect(() => {
@@ -30,9 +31,13 @@ export function Header() {
     const check = async () => {
       const { data } = await supabase.auth.getUser();
       if (!data.user) {
-        if (!cancelled) setIsAdmin(false);
+        if (!cancelled) {
+          setIsAdmin(false);
+          setIsLoggedIn(false);
+        }
         return;
       }
+      if (!cancelled) setIsLoggedIn(true);
       const { data: roles } = await supabase
         .from("user_roles")
         .select("role")
