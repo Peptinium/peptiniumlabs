@@ -166,6 +166,20 @@ function AuthPage() {
                 className="mt-1 w-full rounded-lg border border-border bg-background px-3.5 py-2.5 text-sm outline-none focus:border-accent"
               />
             </div>
+            {mode === "signup" && (
+              <div>
+                <label htmlFor="auth-password-confirm" className="text-xs font-medium text-foreground">Confirmer le mot de passe</label>
+                <input
+                  id="auth-password-confirm"
+                  type="password"
+                  required
+                  minLength={6}
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className="mt-1 w-full rounded-lg border border-border bg-background px-3.5 py-2.5 text-sm outline-none focus:border-accent"
+                />
+              </div>
+            )}
             {error && (
               <div className="rounded-lg border border-destructive/40 bg-destructive/5 p-3 text-xs text-destructive">
                 {error}
