@@ -30,8 +30,7 @@ export const Route = createFileRoute("/panier")({
 type Step = "livraison" | "paiement" | "virement" | "confirmation";
 type PayMethod = "bank" | "card" | "crypto";
 
-const PROMO_CODE = "WELCOME10";
-const PROMO_RATE = 0.10;
+type AppliedPromo = { code: string; rate: number };
 
 function PanierPage() {
   const cart = useCart();
