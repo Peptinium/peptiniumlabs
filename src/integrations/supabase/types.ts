@@ -192,10 +192,14 @@ export type Database = {
           last_name: string
           notes: string | null
           order_number: string
+          payment_link: string | null
+          payment_link_sent_at: string | null
+          payment_method: string
           payment_validated_at: string | null
           payment_validated_by: string | null
           phone: string | null
           postal_code: string
+          shipped_at: string | null
           status: string
           total_eur: number
           tracking_number: string | null
@@ -215,10 +219,14 @@ export type Database = {
           last_name: string
           notes?: string | null
           order_number?: string
+          payment_link?: string | null
+          payment_link_sent_at?: string | null
+          payment_method?: string
           payment_validated_at?: string | null
           payment_validated_by?: string | null
           phone?: string | null
           postal_code: string
+          shipped_at?: string | null
           status?: string
           total_eur?: number
           tracking_number?: string | null
@@ -238,10 +246,14 @@ export type Database = {
           last_name?: string
           notes?: string | null
           order_number?: string
+          payment_link?: string | null
+          payment_link_sent_at?: string | null
+          payment_method?: string
           payment_validated_at?: string | null
           payment_validated_by?: string | null
           phone?: string | null
           postal_code?: string
+          shipped_at?: string | null
           status?: string
           total_eur?: number
           tracking_number?: string | null
