@@ -83,14 +83,19 @@ function CoaPage() {
                   >
                     Voir le PDF
                   </a>
-                  <a
-                    href={`https://janoshik.com/verify-coa?key=${c.verifyKey}`}
-                    target="_blank"
-                    rel="noreferrer"
+                  <button
+                    type="button"
+                    onClick={async () => {
+                      try {
+                        await navigator.clipboard?.writeText(c.verifyKey);
+                      } catch {}
+                      window.open("https://janoshik.com/verification/", "_blank", "noreferrer");
+                    }}
+                    title={`Clé ${c.verifyKey} copiée — collez-la sur Janoshik`}
                     className="rounded-full border border-border px-3 py-2 text-xs font-medium transition-colors hover:border-accent hover:text-accent"
                   >
                     Vérifier
-                  </a>
+                  </button>
                 </div>
                 {c.productSlug && (
                   <Link
