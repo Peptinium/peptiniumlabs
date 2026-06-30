@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://peptinium.com/sitemap.xml

@@ -59,7 +59,7 @@ export function RuoModal() {
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             Avant d'accéder au site, merci de confirmer les points suivants. Les produits de{" "}
-            <strong className="text-foreground">peptinium-labs.com</strong> sont des réactifs
+            <strong className="text-foreground">peptinium.com</strong> sont des réactifs
             chimiques destinés exclusivement à la recherche scientifique en laboratoire.
           </p>
 

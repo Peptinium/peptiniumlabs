@@ -16,7 +16,7 @@ function ContactPage() {
 
       <div className="grid gap-3 sm:grid-cols-2">
         <a
-          href="mailto:research@peptinium-labs.com"
+          href="mailto:research@peptinium.com"
           className="flex items-start gap-3 rounded-xl border border-border bg-card p-4 hover:border-accent"
         >
           <Mail className="mt-0.5 size-5 text-accent" />
@@ -24,12 +24,12 @@ function ContactPage() {
             <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
               Service client
             </div>
-            <div className="mt-0.5 text-sm font-medium">research@peptinium-labs.com</div>
+            <div className="mt-0.5 text-sm font-medium">research@peptinium.com</div>
           </div>
         </a>
 
         <a
-          href="mailto:quote@peptinium-labs.com"
+          href="mailto:quote@peptinium.com"
           className="flex items-start gap-3 rounded-xl border border-border bg-card p-4 hover:border-accent"
         >
           <ShieldCheck className="mt-0.5 size-5 text-accent" />
@@ -37,7 +37,7 @@ function ContactPage() {
             <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
               Devis & CoA
             </div>
-            <div className="mt-0.5 text-sm font-medium">quote@peptinium-labs.com</div>
+            <div className="mt-0.5 text-sm font-medium">quote@peptinium.com</div>
           </div>
         </a>
 

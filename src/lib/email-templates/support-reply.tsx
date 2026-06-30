@@ -36,7 +36,7 @@ const Email = ({ subject, body, ticketRef }: Props) => (
         <Text style={text}>
           Vous pouvez répondre à cet email pour poursuivre la conversation.
         </Text>
-        <Text style={footer}>Peptinium Labs — support@peptinium-labs.com</Text>
+        <Text style={footer}>Peptinium Labs — support@peptinium.com</Text>
       </Container>
     </Body>
   </Html>

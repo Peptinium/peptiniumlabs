@@ -43,11 +43,11 @@ function ContactPage() {
           <dl className="mt-5 space-y-4 text-sm">
             <div>
               <dt className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Email</dt>
-              <dd>research@peptinium-labs.com</dd>
+              <dd>research@peptinium.com</dd>
             </div>
             <div>
               <dt className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Devis & CoA</dt>
-              <dd>quote@peptinium-labs.com</dd>
+              <dd>quote@peptinium.com</dd>
             </div>
             <div>
               <dt className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Horaires</dt>
