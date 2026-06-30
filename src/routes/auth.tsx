@@ -30,6 +30,13 @@ const authFormSchema = z.object({
   password: z.string().min(6, "Le mot de passe doit contenir au moins 6 caractères").max(72),
 });
 
+const signupFormSchema = authFormSchema
+  .extend({ confirmPassword: z.string() })
+  .refine((d) => d.password === d.confirmPassword, {
+    path: ["confirmPassword"],
+    message: "Les mots de passe ne correspondent pas.",
+  });
+
 function authMessage(message: string) {
   const lower = message.toLowerCase();
   if (lower.includes("invalid login") || lower.includes("invalid credentials")) {
@@ -55,6 +62,7 @@ function AuthPage() {
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -65,8 +73,8 @@ function AuthPage() {
     setNotice(null);
     setLoading(true);
     try {
-      const parsed = authFormSchema.parse({ email, password });
       if (mode === "signup") {
+        const parsed = signupFormSchema.parse({ email, password, confirmPassword });
         const { data, error } = await supabase.auth.signUp({
           email: parsed.email,
           password: parsed.password,
@@ -79,12 +87,22 @@ function AuthPage() {
           navigate({ to: redirectTo });
           return;
         }
+        // Supabase renvoie un user avec identities=[] si l'email existe déjà (anti-énumération)
+        if (data.user && Array.isArray(data.user.identities) && data.user.identities.length === 0) {
+          setError("Un compte existe déjà avec cette adresse. Connectez-vous, ou utilisez « Mot de passe oublié ».");
+          setMode("signin");
+          setPassword("");
+          setConfirmPassword("");
+          return;
+        }
         setPassword("");
+        setConfirmPassword("");
         setNotice(
-          "Compte créé. Un email Peptinium Labs vient d'être envoyé : cliquez sur « Confirmer mon email » pour activer votre compte.",
+          "Compte créé. Un email Peptinium Labs vient d'être envoyé : cliquez sur « Confirmer mon email » pour activer votre compte. Pensez à vérifier vos spams.",
         );
         return;
       } else {
+        const parsed = authFormSchema.parse({ email, password });
         const { data, error } = await supabase.auth.signInWithPassword({
           email: parsed.email,
           password: parsed.password,
