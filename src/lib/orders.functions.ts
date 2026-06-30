@@ -78,7 +78,28 @@ export const placeOrder = createServerFn({ method: "POST" })
       };
     });
 
-    const total = subtotal + data.shippingFee;
+    // Server-side shipping fee (cannot be tampered by the client)
+    const shippingFee =
+      subtotal === 0 || subtotal >= FREE_SHIPPING_THRESHOLD_EUR ? 0 : SHIPPING_FEE_EUR;
+
+    // Server-side promo code validation
+    let discount = 0;
+    let appliedPromoCode: string | null = null;
+    if (data.promoCode && data.promoCode.trim().length > 0) {
+      const code = data.promoCode.trim().toUpperCase();
+      const { data: promo } = await supabaseAdmin
+        .from("promo_codes")
+        .select("code,rate,active")
+        .eq("code", code)
+        .eq("active", true)
+        .maybeSingle();
+      if (promo) {
+        discount = Math.round(subtotal * Number(promo.rate) * 100) / 100;
+        appliedPromoCode = promo.code;
+      }
+    }
+
+    const total = Math.max(0, subtotal - discount + shippingFee);
 
     const userId = await getOptionalUserId();
 
