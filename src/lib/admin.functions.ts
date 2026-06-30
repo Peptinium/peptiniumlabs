@@ -510,7 +510,7 @@ async function buildInvoicePdf(opts: {
   draw("PEPTINIUM", 40, 790, 22, helvBold, rgb(0.06, 0.06, 0.08));
   draw("LABS", 158, 790, 22, helv, rgb(0.55, 0.22, 0.12));
   draw("Réactifs peptidiques de recherche (RUO)", 40, 772, 9, helv, rgb(0.45, 0.45, 0.5));
-  draw("contact@peptinium-labs.com  ·  www.peptinium-labs.com", 40, 760, 9);
+  draw("contact@peptinium.com  ·  www.peptinium.com", 40, 760, 9);
 
   draw("FACTURE", 420, 790, 16, helvBold);
   draw(`N° ${opts.invoiceNumber}`, 420, 770, 10, helvBold);

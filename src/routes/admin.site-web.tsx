@@ -15,7 +15,7 @@ function SiteWebPage() {
       <div className="flex items-center justify-between border-b border-border bg-card px-4 py-3">
         <div>
           <h2 className="text-sm font-semibold">Aperçu du site</h2>
-          <p className="text-[11px] text-muted-foreground">peptinium-labs.com</p>
+          <p className="text-[11px] text-muted-foreground">peptinium.com</p>
         </div>
         <div className="flex items-center gap-2">
           <button
@@ -35,7 +35,7 @@ function SiteWebPage() {
             <Monitor className="size-4" />
           </button>
           <a
-            href="https://peptinium-labs.com"
+            href="https://peptinium.com"
             target="_blank"
             rel="noopener noreferrer"
             className="flex size-8 items-center justify-center rounded-lg bg-muted text-muted-foreground transition-colors hover:text-foreground"
@@ -53,7 +53,7 @@ function SiteWebPage() {
           }`}
         >
           <iframe
-            src="https://peptinium-labs.com"
+            src="https://peptinium.com"
             className="h-full w-full"
             style={{ border: "none" }}
             title="Aperçu Peptinium Labs"
