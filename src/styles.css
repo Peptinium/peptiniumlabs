@@ -253,15 +253,9 @@
     var(--brand-violet) 68%,
     var(--brand-magenta) 100%
   );
-  background-size: 240% 100%;
-  background-position: 240% 50%;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: shimmer 3.8s linear infinite both;
-  backface-visibility: hidden;
-  transform: translateZ(0);
-  will-change: background-position;
 }
 .ruo-badge-shine {
   position: absolute;
