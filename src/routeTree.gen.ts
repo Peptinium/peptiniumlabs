@@ -17,6 +17,7 @@ import { Route as PanierRouteImport } from './routes/panier'
 import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
 import { Route as EtudesScientifiquesRouteImport } from './routes/etudes-scientifiques'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CoaRouteImport } from './routes/coa'
 import { Route as CgvRouteImport } from './routes/cgv'
 import { Route as CalculatriceRouteImport } from './routes/calculatrice'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -25,9 +26,11 @@ import { Route as AProposRouteImport } from './routes/a-propos'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProduitsIndexRouteImport } from './routes/produits.index'
+import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as ProduitsSlugRouteImport } from './routes/produits.$slug'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 import { Route as AdminStocksRouteImport } from './routes/admin.stocks'
 import { Route as AdminSiteWebRouteImport } from './routes/admin.site-web'
@@ -86,6 +89,11 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CoaRoute = CoaRouteImport.update({
+  id: '/coa',
+  path: '/coa',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CgvRoute = CgvRouteImport.update({
   id: '/cgv',
   path: '/cgv',
@@ -125,6 +133,11 @@ const ProduitsIndexRoute = ProduitsIndexRouteImport.update({
   path: '/produits/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -138,6 +151,11 @@ const ProduitsSlugRoute = ProduitsSlugRouteImport.update({
 const EmailUnsubscribeRoute = EmailUnsubscribeRouteImport.update({
   id: '/email/unsubscribe',
   path: '/email/unsubscribe',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/blog/$slug',
+  path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthCallbackRoute = AuthCallbackRouteImport.update({
@@ -239,6 +257,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRouteWithChildren
   '/calculatrice': typeof CalculatriceRoute
   '/cgv': typeof CgvRoute
+  '/coa': typeof CoaRoute
   '/contact': typeof ContactRoute
   '/etudes-scientifiques': typeof EtudesScientifiquesRoute
   '/mentions-legales': typeof MentionsLegalesRoute
@@ -254,9 +273,11 @@ export interface FileRoutesByFullPath {
   '/admin/site-web': typeof AdminSiteWebRoute
   '/admin/stocks': typeof AdminStocksRoute
   '/auth/callback': typeof AuthCallbackRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/produits/$slug': typeof ProduitsSlugRoute
   '/admin/': typeof AdminIndexRoute
+  '/blog/': typeof BlogIndexRoute
   '/produits/': typeof ProduitsIndexRoute
   '/mon-compte/contact': typeof AuthenticatedMonCompteContactRoute
   '/mon-compte/profil': typeof AuthenticatedMonCompteProfilRoute
@@ -275,6 +296,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRouteWithChildren
   '/calculatrice': typeof CalculatriceRoute
   '/cgv': typeof CgvRoute
+  '/coa': typeof CoaRoute
   '/contact': typeof ContactRoute
   '/etudes-scientifiques': typeof EtudesScientifiquesRoute
   '/mentions-legales': typeof MentionsLegalesRoute
@@ -289,9 +311,11 @@ export interface FileRoutesByTo {
   '/admin/site-web': typeof AdminSiteWebRoute
   '/admin/stocks': typeof AdminStocksRoute
   '/auth/callback': typeof AuthCallbackRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/produits/$slug': typeof ProduitsSlugRoute
   '/admin': typeof AdminIndexRoute
+  '/blog': typeof BlogIndexRoute
   '/produits': typeof ProduitsIndexRoute
   '/mon-compte/contact': typeof AuthenticatedMonCompteContactRoute
   '/mon-compte/profil': typeof AuthenticatedMonCompteProfilRoute
@@ -313,6 +337,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRouteWithChildren
   '/calculatrice': typeof CalculatriceRoute
   '/cgv': typeof CgvRoute
+  '/coa': typeof CoaRoute
   '/contact': typeof ContactRoute
   '/etudes-scientifiques': typeof EtudesScientifiquesRoute
   '/mentions-legales': typeof MentionsLegalesRoute
@@ -328,9 +353,11 @@ export interface FileRoutesById {
   '/admin/site-web': typeof AdminSiteWebRoute
   '/admin/stocks': typeof AdminStocksRoute
   '/auth/callback': typeof AuthCallbackRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/produits/$slug': typeof ProduitsSlugRoute
   '/admin/': typeof AdminIndexRoute
+  '/blog/': typeof BlogIndexRoute
   '/produits/': typeof ProduitsIndexRoute
   '/_authenticated/mon-compte/contact': typeof AuthenticatedMonCompteContactRoute
   '/_authenticated/mon-compte/profil': typeof AuthenticatedMonCompteProfilRoute
@@ -352,6 +379,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/calculatrice'
     | '/cgv'
+    | '/coa'
     | '/contact'
     | '/etudes-scientifiques'
     | '/mentions-legales'
@@ -367,9 +395,11 @@ export interface FileRouteTypes {
     | '/admin/site-web'
     | '/admin/stocks'
     | '/auth/callback'
+    | '/blog/$slug'
     | '/email/unsubscribe'
     | '/produits/$slug'
     | '/admin/'
+    | '/blog/'
     | '/produits/'
     | '/mon-compte/contact'
     | '/mon-compte/profil'
@@ -388,6 +418,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/calculatrice'
     | '/cgv'
+    | '/coa'
     | '/contact'
     | '/etudes-scientifiques'
     | '/mentions-legales'
@@ -402,9 +433,11 @@ export interface FileRouteTypes {
     | '/admin/site-web'
     | '/admin/stocks'
     | '/auth/callback'
+    | '/blog/$slug'
     | '/email/unsubscribe'
     | '/produits/$slug'
     | '/admin'
+    | '/blog'
     | '/produits'
     | '/mon-compte/contact'
     | '/mon-compte/profil'
@@ -425,6 +458,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/calculatrice'
     | '/cgv'
+    | '/coa'
     | '/contact'
     | '/etudes-scientifiques'
     | '/mentions-legales'
@@ -440,9 +474,11 @@ export interface FileRouteTypes {
     | '/admin/site-web'
     | '/admin/stocks'
     | '/auth/callback'
+    | '/blog/$slug'
     | '/email/unsubscribe'
     | '/produits/$slug'
     | '/admin/'
+    | '/blog/'
     | '/produits/'
     | '/_authenticated/mon-compte/contact'
     | '/_authenticated/mon-compte/profil'
@@ -464,6 +500,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRouteWithChildren
   CalculatriceRoute: typeof CalculatriceRoute
   CgvRoute: typeof CgvRoute
+  CoaRoute: typeof CoaRoute
   ContactRoute: typeof ContactRoute
   EtudesScientifiquesRoute: typeof EtudesScientifiquesRoute
   MentionsLegalesRoute: typeof MentionsLegalesRoute
@@ -472,8 +509,10 @@ export interface RootRouteChildren {
   SupportRoute: typeof SupportRoute
   TesterFiolesRoute: typeof TesterFiolesRoute
   UnsubscribeRoute: typeof UnsubscribeRoute
+  BlogSlugRoute: typeof BlogSlugRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   ProduitsSlugRoute: typeof ProduitsSlugRoute
+  BlogIndexRoute: typeof BlogIndexRoute
   ProduitsIndexRoute: typeof ProduitsIndexRoute
   ApiPublicTrackRoute: typeof ApiPublicTrackRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
@@ -542,6 +581,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/coa': {
+      id: '/coa'
+      path: '/coa'
+      fullPath: '/coa'
+      preLoaderRoute: typeof CoaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/cgv': {
       id: '/cgv'
       path: '/cgv'
@@ -598,6 +644,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProduitsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/': {
       id: '/admin/'
       path: '/'
@@ -617,6 +670,13 @@ declare module '@tanstack/react-router' {
       path: '/email/unsubscribe'
       fullPath: '/email/unsubscribe'
       preLoaderRoute: typeof EmailUnsubscribeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/callback': {
@@ -808,6 +868,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRouteWithChildren,
   CalculatriceRoute: CalculatriceRoute,
   CgvRoute: CgvRoute,
+  CoaRoute: CoaRoute,
   ContactRoute: ContactRoute,
   EtudesScientifiquesRoute: EtudesScientifiquesRoute,
   MentionsLegalesRoute: MentionsLegalesRoute,
@@ -816,8 +877,10 @@ const rootRouteChildren: RootRouteChildren = {
   SupportRoute: SupportRoute,
   TesterFiolesRoute: TesterFiolesRoute,
   UnsubscribeRoute: UnsubscribeRoute,
+  BlogSlugRoute: BlogSlugRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   ProduitsSlugRoute: ProduitsSlugRoute,
+  BlogIndexRoute: BlogIndexRoute,
   ProduitsIndexRoute: ProduitsIndexRoute,
   ApiPublicTrackRoute: ApiPublicTrackRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
