@@ -190,8 +190,8 @@ export const sendPaymentLink = createServerFn({ method: "POST" })
     if (uErr) throw new Error(uErr.message);
 
     try {
-      const { sendAppEmail } = await import("@/lib/email/send.server");
-      await sendAppEmail({
+      const { enqueueAppEmail } = await import("@/lib/email/enqueue.server");
+      await enqueueAppEmail({
         templateName: "payment-link",
         recipientEmail: order.email,
         idempotencyKey: `payment-link-${order.id}-${Date.now()}`,
@@ -248,8 +248,8 @@ export const sendCryptoPayment = createServerFn({ method: "POST" })
       .eq("id", data.orderId);
 
     try {
-      const { sendAppEmail } = await import("@/lib/email/send.server");
-      await sendAppEmail({
+      const { enqueueAppEmail } = await import("@/lib/email/enqueue.server");
+      await enqueueAppEmail({
         templateName: "crypto-payment",
         recipientEmail: order.email,
         idempotencyKey: `crypto-${order.id}-${Date.now()}`,
@@ -321,8 +321,8 @@ export const sendShippingNotification = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
 
     try {
-      const { sendAppEmail } = await import("@/lib/email/send.server");
-      await sendAppEmail({
+      const { enqueueAppEmail } = await import("@/lib/email/enqueue.server");
+      await enqueueAppEmail({
         templateName: "order-shipped",
         recipientEmail: order.email,
         idempotencyKey: `shipped-${order.id}-${Date.now()}`,
@@ -638,8 +638,8 @@ export const replyTicket = createServerFn({ method: "POST" })
         .eq("id", data.ticketId)
         .maybeSingle();
       if (ticket?.email) {
-        const { sendAppEmail } = await import("@/lib/email/send.server");
-        await sendAppEmail({
+        const { enqueueAppEmail } = await import("@/lib/email/enqueue.server");
+        await enqueueAppEmail({
           templateName: "support-reply",
           recipientEmail: ticket.email,
           idempotencyKey: `sav-reply-${data.ticketId}-${Date.now()}`,
@@ -869,7 +869,7 @@ export const sendBrandedEmailTests = createServerFn({ method: "POST" })
   )
   .handler(async ({ data, context }) => {
     await requireAdmin(context);
-    const { sendAppEmail } = await import("@/lib/email/send.server");
+    const { enqueueAppEmail } = await import("@/lib/email/enqueue.server");
     const { getRequest } = await import("@tanstack/react-start/server");
     const req = getRequest();
     const authHeader = req?.headers.get("authorization") || "";
@@ -929,7 +929,7 @@ export const sendBrandedEmailTests = createServerFn({ method: "POST" })
     ];
     const results: Array<{ template: string; ok: boolean; error?: string }> = [];
     for (const s of sends) {
-      const r = await sendAppEmail({
+      const r = await enqueueAppEmail({
         templateName: s.templateName,
         recipientEmail: data.recipient,
         idempotencyKey: `test-${s.templateName}-${stamp}`,
