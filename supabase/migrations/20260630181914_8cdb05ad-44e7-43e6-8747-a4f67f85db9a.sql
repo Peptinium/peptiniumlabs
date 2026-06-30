@@ -1,0 +1,1 @@
+ALTER TABLE public.orders ALTER COLUMN order_number SET DEFAULT (('PEP-' || to_char(now(), 'YYYYMMDD')) || '-' || lpad((floor((random() * 100000::double precision)))::text, 5, '0'));
