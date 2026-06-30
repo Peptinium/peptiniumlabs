@@ -198,6 +198,8 @@ function PanierPage() {
               setResearchAcceptedAt={setResearchAcceptedAt}
               cgvAcceptedAt={cgvAcceptedAt}
               setCgvAcceptedAt={setCgvAcceptedAt}
+              paymentMethod={paymentMethod}
+              setPaymentMethod={setPaymentMethod}
             />
 
             <Recap
