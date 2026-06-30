@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { toast } from "sonner";
 import { SiteLayout } from "@/components/SiteLayout";
 import { Reveal } from "@/components/Reveal";
 import { coaCatalog } from "@/data/coa-catalog";
@@ -88,7 +89,10 @@ function CoaPage() {
                     onClick={async () => {
                       try {
                         await navigator.clipboard?.writeText(c.verifyKey);
-                      } catch {}
+                        toast.success("Clé copiée");
+                      } catch {
+                        toast.error("Impossible de copier la clé");
+                      }
                       window.open("https://janoshik.com/verification/", "_blank", "noreferrer");
                     }}
                     title={`Clé ${c.verifyKey} copiée — collez-la sur Janoshik`}
