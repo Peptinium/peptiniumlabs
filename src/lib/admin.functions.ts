@@ -50,11 +50,11 @@ export const validatePayment = createServerFn({ method: "POST" })
       .eq("id", data.orderId);
     if (oErr) throw new Error(oErr.message);
 
-    // Send order confirmation email (best-effort)
+    // Send "paiement confirmé" email (best-effort, direct enqueue, service-role)
     try {
       const { data: order } = await supabaseAdmin
         .from("orders")
-        .select("order_number,email,first_name,last_name,total_eur")
+        .select("order_number,email,first_name,last_name,total_eur,address_line,postal_code,city,country")
         .eq("id", data.orderId)
         .maybeSingle();
       const { data: items } = await supabaseAdmin
@@ -62,15 +62,23 @@ export const validatePayment = createServerFn({ method: "POST" })
         .select("product_name,quantity,unit_price_eur")
         .eq("order_id", data.orderId);
       if (order?.email) {
-        const { sendAppEmail } = await import("@/lib/email/send.server");
-        await sendAppEmail({
-          templateName: "order-confirmation",
+        const { enqueueAppEmail } = await import("@/lib/email/enqueue.server");
+        const shippingAddress = [
+          order.address_line,
+          `${order.postal_code ?? ""} ${order.city ?? ""}`.trim(),
+          order.country,
+        ]
+          .filter(Boolean)
+          .join("\n");
+        await enqueueAppEmail({
+          templateName: "order-paid",
           recipientEmail: order.email,
-          idempotencyKey: `order-confirm-${data.orderId}`,
+          idempotencyKey: `order-paid-${data.orderId}`,
           templateData: {
             customerName: [order.first_name, order.last_name].filter(Boolean).join(" "),
             orderNumber: order.order_number ?? "",
             totalEur: Number(order.total_eur ?? 0),
+            shippingAddress,
             items: (items ?? []).map((i) => ({
               name: i.product_name,
               quantity: i.quantity,
@@ -80,8 +88,9 @@ export const validatePayment = createServerFn({ method: "POST" })
         });
       }
     } catch (e) {
-      console.error("order confirmation email failed", e);
+      console.error("order-paid email failed", e);
     }
+
     try {
       const { supabaseAdmin: sa } = await import("@/integrations/supabase/client.server");
       const { data: o } = await sa
@@ -126,15 +135,6 @@ export const setTrackingNumber = createServerFn({ method: "POST" })
   });
 
 // ─────────── Lien de paiement CB (différé) ───────────
-const ALLOWED_PAYMENT_HOSTS = [
-  "checkout.revolut.com",
-  "pay.revolut.com",
-  "revolut.me",
-  "paypal.me",
-  "paypal.com",
-  "buy.stripe.com",
-];
-
 function validatePaymentLink(link: string): string {
   const trimmed = (link ?? "").trim();
   if (!trimmed) throw new Error("Lien de paiement vide.");
@@ -148,16 +148,9 @@ function validatePaymentLink(link: string): string {
   if (url.protocol !== "https:") {
     throw new Error("Le lien doit commencer par https://");
   }
-  const hostOk = ALLOWED_PAYMENT_HOSTS.some(
-    (h) => url.hostname === h || url.hostname.endsWith(`.${h}`),
-  );
-  if (!hostOk) {
-    throw new Error(
-      `Domaine non autorisé. Utilisez un fournisseur de paiement carte sécurisé approuvé.`,
-    );
-  }
   return trimmed;
 }
+
 
 export const sendPaymentLink = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
