@@ -1,6 +1,6 @@
 // Server-only helper: enqueue a transactional email via the internal send route.
-// Uses the service-role key so it can be called from privileged server functions
-// (no user JWT needed). Never import this from client code.
+// Pass a user bearer token when called from a server function — the send route
+// validates it via supabase.auth.getUser(). Never import this from client code.
 
 export async function sendAppEmail(opts: {
   templateName: string
@@ -8,14 +8,13 @@ export async function sendAppEmail(opts: {
   idempotencyKey: string
   templateData?: Record<string, unknown>
   request?: Request
+  bearerToken?: string
 }) {
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
-  if (!serviceKey) {
-    console.error('sendAppEmail: SUPABASE_SERVICE_ROLE_KEY missing')
+  const bearer = opts.bearerToken || process.env.SUPABASE_SERVICE_ROLE_KEY
+  if (!bearer) {
+    console.error('sendAppEmail: no bearer token available')
     return { ok: false, error: 'config' }
   }
-  // Resolve same-origin URL from the incoming request when available, otherwise
-  // fall back to the env-provided site URL.
   const origin =
     (opts.request && new URL(opts.request.url).origin) ||
     process.env.SITE_URL ||
@@ -26,7 +25,7 @@ export async function sendAppEmail(opts: {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${serviceKey}`,
+        Authorization: `Bearer ${bearer}`,
       },
       body: JSON.stringify({
         templateName: opts.templateName,
