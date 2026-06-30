@@ -87,7 +87,6 @@ function PanierPage() {
   }, [fetchProfile]);
 
   const isEmpty = cart.items.length === 0;
-  const motif = "ton nom + prénom";
 
   const subtotal = cart.subtotal;
   const shippingFee = subtotal >= FREE_SHIPPING_THRESHOLD || subtotal === 0 ? 0 : SHIPPING;
@@ -99,7 +98,14 @@ function PanierPage() {
     setSubmitError(null);
     setSubmitting(true);
     try {
+      const methodLabel =
+        paymentMethod === "card"
+          ? "Carte bancaire (lien différé)"
+          : paymentMethod === "crypto"
+            ? "Crypto (Bitcoin)"
+            : "Virement bancaire";
       const consentNote =
+        `[Méthode : ${methodLabel}]\n` +
         `[Certification RUO acceptée le ${researchAcceptedAt ?? new Date().toISOString()}]\n` +
         `[CGV acceptées le ${cgvAcceptedAt ?? new Date().toISOString()}]` +
         (promoApplied ? `\n[Code promo ${PROMO_CODE} appliqué : −${(PROMO_RATE * 100).toFixed(0)} %]` : "");
@@ -124,6 +130,7 @@ function PanierPage() {
             unitPrice: it.price,
           })),
           shippingFee,
+          paymentMethod,
         },
       });
       setOrderRef(res.orderNumber);
