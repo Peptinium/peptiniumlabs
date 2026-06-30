@@ -22,29 +22,40 @@ export const Route = createFileRoute("/auth/callback")({
 function AuthCallback() {
   const navigate = useNavigate();
   const search = useSearch({ from: "/auth/callback" });
-  const redirectTo = isSafePath(search.redirect) ? search.redirect : "/mon-compte";
   const [error, setError] = useState<string | null>(null);
+  const [redirectTo, setRedirectTo] = useState<string>("/mon-compte");
   useEffect(() => {
     let cancelled = false;
-    const finish = () => navigate({ to: redirectTo, replace: true });
+
+    const url = new URL(window.location.href);
+    const hashParams = new URLSearchParams(url.hash.replace(/^#/, ""));
+    const type = url.searchParams.get("type") || hashParams.get("type");
+    const isRecovery = type === "recovery" || search.redirect === "/reset-password";
+
+    // Recovery: hop straight to /reset-password (keep the hash so supabase
+    // can consume the recovery token there and emit PASSWORD_RECOVERY).
+    if (isRecovery) {
+      window.location.replace(`/reset-password${window.location.hash || ""}`);
+      return;
+    }
+
+    const target = isSafePath(search.redirect) ? search.redirect : "/mon-compte";
+    setRedirectTo(target);
+    const finish = () => navigate({ to: target, replace: true });
 
     const sub = supabase.auth.onAuthStateChange((_event, session) => {
       if (!cancelled && session) finish();
     });
 
     const completeCallback = async () => {
-      // If the broker already set the session (web_message popup flow), we're done.
       const { data: existing } = await supabase.auth.getSession();
       if (existing.session) {
         finish();
         return;
       }
 
-      const url = new URL(window.location.href);
-      const hashParams = new URLSearchParams(url.hash.replace(/^#/, ""));
       const code = url.searchParams.get("code") || hashParams.get("code");
       const tokenHash = url.searchParams.get("token_hash") || hashParams.get("token_hash");
-      const type = url.searchParams.get("type") || hashParams.get("type");
 
       if (code) {
         try {

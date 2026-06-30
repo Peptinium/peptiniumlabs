@@ -36,12 +36,29 @@ function ResetPasswordPage() {
 
   useEffect(() => {
     let cancelled = false;
+
+    // Listen first so we catch PASSWORD_RECOVERY emitted when supabase
+    // parses the recovery token from the URL hash on load.
+    const sub = supabase.auth.onAuthStateChange((event, session) => {
+      if (cancelled) return;
+      if (event === "PASSWORD_RECOVERY" || session) setHasSession(true);
+    });
+
+    // Also check current session (covers the case where the hash was
+    // already consumed before this component mounted).
     supabase.auth.getSession().then(({ data }) => {
-      if (!cancelled) setHasSession(!!data.session);
+      if (cancelled) return;
+      if (data.session) setHasSession(true);
+      else {
+        // Give supabase a moment to detect the hash, then decide.
+        setTimeout(async () => {
+          if (cancelled) return;
+          const { data: again } = await supabase.auth.getSession();
+          setHasSession(!!again.session);
+        }, 1500);
+      }
     });
-    const sub = supabase.auth.onAuthStateChange((_event, session) => {
-      if (!cancelled) setHasSession(!!session);
-    });
+
     return () => {
       cancelled = true;
       sub.data.subscription.unsubscribe();
