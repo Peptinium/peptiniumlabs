@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { Body, Button, Head, Html, Preview, Text } from '@react-email/components'
-import { BrandLayout, styles } from './_brand'
+import { Body, Button, Head, Html, Link, Preview, Text } from '@react-email/components'
+import { BrandLayout, brand, styles } from './_brand'
 
 interface InviteEmailProps {
   siteName: string
@@ -8,16 +8,23 @@ interface InviteEmailProps {
   confirmationUrl: string
 }
 
-export const InviteEmail = ({ siteName, confirmationUrl }: InviteEmailProps) => (
+export const InviteEmail = ({
+  siteName,
+  siteUrl,
+  confirmationUrl,
+}: InviteEmailProps) => (
   <Html lang="fr" dir="ltr">
     <Head />
-    <Preview>Vous êtes invité à rejoindre {siteName}</Preview>
+    <Preview>Invitation à rejoindre {siteName}</Preview>
     <Body style={styles.main}>
       <BrandLayout>
         <Text style={styles.h1}>Vous êtes invité</Text>
         <Text style={styles.text}>
-          Vous avez été invité à rejoindre <strong>{siteName}</strong>. Cliquez sur le
-          bouton ci-dessous pour accepter et créer votre compte.
+          Vous êtes invité à rejoindre{' '}
+          <Link href={siteUrl} style={styles.link}>
+            <strong style={{ color: brand.ink }}>{siteName}</strong>
+          </Link>
+          . Cliquez sur le bouton ci-dessous pour accepter l'invitation et créer votre compte.
         </Text>
         <div style={styles.buttonWrap}>
           <Button style={styles.button} href={confirmationUrl}>
@@ -25,8 +32,12 @@ export const InviteEmail = ({ siteName, confirmationUrl }: InviteEmailProps) => 
           </Button>
         </div>
         <Text style={styles.text}>
-          Si cette invitation ne vous était pas destinée, vous pouvez ignorer cet email.
+          Si le bouton ne s'ouvre pas, utilisez ce lien sécurisé :<br />
+          <Link href={confirmationUrl} style={styles.fallbackLink}>
+            {confirmationUrl}
+          </Link>
         </Text>
+        <Text style={styles.text}>Si vous n'attendiez pas cette invitation, vous pouvez ignorer cet email.</Text>
       </BrandLayout>
     </Body>
   </Html>

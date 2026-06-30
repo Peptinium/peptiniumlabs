@@ -12,12 +12,12 @@ import { EmailChangeEmail } from '@/lib/email-templates/email-change'
 import { ReauthenticationEmail } from '@/lib/email-templates/reauthentication'
 
 const EMAIL_SUBJECTS: Record<string, string> = {
-  signup: 'Confirm your email',
-  invite: "You've been invited",
-  magiclink: 'Your login link',
-  recovery: 'Reset your password',
-  email_change: 'Confirm your new email',
-  reauthentication: 'Your verification code',
+  signup: 'Confirmez votre compte Peptinium Labs',
+  invite: 'Invitation Peptinium Labs',
+  magiclink: 'Votre lien de connexion Peptinium Labs',
+  recovery: 'Réinitialisation de votre mot de passe Peptinium Labs',
+  email_change: 'Confirmez votre nouvel email Peptinium Labs',
+  reauthentication: 'Votre code de vérification Peptinium Labs',
 }
 
 // Template mapping
@@ -31,7 +31,7 @@ const EMAIL_TEMPLATES: Record<string, React.ComponentType<any>> = {
 }
 
 // Configuration
-const SITE_NAME = "peptiniumlabs"
+const SITE_NAME = "Peptinium Labs"
 const SENDER_DOMAIN = "notify.peptinium.com"
 const ROOT_DOMAIN = "peptinium.com"
 const FROM_DOMAIN = "peptinium.com"
@@ -179,7 +179,7 @@ export const Route = createFileRoute("/lovable/email/auth/webhook")({
             to: payload.data.email,
             from: `${SITE_NAME} <noreply@${FROM_DOMAIN}>`,
             sender_domain: SENDER_DOMAIN,
-            subject: EMAIL_SUBJECTS[emailType] || 'Notification',
+            subject: EMAIL_SUBJECTS[emailType] || 'Notification Peptinium Labs',
             html,
             text,
             purpose: 'transactional',

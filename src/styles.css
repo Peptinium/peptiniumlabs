@@ -59,8 +59,8 @@
   to { opacity: 1; transform: scale(1) }
 }
 @keyframes shimmer {
-  0% { background-position: -200% 0 }
-  100% { background-position: 200% 0 }
+  0% { background-position: 200% 50% }
+  100% { background-position: -200% 50% }
 }
 @keyframes pulse-ring {
   0% { transform: scale(0.85); opacity: 0.7 }
@@ -215,19 +215,22 @@
   background: linear-gradient(
     100deg,
     var(--ink) 0%,
-    var(--ink) 35%,
-    var(--brand-cyan) 45%,
+    var(--ink) 32%,
+    var(--brand-cyan) 43%,
     var(--brand-blue) 50%,
-    var(--brand-violet) 55%,
-    var(--brand-magenta) 60%,
-    var(--ink) 70%,
+    var(--brand-violet) 57%,
+    var(--brand-magenta) 64%,
+    var(--ink) 76%,
     var(--ink) 100%
   );
-  background-size: 250% auto;
+  background-size: 320% 100%;
+  background-position: 200% 50%;
   background-clip: text;
   -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   color: transparent;
-  animation: shimmer 4.2s linear infinite;
+  animation: shimmer 3.8s linear infinite;
+  will-change: background-position;
 }
 
 @keyframes ruo-shine {
@@ -241,17 +244,18 @@
 .ruo-badge-text {
   background: linear-gradient(
     90deg,
-    currentColor 0%,
-    currentColor 42%,
-    color-mix(in oklab, currentColor 35%, white) 50%,
-    currentColor 58%,
-    currentColor 100%
+    var(--brand-cyan) 0%,
+    var(--brand-blue) 34%,
+    var(--brand-violet) 68%,
+    var(--brand-magenta) 100%
   );
-  background-size: 220% auto;
+  background-size: 260% 100%;
+  background-position: 200% 50%;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: shimmer 6.5s linear infinite;
+  animation: shimmer 4.6s linear infinite;
+  will-change: background-position;
 }
 .ruo-badge-shine {
   position: absolute;
