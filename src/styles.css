@@ -245,18 +245,6 @@
 }
 
 .ruo-badge { isolation: isolate; }
-.ruo-badge-text {
-  background: linear-gradient(
-    90deg,
-    var(--brand-cyan) 0%,
-    var(--brand-blue) 34%,
-    var(--brand-violet) 68%,
-    var(--brand-magenta) 100%
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
 .ruo-badge-shine {
   position: absolute;
   inset: 0;
@@ -264,12 +252,12 @@
   background: linear-gradient(
     100deg,
     transparent 0%,
-    transparent 38%,
-    color-mix(in oklab, currentColor 22%, transparent) 50%,
-    transparent 62%,
+    transparent 40%,
+    color-mix(in oklab, white 35%, transparent) 50%,
+    transparent 60%,
     transparent 100%
   );
-  mix-blend-mode: screen;
+  mix-blend-mode: overlay;
   animation: ruo-shine 7s ease-in-out infinite;
   animation-delay: 1.2s;
 }
