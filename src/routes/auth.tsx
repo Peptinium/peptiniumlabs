@@ -57,9 +57,9 @@ function authMessage(message: string) {
 function AuthPage() {
   const navigate = useNavigate();
   const search = useSearch({ from: "/auth" });
-  const redirectTo = isSafePath(search.redirect) ? search.redirect : "/mon-compte";
+  const redirectTo = isSafePath(search.redirect) ? search.redirect : "/";
 
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
+  const [mode, setMode] = useState<"signin" | "signup" | "forgot">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -73,6 +73,17 @@ function AuthPage() {
     setNotice(null);
     setLoading(true);
     try {
+      if (mode === "forgot") {
+        const parsed = z.object({ email: z.string().trim().email("Adresse email invalide").max(255) }).parse({ email });
+        const { error } = await supabase.auth.resetPasswordForEmail(parsed.email, {
+          redirectTo: `${window.location.origin}/auth/callback?redirect=${encodeURIComponent("/reset-password")}`,
+        });
+        if (error) throw error;
+        setNotice(
+          "Email de réinitialisation envoyé. Cliquez sur le lien Peptinium Labs reçu (vérifiez vos spams) pour définir un nouveau mot de passe.",
+        );
+        return;
+      }
       if (mode === "signup") {
         const parsed = signupFormSchema.parse({ email, password, confirmPassword });
         const { data, error } = await supabase.auth.signUp({
@@ -87,7 +98,6 @@ function AuthPage() {
           navigate({ to: redirectTo });
           return;
         }
-        // Supabase renvoie un user avec identities=[] si l'email existe déjà (anti-énumération)
         if (data.user && Array.isArray(data.user.identities) && data.user.identities.length === 0) {
           setError("Un compte existe déjà avec cette adresse. Connectez-vous, ou utilisez « Mot de passe oublié ».");
           setMode("signin");
@@ -101,18 +111,17 @@ function AuthPage() {
           "Compte créé. Un email Peptinium Labs vient d'être envoyé : cliquez sur « Confirmer mon email » pour activer votre compte. Pensez à vérifier vos spams.",
         );
         return;
-      } else {
-        const parsed = authFormSchema.parse({ email, password });
-        const { data, error } = await supabase.auth.signInWithPassword({
-          email: parsed.email,
-          password: parsed.password,
-        });
-        if (error) throw error;
-        if (!data.session) throw new Error("Connexion incomplète, réessayez dans quelques secondes.");
-        const { data: userData, error: userError } = await supabase.auth.getUser();
-        if (userError || !userData.user) {
-          throw new Error("Session en cours d'activation, réessayez dans quelques secondes.");
-        }
+      }
+      const parsed = authFormSchema.parse({ email, password });
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: parsed.email,
+        password: parsed.password,
+      });
+      if (error) throw error;
+      if (!data.session) throw new Error("Connexion incomplète, réessayez dans quelques secondes.");
+      const { data: userData, error: userError } = await supabase.auth.getUser();
+      if (userError || !userData.user) {
+        throw new Error("Session en cours d'activation, réessayez dans quelques secondes.");
       }
       navigate({ to: redirectTo });
     } catch (e: any) {
@@ -125,6 +134,7 @@ function AuthPage() {
       setLoading(false);
     }
   };
+
 
   return (
     <SiteLayout showRuoModal={false}>
