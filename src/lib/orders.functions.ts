@@ -75,6 +75,8 @@ export const placeOrder = createServerFn({ method: "POST" })
 
     const total = subtotal + data.shippingFee;
 
+    const userId = await getOptionalUserId();
+
     const { data: order, error: orderErr } = await supabaseAdmin
       .from("orders")
       .insert({
@@ -91,6 +93,7 @@ export const placeOrder = createServerFn({ method: "POST" })
         city: data.shipping.city,
         country: data.shipping.country,
         notes: data.shipping.notes ?? null,
+        user_id: userId,
       })
       .select("id, order_number, total_eur")
       .single();
