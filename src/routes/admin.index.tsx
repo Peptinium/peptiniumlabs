@@ -2,24 +2,18 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import {
-  AlertCircle,
-  CheckCircle2,
   ChevronDown,
-  ChevronUp,
-  Clock,
   FileText,
-  Package,
+  Mail,
   Search,
+  Send,
   Trash2,
-  TrendingUp,
-  Truck,
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { deleteOrder, listOrders, updateOrderStatus } from "@/lib/orders.functions";
 import { generateInvoice, sendBrandedEmailTests, setTrackingNumber } from "@/lib/admin.functions";
-
 
 export const Route = createFileRoute("/admin/")({
   component: CommandesPage,
@@ -33,6 +27,14 @@ const STATUS_LABELS: Record<string, string> = {
   cancelled: "Annulée",
 };
 
+const STATUS_COLORS: Record<string, string> = {
+  pending: "bg-amber-400/10 text-amber-400 border-amber-400/20",
+  paid: "bg-emerald-400/10 text-emerald-400 border-emerald-400/20",
+  shipped: "bg-sky-400/10 text-sky-400 border-sky-400/20",
+  delivered: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20",
+  cancelled: "bg-rose-400/10 text-rose-400 border-rose-400/20",
+};
+
 function CommandesPage() {
   const qc = useQueryClient();
   const listFn = useServerFn(listOrders);
@@ -41,6 +43,12 @@ function CommandesPage() {
   const trackingFn = useServerFn(setTrackingNumber);
   const invoiceFn = useServerFn(generateInvoice);
   const testEmailsFn = useServerFn(sendBrandedEmailTests);
+
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [filter, setFilter] = useState<string>("all");
+  const [search, setSearch] = useState("");
+  const [trackingDrafts, setTrackingDrafts] = useState<Record<string, string>>({});
+
   const testEmailsMut = useMutation({
     mutationFn: (recipient: string) => testEmailsFn({ data: { recipient } }),
     onSuccess: (res) => {
@@ -51,12 +59,6 @@ function CommandesPage() {
     },
     onError: (e: Error) => toast.error(e.message || "Envoi impossible"),
   });
-
-
-  const [expandedId, setExpandedId] = useState<string | null>(null);
-  const [filter, setFilter] = useState<string>("all");
-  const [search, setSearch] = useState("");
-  const [trackingDrafts, setTrackingDrafts] = useState<Record<string, string>>({});
 
   const ordersQ = useQuery({
     queryKey: ["admin", "orders"],
@@ -132,200 +134,191 @@ function CommandesPage() {
       if (filter !== "all" && order.status !== filter) return false;
       if (!search.trim()) return true;
       const q = search.trim().toLowerCase();
-      return [
-        order.order_number,
-        order.first_name,
-        order.last_name,
-        order.email,
-        order.city,
-      ]
+      return [order.order_number, order.first_name, order.last_name, order.email, order.city]
         .filter(Boolean)
         .some((value) => String(value).toLowerCase().includes(q));
     });
   }, [orders, filter, search]);
 
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
+  const total = orders.length;
   const pending = orders.filter((o: any) => o.status === "pending").length;
-  const paid = orders.filter((o: any) => o.status === "paid").length;
-  const shipped = orders.filter((o: any) => o.status === "shipped").length;
-  const late = orders.filter((o: any) => {
-    if (o.status !== "pending") return false;
-    return Date.now() - new Date(o.created_at).getTime() > 3 * 24 * 60 * 60 * 1000;
-  }).length;
-  const revenueToday = orders
-    .filter((o: any) => o.status !== "cancelled" && new Date(o.created_at) >= today)
-    .reduce((sum: number, o: any) => sum + Number(o.total_eur || 0), 0);
-
-  const stats = [
-    { label: "En attente", value: pending, icon: Clock, color: "text-amber-400", bg: "bg-amber-400/10" },
-    { label: "Payées", value: paid, icon: CheckCircle2, color: "text-emerald-400", bg: "bg-emerald-400/10" },
-    { label: "Expédiées", value: shipped, icon: Truck, color: "text-sky-400", bg: "bg-sky-400/10" },
-    { label: "En retard", value: late, icon: AlertCircle, color: "text-rose-400", bg: "bg-rose-400/10" },
-    { label: "CA du jour", value: `${revenueToday.toFixed(2)} €`, icon: TrendingUp, color: "text-violet-400", bg: "bg-violet-400/10" },
-  ];
+  const paidLike = orders.filter((o: any) =>
+    ["paid", "shipped", "delivered"].includes(o.status),
+  ).length;
+  const revenue = orders
+    .filter((o: any) => !["cancelled", "pending"].includes(o.status))
+    .reduce((s: number, o: any) => s + Number(o.total_eur || 0), 0);
 
   return (
-    <div className="space-y-4 p-4">
-      <div>
-        <h2 className="text-lg font-semibold">Tableau de bord commandes</h2>
-        <p className="text-sm text-muted-foreground">
-          Suivi des commandes, paiements, suivi colis et factures.
-        </p>
+    <div className="mx-auto max-w-7xl px-4 py-8 md:px-6 md:py-12">
+      <header className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-6">
+        <div>
+          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-primary">
+            Espace administration
+          </p>
+          <h1 className="mt-2 font-display text-2xl font-bold tracking-tight md:text-3xl">
+            Tableau de bord commandes
+          </h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Suivi des commandes, paiements, suivi colis et factures.
+          </p>
+        </div>
         <Button
           size="sm"
           variant="outline"
-          className="mt-2"
           disabled={testEmailsMut.isPending}
           onClick={() => testEmailsMut.mutate("peptinium@gmail.com")}
         >
+          <Send className="mr-1.5 size-4" />
           {testEmailsMut.isPending ? "Envoi en cours…" : "Tester les 5 emails Peptinium"}
         </Button>
+      </header>
+
+      <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <StatCard label="Commandes totales" value={String(total)} />
+        <StatCard label="En attente" value={String(pending)} accent="amber" />
+        <StatCard label="Payées / expédiées" value={String(paidLike)} accent="emerald" />
+        <StatCard label="CA encaissé" value={`${revenue.toFixed(2)} €`} accent="cyan" />
       </div>
 
-
-      <div className="grid grid-cols-2 gap-3">
-        {stats.map((stat) => {
-          const Icon = stat.icon;
-          return (
-            <div key={stat.label} className="rounded-xl border border-border bg-card p-3">
-              <div className={`flex size-8 items-center justify-center rounded-lg ${stat.bg}`}>
-                <Icon className={`size-4 ${stat.color}`} />
-              </div>
-              <div className="mt-2 text-xl font-bold">{stat.value}</div>
-              <div className="text-[11px] text-muted-foreground">{stat.label}</div>
-            </div>
-          );
-        })}
-      </div>
-
-      <div className="rounded-xl border border-border bg-card p-3">
-        <div className="flex flex-col gap-2 sm:flex-row">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-2.5 size-4 text-muted-foreground" />
-            <input
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Rechercher une commande, un nom, un email"
-              className="w-full rounded-lg border border-border bg-background py-2 pl-9 pr-3 text-sm outline-none"
-            />
-          </div>
-          <select
-            value={filter}
-            onChange={(e) => setFilter(e.target.value)}
-            className="rounded-lg border border-border bg-background px-3 py-2 text-sm outline-none"
-          >
-            <option value="all">Tous les statuts</option>
-            <option value="pending">En attente</option>
-            <option value="paid">Payée</option>
-            <option value="shipped">Expédiée</option>
-            <option value="cancelled">Annulée</option>
-          </select>
+      <div className="mt-6 flex flex-wrap items-center gap-3">
+        <div className="relative min-w-[220px] flex-1">
+          <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+          <input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Rechercher par n°, email, nom…"
+            className="w-full rounded-md border border-border bg-card py-2 pl-9 pr-3 text-sm outline-none focus:ring-2 focus:ring-primary/40"
+          />
         </div>
+        <select
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+          className="rounded-md border border-border bg-card px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary/40"
+        >
+          <option value="all">Tous les statuts</option>
+          {Object.entries(STATUS_LABELS).map(([k, v]) => (
+            <option key={k} value={k}>{v}</option>
+          ))}
+        </select>
       </div>
 
-      <div>
-        <h3 className="mb-3 text-sm font-semibold">Commandes</h3>
+      <div className="mt-6 space-y-2">
         {ordersQ.isLoading ? (
-          <div className="rounded-xl border border-border bg-card p-4 text-center text-xs text-muted-foreground">
+          <div className="rounded-xl border border-border bg-card p-8 text-center text-sm text-muted-foreground">
             Chargement…
           </div>
         ) : filteredOrders.length === 0 ? (
-          <div className="rounded-xl border border-dashed border-border bg-card/50 p-6 text-center text-xs text-muted-foreground">
-            Aucune commande trouvée.
+          <div className="rounded-xl border border-dashed border-border bg-card/50 p-12 text-center text-sm text-muted-foreground">
+            Aucune commande ne correspond à ces critères.
           </div>
         ) : (
-          <div className="space-y-2">
-            {filteredOrders.map((order: any) => {
-              const isOpen = expandedId === order.id;
-              const orderItems = itemsByOrder.get(order.id) ?? [];
-              const trackingValue =
-                trackingDrafts[order.id] ?? (order.tracking_number ? String(order.tracking_number) : "");
+          filteredOrders.map((o: any) => {
+            const isOpen = expandedId === o.id;
+            const orderItems = itemsByOrder.get(o.id) ?? [];
+            const trackingValue =
+              trackingDrafts[o.id] ?? (o.tracking_number ? String(o.tracking_number) : "");
 
-              return (
-                <div key={order.id} className="overflow-hidden rounded-xl border border-border bg-card">
-                  <button
-                    onClick={() => setExpandedId(isOpen ? null : order.id)}
-                    className="flex w-full items-start justify-between gap-3 p-4 text-left"
-                  >
-                    <div className="min-w-0 flex-1">
-                      <div className="font-mono text-[10px] text-muted-foreground">
-                        {order.order_number} · {new Date(order.created_at).toLocaleString("fr-FR")}
-                      </div>
-                      <div className="truncate text-sm font-semibold">
-                        {order.first_name} {order.last_name}
-                      </div>
-                      <div className="truncate text-xs text-muted-foreground">
-                        {order.email}
-                      </div>
+            return (
+              <div key={o.id} className="rounded-xl border border-border bg-card">
+                <button
+                  onClick={() => setExpandedId(isOpen ? null : o.id)}
+                  className="flex w-full items-center gap-4 p-4 text-left hover:bg-secondary/30"
+                >
+                  <div className="min-w-0 flex-1">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="font-mono text-sm font-semibold">{o.order_number}</span>
+                      <span
+                        className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-medium ${STATUS_COLORS[o.status] ?? "border-border"}`}
+                      >
+                        {STATUS_LABELS[o.status] ?? o.status}
+                      </span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <div className="text-right">
-                        <div className="text-sm font-semibold">
-                          {Number(order.total_eur).toFixed(2)} €
-                        </div>
-                        <StatusBadge status={order.status} />
-                      </div>
-                      {isOpen ? (
-                        <ChevronUp className="mt-0.5 size-4 text-muted-foreground" />
-                      ) : (
-                        <ChevronDown className="mt-0.5 size-4 text-muted-foreground" />
-                      )}
-                    </div>
-                  </button>
+                    <p className="mt-1 truncate text-xs text-muted-foreground">
+                      {o.first_name} {o.last_name} · {o.email} ·{" "}
+                      {new Date(o.created_at).toLocaleDateString("fr-FR")}
+                    </p>
+                  </div>
+                  <p className="hidden font-display text-lg font-bold sm:block">
+                    {Number(o.total_eur).toFixed(2)} €
+                  </p>
+                  <ChevronDown
+                    className={`size-4 shrink-0 text-muted-foreground transition-transform ${isOpen ? "rotate-180" : ""}`}
+                  />
+                </button>
 
-                  {isOpen && (
-                    <div className="space-y-4 border-t border-border bg-background/30 p-4">
-                      <section>
-                        <div className="mb-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                {isOpen && (
+                  <div className="border-t border-border p-5 text-sm">
+                    <div className="grid gap-6 md:grid-cols-2">
+                      <div>
+                        <h4 className="mb-2 text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
+                          Client
+                        </h4>
+                        <p className="font-medium">{o.first_name} {o.last_name}</p>
+                        <p className="text-muted-foreground">
+                          <Mail className="mr-1 inline size-3" />
+                          {o.email}
+                        </p>
+                        {o.phone && <p className="text-muted-foreground">{o.phone}</p>}
+                        <h4 className="mb-2 mt-4 text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
                           Livraison
-                        </div>
-                        <div className="text-sm">
-                          {order.address_line || "Adresse non renseignée"}
-                        </div>
-                        <div className="text-sm text-muted-foreground">
-                          {[order.postal_code, order.city, order.country].filter(Boolean).join(" · ")}
-                        </div>
-                        {(order.phone || order.notes) && (
-                          <div className="mt-2 space-y-1 text-xs text-muted-foreground">
-                            {order.phone && <div>Tél. {order.phone}</div>}
-                            {order.notes && <div>Note : {order.notes}</div>}
-                          </div>
+                        </h4>
+                        <p className="text-muted-foreground">
+                          {o.address_line || "Adresse non renseignée"}
+                          <br />
+                          {[o.postal_code, o.city, o.country].filter(Boolean).join(" · ")}
+                        </p>
+                        {o.notes && (
+                          <>
+                            <h4 className="mb-2 mt-4 text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
+                              Notes
+                            </h4>
+                            <p className="text-muted-foreground">{o.notes}</p>
+                          </>
                         )}
-                      </section>
+                      </div>
 
-                      <section>
-                        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                      <div>
+                        <h4 className="mb-2 text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
                           Articles
-                        </div>
-                        <div className="space-y-1.5">
+                        </h4>
+                        <ul className="space-y-1 text-xs">
                           {orderItems.map((item: any) => (
-                            <div key={item.id} className="flex items-center justify-between text-sm">
+                            <li key={item.id} className="flex justify-between">
                               <span>
-                                {item.product_name} <span className="text-muted-foreground">× {item.quantity}</span>
+                                {item.product_name} × {item.quantity}
                               </span>
-                              <span className="font-medium">{Number(item.line_total_eur).toFixed(2)} €</span>
-                            </div>
+                              <span className="font-mono">
+                                {Number(item.line_total_eur).toFixed(2)} €
+                              </span>
+                            </li>
                           ))}
                           {orderItems.length === 0 && (
-                            <div className="text-xs text-muted-foreground">Aucun article trouvé.</div>
+                            <li className="text-muted-foreground">Aucun article.</li>
                           )}
+                        </ul>
+                        <div className="mt-4 flex items-center justify-between border-t border-border pt-3">
+                          <span className="text-xs uppercase tracking-wider text-muted-foreground">Total</span>
+                          <span className="font-display text-lg font-bold">
+                            {Number(o.total_eur).toFixed(2)} €
+                          </span>
                         </div>
-                      </section>
+                      </div>
+                    </div>
 
-                      <section>
-                        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                          Actions rapides
-                        </div>
-                        <div className="grid grid-cols-2 gap-2">
+                    <div className="mt-6 space-y-4 border-t border-border pt-4">
+                      <div>
+                        <label className="mb-2 block text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
+                          Statut de la commande
+                        </label>
+                        <div className="flex flex-wrap gap-2">
                           {(["pending", "paid", "shipped", "cancelled"] as const).map((status) => (
                             <button
                               key={status}
-                              disabled={order.status === status || updateMut.isPending}
-                              onClick={() => updateMut.mutate({ id: order.id, status })}
-                              className={`rounded-lg border px-3 py-2 text-xs font-medium transition-colors ${
-                                order.status === status
+                              disabled={o.status === status || updateMut.isPending}
+                              onClick={() => updateMut.mutate({ id: o.id, status })}
+                              className={`rounded-lg border px-3 py-1.5 text-xs font-medium transition-colors ${
+                                o.status === status
                                   ? "border-transparent bg-foreground text-background"
                                   : "border-border bg-card hover:bg-muted"
                               } disabled:opacity-50`}
@@ -334,87 +327,97 @@ function CommandesPage() {
                             </button>
                           ))}
                         </div>
-                      </section>
+                      </div>
 
-                      <section className="space-y-2">
-                        <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                          Suivi & facture
-                        </div>
+                      <div>
+                        <label className="mb-2 block text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
+                          Numéro de suivi
+                        </label>
                         <div className="flex gap-2">
                           <input
                             value={trackingValue}
                             onChange={(e) =>
-                              setTrackingDrafts((prev) => ({ ...prev, [order.id]: e.target.value }))
+                              setTrackingDrafts((prev) => ({ ...prev, [o.id]: e.target.value }))
                             }
-                            placeholder="Numéro de suivi"
-                            className="h-9 flex-1 rounded-lg border border-border bg-background px-3 text-sm outline-none"
+                            placeholder="Ex. 6A12345678901"
+                            className="h-9 flex-1 rounded-md border border-border bg-background px-3 text-sm outline-none focus:ring-2 focus:ring-primary/40"
                           />
                           <Button
                             type="button"
                             variant="secondary"
+                            size="sm"
                             disabled={trackingMut.isPending}
                             onClick={() =>
                               trackingMut.mutate({
-                                orderId: order.id,
+                                orderId: o.id,
                                 trackingNumber: trackingValue.trim() || null,
                               })
                             }
                           >
-                            Sauver
+                            Enregistrer
                           </Button>
                         </div>
-                        <div className="grid grid-cols-2 gap-2">
-                          <Button
-                            type="button"
-                            variant="outline"
-                            className="justify-center"
-                            disabled={invoiceMut.isPending}
-                            onClick={() => invoiceMut.mutate(order.id)}
-                          >
-                            <FileText className="mr-1 size-4" />
-                            Facture
-                          </Button>
-                          <Button
-                            type="button"
-                            variant="destructive"
-                            className="justify-center"
-                            disabled={deleteMut.isPending}
-                            onClick={() => {
-                              if (confirm(`Supprimer la commande ${order.order_number} ?`)) {
-                                deleteMut.mutate(order.id);
-                              }
-                            }}
-                          >
-                            <Trash2 className="mr-1 size-4" />
-                            Supprimer
-                          </Button>
-                        </div>
-                      </section>
+                      </div>
+
+                      <div className="flex flex-wrap gap-2 border-t border-border pt-4">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          disabled={invoiceMut.isPending}
+                          onClick={() => invoiceMut.mutate(o.id)}
+                        >
+                          <FileText className="mr-1.5 size-4" /> Facture PDF
+                        </Button>
+                        <Button
+                          type="button"
+                          variant="destructive"
+                          size="sm"
+                          disabled={deleteMut.isPending}
+                          onClick={() => {
+                            if (confirm(`Supprimer la commande ${o.order_number} ?`)) {
+                              deleteMut.mutate(o.id);
+                            }
+                          }}
+                        >
+                          <Trash2 className="mr-1.5 size-4" /> Supprimer
+                        </Button>
+                      </div>
                     </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
+                  </div>
+                )}
+              </div>
+            );
+          })
         )}
       </div>
     </div>
   );
 }
 
-function StatusBadge({ status }: { status: string }) {
-  const styles =
-    status === "pending"
-      ? "border-amber-400/20 bg-amber-400/10 text-amber-400"
-      : status === "paid" || status === "shipped" || status === "delivered"
-        ? "border-emerald-400/20 bg-emerald-400/10 text-emerald-400"
-        : status === "cancelled"
-          ? "border-rose-400/20 bg-rose-400/10 text-rose-400"
-          : "border-border bg-muted text-muted-foreground";
-
+function StatCard({
+  label,
+  value,
+  accent,
+}: {
+  label: string;
+  value: string;
+  accent?: "cyan" | "amber" | "emerald";
+}) {
+  const accentCls =
+    accent === "cyan"
+      ? "text-sky-400"
+      : accent === "amber"
+        ? "text-amber-400"
+        : accent === "emerald"
+          ? "text-emerald-400"
+          : "text-foreground";
   return (
-    <span className={`inline-flex rounded-full border px-2 py-0.5 text-[10px] font-medium ${styles}`}>
-      {STATUS_LABELS[status] ?? status}
-    </span>
+    <div className="rounded-xl border border-border bg-card p-4">
+      <p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+        {label}
+      </p>
+      <p className={`mt-2 font-display text-2xl font-bold ${accentCls}`}>{value}</p>
+    </div>
   );
 }
