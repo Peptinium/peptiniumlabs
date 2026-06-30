@@ -39,6 +39,7 @@ const placeOrderSchema = z.object({
   }),
   items: z.array(itemSchema).min(1).max(50),
   shippingFee: z.number().nonnegative(),
+  paymentMethod: z.enum(["bank", "card", "crypto"]).default("bank"),
 });
 
 export const placeOrder = createServerFn({ method: "POST" })
@@ -94,8 +95,9 @@ export const placeOrder = createServerFn({ method: "POST" })
         country: data.shipping.country,
         notes: data.shipping.notes ?? null,
         user_id: userId,
+        payment_method: data.paymentMethod,
       })
-      .select("id, order_number, total_eur")
+      .select("id, order_number, total_eur, payment_method")
       .single();
     if (orderErr || !order) throw new Error("Création commande échouée");
 
