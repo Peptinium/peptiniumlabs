@@ -6,11 +6,11 @@ import { blogArticles } from "@/data/blog-articles";
 export const Route = createFileRoute("/blog/")({
   head: () => ({
     meta: [
-      { title: "Blog Peptinium Labs — Recherche peptidique, méthodologie HPLC, reconstitution" },
+      { title: "Blog Peptinium Labs — Recherche peptidique et analyse HPLC" },
       {
         name: "description",
         content:
-          "Articles laboratoire Peptinium : reconstitution peptides, lecture d'un CoA HPLC, stockage, méthodologie de recherche.",
+          "Articles laboratoire Peptinium : histoire des peptides, lecture d'un CoA HPLC, stabilité et méthodologie analytique.",
       },
       { property: "og:title", content: "Blog laboratoire — Peptinium Labs" },
       { property: "og:description", content: "Guides méthodologiques et science peptidique pour la recherche." },
@@ -33,7 +33,7 @@ function BlogIndex() {
               Le <span className="brand-gradient-text">Carnet</span> Peptinium
             </h1>
             <p className="mt-4 max-w-2xl text-base text-muted-foreground">
-              Méthodologie, protocoles, lecture analytique. Des articles pensés pour la pratique de la recherche peptidique.
+              Méthodologie analytique, histoire scientifique et lecture des certificats. Des articles pensés pour comprendre la recherche peptidique.
             </p>
           </Reveal>
         </div>

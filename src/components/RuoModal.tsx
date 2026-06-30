@@ -12,8 +12,7 @@ export function RuoModal() {
     try {
       if (typeof window === "undefined") return;
       if (!window.localStorage.getItem(KEY)) {
-        const t = setTimeout(() => setOpen(true), 350);
-        return () => clearTimeout(t);
+        setOpen(true);
       }
     } catch {
       setOpen(true);
