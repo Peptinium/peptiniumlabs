@@ -242,6 +242,7 @@ function AuthPage() {
                 setMode(mode === "signin" ? "signup" : "signin");
                 setError(null);
                 setNotice(null);
+                setConfirmPassword("");
               }}
               className="w-full text-center text-xs text-muted-foreground hover:text-foreground"
             >
