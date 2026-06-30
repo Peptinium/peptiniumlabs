@@ -18,7 +18,8 @@ import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { deleteOrder, listOrders, updateOrderStatus } from "@/lib/orders.functions";
-import { generateInvoice, setTrackingNumber } from "@/lib/admin.functions";
+import { generateInvoice, sendBrandedEmailTests, setTrackingNumber } from "@/lib/admin.functions";
+
 
 export const Route = createFileRoute("/admin/")({
   component: CommandesPage,
