@@ -13,7 +13,7 @@ export function RuoBadge({
       ? "bg-foreground text-background"
       : variant === "ghost"
         ? "border border-border bg-background/60 backdrop-blur text-foreground/70"
-        : "border border-warning/45 bg-warning/15 text-warning-foreground [.dark_&]:text-warning [.bg-foreground_&]:text-warning [.bg-foreground_&]:bg-warning/20 [.bg-foreground_&]:border-warning/60";
+        : "border border-warning/60 bg-warning/20 text-warning shadow-[inset_0_0_0_1px_color-mix(in_oklab,var(--warning),transparent_70%)]";
 
   return (
     <span className={`${base} ${sizing} ${styles}`}>
