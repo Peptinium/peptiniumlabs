@@ -38,9 +38,13 @@ const placeOrderSchema = z.object({
     notes: z.string().max(1000).optional().nullable(),
   }),
   items: z.array(itemSchema).min(1).max(50),
-  shippingFee: z.number().nonnegative(),
   paymentMethod: z.enum(["bank", "card", "crypto"]).default("bank"),
+  promoCode: z.string().trim().max(40).optional().nullable(),
 });
+
+const SHIPPING_FEE_EUR = 6.0;
+const FREE_SHIPPING_THRESHOLD_EUR = 150;
+
 
 export const placeOrder = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => placeOrderSchema.parse(data))
