@@ -1,11 +1,17 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, useSearch } from "@tanstack/react-router";
 import { useEffect, useState, type FormEvent } from "react";
 import { z } from "zod";
 import { SiteLayout } from "@/components/SiteLayout";
 import { supabase } from "@/integrations/supabase/client";
 
+const searchSchema = z.object({
+  token_hash: z.string().optional(),
+  type: z.string().optional(),
+});
+
 export const Route = createFileRoute("/reset-password")({
   ssr: false,
+  validateSearch: searchSchema,
   head: () => ({
     meta: [
       { title: "Nouveau mot de passe — Peptinium Labs" },
@@ -27,6 +33,7 @@ const schema = z
 
 function ResetPasswordPage() {
   const navigate = useNavigate();
+  const search = useSearch({ from: "/reset-password" });
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -37,33 +44,45 @@ function ResetPasswordPage() {
   useEffect(() => {
     let cancelled = false;
 
-    // Listen first so we catch PASSWORD_RECOVERY emitted when supabase
-    // parses the recovery token from the URL hash on load.
     const sub = supabase.auth.onAuthStateChange((event, session) => {
       if (cancelled) return;
       if (event === "PASSWORD_RECOVERY" || session) setHasSession(true);
     });
 
-    // Also check current session (covers the case where the hash was
-    // already consumed before this component mounted).
-    supabase.auth.getSession().then(({ data }) => {
-      if (cancelled) return;
-      if (data.session) setHasSession(true);
-      else {
-        // Give supabase a moment to detect the hash, then decide.
-        setTimeout(async () => {
-          if (cancelled) return;
-          const { data: again } = await supabase.auth.getSession();
-          setHasSession(!!again.session);
-        }, 1500);
+    const init = async () => {
+      // 1) token_hash in query (our custom recovery link) → verifyOtp
+      if (search.token_hash && search.type === "recovery") {
+        const { error } = await supabase.auth.verifyOtp({
+          token_hash: search.token_hash,
+          type: "recovery",
+        });
+        if (!cancelled) {
+          if (error) setHasSession(false);
+          else setHasSession(true);
+        }
+        return;
       }
-    });
+
+      // 2) hash tokens (legacy supabase verify redirect)
+      const { data } = await supabase.auth.getSession();
+      if (cancelled) return;
+      if (data.session) {
+        setHasSession(true);
+        return;
+      }
+      setTimeout(async () => {
+        if (cancelled) return;
+        const { data: again } = await supabase.auth.getSession();
+        setHasSession(!!again.session);
+      }, 1500);
+    };
+    init();
 
     return () => {
       cancelled = true;
       sub.data.subscription.unsubscribe();
     };
-  }, []);
+  }, [search.token_hash, search.type]);
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
