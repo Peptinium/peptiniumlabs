@@ -50,14 +50,12 @@ function CommandesPage() {
   const listFn = useServerFn(listOrders);
   const updateFn = useServerFn(updateOrderStatus);
   const deleteFn = useServerFn(deleteOrder);
-  const trackingFn = useServerFn(setTrackingNumber);
   const invoiceFn = useServerFn(generateInvoice);
   const testEmailsFn = useServerFn(sendBrandedEmailTests);
 
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [filter, setFilter] = useState<string>("all");
   const [search, setSearch] = useState("");
-  const [trackingDrafts, setTrackingDrafts] = useState<Record<string, string>>({});
 
   const testEmailsMut = useMutation({
     mutationFn: (recipient: string) => testEmailsFn({ data: { recipient } }),
