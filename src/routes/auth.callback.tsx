@@ -28,7 +28,18 @@ function AuthCallback() {
     let cancelled = false;
     const finish = () => navigate({ to: redirectTo, replace: true });
 
+    const sub = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!cancelled && session) finish();
+    });
+
     const completeCallback = async () => {
+      // If the broker already set the session (web_message popup flow), we're done.
+      const { data: existing } = await supabase.auth.getSession();
+      if (existing.session) {
+        finish();
+        return;
+      }
+
       const url = new URL(window.location.href);
       const hashParams = new URLSearchParams(url.hash.replace(/^#/, ""));
       const code = url.searchParams.get("code") || hashParams.get("code");
@@ -36,8 +47,12 @@ function AuthCallback() {
       const type = url.searchParams.get("type") || hashParams.get("type");
 
       if (code) {
-        const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
-        if (exchangeError) throw exchangeError;
+        try {
+          const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
+          if (exchangeError) throw exchangeError;
+        } catch {
+          // Broker may have already consumed the code; rely on onAuthStateChange.
+        }
       } else if (tokenHash && type) {
         const { error: verifyError } = await supabase.auth.verifyOtp({
           token_hash: tokenHash,
@@ -50,17 +65,17 @@ function AuthCallback() {
       if (data.session) finish();
     };
 
-    const sub = supabase.auth.onAuthStateChange((_event, session) => {
-      if (!cancelled && session) finish();
-    });
-
     completeCallback().catch((e: any) => {
       if (!cancelled) setError(e?.message ?? "Lien de confirmation invalide ou expiré.");
     });
 
-    const timeout = setTimeout(() => {
-      if (!cancelled) navigate({ to: "/auth", search: { redirect: redirectTo } });
-    }, 6000);
+    // Fallback: if no session after 10s, surface a retry button (do not bounce back to /auth).
+    const timeout = setTimeout(async () => {
+      const { data } = await supabase.auth.getSession();
+      if (!cancelled && !data.session) {
+        setError("La session n'a pas pu être établie. Réessayez la connexion.");
+      }
+    }, 10000);
     return () => {
       cancelled = true;
       clearTimeout(timeout);
