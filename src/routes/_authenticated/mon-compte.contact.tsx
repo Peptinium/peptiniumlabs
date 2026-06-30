@@ -14,34 +14,21 @@ function ContactPage() {
         L'équipe Peptinium Labs vous répond sous 24h ouvrées.
       </p>
 
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid gap-3">
         <a
-          href="mailto:research@peptinium.com"
+          href="mailto:contact@peptinium.com"
           className="flex items-start gap-3 rounded-xl border border-border bg-card p-4 hover:border-accent"
         >
           <Mail className="mt-0.5 size-5 text-accent" />
           <div>
             <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-              Service client
+              Contact
             </div>
-            <div className="mt-0.5 text-sm font-medium">research@peptinium.com</div>
+            <div className="mt-0.5 text-sm font-medium">contact@peptinium.com</div>
           </div>
         </a>
 
-        <a
-          href="mailto:quote@peptinium.com"
-          className="flex items-start gap-3 rounded-xl border border-border bg-card p-4 hover:border-accent"
-        >
-          <ShieldCheck className="mt-0.5 size-5 text-accent" />
-          <div>
-            <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-              Devis & CoA
-            </div>
-            <div className="mt-0.5 text-sm font-medium">quote@peptinium.com</div>
-          </div>
-        </a>
-
-        <div className="flex items-start gap-3 rounded-xl border border-border bg-card p-4 sm:col-span-2">
+        <div className="flex items-start gap-3 rounded-xl border border-border bg-card p-4">
           <Clock className="mt-0.5 size-5 text-accent" />
           <div>
             <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
