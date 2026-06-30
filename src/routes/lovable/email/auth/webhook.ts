@@ -131,12 +131,23 @@ export const Route = createFileRoute("/lovable/email/auth/webhook")({
           )
         }
 
-        // Build template props from payload.data (HookData structure)
+        // Build a confirmation URL that points to our own route so password
+        // recovery lands on /reset-password instead of the default site URL.
+        const supabaseUrlForLink = import.meta.env.VITE_SUPABASE_URL as string
+        const tokenHash = payload.data.token_hash
+        const verifyType = payload.data.email_action_type || emailType
+        const redirectPath =
+          emailType === 'recovery' ? '/reset-password' : '/auth/callback'
+        const redirectTo = `https://${ROOT_DOMAIN}${redirectPath}`
+        const confirmationUrl = tokenHash
+          ? `${supabaseUrlForLink}/auth/v1/verify?token=${encodeURIComponent(tokenHash)}&type=${encodeURIComponent(verifyType)}&redirect_to=${encodeURIComponent(redirectTo)}`
+          : payload.data.url
+
         const templateProps = {
           siteName: SITE_NAME,
           siteUrl: `https://${ROOT_DOMAIN}`,
           recipient: payload.data.email,
-          confirmationUrl: payload.data.url,
+          confirmationUrl,
           token: payload.data.token,
           email: payload.data.email,
           oldEmail: payload.data.old_email,
