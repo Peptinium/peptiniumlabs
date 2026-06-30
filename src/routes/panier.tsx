@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { SiteLayout } from "@/components/SiteLayout";
 import {
   useCart,
@@ -705,15 +705,20 @@ function Recap({
 
       {open && (
         <div className="space-y-3">
-          {cart.items.filter((it) => it.slug !== EAU_SLUG).map((it) => (
-            <CartLine key={itemKey(it.slug, it.dosage)} item={it} editable={editable} />
-          ))}
+          {cart.items
+            // Hide water row only when at least one peptide is in the cart —
+            // in that case water is managed by the dedicated "Solvant" panel below.
+            .filter((it) => !(it.slug === EAU_SLUG && cart.peptideCount > 0))
+            .map((it) => (
+              <CartLine key={itemKey(it.slug, it.dosage)} item={it} editable={editable} />
+            ))}
 
           {editable && cart.peptideCount > 0 && (
             <SolventLine />
           )}
         </div>
       )}
+
 
       {editable && (
         <div className="rounded-2xl border border-border bg-card p-4">
@@ -1028,7 +1033,7 @@ function OrderSummary({
         {cart.items.map((it) => (
           <div key={itemKey(it.slug, it.dosage)} className="flex justify-between text-muted-foreground">
             <span>
-              <span className="text-foreground">{it.name}</span> <span className="font-mono text-xs">×{it.qty}</span>
+              <span className="text-foreground">{it.slug === EAU_SLUG ? "Solvant (Eau bactériostatique)" : it.name}</span> <span className="font-mono text-xs">×{it.qty}</span>
             </span>
             <span className="text-foreground">{formatPrice(it.price * it.qty).replace(" €", " EUR")}</span>
           </div>
@@ -1068,21 +1073,22 @@ function ConfirmationBlock({
   paymentMethod: PayMethod;
   onDone: () => void;
 }) {
-  // Snapshot everything before the parent clears the cart (which would zero totals).
-  const snap = useMemo(
-    () => ({
-      items: cart.items.map((i) => ({ ...i })),
-      total,
-      subtotal,
-      shippingFee,
-    }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
-  );
+  // Snapshot once at mount, BEFORE cart.clear() runs in effect below.
+  // useState initializer is guaranteed to run exactly once even under StrictMode.
+  const [snap] = useState(() => ({
+    items: cart.items.map((i) => ({ ...i })),
+    total,
+    subtotal,
+    shippingFee,
+  }));
+  const cleared = useRef(false);
   useEffect(() => {
+    if (cleared.current) return;
+    cleared.current = true;
     onDone();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
 
   const COPY: Record<PayMethod, { title: string; intro: string; boxTitle: string; boxText: string }> = {
     bank: {
@@ -1131,7 +1137,7 @@ function ConfirmationBlock({
           {snap.items.map((it) => (
             <div key={itemKey(it.slug, it.dosage)} className="flex justify-between text-muted-foreground">
               <span>
-                <span className="text-foreground">{it.name}</span> <span className="font-mono text-xs">×{it.qty}</span>
+                <span className="text-foreground">{it.slug === EAU_SLUG ? "Solvant (Eau bactériostatique)" : it.name}</span> <span className="font-mono text-xs">×{it.qty}</span>
               </span>
               <span className="text-foreground">{formatPrice(it.price * it.qty).replace(" €", " EUR")}</span>
             </div>

@@ -25,48 +25,12 @@ export async function enqueueAppEmail(opts: {
   idempotencyKey: string
   templateData?: Record<string, unknown>
 }) {
-  const tpl = TEMPLATES[opts.templateName]
-  if (!tpl) throw new Error(`Unknown template: ${opts.templateName}`)
-
   const { supabaseAdmin } = await import('@/integrations/supabase/client.server')
-  const normalizedEmail = (tpl.to ?? opts.recipientEmail).toLowerCase()
   const messageId = opts.idempotencyKey
+  const normalizedEmail = opts.recipientEmail.toLowerCase()
 
-  const { data: suppressed } = await supabaseAdmin
-    .from('suppressed_emails')
-    .select('email')
-    .eq('email', normalizedEmail)
-    .maybeSingle()
-  if (suppressed) {
-    await supabaseAdmin.from('email_send_log').insert({
-      message_id: messageId,
-      template_name: opts.templateName,
-      recipient_email: normalizedEmail,
-      status: 'suppressed',
-      error_message: 'Recipient on suppression list',
-    })
-    return { skipped: true as const }
-  }
-
-  const element = React.createElement(tpl.component, opts.templateData ?? {})
-  const html = await render(element)
-  const plainText = await render(element, { plainText: true })
-  const subject =
-    typeof tpl.subject === 'function' ? tpl.subject(opts.templateData ?? {}) : tpl.subject
-
-  const { data: existingTok } = await supabaseAdmin
-    .from('email_unsubscribe_tokens')
-    .select('token')
-    .eq('email', normalizedEmail)
-    .maybeSingle()
-  let unsubToken = existingTok?.token
-  if (!unsubToken) {
-    unsubToken = generateToken()
-    await supabaseAdmin
-      .from('email_unsubscribe_tokens')
-      .insert({ email: normalizedEmail, token: unsubToken })
-  }
-
+  // Write an initial "pending" log row immediately so any later failure
+  // is visible in email_send_log (and we don't fail silently).
   await supabaseAdmin.from('email_send_log').insert({
     message_id: messageId,
     template_name: opts.templateName,
@@ -74,33 +38,85 @@ export async function enqueueAppEmail(opts: {
     status: 'pending',
   })
 
-  const { error } = await supabaseAdmin.rpc('enqueue_email', {
-    queue_name: 'transactional_emails',
-    payload: {
-      message_id: messageId,
-      to: normalizedEmail,
-      from: `${SITE_NAME} <commandes@${FROM_DOMAIN}>`,
-      sender_domain: SENDER_DOMAIN,
-      subject,
-      html,
-      text: plainText,
-      purpose: 'transactional',
-      label: opts.templateName,
-      idempotency_key: messageId,
-      unsubscribe_token: unsubToken,
-      queued_at: new Date().toISOString(),
-    },
-  })
-
-  if (error) {
+  const logFail = async (msg: string) => {
     await supabaseAdmin.from('email_send_log').insert({
       message_id: messageId,
       template_name: opts.templateName,
       recipient_email: normalizedEmail,
       status: 'failed',
-      error_message: error.message,
+      error_message: msg.slice(0, 1000),
     })
-    throw new Error(`Enqueue failed: ${error.message}`)
   }
-  return { queued: true as const }
+
+  try {
+    const tpl = TEMPLATES[opts.templateName]
+    if (!tpl) {
+      await logFail(`Unknown template: ${opts.templateName}`)
+      throw new Error(`Unknown template: ${opts.templateName}`)
+    }
+    const finalRecipient = (tpl.to ?? normalizedEmail).toLowerCase()
+
+    const { data: suppressed } = await supabaseAdmin
+      .from('suppressed_emails')
+      .select('email')
+      .eq('email', finalRecipient)
+      .maybeSingle()
+    if (suppressed) {
+      await supabaseAdmin.from('email_send_log').insert({
+        message_id: messageId,
+        template_name: opts.templateName,
+        recipient_email: finalRecipient,
+        status: 'suppressed',
+        error_message: 'Recipient on suppression list',
+      })
+      return { skipped: true as const }
+    }
+
+    const element = React.createElement(tpl.component, opts.templateData ?? {})
+    const html = await render(element)
+    const plainText = await render(element, { plainText: true })
+    const subject =
+      typeof tpl.subject === 'function' ? tpl.subject(opts.templateData ?? {}) : tpl.subject
+
+    const { data: existingTok } = await supabaseAdmin
+      .from('email_unsubscribe_tokens')
+      .select('token')
+      .eq('email', finalRecipient)
+      .maybeSingle()
+    let unsubToken = existingTok?.token
+    if (!unsubToken) {
+      unsubToken = generateToken()
+      await supabaseAdmin
+        .from('email_unsubscribe_tokens')
+        .insert({ email: finalRecipient, token: unsubToken })
+    }
+
+    const { error } = await supabaseAdmin.rpc('enqueue_email', {
+      queue_name: 'transactional_emails',
+      payload: {
+        message_id: messageId,
+        to: finalRecipient,
+        from: `${SITE_NAME} <commandes@${FROM_DOMAIN}>`,
+        sender_domain: SENDER_DOMAIN,
+        subject,
+        html,
+        text: plainText,
+        purpose: 'transactional',
+        label: opts.templateName,
+        idempotency_key: messageId,
+        unsubscribe_token: unsubToken,
+        queued_at: new Date().toISOString(),
+      },
+    })
+
+    if (error) {
+      await logFail(`Enqueue rpc failed: ${error.message}`)
+      throw new Error(`Enqueue failed: ${error.message}`)
+    }
+    return { queued: true as const }
+  } catch (err: any) {
+    await logFail(err?.message ?? String(err))
+    throw err
+  }
 }
+
