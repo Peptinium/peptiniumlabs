@@ -115,6 +115,18 @@ export const placeOrder = createServerFn({ method: "POST" })
         .eq("slug", i.slug);
     }
 
+    try {
+      const { broadcastToAdmins } = await import("./push.server");
+      await broadcastToAdmins({
+        title: "Nouvelle commande",
+        body: `${order.order_number} · ${Number(order.total_eur).toFixed(2)} €`,
+        url: "/admin",
+        tag: `order-${order.id}`,
+      });
+    } catch (e) {
+      console.error("admin push failed", e);
+    }
+
     return {
       orderNumber: order.order_number as string,
       total: Number(order.total_eur),

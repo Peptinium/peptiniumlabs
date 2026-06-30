@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
 import { getMyProfile, updateMyProfile } from "@/lib/account.functions";
+import { PushToggle } from "@/components/PushToggle";
 
 export const Route = createFileRoute("/_authenticated/mon-compte/profil")({
   component: ProfilPage,
@@ -83,6 +84,8 @@ function ProfilPage() {
   );
 
   return (
+    <div className="space-y-4">
+    <PushToggle />
     <form onSubmit={submit} className="space-y-5 rounded-2xl border border-border bg-card p-5 sm:p-6">
       <div>
         <label className="text-xs font-medium text-foreground">Email du compte</label>
@@ -128,5 +131,6 @@ function ProfilPage() {
         Ces informations sont utilisées pour préremplir automatiquement vos prochains paniers.
       </p>
     </form>
+    </div>
   );
 }

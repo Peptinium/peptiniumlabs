@@ -82,6 +82,25 @@ export const validatePayment = createServerFn({ method: "POST" })
     } catch (e) {
       console.error("order confirmation email failed", e);
     }
+    try {
+      const { supabaseAdmin: sa } = await import("@/integrations/supabase/client.server");
+      const { data: o } = await sa
+        .from("orders")
+        .select("user_id, order_number")
+        .eq("id", data.orderId)
+        .maybeSingle();
+      if (o?.user_id) {
+        const { safeBroadcastToUser } = await import("./push.server");
+        await safeBroadcastToUser(o.user_id, {
+          title: "Paiement confirmé ✅",
+          body: `Commande ${o.order_number} validée. Préparation en cours.`,
+          url: "/mon-compte",
+          tag: `paid-${data.orderId}`,
+        });
+      }
+    } catch (e) {
+      console.error("customer push failed", e);
+    }
     return { ok: true };
   });
 
@@ -324,6 +343,24 @@ export const sendShippingNotification = createServerFn({ method: "POST" })
       });
     } catch (e) {
       console.error("order-shipped email failed", e);
+    }
+    try {
+      const { data: o2 } = await supabaseAdmin
+        .from("orders")
+        .select("user_id")
+        .eq("id", data.orderId)
+        .maybeSingle();
+      if (o2?.user_id) {
+        const { safeBroadcastToUser } = await import("./push.server");
+        await safeBroadcastToUser(o2.user_id, {
+          title: "Commande expédiée 📦",
+          body: `${order.order_number} · ${data.carrier} ${data.trackingNumber}`,
+          url: "/mon-compte",
+          tag: `ship-${order.id}`,
+        });
+      }
+    } catch (e) {
+      console.error("customer push failed", e);
     }
     return { ok: true, shippedAt, trackingUrl };
   });
