@@ -6,6 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 const nav = [
   { to: "/produits", label: "Catalogue" },
   { to: "/etudes-scientifiques", label: "Études" },
+  { to: "/blog", label: "Blog" },
   { to: "/calculatrice", label: "Calculatrice" },
   { to: "/tester-fioles", label: "Tester ses fioles" },
   { to: "/a-propos", label: "Laboratoire" },

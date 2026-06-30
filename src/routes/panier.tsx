@@ -86,10 +86,10 @@ function PanierPage() {
     };
   }, [fetchProfile]);
 
-  const isEmpty = cart.items.length === 0;
+  const isEmpty = cart.items.length === 0 || cart.count === 0;
 
-  const subtotal = cart.subtotal;
-  const shippingFee = subtotal >= FREE_SHIPPING_THRESHOLD || subtotal === 0 ? 0 : SHIPPING;
+  const subtotal = Number.isFinite(cart.subtotal) ? cart.subtotal : 0;
+  const shippingFee = subtotal === 0 || subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING;
   const discount = promoApplied ? subtotal * PROMO_RATE : 0;
   const total = Math.max(0, subtotal - discount + shippingFee);
 
@@ -159,7 +159,7 @@ function PanierPage() {
           <Stepper step={step} />
         )}
 
-        {isEmpty && step === "livraison" ? (
+        {isEmpty && step !== "confirmation" ? (
           <EmptyCart />
         ) : step === "livraison" ? (
           <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr]">
