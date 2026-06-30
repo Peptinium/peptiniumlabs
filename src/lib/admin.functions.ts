@@ -600,7 +600,7 @@ async function buildInvoicePdf(opts: {
     rgb(0.55, 0.55, 0.6),
   );
   draw("Peptinium Labs — TVA non applicable, art. 293 B du CGI.", 40, 60, 8);
-  draw(`Paiement par virement bancaire — IBAN FR76 1695 8000 0144 9142 5679 871`, 40, 48, 8);
+  draw(`Paiement par virement bancaire — voir coordonnées transmises par email`, 40, 48, 8);
 
   return await doc.save();
 }

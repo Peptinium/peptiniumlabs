@@ -31,8 +31,8 @@ type Step = "livraison" | "paiement" | "virement" | "confirmation";
 
 const BANK = {
   beneficiary: "Peptinium",
-  iban: "FR76 1695 8000 0144 9142 5679 871",
-  bic: "QNTOFRP1XXX",
+  iban: "À compléter",
+  bic: "À compléter",
 };
 
 const PROMO_CODE = "WELCOME10";
