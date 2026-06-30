@@ -78,7 +78,7 @@ Tous les peptides référencés sur Peptinium Labs sont distribués **à des fin
 Un Certificat d'Analyse est un rapport produit par un **laboratoire analytique tiers et indépendant** du fournisseur. Il atteste de l'identité chimique, de la pureté et de la quantification d'un **lot précis** — pas d'un produit générique. En recherche peptidique européenne, **Janoshik Analytical** (République tchèque) est devenu la référence partagée par la plupart des fournisseurs sérieux.
 
 ## La clé de vérification : le seul rempart contre la falsification
-Chaque CoA Janoshik porte une **clé alphanumérique unique** (par exemple `KYB39ZQFJ7DV`). Cette clé permet de récupérer le rapport original directement sur [janoshik.com](https://janoshik.com).
+Chaque CoA Janoshik porte une **clé alphanumérique unique** (par exemple \`KYB39ZQFJ7DV\`). Cette clé permet de récupérer le rapport original directement sur [janoshik.com](https://janoshik.com).
 
 > Sans cette validation croisée, un PDF de CoA n'a **aucune valeur scientifique**. Il est trivial de retoucher un document — la clé indépendante est la seule preuve que le rapport n'a pas été modifié.
 
