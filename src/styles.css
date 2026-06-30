@@ -213,24 +213,26 @@
 }
 
 @utility shimmer-text {
-  background: linear-gradient(
+  background-color: var(--ink);
+  background-image: linear-gradient(
     105deg,
-    var(--ink) 0%,
-    var(--ink) 24%,
-    var(--brand-cyan) 36%,
-    var(--brand-blue) 45%,
-    var(--brand-violet) 55%,
-    var(--brand-magenta) 64%,
-    var(--ink) 78%,
-    var(--ink) 100%
+    transparent 0%,
+    transparent 30%,
+    var(--brand-cyan) 40%,
+    var(--brand-blue) 47%,
+    var(--brand-violet) 53%,
+    var(--brand-magenta) 60%,
+    transparent 70%,
+    transparent 100%
   );
-  background-size: 240% 100%;
-  background-position: 240% 50%;
+  background-size: 300% 100%;
+  background-position: 200% 50%;
+  background-repeat: no-repeat;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  animation: shimmer 3.2s linear infinite both;
+  animation: shimmer 5s cubic-bezier(0.45, 0, 0.55, 1) infinite both;
   backface-visibility: hidden;
   transform: translateZ(0);
   will-change: background-position;
