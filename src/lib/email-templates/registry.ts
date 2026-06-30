@@ -4,6 +4,8 @@ import { template as supportReply } from './support-reply'
 import { template as paymentLink } from './payment-link'
 import { template as cryptoPayment } from './crypto-payment'
 import { template as orderShipped } from './order-shipped'
+import { template as orderPending } from './order-pending'
+import { template as adminNewOrder } from './admin-new-order'
 
 export interface TemplateEntry {
   component: ComponentType<any>
@@ -19,4 +21,6 @@ export const TEMPLATES: Record<string, TemplateEntry> = {
   'payment-link': paymentLink,
   'crypto-payment': cryptoPayment,
   'order-shipped': orderShipped,
+  'order-pending': orderPending,
+  'admin-new-order': adminNewOrder,
 }
