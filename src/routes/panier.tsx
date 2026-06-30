@@ -214,7 +214,7 @@ function PanierPage() {
           <VirementBlock
             total={total}
             orderRef={orderRef}
-            motif={motif}
+            paymentMethod={paymentMethod}
             cart={cart}
             subtotal={subtotal}
             shippingFee={shippingFee}
