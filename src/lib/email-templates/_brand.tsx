@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Container, Section, Text } from '@react-email/components'
+import { Container, Link, Section, Text } from '@react-email/components'
 
 export const brand = {
   ink: '#0F1B3D',
@@ -73,6 +73,7 @@ export const styles = {
     margin: '8px 0 20px',
   },
   button: {
+    backgroundColor: brand.cyan,
     background: gradient,
     color: '#ffffff',
     fontSize: '14px',
@@ -84,6 +85,13 @@ export const styles = {
     letterSpacing: '0.01em',
   },
   link: { color: brand.blue, textDecoration: 'none' },
+  fallbackLink: {
+    color: brand.blue,
+    fontSize: '12px',
+    lineHeight: '1.5',
+    wordBreak: 'break-all' as const,
+    textDecoration: 'underline',
+  },
   code: {
     display: 'inline-block' as const,
     fontFamily: 'ui-monospace, "SF Mono", Menlo, Consolas, monospace',
@@ -129,9 +137,17 @@ export const BrandLayout = ({ children }: { children: React.ReactNode }) => (
         Peptinium Labs — Réactifs peptidiques pour la recherche.
       </Text>
       <Text style={styles.footerText}>
-        Réservé à un usage de laboratoire (RUO). Non destiné à un usage humain ou vétérinaire.
+        Réservé à un usage de laboratoire (RUO). Pureté analytique et traçabilité documentaire.
       </Text>
-      <Text style={styles.footerText}>support@peptinium.com · peptinium.com</Text>
+      <Text style={styles.footerText}>
+        <Link href="mailto:support@peptinium.com" style={{ color: brand.muted, textDecoration: 'none' }}>
+          support@peptinium.com
+        </Link>{' '}
+        ·{' '}
+        <Link href="https://peptinium.com" style={{ color: brand.muted, textDecoration: 'none' }}>
+          peptinium.com
+        </Link>
+      </Text>
     </Section>
   </Container>
 )

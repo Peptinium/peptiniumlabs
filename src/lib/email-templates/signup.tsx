@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { Body, Button, Head, Html, Preview, Text } from '@react-email/components'
-import { BrandLayout, styles } from './_brand'
+import { Body, Button, Head, Html, Link, Preview, Text } from '@react-email/components'
+import { BrandLayout, brand, styles } from './_brand'
 
 interface SignupEmailProps {
   siteName: string
@@ -11,6 +11,7 @@ interface SignupEmailProps {
 
 export const SignupEmail = ({
   siteName,
+  siteUrl,
   recipient,
   confirmationUrl,
 }: SignupEmailProps) => (
@@ -21,9 +22,11 @@ export const SignupEmail = ({
       <BrandLayout>
         <Text style={styles.h1}>Confirmez votre adresse email</Text>
         <Text style={styles.text}>
-          Bienvenue chez {siteName}. Pour activer votre compte associé à{' '}
-          <strong style={{ color: styles.h1.color }}>{recipient}</strong>, cliquez sur
-          le bouton ci-dessous.
+          Bienvenue chez{' '}
+          <Link href={siteUrl} style={link}>
+            <strong style={{ color: brand.ink }}>{siteName}</strong>
+          </Link>
+          . Pour activer le compte associé à <strong style={{ color: brand.ink }}>{recipient}</strong>, cliquez sur le bouton ci-dessous.
         </Text>
         <div style={styles.buttonWrap}>
           <Button style={styles.button} href={confirmationUrl}>
@@ -31,12 +34,14 @@ export const SignupEmail = ({
           </Button>
         </div>
         <Text style={styles.text}>
-          Ce lien est valable une heure. Si vous n'êtes pas à l'origine de cette
-          inscription, ignorez simplement ce message.
+          Si le bouton ne s'ouvre pas, utilisez ce lien sécurisé :<br />
+          <Link href={confirmationUrl} style={styles.fallbackLink}>{confirmationUrl}</Link>
         </Text>
+        <Text style={styles.text}>Ce lien est valable une heure. Si vous n'êtes pas à l'origine de cette inscription, ignorez simplement ce message.</Text>
       </BrandLayout>
     </Body>
   </Html>
 )
 
 export default SignupEmail
+const link = { color: brand.blue, textDecoration: 'none' }

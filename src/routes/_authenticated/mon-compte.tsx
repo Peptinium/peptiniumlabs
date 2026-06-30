@@ -28,7 +28,7 @@ function MonCompteLayout() {
     exact ? path === to : path === to || path.startsWith(to + "/");
 
   return (
-    <SiteLayout>
+    <SiteLayout showRuoModal={false}>
       <div className="border-b border-border bg-surface">
         <div className="container-prose py-6">
           <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">

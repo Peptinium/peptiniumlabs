@@ -12,14 +12,11 @@ export const ReauthenticationEmail = ({ token }: ReauthenticationEmailProps) => 
     <Preview>Votre code de vérification Peptinium Labs</Preview>
     <Body style={styles.main}>
       <BrandLayout>
-        <Text style={styles.h1}>Confirmer votre identité</Text>
-        <Text style={styles.text}>
-          Utilisez le code ci-dessous pour confirmer votre identité :
-        </Text>
+        <Text style={styles.h1}>Confirmez votre identité</Text>
+        <Text style={styles.text}>Utilisez le code ci-dessous pour valider votre action :</Text>
         <Text style={styles.code}>{token}</Text>
         <Text style={styles.text}>
-          Ce code expire prochainement. Si vous n'êtes pas à l'origine de cette
-          demande, ignorez ce message.
+          Ce code expire prochainement. Si vous n'êtes pas à l'origine de cette demande, ignorez simplement ce message.
         </Text>
       </BrandLayout>
     </Body>

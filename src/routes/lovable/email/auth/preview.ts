@@ -18,7 +18,7 @@ const EMAIL_TEMPLATES: Record<string, React.ComponentType<any>> = {
 }
 
 // Configuration
-const SITE_NAME = "peptiniumlabs"
+const SITE_NAME = "Peptinium Labs"
 const ROOT_DOMAIN = "peptinium.com"
 
 // Sample data for preview mode ONLY (not used in actual email sending).
