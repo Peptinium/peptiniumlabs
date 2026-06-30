@@ -109,7 +109,8 @@ function AdminLayout() {
   }
 
   return (
-    <div className="flex h-[100dvh] flex-col bg-background">
+    <div className="dark flex h-[100dvh] flex-col bg-background text-foreground">
+
       <header className="flex items-center justify-between border-b border-border bg-card px-4 py-3">
         <div className="flex items-center gap-2">
           <div className="flex size-8 items-center justify-center rounded-lg bg-primary">
