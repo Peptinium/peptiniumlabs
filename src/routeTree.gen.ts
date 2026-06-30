@@ -38,6 +38,7 @@ import { Route as AuthenticatedMonCompteRouteImport } from './routes/_authentica
 import { Route as AuthenticatedMonCompteIndexRouteImport } from './routes/_authenticated/mon-compte.index'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as ApiPublicTrackRouteImport } from './routes/api/public/track'
+import { Route as ApiPublicPeptiniumEmailTestRouteImport } from './routes/api/public/peptinium-email-test'
 import { Route as AuthenticatedMonCompteProfilRouteImport } from './routes/_authenticated/mon-compte.profil'
 import { Route as AuthenticatedMonCompteContactRouteImport } from './routes/_authenticated/mon-compte.contact'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
@@ -191,6 +192,12 @@ const ApiPublicTrackRoute = ApiPublicTrackRouteImport.update({
   path: '/api/public/track',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicPeptiniumEmailTestRoute =
+  ApiPublicPeptiniumEmailTestRouteImport.update({
+    id: '/api/public/peptinium-email-test',
+    path: '/api/public/peptinium-email-test',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthenticatedMonCompteProfilRoute =
   AuthenticatedMonCompteProfilRouteImport.update({
     id: '/profil',
@@ -260,6 +267,7 @@ export interface FileRoutesByFullPath {
   '/produits/': typeof ProduitsIndexRoute
   '/mon-compte/contact': typeof AuthenticatedMonCompteContactRoute
   '/mon-compte/profil': typeof AuthenticatedMonCompteProfilRoute
+  '/api/public/peptinium-email-test': typeof ApiPublicPeptiniumEmailTestRoute
   '/api/public/track': typeof ApiPublicTrackRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/mon-compte/': typeof AuthenticatedMonCompteIndexRoute
@@ -295,6 +303,7 @@ export interface FileRoutesByTo {
   '/produits': typeof ProduitsIndexRoute
   '/mon-compte/contact': typeof AuthenticatedMonCompteContactRoute
   '/mon-compte/profil': typeof AuthenticatedMonCompteProfilRoute
+  '/api/public/peptinium-email-test': typeof ApiPublicPeptiniumEmailTestRoute
   '/api/public/track': typeof ApiPublicTrackRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/mon-compte': typeof AuthenticatedMonCompteIndexRoute
@@ -334,6 +343,7 @@ export interface FileRoutesById {
   '/produits/': typeof ProduitsIndexRoute
   '/_authenticated/mon-compte/contact': typeof AuthenticatedMonCompteContactRoute
   '/_authenticated/mon-compte/profil': typeof AuthenticatedMonCompteProfilRoute
+  '/api/public/peptinium-email-test': typeof ApiPublicPeptiniumEmailTestRoute
   '/api/public/track': typeof ApiPublicTrackRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/_authenticated/mon-compte/': typeof AuthenticatedMonCompteIndexRoute
@@ -373,6 +383,7 @@ export interface FileRouteTypes {
     | '/produits/'
     | '/mon-compte/contact'
     | '/mon-compte/profil'
+    | '/api/public/peptinium-email-test'
     | '/api/public/track'
     | '/lovable/email/suppression'
     | '/mon-compte/'
@@ -408,6 +419,7 @@ export interface FileRouteTypes {
     | '/produits'
     | '/mon-compte/contact'
     | '/mon-compte/profil'
+    | '/api/public/peptinium-email-test'
     | '/api/public/track'
     | '/lovable/email/suppression'
     | '/mon-compte'
@@ -446,6 +458,7 @@ export interface FileRouteTypes {
     | '/produits/'
     | '/_authenticated/mon-compte/contact'
     | '/_authenticated/mon-compte/profil'
+    | '/api/public/peptinium-email-test'
     | '/api/public/track'
     | '/lovable/email/suppression'
     | '/_authenticated/mon-compte/'
@@ -475,6 +488,7 @@ export interface RootRouteChildren {
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   ProduitsSlugRoute: typeof ProduitsSlugRoute
   ProduitsIndexRoute: typeof ProduitsIndexRoute
+  ApiPublicPeptiniumEmailTestRoute: typeof ApiPublicPeptiniumEmailTestRoute
   ApiPublicTrackRoute: typeof ApiPublicTrackRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
@@ -689,6 +703,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicTrackRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/peptinium-email-test': {
+      id: '/api/public/peptinium-email-test'
+      path: '/api/public/peptinium-email-test'
+      fullPath: '/api/public/peptinium-email-test'
+      preLoaderRoute: typeof ApiPublicPeptiniumEmailTestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/mon-compte/profil': {
       id: '/_authenticated/mon-compte/profil'
       path: '/profil'
@@ -819,6 +840,7 @@ const rootRouteChildren: RootRouteChildren = {
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   ProduitsSlugRoute: ProduitsSlugRoute,
   ProduitsIndexRoute: ProduitsIndexRoute,
+  ApiPublicPeptiniumEmailTestRoute: ApiPublicPeptiniumEmailTestRoute,
   ApiPublicTrackRoute: ApiPublicTrackRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
   LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
