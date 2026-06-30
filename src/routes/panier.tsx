@@ -13,6 +13,8 @@ import {
 } from "@/lib/cart";
 import { formatPrice } from "@/data/products";
 import { placeOrder } from "@/lib/orders.functions";
+import { getMyProfile } from "@/lib/account.functions";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/panier")({
   head: () => ({
@@ -57,6 +59,36 @@ function PanierPage() {
   const [promoApplied, setPromoApplied] = useState(false);
   const [researchAcceptedAt, setResearchAcceptedAt] = useState<string | null>(null);
   const [cgvAcceptedAt, setCgvAcceptedAt] = useState<string | null>(null);
+  const fetchProfile = useServerFn(getMyProfile);
+
+  // Prefill shipping from profile when user is authenticated
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const { data } = await supabase.auth.getSession();
+      if (!data.session) return;
+      try {
+        const res = await fetchProfile();
+        if (cancelled) return;
+        setShipping((prev) => ({
+          email: prev.email || res.email || "",
+          firstName: prev.firstName || res.profile?.first_name || "",
+          lastName: prev.lastName || res.profile?.last_name || "",
+          mobile: prev.mobile || res.profile?.phone || "",
+          address: prev.address || res.profile?.address_line || "",
+          address2: prev.address2 || res.profile?.address_line2 || "",
+          postal: prev.postal || res.profile?.postal_code || "",
+          city: prev.city || res.profile?.city || "",
+          country: prev.country || res.profile?.country || "France",
+        }));
+      } catch {
+        // ignore prefill errors
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [fetchProfile]);
 
   const isEmpty = cart.items.length === 0;
   const motif = "ton nom + prénom";

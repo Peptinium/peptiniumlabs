@@ -1,21 +1,35 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, useSearch } from "@tanstack/react-router";
 import { useState } from "react";
+import { z } from "zod";
 import { SiteLayout } from "@/components/SiteLayout";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
 
+const searchSchema = z.object({
+  redirect: z.string().optional(),
+});
+
 export const Route = createFileRoute("/auth")({
+  validateSearch: searchSchema,
   head: () => ({
     meta: [
-      { title: "Connexion admin — Peptinium Labs" },
+      { title: "Connexion — Peptinium Labs" },
+      { name: "description", content: "Connectez-vous pour suivre vos commandes et vos tickets SAV." },
       { name: "robots", content: "noindex,nofollow" },
     ],
   }),
   component: AuthPage,
 });
 
+function isSafePath(p: string | undefined): p is string {
+  return !!p && p.startsWith("/") && !p.startsWith("//");
+}
+
 function AuthPage() {
   const navigate = useNavigate();
+  const search = useSearch({ from: "/auth" });
+  const redirectTo = isSafePath(search.redirect) ? search.redirect : "/mon-compte";
+
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,17 +45,14 @@ function AuthPage() {
         const { error } = await supabase.auth.signUp({
           email,
           password,
-          options: { emailRedirectTo: window.location.origin + "/admin" },
+          options: { emailRedirectTo: window.location.origin + redirectTo },
         });
         if (error) throw error;
       } else {
-        const { error } = await supabase.auth.signInWithPassword({
-          email,
-          password,
-        });
+        const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
       }
-      navigate({ to: "/admin" });
+      navigate({ to: redirectTo });
     } catch (e: any) {
       setError(e?.message ?? "Erreur d'authentification");
     } finally {
@@ -55,13 +66,13 @@ function AuthPage() {
         <div className="w-full max-w-md rounded-2xl border border-border bg-card p-7 sm:p-8">
           <div className="text-center">
             <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">
-              — Espace administrateur
+              — Espace client
             </div>
             <h1 className="mt-2 font-display text-2xl font-medium">
-              {mode === "signin" ? "Connexion" : "Créer un compte admin"}
+              {mode === "signin" ? "Connexion" : "Créer un compte"}
             </h1>
             <p className="mt-1 text-xs text-muted-foreground">
-              Accès réservé à la gestion des commandes et du stock.
+              Suivez vos commandes, factures et tickets SAV.
             </p>
           </div>
 
@@ -97,11 +108,7 @@ function AuthPage() {
               disabled={loading}
               className="w-full rounded-lg bg-accent px-6 py-3 text-sm font-medium text-accent-foreground transition-opacity hover:opacity-90 disabled:opacity-40"
             >
-              {loading
-                ? "Connexion…"
-                : mode === "signin"
-                  ? "Se connecter"
-                  : "Créer le compte"}
+              {loading ? "Connexion…" : mode === "signin" ? "Se connecter" : "Créer le compte"}
             </button>
 
             <div className="relative my-2 text-center">
@@ -115,14 +122,14 @@ function AuthPage() {
               onClick={async () => {
                 setError(null);
                 const result = await lovable.auth.signInWithOAuth("google", {
-                  redirect_uri: window.location.origin + "/admin",
+                  redirect_uri: window.location.origin + "/auth/callback",
                 });
                 if (result.error) {
                   setError(result.error.message ?? "Erreur Google");
                   return;
                 }
                 if (result.redirected) return;
-                navigate({ to: "/admin" });
+                navigate({ to: redirectTo });
               }}
               className="flex w-full items-center justify-center gap-2 rounded-lg border border-border bg-background px-6 py-3 text-sm font-medium hover:bg-muted"
             >
@@ -136,7 +143,7 @@ function AuthPage() {
               className="w-full text-center text-xs text-muted-foreground hover:text-foreground"
             >
               {mode === "signin"
-                ? "Premier accès ? Créer un compte admin"
+                ? "Pas encore de compte ? Créer un compte"
                 : "Déjà un compte ? Se connecter"}
             </button>
           </form>

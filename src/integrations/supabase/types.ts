@@ -200,6 +200,7 @@ export type Database = {
           total_eur: number
           tracking_number: string | null
           updated_at: string
+          user_id: string | null
         }
         Insert: {
           address_line: string
@@ -222,6 +223,7 @@ export type Database = {
           total_eur?: number
           tracking_number?: string | null
           updated_at?: string
+          user_id?: string | null
         }
         Update: {
           address_line?: string
@@ -244,6 +246,7 @@ export type Database = {
           total_eur?: number
           tracking_number?: string | null
           updated_at?: string
+          user_id?: string | null
         }
         Relationships: []
       }
@@ -357,6 +360,48 @@ export type Database = {
         }
         Relationships: []
       }
+      profiles: {
+        Row: {
+          address_line: string | null
+          address_line2: string | null
+          city: string | null
+          country: string | null
+          created_at: string
+          first_name: string | null
+          last_name: string | null
+          phone: string | null
+          postal_code: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          address_line?: string | null
+          address_line2?: string | null
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          first_name?: string | null
+          last_name?: string | null
+          phone?: string | null
+          postal_code?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          address_line?: string | null
+          address_line2?: string | null
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          first_name?: string | null
+          last_name?: string | null
+          phone?: string | null
+          postal_code?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       stock_movements: {
         Row: {
           created_at: string
@@ -434,6 +479,7 @@ export type Database = {
           subject: string
           ticket_number: string
           updated_at: string
+          user_id: string | null
         }
         Insert: {
           created_at?: string
@@ -446,6 +492,7 @@ export type Database = {
           subject: string
           ticket_number?: string
           updated_at?: string
+          user_id?: string | null
         }
         Update: {
           created_at?: string
@@ -458,6 +505,7 @@ export type Database = {
           subject?: string
           ticket_number?: string
           updated_at?: string
+          user_id?: string | null
         }
         Relationships: [
           {

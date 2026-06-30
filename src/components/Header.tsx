@@ -58,6 +58,17 @@ export function Header() {
 
         <div className="flex items-center gap-2">
           <Link
+            to="/mon-compte"
+            aria-label="Mon compte"
+            className="hidden items-center gap-2 rounded-full border border-border bg-card px-3.5 py-2 text-xs font-medium text-foreground transition-all hover:border-accent hover:text-accent sm:inline-flex lg:px-4 lg:py-2.5 lg:text-sm"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="lg:h-4 lg:w-4">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+            <span>Compte</span>
+          </Link>
+          <Link
             to="/panier"
             aria-label="Panier"
             className="group relative inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-2 text-xs font-medium text-foreground transition-all hover:border-accent hover:text-accent lg:px-4 lg:py-2.5 lg:text-sm"
@@ -99,6 +110,13 @@ export function Header() {
                 {n.label}
               </Link>
             ))}
+            <Link
+              to="/mon-compte"
+              onClick={() => setOpen(false)}
+              className="py-3.5 text-sm font-medium text-accent"
+            >
+              Mon compte
+            </Link>
           </div>
         </div>
       )}
