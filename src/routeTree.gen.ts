@@ -34,6 +34,7 @@ import { Route as AdminSiteWebRouteImport } from './routes/admin.site-web'
 import { Route as AdminSavRouteImport } from './routes/admin.sav'
 import { Route as AdminPaiementsRouteImport } from './routes/admin.paiements'
 import { Route as AdminClientsRouteImport } from './routes/admin.clients'
+import { Route as AuthenticatedMonCompteRouteImport } from './routes/_authenticated/mon-compte'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as ApiPublicTrackRouteImport } from './routes/api/public/track'
@@ -165,6 +166,11 @@ const AdminClientsRoute = AdminClientsRouteImport.update({
   path: '/clients',
   getParentRoute: () => AdminRoute,
 } as any)
+const AuthenticatedMonCompteRoute = AuthenticatedMonCompteRouteImport.update({
+  id: '/mon-compte',
+  path: '/mon-compte',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -214,6 +220,7 @@ export interface FileRoutesByFullPath {
   '/support': typeof SupportRoute
   '/tester-fioles': typeof TesterFiolesRoute
   '/unsubscribe': typeof UnsubscribeRoute
+  '/mon-compte': typeof AuthenticatedMonCompteRoute
   '/admin/clients': typeof AdminClientsRoute
   '/admin/paiements': typeof AdminPaiementsRoute
   '/admin/sav': typeof AdminSavRoute
@@ -245,6 +252,7 @@ export interface FileRoutesByTo {
   '/tester-fioles': typeof TesterFiolesRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/admin': typeof AdminIndexRoute
+  '/mon-compte': typeof AuthenticatedMonCompteRoute
   '/admin/clients': typeof AdminClientsRoute
   '/admin/paiements': typeof AdminPaiementsRoute
   '/admin/sav': typeof AdminSavRoute
@@ -278,6 +286,7 @@ export interface FileRoutesById {
   '/tester-fioles': typeof TesterFiolesRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/_authenticated/mon-compte': typeof AuthenticatedMonCompteRoute
   '/admin/clients': typeof AdminClientsRoute
   '/admin/paiements': typeof AdminPaiementsRoute
   '/admin/sav': typeof AdminSavRoute
@@ -311,6 +320,7 @@ export interface FileRouteTypes {
     | '/support'
     | '/tester-fioles'
     | '/unsubscribe'
+    | '/mon-compte'
     | '/admin/clients'
     | '/admin/paiements'
     | '/admin/sav'
@@ -342,6 +352,7 @@ export interface FileRouteTypes {
     | '/tester-fioles'
     | '/unsubscribe'
     | '/admin'
+    | '/mon-compte'
     | '/admin/clients'
     | '/admin/paiements'
     | '/admin/sav'
@@ -374,6 +385,7 @@ export interface FileRouteTypes {
     | '/tester-fioles'
     | '/unsubscribe'
     | '/_authenticated/admin'
+    | '/_authenticated/mon-compte'
     | '/admin/clients'
     | '/admin/paiements'
     | '/admin/sav'
@@ -594,6 +606,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminClientsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/_authenticated/mon-compte': {
+      id: '/_authenticated/mon-compte'
+      path: '/mon-compte'
+      fullPath: '/mon-compte'
+      preLoaderRoute: typeof AuthenticatedMonCompteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin': {
       id: '/_authenticated/admin'
       path: '/admin'
@@ -641,10 +660,12 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+  AuthenticatedMonCompteRoute: typeof AuthenticatedMonCompteRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+  AuthenticatedMonCompteRoute: AuthenticatedMonCompteRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
