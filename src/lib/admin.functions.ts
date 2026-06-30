@@ -153,7 +153,7 @@ function validatePaymentLink(link: string): string {
   );
   if (!hostOk) {
     throw new Error(
-      `Domaine non autorisé. Utilisez Revolut, PayPal ou Stripe.`,
+      `Domaine non autorisé. Utilisez un fournisseur de paiement carte sécurisé approuvé.`,
     );
   }
   return trimmed;
