@@ -13,6 +13,8 @@ import {
 } from "@/lib/cart";
 import { formatPrice } from "@/data/products";
 import { placeOrder } from "@/lib/orders.functions";
+import { getMyProfile } from "@/lib/account.functions";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/panier")({
   head: () => ({
