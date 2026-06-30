@@ -63,3 +63,25 @@ export async function broadcastToUser(
   }
   return { sent, expired: expired.length };
 }
+
+export async function broadcastToAdmins(payload: PushPayload): Promise<void> {
+  try {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: admins } = await supabaseAdmin
+      .from("user_roles")
+      .select("user_id")
+      .eq("role", "admin");
+    if (!admins) return;
+    await Promise.all(admins.map((a) => broadcastToUser(a.user_id, payload)));
+  } catch (e) {
+    console.error("broadcastToAdmins failed", e);
+  }
+}
+
+export async function safeBroadcastToUser(userId: string, payload: PushPayload): Promise<void> {
+  try {
+    await broadcastToUser(userId, payload);
+  } catch (e) {
+    console.error("broadcastToUser failed", e);
+  }
+}
