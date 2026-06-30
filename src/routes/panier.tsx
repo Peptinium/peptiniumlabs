@@ -736,7 +736,7 @@ function Recap({
           {promoApplied ? (
             <div className="flex items-center justify-between text-sm">
               <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-success">
-                ✓ {PROMO_CODE} appliqué (−{(PROMO_RATE * 100).toFixed(0)} %)
+                ✓ {promoCode ?? "Code"} appliqué (−{((promoRate ?? 0) * 100).toFixed(0)} %)
               </span>
               <button
                 type="button"
