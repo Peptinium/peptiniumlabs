@@ -218,7 +218,7 @@ function UnitField({
                   : "bg-background text-muted-foreground hover:bg-surface"
               }`}
             >
-              {u === "mcg" ? "µg" : "mg"}
+              {u === "mcg" ? "MCG" : "MG"}
             </button>
           ))}
         </div>

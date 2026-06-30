@@ -123,6 +123,14 @@ function AdminLayout() {
           </div>
         </div>
         <div className="flex items-center gap-2">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-border px-2.5 py-1.5 text-xs font-medium text-foreground hover:bg-surface"
+            aria-label="Retour au site"
+          >
+            <Globe className="size-3.5" />
+            <span>Site</span>
+          </Link>
           <div className="flex size-8 items-center justify-center rounded-full bg-accent/20">
             <span className="text-xs font-bold text-accent">A</span>
           </div>

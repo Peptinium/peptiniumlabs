@@ -22,8 +22,11 @@ export const Route = createFileRoute("/blog/$slug")({
         { property: "og:url", content: `/blog/${a.slug}` },
         { property: "article:published_time", content: a.date },
         { name: "twitter:card", content: "summary_large_image" },
+      ],
+      links: [{ rel: "canonical", href: `/blog/${a.slug}` }],
+      scripts: [
         {
-          name: "script:ld+json",
+          type: "application/ld+json",
           children: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Article",
@@ -35,7 +38,6 @@ export const Route = createFileRoute("/blog/$slug")({
           }),
         },
       ],
-      links: [{ rel: "canonical", href: `/blog/${a.slug}` }],
     };
   },
   errorComponent: () => (
