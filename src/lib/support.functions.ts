@@ -60,19 +60,24 @@ export const submitTicket = createServerFn({ method: "POST" })
 
     try {
       const { enqueueAppEmail } = await import("@/lib/email/enqueue.server");
-      await enqueueAppEmail({
-        templateName: "admin-new-ticket",
-        recipientEmail: "contact@peptinium.com",
-        idempotencyKey: `admin-new-ticket-${t.id}`,
-        templateData: {
-          ticketNumber: t.ticket_number,
-          subject: data.subject,
-          email: data.email,
-          body: data.body,
-          orderNumber: data.orderNumber ?? null,
-          adminUrl: "https://peptinium.com/admin/sav",
-        },
-      });
+      const recipients = ["peptinium@gmail.com", "contact@peptinium.com"];
+      await Promise.all(
+        recipients.map((to) =>
+          enqueueAppEmail({
+            templateName: "admin-new-ticket",
+            recipientEmail: to,
+            idempotencyKey: `admin-new-ticket-${t.id}-${to}`,
+            templateData: {
+              ticketNumber: t.ticket_number,
+              subject: data.subject,
+              email: data.email,
+              body: data.body,
+              orderNumber: data.orderNumber ?? null,
+              adminUrl: "https://peptinium.com/admin/sav",
+            },
+          }),
+        ),
+      );
     } catch (e) {
       console.error("admin email failed", e);
     }
