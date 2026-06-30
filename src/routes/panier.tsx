@@ -756,10 +756,10 @@ function Recap({
             </button>
           ) : (
             <form
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
                 setPromoError(null);
-                const ok = onApplyPromo?.(promoInput) ?? false;
+                const ok = (await onApplyPromo?.(promoInput)) ?? false;
                 if (!ok) setPromoError("Code promo invalide.");
               }}
               className="space-y-2"
