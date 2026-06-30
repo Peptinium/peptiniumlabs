@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Mail, Clock, ShieldCheck } from "lucide-react";
+import { Mail, Clock } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/mon-compte/contact")({
   component: ContactPage,
