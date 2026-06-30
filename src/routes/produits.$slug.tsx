@@ -42,7 +42,7 @@ export const Route = createFileRoute("/produits/$slug")({
     return { product };
   },
   head: ({ loaderData, params }) => {
-    const SITE = "https://peptinium-labs.com";
+    const SITE = "https://peptinium.com";
     const p = loaderData?.product;
     const dosages = p?.variants.map((v) => v.dosage).join(" / ");
     const minP = p ? Math.min(...p.variants.map((v) => v.price)) : 0;

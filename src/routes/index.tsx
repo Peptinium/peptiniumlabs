@@ -6,7 +6,7 @@ import { Reveal } from "@/components/Reveal";
 import { products, formatPrice } from "@/data/products";
 import labBg from "@/assets/lab-bg-ruo.jpg";
 
-const SITE_URL = "https://peptinium-labs.com";
+const SITE_URL = "https://peptinium.com";
 const ALL_PEPTIDES_KEYWORDS = [
   "peptides", "peptides de recherche", "peptides France", "acheter peptides", "vente peptides",
   "peptides RUO", "peptides HPLC", "peptides qualité recherche", "réactifs peptidiques",

@@ -6,7 +6,7 @@ import { Reveal } from "@/components/Reveal";
 import { RuoBadge } from "@/components/RuoBadge";
 import { products } from "@/data/products";
 
-const SITE_URL = "https://peptinium-labs.com";
+const SITE_URL = "https://peptinium.com";
 
 export const Route = createFileRoute("/produits/")({
   head: () => ({
