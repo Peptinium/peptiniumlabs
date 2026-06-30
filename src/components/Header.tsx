@@ -155,11 +155,11 @@ export function Header() {
               </Link>
             ))}
             <Link
-              to="/mon-compte"
+              to={isLoggedIn ? "/mon-compte" : "/auth"}
               onClick={() => setOpen(false)}
               className="py-3.5 text-sm font-medium text-accent"
             >
-              Mon compte
+              {isLoggedIn ? "Mon compte" : "Connexion / Créer un compte"}
             </Link>
           </div>
         </div>
