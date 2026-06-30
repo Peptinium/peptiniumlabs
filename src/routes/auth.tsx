@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate, useSearch } from "@tanstack/react-router";
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { z } from "zod";
 import { SiteLayout } from "@/components/SiteLayout";
 import { supabase } from "@/integrations/supabase/client";
@@ -14,7 +14,7 @@ export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
       { title: "Connexion — Peptinium Labs" },
-      { name: "description", content: "Connectez-vous pour suivre vos commandes et vos tickets SAV." },
+      { name: "description", content: "Connectez-vous pour suivre vos commandes et accéder à votre espace client." },
       { name: "robots", content: "noindex,nofollow" },
     ],
   }),
@@ -66,6 +66,16 @@ function AuthPage() {
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    supabase.auth.getSession().then(({ data }) => {
+      if (!cancelled && data.session) navigate({ to: redirectTo, replace: true });
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [navigate, redirectTo]);
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
@@ -150,7 +160,7 @@ function AuthPage() {
             <p className="mt-1 text-xs text-muted-foreground">
               {mode === "forgot"
                 ? "Recevez un lien pour définir un nouveau mot de passe."
-                : "Suivez vos commandes, factures et tickets SAV."}
+                : "Suivez vos commandes, factures et informations de contact."}
             </p>
           </div>
 

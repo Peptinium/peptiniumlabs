@@ -106,7 +106,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     };
     const clear = () => setItems([]);
     const setEau = (qty: number) => {
-      const clamped = Math.min(Math.max(0, qty), peptideCount);
+      const clamped = Math.max(0, qty);
       setItems((prev) => {
         const without = prev.filter((p) => p.slug !== EAU_SLUG);
         if (clamped <= 0) return without;
