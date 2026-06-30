@@ -110,6 +110,13 @@ export function Header() {
                 {n.label}
               </Link>
             ))}
+            <Link
+              to="/mon-compte"
+              onClick={() => setOpen(false)}
+              className="py-3.5 text-sm font-medium text-accent"
+            >
+              Mon compte
+            </Link>
           </div>
         </div>
       )}
