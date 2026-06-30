@@ -58,5 +58,24 @@ export const submitTicket = createServerFn({ method: "POST" })
       console.error("admin push failed", e);
     }
 
+    try {
+      const { enqueueAppEmail } = await import("@/lib/email/enqueue.server");
+      await enqueueAppEmail({
+        templateName: "admin-new-ticket",
+        recipientEmail: "contact@peptinium.com",
+        idempotencyKey: `admin-new-ticket-${t.id}`,
+        templateData: {
+          ticketNumber: t.ticket_number,
+          subject: data.subject,
+          email: data.email,
+          body: data.body,
+          orderNumber: data.orderNumber ?? null,
+          adminUrl: "https://peptinium.com/admin/sav",
+        },
+      });
+    } catch (e) {
+      console.error("admin email failed", e);
+    }
+
     return { ticketNumber: t.ticket_number };
   });
