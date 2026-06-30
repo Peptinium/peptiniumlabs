@@ -230,6 +230,7 @@ function PanierPage() {
             cart={cart}
             subtotal={subtotal}
             shippingFee={shippingFee}
+            paymentMethod={paymentMethod}
             onDone={() => cart.clear()}
           />
         )}
