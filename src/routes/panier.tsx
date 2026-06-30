@@ -215,7 +215,7 @@ function PanierPage() {
               shipping={shippingFee}
               discount={discount}
               total={total}
-              promoApplied={promoApplied}
+              promoApplied={!!promo}
               collapsed
             />
           </div>
