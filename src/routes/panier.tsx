@@ -903,7 +903,7 @@ function VirementBlock({
         title: "Votre lien de paiement arrive",
         intro: "Vous recevrez sous 24 h par email un lien sécurisé pour régler par carte bancaire.",
         boxTitle: "En attente du lien de paiement",
-        boxText: "Notre équipe valide votre commande, puis vous envoie un lien Revolut sécurisé à l'adresse email indiquée. Le délai d'envoi est généralement de quelques heures (max 24 h ouvrées).",
+        boxText: "Notre équipe valide votre commande, puis vous envoie un lien de paiement carte bancaire sécurisé à l'adresse email indiquée. Le délai d'envoi est généralement de quelques heures (max 24 h ouvrées).",
         cta: "J'ai compris, je patiente",
       };
     }
