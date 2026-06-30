@@ -106,6 +106,228 @@ export const setTrackingNumber = createServerFn({ method: "POST" })
     return { ok: true };
   });
 
+// ─────────── Lien de paiement CB (différé) ───────────
+const ALLOWED_PAYMENT_HOSTS = [
+  "checkout.revolut.com",
+  "pay.revolut.com",
+  "revolut.me",
+  "paypal.me",
+  "paypal.com",
+  "buy.stripe.com",
+];
+
+function validatePaymentLink(link: string): string {
+  const trimmed = (link ?? "").trim();
+  if (!trimmed) throw new Error("Lien de paiement vide.");
+  if (trimmed.length > 2000) throw new Error("Lien trop long.");
+  let url: URL;
+  try {
+    url = new URL(trimmed);
+  } catch {
+    throw new Error("Lien invalide.");
+  }
+  if (url.protocol !== "https:") {
+    throw new Error("Le lien doit commencer par https://");
+  }
+  const hostOk = ALLOWED_PAYMENT_HOSTS.some(
+    (h) => url.hostname === h || url.hostname.endsWith(`.${h}`),
+  );
+  if (!hostOk) {
+    throw new Error(
+      `Domaine non autorisé. Utilisez Revolut, PayPal ou Stripe.`,
+    );
+  }
+  return trimmed;
+}
+
+export const sendPaymentLink = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) =>
+    z
+      .object({
+        orderId: z.string().uuid(),
+        paymentLink: z.string().min(1).max(2000),
+      })
+      .parse(d),
+  )
+  .handler(async ({ data, context }) => {
+    await requireAdmin(context);
+    const cleanLink = validatePaymentLink(data.paymentLink);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: order } = await supabaseAdmin
+      .from("orders")
+      .select("id, order_number, email, first_name, last_name, total_eur")
+      .eq("id", data.orderId)
+      .maybeSingle();
+    if (!order) throw new Error("Commande introuvable");
+
+    const { data: items } = await supabaseAdmin
+      .from("order_items")
+      .select("product_name, quantity, unit_price_eur")
+      .eq("order_id", data.orderId);
+
+    const sentAt = new Date().toISOString();
+    const { error: uErr } = await supabaseAdmin
+      .from("orders")
+      .update({
+        payment_link: cleanLink,
+        payment_link_sent_at: sentAt,
+        status: "payment_link_sent",
+      })
+      .eq("id", data.orderId);
+    if (uErr) throw new Error(uErr.message);
+
+    try {
+      const { sendAppEmail } = await import("@/lib/email/send.server");
+      await sendAppEmail({
+        templateName: "payment-link",
+        recipientEmail: order.email,
+        idempotencyKey: `payment-link-${order.id}-${Date.now()}`,
+        templateData: {
+          customerName: [order.first_name, order.last_name].filter(Boolean).join(" "),
+          orderNumber: order.order_number,
+          totalEur: Number(order.total_eur ?? 0),
+          paymentLink: cleanLink,
+          items: (items ?? []).map((i) => ({
+            name: i.product_name,
+            quantity: i.quantity,
+            price_eur: Number(i.unit_price_eur ?? 0),
+          })),
+        },
+      });
+    } catch (e) {
+      console.error("payment-link email failed", e);
+    }
+    return { ok: true, sentAt };
+  });
+
+// ─────────── Adresse crypto (BTC) ───────────
+export const sendCryptoPayment = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) =>
+    z
+      .object({
+        orderId: z.string().uuid(),
+        address: z.string().min(4).max(200),
+        currencyName: z.string().min(1).max(50).default("Bitcoin"),
+        currencyCode: z.string().min(1).max(20).default("BTC"),
+        network: z.string().min(1).max(100).default("Bitcoin (BTC)"),
+      })
+      .parse(d),
+  )
+  .handler(async ({ data, context }) => {
+    await requireAdmin(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: order } = await supabaseAdmin
+      .from("orders")
+      .select("id, order_number, email, first_name, last_name, total_eur")
+      .eq("id", data.orderId)
+      .maybeSingle();
+    if (!order) throw new Error("Commande introuvable");
+
+    const sentAt = new Date().toISOString();
+    await supabaseAdmin
+      .from("orders")
+      .update({
+        payment_link: `${data.currencyCode}:${data.address.trim()}`,
+        payment_link_sent_at: sentAt,
+        status: "payment_link_sent",
+      })
+      .eq("id", data.orderId);
+
+    try {
+      const { sendAppEmail } = await import("@/lib/email/send.server");
+      await sendAppEmail({
+        templateName: "crypto-payment",
+        recipientEmail: order.email,
+        idempotencyKey: `crypto-${order.id}-${Date.now()}`,
+        templateData: {
+          customerName: [order.first_name, order.last_name].filter(Boolean).join(" "),
+          orderNumber: order.order_number,
+          totalEur: Number(order.total_eur ?? 0),
+          currencyName: data.currencyName,
+          currencyCode: data.currencyCode,
+          network: data.network,
+          address: data.address.trim(),
+        },
+      });
+    } catch (e) {
+      console.error("crypto-payment email failed", e);
+    }
+    return { ok: true, sentAt };
+  });
+
+// ─────────── Notification d'expédition ───────────
+function buildTrackingUrl(carrier: string, tracking: string): string {
+  const c = carrier.toLowerCase().trim();
+  const t = encodeURIComponent(tracking.trim());
+  if (c.includes("colissimo") || c.includes("poste"))
+    return `https://www.laposte.fr/outils/suivre-vos-envois?code=${t}`;
+  if (c.includes("chronopost"))
+    return `https://www.chronopost.fr/tracking-no-cms/suivi-page?listeNumerosLT=${t}`;
+  if (c.includes("mondial"))
+    return `https://www.mondialrelay.fr/suivi-de-colis?numeroExpedition=${t}`;
+  if (c.includes("dhl")) return `https://www.dhl.com/fr-fr/home/tracking.html?tracking-id=${t}`;
+  if (c.includes("ups")) return `https://www.ups.com/track?tracknum=${t}`;
+  if (c.includes("fedex")) return `https://www.fedex.com/fedextrack/?trknbr=${t}`;
+  if (c.includes("dpd")) return `https://www.dpd.fr/trace/${t}`;
+  if (c.includes("gls")) return `https://gls-group.com/FR/fr/suivi-colis?match=${t}`;
+  return `https://www.google.com/search?q=${encodeURIComponent(carrier + " suivi " + tracking)}`;
+}
+
+export const sendShippingNotification = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) =>
+    z
+      .object({
+        orderId: z.string().uuid(),
+        carrier: z.string().min(1).max(100),
+        trackingNumber: z.string().min(1).max(200),
+      })
+      .parse(d),
+  )
+  .handler(async ({ data, context }) => {
+    await requireAdmin(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: order } = await supabaseAdmin
+      .from("orders")
+      .select("id, order_number, email, first_name, last_name")
+      .eq("id", data.orderId)
+      .maybeSingle();
+    if (!order) throw new Error("Commande introuvable");
+
+    const trackingUrl = buildTrackingUrl(data.carrier, data.trackingNumber);
+    const shippedAt = new Date().toISOString();
+    const { error } = await supabaseAdmin
+      .from("orders")
+      .update({
+        tracking_number: data.trackingNumber.trim(),
+        status: "shipped",
+        shipped_at: shippedAt,
+      })
+      .eq("id", data.orderId);
+    if (error) throw new Error(error.message);
+
+    try {
+      const { sendAppEmail } = await import("@/lib/email/send.server");
+      await sendAppEmail({
+        templateName: "order-shipped",
+        recipientEmail: order.email,
+        idempotencyKey: `shipped-${order.id}-${Date.now()}`,
+        templateData: {
+          customerName: [order.first_name, order.last_name].filter(Boolean).join(" "),
+          orderNumber: order.order_number,
+          carrier: data.carrier,
+          trackingNumber: data.trackingNumber.trim(),
+          trackingUrl,
+        },
+      });
+    } catch (e) {
+      console.error("order-shipped email failed", e);
+    }
+    return { ok: true, shippedAt, trackingUrl };
+  });
+
 // ─────────── Stock ───────────
 export const adjustStock = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
