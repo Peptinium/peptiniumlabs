@@ -14,7 +14,7 @@ export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
       { title: "Connexion — Peptinium Labs" },
-      { name: "description", content: "Connectez-vous pour suivre vos commandes et vos tickets SAV." },
+      { name: "description", content: "Connectez-vous pour suivre vos commandes et accéder à votre espace client." },
       { name: "robots", content: "noindex,nofollow" },
     ],
   }),
@@ -150,7 +150,7 @@ function AuthPage() {
             <p className="mt-1 text-xs text-muted-foreground">
               {mode === "forgot"
                 ? "Recevez un lien pour définir un nouveau mot de passe."
-                : "Suivez vos commandes, factures et tickets SAV."}
+                : "Suivez vos commandes, factures et informations de contact."}
             </p>
           </div>
 
