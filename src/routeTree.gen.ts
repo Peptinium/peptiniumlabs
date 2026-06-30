@@ -39,6 +39,7 @@ import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/
 import { Route as AuthenticatedMonCompteIndexRouteImport } from './routes/_authenticated/mon-compte.index'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as ApiPublicTrackRouteImport } from './routes/api/public/track'
+import { Route as AuthenticatedMonCompteSavRouteImport } from './routes/_authenticated/mon-compte.sav'
 import { Route as AuthenticatedMonCompteProfilRouteImport } from './routes/_authenticated/mon-compte.profil'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
@@ -194,6 +195,12 @@ const ApiPublicTrackRoute = ApiPublicTrackRouteImport.update({
   path: '/api/public/track',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedMonCompteSavRoute =
+  AuthenticatedMonCompteSavRouteImport.update({
+    id: '/sav',
+    path: '/sav',
+    getParentRoute: () => AuthenticatedMonCompteRoute,
+  } as any)
 const AuthenticatedMonCompteProfilRoute =
   AuthenticatedMonCompteProfilRouteImport.update({
     id: '/profil',
@@ -246,6 +253,7 @@ export interface FileRoutesByFullPath {
   '/admin/': typeof AdminIndexRoute
   '/produits/': typeof ProduitsIndexRoute
   '/mon-compte/profil': typeof AuthenticatedMonCompteProfilRoute
+  '/mon-compte/sav': typeof AuthenticatedMonCompteSavRoute
   '/api/public/track': typeof ApiPublicTrackRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/mon-compte/': typeof AuthenticatedMonCompteIndexRoute
@@ -278,6 +286,7 @@ export interface FileRoutesByTo {
   '/produits/$slug': typeof ProduitsSlugRoute
   '/produits': typeof ProduitsIndexRoute
   '/mon-compte/profil': typeof AuthenticatedMonCompteProfilRoute
+  '/mon-compte/sav': typeof AuthenticatedMonCompteSavRoute
   '/api/public/track': typeof ApiPublicTrackRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/mon-compte': typeof AuthenticatedMonCompteIndexRoute
@@ -315,6 +324,7 @@ export interface FileRoutesById {
   '/admin/': typeof AdminIndexRoute
   '/produits/': typeof ProduitsIndexRoute
   '/_authenticated/mon-compte/profil': typeof AuthenticatedMonCompteProfilRoute
+  '/_authenticated/mon-compte/sav': typeof AuthenticatedMonCompteSavRoute
   '/api/public/track': typeof ApiPublicTrackRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/_authenticated/mon-compte/': typeof AuthenticatedMonCompteIndexRoute
@@ -351,6 +361,7 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/produits/'
     | '/mon-compte/profil'
+    | '/mon-compte/sav'
     | '/api/public/track'
     | '/lovable/email/suppression'
     | '/mon-compte/'
@@ -383,6 +394,7 @@ export interface FileRouteTypes {
     | '/produits/$slug'
     | '/produits'
     | '/mon-compte/profil'
+    | '/mon-compte/sav'
     | '/api/public/track'
     | '/lovable/email/suppression'
     | '/mon-compte'
@@ -419,6 +431,7 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/produits/'
     | '/_authenticated/mon-compte/profil'
+    | '/_authenticated/mon-compte/sav'
     | '/api/public/track'
     | '/lovable/email/suppression'
     | '/_authenticated/mon-compte/'
@@ -665,6 +678,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicTrackRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/mon-compte/sav': {
+      id: '/_authenticated/mon-compte/sav'
+      path: '/sav'
+      fullPath: '/mon-compte/sav'
+      preLoaderRoute: typeof AuthenticatedMonCompteSavRouteImport
+      parentRoute: typeof AuthenticatedMonCompteRoute
+    }
     '/_authenticated/mon-compte/profil': {
       id: '/_authenticated/mon-compte/profil'
       path: '/profil'
@@ -698,12 +718,14 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedMonCompteRouteChildren {
   AuthenticatedMonCompteProfilRoute: typeof AuthenticatedMonCompteProfilRoute
+  AuthenticatedMonCompteSavRoute: typeof AuthenticatedMonCompteSavRoute
   AuthenticatedMonCompteIndexRoute: typeof AuthenticatedMonCompteIndexRoute
 }
 
 const AuthenticatedMonCompteRouteChildren: AuthenticatedMonCompteRouteChildren =
   {
     AuthenticatedMonCompteProfilRoute: AuthenticatedMonCompteProfilRoute,
+    AuthenticatedMonCompteSavRoute: AuthenticatedMonCompteSavRoute,
     AuthenticatedMonCompteIndexRoute: AuthenticatedMonCompteIndexRoute,
   }
 
