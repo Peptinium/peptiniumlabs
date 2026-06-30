@@ -870,10 +870,6 @@ export const sendBrandedEmailTests = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     await requireAdmin(context);
     const { enqueueAppEmail } = await import("@/lib/email/enqueue.server");
-    const { getRequest } = await import("@tanstack/react-start/server");
-    const req = getRequest();
-    const authHeader = req?.headers.get("authorization") || "";
-    const bearerToken = authHeader.startsWith("Bearer ") ? authHeader.slice(7) : undefined;
     const stamp = Date.now();
     const sends = [
       {
@@ -891,7 +887,7 @@ export const sendBrandedEmailTests = createServerFn({ method: "POST" })
           customerName: "Peptinium",
           orderNumber: "TEST-PL-001",
           totalEur: 189,
-          paymentLink: "https://checkout.revolut.com/pay/example",
+          paymentLink: "https://example.com/pay/test",
           items: [{ name: "Retatrutide 10mg", quantity: 1, price_eur: 189 }],
         },
       },
@@ -919,6 +915,16 @@ export const sendBrandedEmailTests = createServerFn({ method: "POST" })
         },
       },
       {
+        templateName: "order-paid",
+        templateData: {
+          customerName: "Peptinium",
+          orderNumber: "TEST-OP-001",
+          totalEur: 189,
+          shippingAddress: "12 rue Lafayette\n75009 Paris\nFrance",
+          items: [{ name: "Retatrutide 10mg", quantity: 1, price_eur: 189 }],
+        },
+      },
+      {
         templateName: "support-reply",
         templateData: {
           subject: "Test mise en page Peptinium",
@@ -929,16 +935,19 @@ export const sendBrandedEmailTests = createServerFn({ method: "POST" })
     ];
     const results: Array<{ template: string; ok: boolean; error?: string }> = [];
     for (const s of sends) {
-      const r = await enqueueAppEmail({
-        templateName: s.templateName,
-        recipientEmail: data.recipient,
-        idempotencyKey: `test-${s.templateName}-${stamp}`,
-        templateData: s.templateData,
-        request: req ?? undefined,
-        bearerToken,
-      });
-      results.push({ template: s.templateName, ok: r.ok, error: r.error });
+      try {
+        await enqueueAppEmail({
+          templateName: s.templateName,
+          recipientEmail: data.recipient,
+          idempotencyKey: `test-${s.templateName}-${stamp}`,
+          templateData: s.templateData,
+        });
+        results.push({ template: s.templateName, ok: true });
+      } catch (e: any) {
+        results.push({ template: s.templateName, ok: false, error: e?.message ?? String(e) });
+      }
     }
     return { recipient: data.recipient, results };
   });
+
 
