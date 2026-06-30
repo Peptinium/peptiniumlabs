@@ -61,7 +61,7 @@ function AdminLayout() {
 
   if (authState === "checking") {
     return (
-      <div className="flex h-[100dvh] items-center justify-center bg-background text-sm text-muted-foreground">
+      <div className="dark flex h-[100dvh] items-center justify-center bg-background text-sm text-muted-foreground">
         Vérification de l'accès…
       </div>
     );
@@ -69,7 +69,8 @@ function AdminLayout() {
 
   if (authState === "denied") {
     return (
-      <div className="flex h-[100dvh] items-center justify-center bg-background px-4">
+      <div className="dark flex h-[100dvh] items-center justify-center bg-background px-4">
+
         <div className="w-full max-w-md rounded-2xl border border-border bg-card p-6 text-center">
           <h2 className="font-display text-lg font-medium">Accès administrateur</h2>
           <p className="mt-2 text-sm text-muted-foreground">
@@ -109,7 +110,8 @@ function AdminLayout() {
   }
 
   return (
-    <div className="flex h-[100dvh] flex-col bg-background">
+    <div className="dark flex h-[100dvh] flex-col bg-background text-foreground">
+
       <header className="flex items-center justify-between border-b border-border bg-card px-4 py-3">
         <div className="flex items-center gap-2">
           <div className="flex size-8 items-center justify-center rounded-lg bg-primary">

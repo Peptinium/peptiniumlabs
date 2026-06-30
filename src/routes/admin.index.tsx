@@ -2,8 +2,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import {
+  CheckCircle2,
   ChevronDown,
   FileText,
+  Loader2,
   Mail,
   Search,
   Send,
@@ -13,7 +15,14 @@ import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { deleteOrder, listOrders, updateOrderStatus } from "@/lib/orders.functions";
-import { generateInvoice, sendBrandedEmailTests, setTrackingNumber } from "@/lib/admin.functions";
+import {
+  generateInvoice,
+  sendBrandedEmailTests,
+  sendCryptoPayment,
+  sendPaymentLink,
+  sendShippingNotification,
+  validatePayment,
+} from "@/lib/admin.functions";
 
 export const Route = createFileRoute("/admin/")({
   component: CommandesPage,
@@ -40,14 +49,12 @@ function CommandesPage() {
   const listFn = useServerFn(listOrders);
   const updateFn = useServerFn(updateOrderStatus);
   const deleteFn = useServerFn(deleteOrder);
-  const trackingFn = useServerFn(setTrackingNumber);
   const invoiceFn = useServerFn(generateInvoice);
   const testEmailsFn = useServerFn(sendBrandedEmailTests);
 
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [filter, setFilter] = useState<string>("all");
   const [search, setSearch] = useState("");
-  const [trackingDrafts, setTrackingDrafts] = useState<Record<string, string>>({});
 
   const testEmailsMut = useMutation({
     mutationFn: (recipient: string) => testEmailsFn({ data: { recipient } }),
@@ -88,16 +95,6 @@ function CommandesPage() {
     onError: (e: Error) => toast.error(e.message || "Suppression impossible"),
   });
 
-  const trackingMut = useMutation({
-    mutationFn: ({ orderId, trackingNumber }: { orderId: string; trackingNumber: string | null }) =>
-      trackingFn({ data: { orderId, trackingNumber } }),
-    onSuccess: (_, vars) => {
-      toast.success("Numéro de suivi enregistré");
-      qc.invalidateQueries({ queryKey: ["admin", "orders"] });
-      setTrackingDrafts((prev) => ({ ...prev, [vars.orderId]: vars.trackingNumber ?? "" }));
-    },
-    onError: (e: Error) => toast.error(e.message || "Erreur d'enregistrement"),
-  });
 
   const invoiceMut = useMutation({
     mutationFn: (orderId: string) => invoiceFn({ data: { orderId } }),
@@ -216,8 +213,8 @@ function CommandesPage() {
           filteredOrders.map((o: any) => {
             const isOpen = expandedId === o.id;
             const orderItems = itemsByOrder.get(o.id) ?? [];
-            const trackingValue =
-              trackingDrafts[o.id] ?? (o.tracking_number ? String(o.tracking_number) : "");
+
+
 
             return (
               <div key={o.id} className="rounded-xl border border-border bg-card">
@@ -329,35 +326,9 @@ function CommandesPage() {
                         </div>
                       </div>
 
-                      <div>
-                        <label className="mb-2 block text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
-                          Numéro de suivi
-                        </label>
-                        <div className="flex gap-2">
-                          <input
-                            value={trackingValue}
-                            onChange={(e) =>
-                              setTrackingDrafts((prev) => ({ ...prev, [o.id]: e.target.value }))
-                            }
-                            placeholder="Ex. 6A12345678901"
-                            className="h-9 flex-1 rounded-md border border-border bg-background px-3 text-sm outline-none focus:ring-2 focus:ring-primary/40"
-                          />
-                          <Button
-                            type="button"
-                            variant="secondary"
-                            size="sm"
-                            disabled={trackingMut.isPending}
-                            onClick={() =>
-                              trackingMut.mutate({
-                                orderId: o.id,
-                                trackingNumber: trackingValue.trim() || null,
-                              })
-                            }
-                          >
-                            Enregistrer
-                          </Button>
-                        </div>
-                      </div>
+                      <PaymentLinkPanel order={o} />
+                      <CryptoPanel order={o} />
+                      <ShippingPanel order={o} />
 
                       <div className="flex flex-wrap gap-2 border-t border-border pt-4">
                         <Button
@@ -421,3 +392,218 @@ function StatCard({
     </div>
   );
 }
+
+// ─────────── Payment link (card) ───────────
+function PaymentLinkPanel({ order }: { order: any }) {
+  const qc = useQueryClient();
+  const sendFn = useServerFn(sendPaymentLink);
+  const markPaidFn = useServerFn(validatePayment);
+  const [link, setLink] = useState<string>(order.payment_link ?? "");
+  const [busy, setBusy] = useState<"send" | "paid" | null>(null);
+
+  const linkValid = /^https:\/\//i.test(link.trim());
+  const alreadySent = !!order.payment_link_sent_at;
+  const isPaid = ["paid", "shipped", "delivered"].includes(order.status);
+
+  const refresh = () => qc.invalidateQueries({ queryKey: ["admin", "orders"] });
+
+  const handleSend = async () => {
+    setBusy("send");
+    try {
+      await sendFn({ data: { orderId: order.id, paymentLink: link.trim() } });
+      toast.success(alreadySent ? "Lien renvoyé au client." : "Lien envoyé au client.");
+      refresh();
+    } catch (e: any) {
+      toast.error(e?.message ?? "Échec de l'envoi");
+    } finally {
+      setBusy(null);
+    }
+  };
+
+  const handleMarkPaid = async () => {
+    if (!confirm("Marquer comme payée et envoyer la confirmation ?")) return;
+    setBusy("paid");
+    try {
+      await markPaidFn({
+        data: {
+          orderId: order.id,
+          amount: Number(order.total_eur),
+          reference: order.payment_link ?? null,
+          note: "Paiement validé manuellement (lien CB)",
+        },
+      });
+      toast.success("Commande marquée payée — email envoyé.");
+      refresh();
+    } catch (e: any) {
+      toast.error(e?.message ?? "Erreur");
+    } finally {
+      setBusy(null);
+    }
+  };
+
+  return (
+    <div className="rounded-lg border border-sky-400/20 bg-sky-400/5 p-4">
+      <h4 className="mb-3 text-[10px] font-bold uppercase tracking-[0.18em] text-sky-400">
+        Lien de paiement carte (Revolut / PayPal / Stripe)
+      </h4>
+      {alreadySent && (
+        <p className="mb-3 text-xs text-muted-foreground">
+          Lien envoyé le {new Date(order.payment_link_sent_at).toLocaleString("fr-FR")}.
+          {isPaid && " · Commande payée."}
+        </p>
+      )}
+      <input
+        value={link}
+        onChange={(e) => setLink(e.target.value)}
+        placeholder="https://checkout.revolut.com/pay/... ou https://paypal.me/..."
+        className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-sky-400/40"
+        maxLength={2000}
+      />
+      <div className="mt-3 flex flex-wrap gap-2">
+        <button
+          onClick={handleSend}
+          disabled={!linkValid || busy !== null || isPaid}
+          className="inline-flex items-center gap-2 rounded-md bg-sky-500 px-4 py-2 text-xs font-bold uppercase tracking-wider text-white hover:opacity-90 disabled:opacity-50"
+        >
+          {busy === "send" ? <Loader2 className="size-3 animate-spin" /> : <Send className="size-3" />}
+          {alreadySent ? "Renvoyer le lien" : "Envoyer le lien"}
+        </button>
+        {alreadySent && !isPaid && (
+          <button
+            onClick={handleMarkPaid}
+            disabled={busy !== null}
+            className="inline-flex items-center gap-2 rounded-md border border-emerald-400/40 bg-emerald-400/10 px-4 py-2 text-xs font-bold uppercase tracking-wider text-emerald-400 hover:bg-emerald-400/20 disabled:opacity-50"
+          >
+            {busy === "paid" ? <Loader2 className="size-3 animate-spin" /> : <CheckCircle2 className="size-3" />}
+            Marquer payée
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ─────────── Crypto address ───────────
+function CryptoPanel({ order }: { order: any }) {
+  const qc = useQueryClient();
+  const sendFn = useServerFn(sendCryptoPayment);
+  const [address, setAddress] = useState("");
+  const [currencyName, setCurrencyName] = useState("Bitcoin");
+  const [currencyCode, setCurrencyCode] = useState("BTC");
+  const [network, setNetwork] = useState("Bitcoin (BTC)");
+  const [busy, setBusy] = useState(false);
+
+  const canSend = address.trim().length >= 4;
+
+  const handleSend = async () => {
+    setBusy(true);
+    try {
+      await sendFn({
+        data: {
+          orderId: order.id,
+          address: address.trim(),
+          currencyName,
+          currencyCode: currencyCode.toUpperCase(),
+          network,
+        },
+      });
+      toast.success("Adresse crypto envoyée au client.");
+      qc.invalidateQueries({ queryKey: ["admin", "orders"] });
+    } catch (e: any) {
+      toast.error(e?.message ?? "Erreur");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <div className="rounded-lg border border-amber-400/20 bg-amber-400/5 p-4">
+      <h4 className="mb-3 text-[10px] font-bold uppercase tracking-[0.18em] text-amber-400">
+        Paiement en crypto
+      </h4>
+      <div className="grid gap-2 sm:grid-cols-3">
+        <input value={currencyName} onChange={(e) => setCurrencyName(e.target.value)} placeholder="Nom (Bitcoin)" className="rounded-md border border-border bg-background px-3 py-1.5 text-sm outline-none focus:ring-2 focus:ring-amber-400/40" />
+        <input value={currencyCode} onChange={(e) => setCurrencyCode(e.target.value)} placeholder="Code (BTC)" className="rounded-md border border-border bg-background px-3 py-1.5 text-sm outline-none focus:ring-2 focus:ring-amber-400/40" />
+        <input value={network} onChange={(e) => setNetwork(e.target.value)} placeholder="Réseau" className="rounded-md border border-border bg-background px-3 py-1.5 text-sm outline-none focus:ring-2 focus:ring-amber-400/40" />
+      </div>
+      <input
+        value={address}
+        onChange={(e) => setAddress(e.target.value)}
+        placeholder="Adresse de réception"
+        className="mt-2 w-full rounded-md border border-border bg-background px-3 py-2 font-mono text-sm outline-none focus:ring-2 focus:ring-amber-400/40"
+        maxLength={200}
+      />
+      <button
+        onClick={handleSend}
+        disabled={!canSend || busy}
+        className="mt-3 inline-flex items-center gap-2 rounded-md bg-amber-500 px-4 py-2 text-xs font-bold uppercase tracking-wider text-background hover:opacity-90 disabled:opacity-50"
+      >
+        {busy ? <Loader2 className="size-3 animate-spin" /> : <Send className="size-3" />}
+        Envoyer l'adresse
+      </button>
+    </div>
+  );
+}
+
+// ─────────── Shipping (carrier + tracking) ───────────
+function ShippingPanel({ order }: { order: any }) {
+  const qc = useQueryClient();
+  const sendFn = useServerFn(sendShippingNotification);
+  const [carrier, setCarrier] = useState<string>(order.tracking_carrier ?? "");
+  const [tracking, setTracking] = useState<string>(order.tracking_number ?? "");
+  const [busy, setBusy] = useState(false);
+
+  const canSend = carrier.trim().length > 0 && tracking.trim().length > 0;
+  const alreadyShipped = !!order.shipped_at;
+
+  const handleSend = async () => {
+    setBusy(true);
+    try {
+      await sendFn({
+        data: { orderId: order.id, carrier: carrier.trim(), trackingNumber: tracking.trim() },
+      });
+      toast.success(alreadyShipped ? "Nouveau suivi envoyé." : "Suivi envoyé — commande expédiée.");
+      qc.invalidateQueries({ queryKey: ["admin", "orders"] });
+    } catch (e: any) {
+      toast.error(e?.message ?? "Erreur");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <div className="rounded-lg border border-violet-400/20 bg-violet-400/5 p-4">
+      <h4 className="mb-3 text-[10px] font-bold uppercase tracking-[0.18em] text-violet-400">
+        Expédition & suivi colis
+      </h4>
+      {alreadyShipped && (
+        <p className="mb-3 text-xs text-muted-foreground">
+          Expédiée le {new Date(order.shipped_at).toLocaleString("fr-FR")}.
+        </p>
+      )}
+      <div className="flex flex-wrap gap-2">
+        <input
+          value={carrier}
+          onChange={(e) => setCarrier(e.target.value)}
+          placeholder="Transporteur (Colissimo, Chronopost, DHL…)"
+          className="min-w-[180px] flex-1 rounded-md border border-border bg-background px-3 py-1.5 text-sm outline-none focus:ring-2 focus:ring-violet-400/40"
+        />
+        <input
+          value={tracking}
+          onChange={(e) => setTracking(e.target.value)}
+          placeholder="Numéro de suivi"
+          className="min-w-[180px] flex-1 rounded-md border border-border bg-background px-3 py-1.5 text-sm outline-none focus:ring-2 focus:ring-violet-400/40"
+        />
+      </div>
+      <button
+        onClick={handleSend}
+        disabled={!canSend || busy}
+        className="mt-3 inline-flex items-center gap-2 rounded-md bg-violet-500 px-4 py-2 text-xs font-bold uppercase tracking-wider text-white hover:opacity-90 disabled:opacity-50"
+      >
+        {busy ? <Loader2 className="size-3 animate-spin" /> : <Send className="size-3" />}
+        {alreadyShipped ? "Renvoyer le suivi" : "Envoyer le suivi"}
+      </button>
+    </div>
+  );
+}
+
