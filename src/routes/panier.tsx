@@ -159,7 +159,7 @@ function PanierPage() {
           <Stepper step={step} />
         )}
 
-        {isEmpty && step === "livraison" ? (
+        {isEmpty && step !== "confirmation" ? (
           <EmptyCart />
         ) : step === "livraison" ? (
           <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr]">
