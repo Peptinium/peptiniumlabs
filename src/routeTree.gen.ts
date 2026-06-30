@@ -49,6 +49,7 @@ import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/l
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
 import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
+import { Route as ApiPublicPushVapidKeyRouteImport } from './routes/api/public/push.vapid-key'
 
 const UnsubscribeRoute = UnsubscribeRouteImport.update({
   id: '/unsubscribe',
@@ -255,6 +256,11 @@ const LovableEmailAuthPreviewRoute = LovableEmailAuthPreviewRouteImport.update({
   path: '/lovable/email/auth/preview',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicPushVapidKeyRoute = ApiPublicPushVapidKeyRouteImport.update({
+  id: '/api/public/push/vapid-key',
+  path: '/api/public/push/vapid-key',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -291,6 +297,7 @@ export interface FileRoutesByFullPath {
   '/api/public/track': typeof ApiPublicTrackRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/mon-compte/': typeof AuthenticatedMonCompteIndexRoute
+  '/api/public/push/vapid-key': typeof ApiPublicPushVapidKeyRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -330,6 +337,7 @@ export interface FileRoutesByTo {
   '/api/public/track': typeof ApiPublicTrackRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/mon-compte': typeof AuthenticatedMonCompteIndexRoute
+  '/api/public/push/vapid-key': typeof ApiPublicPushVapidKeyRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -373,6 +381,7 @@ export interface FileRoutesById {
   '/api/public/track': typeof ApiPublicTrackRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/_authenticated/mon-compte/': typeof AuthenticatedMonCompteIndexRoute
+  '/api/public/push/vapid-key': typeof ApiPublicPushVapidKeyRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -416,6 +425,7 @@ export interface FileRouteTypes {
     | '/api/public/track'
     | '/lovable/email/suppression'
     | '/mon-compte/'
+    | '/api/public/push/vapid-key'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/queue/process'
@@ -455,6 +465,7 @@ export interface FileRouteTypes {
     | '/api/public/track'
     | '/lovable/email/suppression'
     | '/mon-compte'
+    | '/api/public/push/vapid-key'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/queue/process'
@@ -497,6 +508,7 @@ export interface FileRouteTypes {
     | '/api/public/track'
     | '/lovable/email/suppression'
     | '/_authenticated/mon-compte/'
+    | '/api/public/push/vapid-key'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/queue/process'
@@ -529,6 +541,7 @@ export interface RootRouteChildren {
   ProduitsIndexRoute: typeof ProduitsIndexRoute
   ApiPublicTrackRoute: typeof ApiPublicTrackRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
+  ApiPublicPushVapidKeyRoute: typeof ApiPublicPushVapidKeyRoute
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
   LovableEmailAuthWebhookRoute: typeof LovableEmailAuthWebhookRoute
   LovableEmailQueueProcessRoute: typeof LovableEmailQueueProcessRoute
@@ -818,6 +831,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LovableEmailAuthPreviewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/push/vapid-key': {
+      id: '/api/public/push/vapid-key'
+      path: '/api/public/push/vapid-key'
+      fullPath: '/api/public/push/vapid-key'
+      preLoaderRoute: typeof ApiPublicPushVapidKeyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -905,6 +925,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProduitsIndexRoute: ProduitsIndexRoute,
   ApiPublicTrackRoute: ApiPublicTrackRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
+  ApiPublicPushVapidKeyRoute: ApiPublicPushVapidKeyRoute,
   LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
   LovableEmailAuthWebhookRoute: LovableEmailAuthWebhookRoute,
   LovableEmailQueueProcessRoute: LovableEmailQueueProcessRoute,
@@ -914,3 +935,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
