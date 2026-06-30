@@ -1,6 +1,21 @@
 import { createServerFn } from "@tanstack/react-start";
+import { getRequestHeader } from "@tanstack/react-start/server";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+
+async function getOptionalUserId(): Promise<string | null> {
+  try {
+    const auth = getRequestHeader("authorization") ?? getRequestHeader("Authorization");
+    if (!auth || !auth.toLowerCase().startsWith("bearer ")) return null;
+    const token = auth.slice(7).trim();
+    if (!token) return null;
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data } = await supabaseAdmin.auth.getUser(token);
+    return data.user?.id ?? null;
+  } catch {
+    return null;
+  }
+}
 
 const itemSchema = z.object({
   slug: z.string().min(1),
