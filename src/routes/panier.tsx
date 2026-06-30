@@ -459,7 +459,7 @@ function PaiementBlock({
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/></svg>
       ),
       lines: [
-        <>Lien Revolut sécurisé envoyé par email après validation.</>,
+        <>Lien de paiement carte bancaire sécurisé envoyé par email après validation.</>,
         <><strong className="text-foreground">Délai d'envoi : sous 24 h.</strong> Paiement instantané ensuite.</>,
       ],
     },
