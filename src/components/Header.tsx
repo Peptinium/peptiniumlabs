@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useCart } from "@/lib/cart";
+import { supabase } from "@/integrations/supabase/client";
 
 const nav = [
   { to: "/produits", label: "Catalogue" },
@@ -13,6 +14,7 @@ const nav = [
 export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const { count } = useCart();
 
   useEffect(() => {
@@ -20,6 +22,30 @@ export function Header() {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    const check = async () => {
+      const { data } = await supabase.auth.getUser();
+      if (!data.user) {
+        if (!cancelled) setIsAdmin(false);
+        return;
+      }
+      const { data: roles } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", data.user.id)
+        .eq("role", "admin")
+        .maybeSingle();
+      if (!cancelled) setIsAdmin(!!roles);
+    };
+    check();
+    const { data: sub } = supabase.auth.onAuthStateChange(() => check());
+    return () => {
+      cancelled = true;
+      sub.subscription.unsubscribe();
+    };
   }, []);
 
   return (
@@ -57,6 +83,18 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
+          {isAdmin && (
+            <Link
+              to="/admin"
+              aria-label="Espace admin"
+              className="hidden items-center gap-1.5 rounded-full border border-accent/40 bg-accent/10 px-3 py-2 text-xs font-semibold text-accent transition-all hover:bg-accent/20 sm:inline-flex lg:px-3.5 lg:py-2.5"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 2l9 4.5v6c0 5-3.5 8.5-9 9.5-5.5-1-9-4.5-9-9.5v-6L12 2z" />
+              </svg>
+              <span>Admin</span>
+            </Link>
+          )}
           <Link
             to="/mon-compte"
             aria-label="Mon compte"

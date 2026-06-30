@@ -12,8 +12,8 @@ export function RuoBadge({
     variant === "solid"
       ? "bg-foreground text-background"
       : variant === "ghost"
-        ? "border border-border bg-background/60 backdrop-blur text-foreground/70"
-        : "border border-warning/60 bg-warning/20 text-warning shadow-[inset_0_0_0_1px_color-mix(in_oklab,var(--warning),transparent_70%)]";
+        ? "border border-border bg-background/70 backdrop-blur text-foreground/80"
+        : "border border-warning/70 bg-warning/15 text-warning";
 
   return (
     <span className={`${base} ${sizing} ${styles}`}>
@@ -21,7 +21,7 @@ export function RuoBadge({
         <span className="absolute inset-0 animate-[pulse-ring_2.6s_cubic-bezier(0.4,0,0.6,1)_infinite] rounded-full bg-current opacity-50" />
         <span className="relative size-1.5 rounded-full bg-current" />
       </span>
-      <span className="ruo-badge-text relative z-10">
+      <span className="relative z-10 font-semibold">
         Pour motif de recherche uniquement
       </span>
       <span aria-hidden className="ruo-badge-shine" />
