@@ -22,11 +22,11 @@ export const Route = createFileRoute("/cgv")({
               Les présentes Conditions Générales de Vente (CGV) régissent les relations contractuelles entre :
             </p>
             <p className="mt-2">
-              <strong>Le vendeur :</strong> peptinium-labs.com<br />
+              <strong>Le vendeur :</strong> peptinium.com<br />
               N° TVA : Non applicable – franchise en base (article 293 B du CGI)
             </p>
             <p className="mt-2">
-              <strong>Le client :</strong> professionnel ou particulier passant commande pour motif de recherche sur le site peptinium-labs.com.
+              <strong>Le client :</strong> professionnel ou particulier passant commande pour motif de recherche sur le site peptinium.com.
             </p>
             <p className="mt-2">
               Le site propose à la vente des produits chimiques et réactifs destinés exclusivement à la recherche scientifique en laboratoire (usage in vitro uniquement). Toute commande implique l'acceptation sans réserve des présentes CGV.
@@ -141,7 +141,7 @@ export const Route = createFileRoute("/cgv")({
               En cas de litige, une solution amiable sera recherchée avant toute action judiciaire. À défaut, les tribunaux français seront seuls compétents.
             </p>
             <p className="mt-2">
-              Ces CGV sont valables pour toute commande passée sur le peptinium-labs.com.
+              Ces CGV sont valables pour toute commande passée sur le peptinium.com.
             </p>
           </section>
         </div>
