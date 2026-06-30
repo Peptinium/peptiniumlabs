@@ -46,12 +46,14 @@ export function Footer() {
             { to: "/calculatrice", label: "Calculatrice de dilution" },
             { to: "/etudes-scientifiques", label: "Bibliographie PubMed" },
             { to: "/tester-fioles", label: "Tester ses fioles" },
+            { to: "/coa", label: "Certificats d'analyse (CoA)" },
           ]}
         />
         <FooterCol
           title="Laboratoire"
           links={[
             { to: "/a-propos", label: "À propos" },
+            { to: "/blog", label: "Blog & ressources" },
             { to: "/contact", label: "Contact" },
             { to: "/support", label: "Support / SAV" },
             { to: "/mentions-legales", label: "Mentions légales" },
