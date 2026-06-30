@@ -108,7 +108,7 @@ function PanierPage() {
         `[Méthode : ${methodLabel}]\n` +
         `[Certification RUO acceptée le ${researchAcceptedAt ?? new Date().toISOString()}]\n` +
         `[CGV acceptées le ${cgvAcceptedAt ?? new Date().toISOString()}]` +
-        (promoApplied ? `\n[Code promo ${PROMO_CODE} appliqué : −${(PROMO_RATE * 100).toFixed(0)} %]` : "");
+        (promo ? `\n[Code promo ${promo.code} appliqué : −${(promo.rate * 100).toFixed(0)} %]` : "");
       const res = await submitOrderFn({
         data: {
           shipping: {
@@ -129,8 +129,8 @@ function PanierPage() {
             quantity: it.qty,
             unitPrice: it.price,
           })),
-          shippingFee,
           paymentMethod,
+          promoCode: promo?.code ?? null,
         },
       });
       setOrderRef(res.orderNumber);
