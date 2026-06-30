@@ -51,7 +51,8 @@ function PanierPage() {
   const [paymentMethod, setPaymentMethod] = useState<PayMethod>("bank");
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [promoApplied, setPromoApplied] = useState(false);
+  const [promo, setPromo] = useState<AppliedPromo | null>(null);
+  const checkPromo = useServerFn(validatePromoCode);
   const [researchAcceptedAt, setResearchAcceptedAt] = useState<string | null>(null);
   const [cgvAcceptedAt, setCgvAcceptedAt] = useState<string | null>(null);
   const fetchProfile = useServerFn(getMyProfile);
