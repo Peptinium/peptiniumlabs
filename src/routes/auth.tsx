@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate, useSearch } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { z } from "zod";
 import { SiteLayout } from "@/components/SiteLayout";
 import { supabase } from "@/integrations/supabase/client";
@@ -41,6 +41,9 @@ function authMessage(message: string) {
   if (lower.includes("already registered") || lower.includes("already exists")) {
     return "Un compte existe déjà avec cette adresse. Connectez-vous ou utilisez Google.";
   }
+  if (lower.includes("signup is disabled")) {
+    return "La création de compte est temporairement indisponible. Réessayez dans quelques minutes.";
+  }
   return message || "Erreur d'authentification";
 }
 
@@ -56,7 +59,7 @@ function AuthPage() {
   const [notice, setNotice] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const submit = async (e: React.FormEvent) => {
+  const submit = async (e: FormEvent) => {
     e.preventDefault();
     setError(null);
     setNotice(null);
@@ -88,6 +91,10 @@ function AuthPage() {
         });
         if (error) throw error;
         if (!data.session) throw new Error("Connexion incomplète, réessayez dans quelques secondes.");
+        const { data: userData, error: userError } = await supabase.auth.getUser();
+        if (userError || !userData.user) {
+          throw new Error("Session en cours d'activation, réessayez dans quelques secondes.");
+        }
       }
       navigate({ to: redirectTo });
     } catch (e: any) {
@@ -102,7 +109,7 @@ function AuthPage() {
   };
 
   return (
-    <SiteLayout>
+    <SiteLayout showRuoModal={false}>
       <section className="container-prose flex min-h-[60vh] items-center justify-center py-12">
         <div className="w-full max-w-md rounded-2xl border border-border bg-card p-7 sm:p-8">
           <div className="text-center">
@@ -117,7 +124,7 @@ function AuthPage() {
             </p>
           </div>
 
-          <form onSubmit={submit} className="mt-6 space-y-4">
+          <form onSubmit={submit} noValidate className="mt-6 space-y-4">
             <div>
               <label htmlFor="auth-email" className="text-xs font-medium text-foreground">Email</label>
               <input
@@ -172,17 +179,24 @@ function AuthPage() {
                 setError(null);
                 setNotice(null);
                 setLoading(true);
-                const result = await lovable.auth.signInWithOAuth("google", {
-                  redirect_uri: `${window.location.origin}/auth/callback?redirect=${encodeURIComponent(redirectTo)}`,
-                });
-                if (result.error) {
-                  setError(result.error.message ?? "Erreur Google");
+                try {
+                  const result = await lovable.auth.signInWithOAuth("google", {
+                    redirect_uri: `${window.location.origin}/auth/callback?redirect=${encodeURIComponent(redirectTo)}`,
+                  });
+                  if (result.error) {
+                    setError(result.error.message ?? "Erreur Google");
+                    setLoading(false);
+                    return;
+                  }
+                  if (result.redirected) return;
+                  const { data } = await supabase.auth.getUser();
+                  if (data.user) navigate({ to: redirectTo });
+                  else setError("Connexion Google incomplète, réessayez dans quelques secondes.");
+                } catch (e: any) {
+                  setError(authMessage(e?.message ?? "Erreur Google"));
+                } finally {
                   setLoading(false);
-                  return;
                 }
-                if (result.redirected) return;
-                setLoading(false);
-                navigate({ to: redirectTo });
               }}
               className="flex w-full items-center justify-center gap-2 rounded-lg border border-border bg-background px-6 py-3 text-sm font-medium hover:bg-muted disabled:opacity-40"
             >

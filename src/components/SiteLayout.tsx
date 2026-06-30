@@ -4,14 +4,14 @@ import { Footer } from "./Footer";
 import { RuoBanner } from "./RuoBanner";
 import { RuoModal } from "./RuoModal";
 
-export function SiteLayout({ children }: { children: ReactNode }) {
+export function SiteLayout({ children, showRuoModal = true }: { children: ReactNode; showRuoModal?: boolean }) {
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <RuoBanner />
       <Header />
       <main className="flex-1">{children}</main>
       <Footer />
-      <RuoModal />
+      {showRuoModal && <RuoModal />}
     </div>
   );
 }
