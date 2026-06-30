@@ -1068,21 +1068,22 @@ function ConfirmationBlock({
   paymentMethod: PayMethod;
   onDone: () => void;
 }) {
-  // Snapshot everything before the parent clears the cart (which would zero totals).
-  const snap = useMemo(
-    () => ({
-      items: cart.items.map((i) => ({ ...i })),
-      total,
-      subtotal,
-      shippingFee,
-    }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
-  );
+  // Snapshot once at mount, BEFORE cart.clear() runs in effect below.
+  // useState initializer is guaranteed to run exactly once even under StrictMode.
+  const [snap] = useState(() => ({
+    items: cart.items.map((i) => ({ ...i })),
+    total,
+    subtotal,
+    shippingFee,
+  }));
+  const cleared = useRef(false);
   useEffect(() => {
+    if (cleared.current) return;
+    cleared.current = true;
     onDone();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
 
   const COPY: Record<PayMethod, { title: string; intro: string; boxTitle: string; boxText: string }> = {
     bank: {
