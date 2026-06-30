@@ -877,6 +877,10 @@ export const sendBrandedEmailTests = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     await requireAdmin(context);
     const { sendAppEmail } = await import("@/lib/email/send.server");
+    const { getRequest } = await import("@tanstack/react-start/server");
+    const req = getRequest();
+    const authHeader = req?.headers.get("authorization") || "";
+    const bearerToken = authHeader.startsWith("Bearer ") ? authHeader.slice(7) : undefined;
     const stamp = Date.now();
     const sends = [
       {
@@ -937,6 +941,8 @@ export const sendBrandedEmailTests = createServerFn({ method: "POST" })
         recipientEmail: data.recipient,
         idempotencyKey: `test-${s.templateName}-${stamp}`,
         templateData: s.templateData,
+        request: req ?? undefined,
+        bearerToken,
       });
       results.push({ template: s.templateName, ok: r.ok, error: r.error });
     }
