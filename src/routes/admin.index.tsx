@@ -339,35 +339,9 @@ function CommandesPage() {
                         </div>
                       </div>
 
-                      <div>
-                        <label className="mb-2 block text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
-                          Numéro de suivi
-                        </label>
-                        <div className="flex gap-2">
-                          <input
-                            value={trackingValue}
-                            onChange={(e) =>
-                              setTrackingDrafts((prev) => ({ ...prev, [o.id]: e.target.value }))
-                            }
-                            placeholder="Ex. 6A12345678901"
-                            className="h-9 flex-1 rounded-md border border-border bg-background px-3 text-sm outline-none focus:ring-2 focus:ring-primary/40"
-                          />
-                          <Button
-                            type="button"
-                            variant="secondary"
-                            size="sm"
-                            disabled={trackingMut.isPending}
-                            onClick={() =>
-                              trackingMut.mutate({
-                                orderId: o.id,
-                                trackingNumber: trackingValue.trim() || null,
-                              })
-                            }
-                          >
-                            Enregistrer
-                          </Button>
-                        </div>
-                      </div>
+                      <PaymentLinkPanel order={o} />
+                      <CryptoPanel order={o} />
+                      <ShippingPanel order={o} />
 
                       <div className="flex flex-wrap gap-2 border-t border-border pt-4">
                         <Button
