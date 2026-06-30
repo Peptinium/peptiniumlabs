@@ -96,16 +96,6 @@ function CommandesPage() {
     onError: (e: Error) => toast.error(e.message || "Suppression impossible"),
   });
 
-  const trackingMut = useMutation({
-    mutationFn: ({ orderId, trackingNumber }: { orderId: string; trackingNumber: string | null }) =>
-      trackingFn({ data: { orderId, trackingNumber } }),
-    onSuccess: (_, vars) => {
-      toast.success("Numéro de suivi enregistré");
-      qc.invalidateQueries({ queryKey: ["admin", "orders"] });
-      setTrackingDrafts((prev) => ({ ...prev, [vars.orderId]: vars.trackingNumber ?? "" }));
-    },
-    onError: (e: Error) => toast.error(e.message || "Erreur d'enregistrement"),
-  });
 
   const invoiceMut = useMutation({
     mutationFn: (orderId: string) => invoiceFn({ data: { orderId } }),
