@@ -35,11 +35,9 @@ import { Route as AdminSavRouteImport } from './routes/admin.sav'
 import { Route as AdminPaiementsRouteImport } from './routes/admin.paiements'
 import { Route as AdminClientsRouteImport } from './routes/admin.clients'
 import { Route as AuthenticatedMonCompteRouteImport } from './routes/_authenticated/mon-compte'
-import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedMonCompteIndexRouteImport } from './routes/_authenticated/mon-compte.index'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as ApiPublicTrackRouteImport } from './routes/api/public/track'
-import { Route as AuthenticatedMonCompteSavRouteImport } from './routes/_authenticated/mon-compte.sav'
 import { Route as AuthenticatedMonCompteProfilRouteImport } from './routes/_authenticated/mon-compte.profil'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
@@ -174,11 +172,6 @@ const AuthenticatedMonCompteRoute = AuthenticatedMonCompteRouteImport.update({
   path: '/mon-compte',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
 const AuthenticatedMonCompteIndexRoute =
   AuthenticatedMonCompteIndexRouteImport.update({
     id: '/',
@@ -195,12 +188,6 @@ const ApiPublicTrackRoute = ApiPublicTrackRouteImport.update({
   path: '/api/public/track',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedMonCompteSavRoute =
-  AuthenticatedMonCompteSavRouteImport.update({
-    id: '/sav',
-    path: '/sav',
-    getParentRoute: () => AuthenticatedMonCompteRoute,
-  } as any)
 const AuthenticatedMonCompteProfilRoute =
   AuthenticatedMonCompteProfilRouteImport.update({
     id: '/profil',
@@ -229,7 +216,7 @@ const LovableEmailQueueProcessRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/a-propos': typeof AProposRoute
-  '/admin': typeof AuthenticatedAdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
   '/calculatrice': typeof CalculatriceRoute
   '/cgv': typeof CgvRoute
@@ -253,7 +240,6 @@ export interface FileRoutesByFullPath {
   '/admin/': typeof AdminIndexRoute
   '/produits/': typeof ProduitsIndexRoute
   '/mon-compte/profil': typeof AuthenticatedMonCompteProfilRoute
-  '/mon-compte/sav': typeof AuthenticatedMonCompteSavRoute
   '/api/public/track': typeof ApiPublicTrackRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/mon-compte/': typeof AuthenticatedMonCompteIndexRoute
@@ -275,7 +261,6 @@ export interface FileRoutesByTo {
   '/support': typeof SupportRoute
   '/tester-fioles': typeof TesterFiolesRoute
   '/unsubscribe': typeof UnsubscribeRoute
-  '/admin': typeof AdminIndexRoute
   '/admin/clients': typeof AdminClientsRoute
   '/admin/paiements': typeof AdminPaiementsRoute
   '/admin/sav': typeof AdminSavRoute
@@ -284,9 +269,9 @@ export interface FileRoutesByTo {
   '/auth/callback': typeof AuthCallbackRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/produits/$slug': typeof ProduitsSlugRoute
+  '/admin': typeof AdminIndexRoute
   '/produits': typeof ProduitsIndexRoute
   '/mon-compte/profil': typeof AuthenticatedMonCompteProfilRoute
-  '/mon-compte/sav': typeof AuthenticatedMonCompteSavRoute
   '/api/public/track': typeof ApiPublicTrackRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/mon-compte': typeof AuthenticatedMonCompteIndexRoute
@@ -311,7 +296,6 @@ export interface FileRoutesById {
   '/support': typeof SupportRoute
   '/tester-fioles': typeof TesterFiolesRoute
   '/unsubscribe': typeof UnsubscribeRoute
-  '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/mon-compte': typeof AuthenticatedMonCompteRouteWithChildren
   '/admin/clients': typeof AdminClientsRoute
   '/admin/paiements': typeof AdminPaiementsRoute
@@ -324,7 +308,6 @@ export interface FileRoutesById {
   '/admin/': typeof AdminIndexRoute
   '/produits/': typeof ProduitsIndexRoute
   '/_authenticated/mon-compte/profil': typeof AuthenticatedMonCompteProfilRoute
-  '/_authenticated/mon-compte/sav': typeof AuthenticatedMonCompteSavRoute
   '/api/public/track': typeof ApiPublicTrackRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/_authenticated/mon-compte/': typeof AuthenticatedMonCompteIndexRoute
@@ -361,7 +344,6 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/produits/'
     | '/mon-compte/profil'
-    | '/mon-compte/sav'
     | '/api/public/track'
     | '/lovable/email/suppression'
     | '/mon-compte/'
@@ -383,7 +365,6 @@ export interface FileRouteTypes {
     | '/support'
     | '/tester-fioles'
     | '/unsubscribe'
-    | '/admin'
     | '/admin/clients'
     | '/admin/paiements'
     | '/admin/sav'
@@ -392,9 +373,9 @@ export interface FileRouteTypes {
     | '/auth/callback'
     | '/email/unsubscribe'
     | '/produits/$slug'
+    | '/admin'
     | '/produits'
     | '/mon-compte/profil'
-    | '/mon-compte/sav'
     | '/api/public/track'
     | '/lovable/email/suppression'
     | '/mon-compte'
@@ -418,7 +399,6 @@ export interface FileRouteTypes {
     | '/support'
     | '/tester-fioles'
     | '/unsubscribe'
-    | '/_authenticated/admin'
     | '/_authenticated/mon-compte'
     | '/admin/clients'
     | '/admin/paiements'
@@ -431,7 +411,6 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/produits/'
     | '/_authenticated/mon-compte/profil'
-    | '/_authenticated/mon-compte/sav'
     | '/api/public/track'
     | '/lovable/email/suppression'
     | '/_authenticated/mon-compte/'
@@ -650,13 +629,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMonCompteRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/admin': {
-      id: '/_authenticated/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AuthenticatedAdminRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
     '/_authenticated/mon-compte/': {
       id: '/_authenticated/mon-compte/'
       path: '/'
@@ -677,13 +649,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/api/public/track'
       preLoaderRoute: typeof ApiPublicTrackRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/mon-compte/sav': {
-      id: '/_authenticated/mon-compte/sav'
-      path: '/sav'
-      fullPath: '/mon-compte/sav'
-      preLoaderRoute: typeof AuthenticatedMonCompteSavRouteImport
-      parentRoute: typeof AuthenticatedMonCompteRoute
     }
     '/_authenticated/mon-compte/profil': {
       id: '/_authenticated/mon-compte/profil'
@@ -718,14 +683,12 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedMonCompteRouteChildren {
   AuthenticatedMonCompteProfilRoute: typeof AuthenticatedMonCompteProfilRoute
-  AuthenticatedMonCompteSavRoute: typeof AuthenticatedMonCompteSavRoute
   AuthenticatedMonCompteIndexRoute: typeof AuthenticatedMonCompteIndexRoute
 }
 
 const AuthenticatedMonCompteRouteChildren: AuthenticatedMonCompteRouteChildren =
   {
     AuthenticatedMonCompteProfilRoute: AuthenticatedMonCompteProfilRoute,
-    AuthenticatedMonCompteSavRoute: AuthenticatedMonCompteSavRoute,
     AuthenticatedMonCompteIndexRoute: AuthenticatedMonCompteIndexRoute,
   }
 
@@ -735,12 +698,10 @@ const AuthenticatedMonCompteRouteWithChildren =
   )
 
 interface AuthenticatedRouteRouteChildren {
-  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
   AuthenticatedMonCompteRoute: typeof AuthenticatedMonCompteRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
   AuthenticatedMonCompteRoute: AuthenticatedMonCompteRouteWithChildren,
 }
 

@@ -1,5 +1,5 @@
 import { createFileRoute, Link, Outlet, useLocation, useNavigate } from "@tanstack/react-router";
-import { Package, User, HeadphonesIcon, LogOut } from "lucide-react";
+import { Package, User, Mail, LogOut } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -16,7 +16,7 @@ export const Route = createFileRoute("/_authenticated/mon-compte")({
 const tabs = [
   { to: "/mon-compte" as const, label: "Commandes", icon: Package, exact: true },
   { to: "/mon-compte/profil" as const, label: "Profil", icon: User },
-  { to: "/mon-compte/sav" as const, label: "SAV", icon: HeadphonesIcon },
+  { to: "/mon-compte/contact" as const, label: "Contact", icon: Mail },
 ];
 
 function MonCompteLayout() {
