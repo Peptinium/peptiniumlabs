@@ -184,6 +184,7 @@ export type Database = {
           city: string
           country: string
           created_at: string
+          delivered_at: string | null
           email: string
           first_name: string
           id: string
@@ -192,6 +193,7 @@ export type Database = {
           last_name: string
           notes: string | null
           order_number: string
+          paid_at: string | null
           payment_link: string | null
           payment_link_sent_at: string | null
           payment_method: string
@@ -202,6 +204,7 @@ export type Database = {
           shipped_at: string | null
           status: string
           total_eur: number
+          tracking_carrier: string | null
           tracking_number: string | null
           updated_at: string
           user_id: string | null
@@ -211,6 +214,7 @@ export type Database = {
           city: string
           country?: string
           created_at?: string
+          delivered_at?: string | null
           email: string
           first_name: string
           id?: string
@@ -219,6 +223,7 @@ export type Database = {
           last_name: string
           notes?: string | null
           order_number?: string
+          paid_at?: string | null
           payment_link?: string | null
           payment_link_sent_at?: string | null
           payment_method?: string
@@ -229,6 +234,7 @@ export type Database = {
           shipped_at?: string | null
           status?: string
           total_eur?: number
+          tracking_carrier?: string | null
           tracking_number?: string | null
           updated_at?: string
           user_id?: string | null
@@ -238,6 +244,7 @@ export type Database = {
           city?: string
           country?: string
           created_at?: string
+          delivered_at?: string | null
           email?: string
           first_name?: string
           id?: string
@@ -246,6 +253,7 @@ export type Database = {
           last_name?: string
           notes?: string | null
           order_number?: string
+          paid_at?: string | null
           payment_link?: string | null
           payment_link_sent_at?: string | null
           payment_method?: string
@@ -256,6 +264,7 @@ export type Database = {
           shipped_at?: string | null
           status?: string
           total_eur?: number
+          tracking_carrier?: string | null
           tracking_number?: string | null
           updated_at?: string
           user_id?: string | null
