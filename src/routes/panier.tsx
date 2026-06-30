@@ -12,7 +12,7 @@ import {
   FREE_SHIPPING_THRESHOLD,
 } from "@/lib/cart";
 import { formatPrice } from "@/data/products";
-import { placeOrder } from "@/lib/orders.functions";
+import { placeOrder, validatePromoCode } from "@/lib/orders.functions";
 import { getMyProfile } from "@/lib/account.functions";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -30,8 +30,7 @@ export const Route = createFileRoute("/panier")({
 type Step = "livraison" | "paiement" | "virement" | "confirmation";
 type PayMethod = "bank" | "card" | "crypto";
 
-const PROMO_CODE = "WELCOME10";
-const PROMO_RATE = 0.10;
+type AppliedPromo = { code: string; rate: number };
 
 function PanierPage() {
   const cart = useCart();
@@ -52,7 +51,8 @@ function PanierPage() {
   const [paymentMethod, setPaymentMethod] = useState<PayMethod>("bank");
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [promoApplied, setPromoApplied] = useState(false);
+  const [promo, setPromo] = useState<AppliedPromo | null>(null);
+  const checkPromo = useServerFn(validatePromoCode);
   const [researchAcceptedAt, setResearchAcceptedAt] = useState<string | null>(null);
   const [cgvAcceptedAt, setCgvAcceptedAt] = useState<string | null>(null);
   const fetchProfile = useServerFn(getMyProfile);
@@ -90,7 +90,7 @@ function PanierPage() {
 
   const subtotal = Number.isFinite(cart.subtotal) ? cart.subtotal : 0;
   const shippingFee = subtotal === 0 || subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING;
-  const discount = promoApplied ? subtotal * PROMO_RATE : 0;
+  const discount = promo ? Math.round(subtotal * promo.rate * 100) / 100 : 0;
   const total = Math.max(0, subtotal - discount + shippingFee);
 
   const handleConfirmPaiement = async () => {
@@ -108,7 +108,7 @@ function PanierPage() {
         `[Méthode : ${methodLabel}]\n` +
         `[Certification RUO acceptée le ${researchAcceptedAt ?? new Date().toISOString()}]\n` +
         `[CGV acceptées le ${cgvAcceptedAt ?? new Date().toISOString()}]` +
-        (promoApplied ? `\n[Code promo ${PROMO_CODE} appliqué : −${(PROMO_RATE * 100).toFixed(0)} %]` : "");
+        (promo ? `\n[Code promo ${promo.code} appliqué : −${(promo.rate * 100).toFixed(0)} %]` : "");
       const res = await submitOrderFn({
         data: {
           shipping: {
@@ -129,8 +129,8 @@ function PanierPage() {
             quantity: it.qty,
             unitPrice: it.price,
           })),
-          shippingFee,
           paymentMethod,
+          promoCode: promo?.code ?? null,
         },
       });
       setOrderRef(res.orderNumber);
@@ -174,15 +174,22 @@ function PanierPage() {
               shipping={shippingFee}
               discount={discount}
               total={total}
-              promoApplied={promoApplied}
-              onApplyPromo={(code) => {
-                if (code.trim().toUpperCase() === PROMO_CODE) {
-                  setPromoApplied(true);
-                  return true;
+              promoApplied={!!promo}
+              promoCode={promo?.code ?? null}
+              promoRate={promo?.rate ?? null}
+              onApplyPromo={async (code) => {
+                try {
+                  const res = await checkPromo({ data: { code } });
+                  if (res.valid) {
+                    setPromo({ code: res.code, rate: res.rate });
+                    return true;
+                  }
+                } catch {
+                  // ignore
                 }
                 return false;
               }}
-              onRemovePromo={() => setPromoApplied(false)}
+              onRemovePromo={() => setPromo(null)}
               editable
             />
           </div>
@@ -208,7 +215,7 @@ function PanierPage() {
               shipping={shippingFee}
               discount={discount}
               total={total}
-              promoApplied={promoApplied}
+              promoApplied={!!promo}
               collapsed
             />
           </div>
@@ -650,6 +657,8 @@ function Recap({
   discount = 0,
   total,
   promoApplied = false,
+  promoCode = null,
+  promoRate = null,
   onApplyPromo,
   onRemovePromo,
   editable = false,
@@ -661,7 +670,9 @@ function Recap({
   discount?: number;
   total: number;
   promoApplied?: boolean;
-  onApplyPromo?: (code: string) => boolean;
+  promoCode?: string | null;
+  promoRate?: number | null;
+  onApplyPromo?: (code: string) => boolean | Promise<boolean>;
   onRemovePromo?: () => void;
   editable?: boolean;
   collapsed?: boolean;
@@ -725,7 +736,7 @@ function Recap({
           {promoApplied ? (
             <div className="flex items-center justify-between text-sm">
               <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-success">
-                ✓ {PROMO_CODE} appliqué (−{(PROMO_RATE * 100).toFixed(0)} %)
+                ✓ {promoCode ?? "Code"} appliqué (−{((promoRate ?? 0) * 100).toFixed(0)} %)
               </span>
               <button
                 type="button"
@@ -745,10 +756,10 @@ function Recap({
             </button>
           ) : (
             <form
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
                 setPromoError(null);
-                const ok = onApplyPromo?.(promoInput) ?? false;
+                const ok = (await onApplyPromo?.(promoInput)) ?? false;
                 if (!ok) setPromoError("Code promo invalide.");
               }}
               className="space-y-2"
@@ -777,7 +788,7 @@ function Recap({
         <Row label="Sous-total" value={formatPrice(subtotal)} />
         {discount > 0 && (
           <div className="flex items-center justify-between text-success">
-            <span>Remise {PROMO_CODE}</span>
+            <span>Remise {promoCode ?? ""}</span>
             <span>−{formatPrice(discount)}</span>
           </div>
         )}

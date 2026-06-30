@@ -38,9 +38,13 @@ const placeOrderSchema = z.object({
     notes: z.string().max(1000).optional().nullable(),
   }),
   items: z.array(itemSchema).min(1).max(50),
-  shippingFee: z.number().nonnegative(),
   paymentMethod: z.enum(["bank", "card", "crypto"]).default("bank"),
+  promoCode: z.string().trim().max(40).optional().nullable(),
 });
+
+const SHIPPING_FEE_EUR = 6.0;
+const FREE_SHIPPING_THRESHOLD_EUR = 150;
+
 
 export const placeOrder = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => placeOrderSchema.parse(data))
@@ -74,7 +78,28 @@ export const placeOrder = createServerFn({ method: "POST" })
       };
     });
 
-    const total = subtotal + data.shippingFee;
+    // Server-side shipping fee (cannot be tampered by the client)
+    const shippingFee =
+      subtotal === 0 || subtotal >= FREE_SHIPPING_THRESHOLD_EUR ? 0 : SHIPPING_FEE_EUR;
+
+    // Server-side promo code validation
+    let discount = 0;
+    let appliedPromoCode: string | null = null;
+    if (data.promoCode && data.promoCode.trim().length > 0) {
+      const code = data.promoCode.trim().toUpperCase();
+      const { data: promo } = await supabaseAdmin
+        .from("promo_codes")
+        .select("code,rate,active")
+        .eq("code", code)
+        .eq("active", true)
+        .maybeSingle();
+      if (promo) {
+        discount = Math.round(subtotal * Number(promo.rate) * 100) / 100;
+        appliedPromoCode = promo.code;
+      }
+    }
+
+    const total = Math.max(0, subtotal - discount + shippingFee);
 
     const userId = await getOptionalUserId();
 
@@ -182,7 +207,26 @@ export const placeOrder = createServerFn({ method: "POST" })
     };
   });
 
+// Public: validate a promo code (returns rate if active, otherwise null)
+export const validatePromoCode = createServerFn({ method: "POST" })
+  .inputValidator((d: unknown) =>
+    z.object({ code: z.string().trim().min(1).max(40) }).parse(d),
+  )
+  .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const code = data.code.trim().toUpperCase();
+    const { data: promo } = await supabaseAdmin
+      .from("promo_codes")
+      .select("code,rate,active")
+      .eq("code", code)
+      .eq("active", true)
+      .maybeSingle();
+    if (!promo) return { valid: false as const };
+    return { valid: true as const, code: promo.code, rate: Number(promo.rate) };
+  });
+
 // ─────── Admin server functions ───────
+
 
 export const listOrders = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
