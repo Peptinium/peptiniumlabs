@@ -50,7 +50,7 @@ export const products: Product[] = [
     purity: "≥ 99.1 % (HPLC)",
     variants: [
       { dosage: "5 mg", price: 54.0, soldOut: true },
-      { dosage: "10 mg", price: 89.0 },
+      { dosage: "10 mg", price: 80.0 },
       { dosage: "20 mg", price: 149.0 },
     ],
     category: "GLP-1/GIP",
