@@ -1,15 +1,7 @@
 import * as React from 'react'
-import {
-  Body,
-  Container,
-  Head,
-  Heading,
-  Hr,
-  Html,
-  Preview,
-  Text,
-} from '@react-email/components'
+import { Body, Head, Html, Preview, Text } from '@react-email/components'
 import type { TemplateEntry } from './registry'
+import { BrandLayout, brand, styles } from './_brand'
 
 interface Props {
   subject?: string
@@ -21,23 +13,32 @@ const Email = ({ subject, body, ticketRef }: Props) => (
   <Html lang="fr">
     <Head />
     <Preview>Réponse à votre demande SAV</Preview>
-    <Body style={main}>
-      <Container style={container}>
-        <Text style={brand}>PEPTINIUM LABS — Support</Text>
-        <Heading style={h1}>{subject ?? 'Réponse à votre demande'}</Heading>
-        <Text style={text}>Bonjour,</Text>
-        <Text style={text}>
+    <Body style={styles.main}>
+      <BrandLayout>
+        <Text style={styles.h1}>{subject ?? 'Réponse à votre demande'}</Text>
+        <Text style={styles.text}>Bonjour,</Text>
+        <Text style={styles.text}>
           Notre équipe vient de répondre à votre ticket
-          {ticketRef ? ` (réf. ${ticketRef})` : ''} :
+          {ticketRef ? (
+            <> (réf. <strong style={{ color: brand.ink }}>{ticketRef}</strong>)</>
+          ) : null}{' '}
+          :
         </Text>
-        <Hr style={hr} />
-        <Text style={message}>{body ?? ''}</Text>
-        <Hr style={hr} />
-        <Text style={text}>
+        <hr style={styles.hr} />
+        <Text
+          style={{
+            ...styles.text,
+            color: brand.ink,
+            whiteSpace: 'pre-wrap' as const,
+          }}
+        >
+          {body ?? ''}
+        </Text>
+        <hr style={styles.hr} />
+        <Text style={styles.text}>
           Vous pouvez répondre à cet email pour poursuivre la conversation.
         </Text>
-        <Text style={footer}>Peptinium Labs — support@peptinium.com</Text>
-      </Container>
+      </BrandLayout>
     </Body>
   </Html>
 )
@@ -53,12 +54,3 @@ export const template = {
     ticketRef: 'SAV-0042',
   },
 } satisfies TemplateEntry
-
-const main = { backgroundColor: '#ffffff', fontFamily: 'Helvetica, Arial, sans-serif' }
-const container = { padding: '32px 28px', maxWidth: '560px', margin: '0 auto' }
-const brand = { fontSize: '11px', letterSpacing: '0.22em', color: '#888', marginBottom: '24px' }
-const h1 = { fontSize: '20px', fontWeight: 500 as const, color: '#111', margin: '0 0 16px' }
-const text = { fontSize: '14px', color: '#333', lineHeight: '1.6' }
-const message = { fontSize: '14px', color: '#222', lineHeight: '1.7', whiteSpace: 'pre-wrap' as const }
-const hr = { borderColor: '#eee', margin: '20px 0' }
-const footer = { fontSize: '11px', color: '#999', marginTop: '32px' }

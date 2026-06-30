@@ -1,16 +1,7 @@
 import * as React from 'react'
-import {
-  Body,
-  Container,
-  Head,
-  Heading,
-  Hr,
-  Html,
-  Preview,
-  Section,
-  Text,
-} from '@react-email/components'
+import { Body, Head, Html, Preview, Text } from '@react-email/components'
 import type { TemplateEntry } from './registry'
+import { BrandLayout, brand, styles } from './_brand'
 
 interface Props {
   customerName?: string
@@ -23,34 +14,29 @@ const Email = ({ customerName, orderNumber, totalEur, items }: Props) => (
   <Html lang="fr">
     <Head />
     <Preview>Confirmation de votre commande {orderNumber ?? ''}</Preview>
-    <Body style={main}>
-      <Container style={container}>
-        <Text style={brand}>PEPTINIUM LABS</Text>
-        <Heading style={h1}>Commande confirmée</Heading>
-        <Text style={text}>
+    <Body style={styles.main}>
+      <BrandLayout>
+        <Text style={styles.h1}>Commande confirmée</Text>
+        <Text style={styles.text}>
           {customerName ? `Bonjour ${customerName},` : 'Bonjour,'}
         </Text>
-        <Text style={text}>
-          Nous avons bien reçu votre commande <strong>{orderNumber ?? ''}</strong>.
+        <Text style={styles.text}>
+          Nous avons bien reçu votre commande{' '}
+          <strong style={{ color: brand.ink }}>{orderNumber ?? ''}</strong>.
           Vous recevrez un nouvel email dès l'expédition.
         </Text>
-        <Hr style={hr} />
-        <Section>
-          {(items ?? []).map((it, i) => (
-            <Text key={i} style={item}>
-              {it.quantity} × {it.name} — {it.price_eur.toFixed(2)} €
-            </Text>
-          ))}
-        </Section>
-        <Hr style={hr} />
-        <Text style={total}>
+        <hr style={styles.hr} />
+        {(items ?? []).map((it, i) => (
+          <Text key={i} style={{ ...styles.text, margin: '4px 0' }}>
+            {it.quantity} × {it.name} —{' '}
+            <strong style={{ color: brand.ink }}>{it.price_eur.toFixed(2)} €</strong>
+          </Text>
+        ))}
+        <hr style={styles.hr} />
+        <Text style={{ ...styles.text, fontSize: '16px', color: brand.ink }}>
           Total : <strong>{(totalEur ?? 0).toFixed(2)} €</strong>
         </Text>
-        <Text style={footer}>
-          Peptinium Labs — Réactifs peptidiques de recherche.
-          Réservé à un usage de laboratoire.
-        </Text>
-      </Container>
+      </BrandLayout>
     </Body>
   </Html>
 )
@@ -67,13 +53,3 @@ export const template = {
     items: [{ name: 'BPC-157 5mg', quantity: 2, price_eur: 74.95 }],
   },
 } satisfies TemplateEntry
-
-const main = { backgroundColor: '#ffffff', fontFamily: 'Helvetica, Arial, sans-serif' }
-const container = { padding: '32px 28px', maxWidth: '560px', margin: '0 auto' }
-const brand = { fontSize: '11px', letterSpacing: '0.22em', color: '#888', marginBottom: '24px' }
-const h1 = { fontSize: '22px', fontWeight: 500 as const, color: '#111', margin: '0 0 16px' }
-const text = { fontSize: '14px', color: '#333', lineHeight: '1.6' }
-const item = { fontSize: '13px', color: '#444', margin: '4px 0' }
-const total = { fontSize: '15px', color: '#111', marginTop: '12px' }
-const hr = { borderColor: '#eee', margin: '20px 0' }
-const footer = { fontSize: '11px', color: '#999', marginTop: '32px', lineHeight: '1.5' }
