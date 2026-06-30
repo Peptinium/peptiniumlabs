@@ -54,6 +54,15 @@ function authMessage(message: string) {
   return message || "Erreur d'authentification";
 }
 
+function authTimeout<T>(promise: Promise<T>, message = "La connexion prend trop de temps. Réessayez dans quelques secondes.") {
+  return Promise.race([
+    promise,
+    new Promise<never>((_, reject) => {
+      window.setTimeout(() => reject(new Error(message)), 15000);
+    }),
+  ]);
+}
+
 function AuthPage() {
   const navigate = useNavigate();
   const search = useSearch({ from: "/auth" });
@@ -123,17 +132,13 @@ function AuthPage() {
         return;
       }
       const parsed = authFormSchema.parse({ email, password });
-      const { data, error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await authTimeout(supabase.auth.signInWithPassword({
         email: parsed.email,
         password: parsed.password,
-      });
+      }));
       if (error) throw error;
       if (!data.session) throw new Error("Connexion incomplète, réessayez dans quelques secondes.");
-      const { data: userData, error: userError } = await supabase.auth.getUser();
-      if (userError || !userData.user) {
-        throw new Error("Session en cours d'activation, réessayez dans quelques secondes.");
-      }
-      navigate({ to: redirectTo });
+      navigate({ to: redirectTo, replace: true });
     } catch (e: any) {
       if (e instanceof z.ZodError) {
         setError(e.errors[0]?.message ?? "Vérifiez les informations saisies.");

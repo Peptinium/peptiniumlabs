@@ -28,12 +28,29 @@ export function Header() {
 
   useEffect(() => {
     let cancelled = false;
-    const check = async () => {
-      const { data: sessionData } = await supabase.auth.getSession();
-      if (!cancelled) setIsLoggedIn(!!sessionData.session);
+    let adminTimer: ReturnType<typeof setTimeout> | null = null;
 
+    const loadAdminRole = async (userId: string) => {
+      const { data: roles } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", userId)
+        .eq("role", "admin")
+        .maybeSingle();
+      if (!cancelled) setIsAdmin(!!roles);
+    };
+
+    const scheduleAdminRole = (userId: string) => {
+      if (adminTimer) clearTimeout(adminTimer);
+      adminTimer = setTimeout(() => {
+        void loadAdminRole(userId);
+      }, 0);
+    };
+
+    const checkInitialSession = async () => {
       const { data, error } = await supabase.auth.getUser();
-      if (error || !data.user) {
+      const user = error ? null : data.user;
+      if (!user) {
         if (!cancelled) {
           setIsAdmin(false);
           setIsLoggedIn(false);
@@ -41,18 +58,18 @@ export function Header() {
         return;
       }
       if (!cancelled) setIsLoggedIn(true);
-      const { data: roles } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", data.user.id)
-        .eq("role", "admin")
-        .maybeSingle();
-      if (!cancelled) setIsAdmin(!!roles);
+      scheduleAdminRole(user.id);
     };
-    check();
-    const { data: sub } = supabase.auth.onAuthStateChange(() => check());
+    void checkInitialSession();
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+      const userId = session?.user?.id;
+      setIsLoggedIn(!!userId);
+      setIsAdmin(false);
+      if (userId) scheduleAdminRole(userId);
+    });
     return () => {
       cancelled = true;
+      if (adminTimer) clearTimeout(adminTimer);
       sub.subscription.unsubscribe();
     };
   }, []);
