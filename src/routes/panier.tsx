@@ -230,6 +230,7 @@ function PanierPage() {
             cart={cart}
             subtotal={subtotal}
             shippingFee={shippingFee}
+            paymentMethod={paymentMethod}
             onDone={() => cart.clear()}
           />
         )}
@@ -459,7 +460,7 @@ function PaiementBlock({
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/></svg>
       ),
       lines: [
-        <>Lien Revolut sécurisé envoyé par email après validation.</>,
+        <>Lien de paiement carte bancaire sécurisé envoyé par email après validation.</>,
         <><strong className="text-foreground">Délai d'envoi : sous 24 h.</strong> Paiement instantané ensuite.</>,
       ],
     },
@@ -903,7 +904,7 @@ function VirementBlock({
         title: "Votre lien de paiement arrive",
         intro: "Vous recevrez sous 24 h par email un lien sécurisé pour régler par carte bancaire.",
         boxTitle: "En attente du lien de paiement",
-        boxText: "Notre équipe valide votre commande, puis vous envoie un lien Revolut sécurisé à l'adresse email indiquée. Le délai d'envoi est généralement de quelques heures (max 24 h ouvrées).",
+        boxText: "Notre équipe valide votre commande, puis vous envoie un lien de paiement carte bancaire sécurisé à l'adresse email indiquée. Le délai d'envoi est généralement de quelques heures (max 24 h ouvrées).",
         cta: "J'ai compris, je patiente",
       };
     }
@@ -1056,6 +1057,7 @@ function ConfirmationBlock({
   cart,
   subtotal,
   shippingFee,
+  paymentMethod,
   onDone,
 }: {
   total: number;
@@ -1063,32 +1065,60 @@ function ConfirmationBlock({
   cart: ReturnType<typeof useCart>;
   subtotal: number;
   shippingFee: number;
+  paymentMethod: PayMethod;
   onDone: () => void;
 }) {
-  // Snapshot before clearing
-  const snapshot = useMemo(() => cart.items.map((i) => ({ ...i })), []);
+  // Snapshot everything before the parent clears the cart (which would zero totals).
+  const snap = useMemo(
+    () => ({
+      items: cart.items.map((i) => ({ ...i })),
+      total,
+      subtotal,
+      shippingFee,
+    }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
   useEffect(() => {
     onDone();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const COPY: Record<PayMethod, { title: string; intro: string; boxTitle: string; boxText: string }> = {
+    bank: {
+      title: "Virement signalé",
+      intro: "Paiement signalé, en attente de vérification par nos équipes. Votre commande sera expédiée dès réception des fonds (48 à 72h ouvrées).",
+      boxTitle: "Virement signalé avec succès",
+      boxText: "Notre équipe vérifie la réception des fonds. Vous recevrez un email d'expédition sous 48 à 72h ouvrées.",
+    },
+    card: {
+      title: "Commande enregistrée",
+      intro: "Votre commande est bien enregistrée. Vous recevrez sous 24 h ouvrées un email contenant le lien de paiement carte bancaire sécurisé.",
+      boxTitle: "Lien de paiement en cours d'envoi",
+      boxText: "Notre équipe vous transmet votre lien de paiement personnalisé à l'adresse email indiquée. Une fois réglé, vous recevrez la confirmation et le suivi.",
+    },
+    crypto: {
+      title: "Commande enregistrée",
+      intro: "Votre commande est bien enregistrée. Vous recevrez sous 24 h ouvrées un email avec l'adresse Bitcoin à utiliser pour le règlement.",
+      boxTitle: "Adresse BTC en cours d'envoi",
+      boxText: "Notre équipe vous transmet une adresse BTC unique dédiée à votre commande. Vous pourrez ensuite régler depuis votre wallet préféré.",
+    },
+  };
+  const c = COPY[paymentMethod];
 
   return (
     <div className="mx-auto max-w-xl text-center">
       <div className="mx-auto grid size-14 place-items-center rounded-full bg-success/15 text-success">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4"><path d="m5 12 5 5L20 7"/></svg>
       </div>
-      <h1 className="mt-4 font-display text-3xl font-medium">Virement signalé</h1>
-      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-        Paiement signalé, en attente de vérification par nos équipes. Votre commande sera expédiée dès réception des fonds (48 à 72h ouvrées).
-      </p>
+      <h1 className="mt-4 font-display text-3xl font-medium">{c.title}</h1>
+      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{c.intro}</p>
 
       <div className="mt-6 flex items-start gap-3 rounded-2xl border border-success/40 bg-success/5 p-4 text-left">
         <svg width="20" height="20" className="mt-0.5 shrink-0 text-success" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M12 2 4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4Z"/><path d="m9 12 2 2 4-4"/></svg>
         <div>
-          <div className="font-display text-sm font-semibold text-success">Virement signalé avec succès</div>
-          <p className="mt-1 text-xs text-muted-foreground">
-            Notre équipe vérifie la réception des fonds. Vous recevrez un email d'expédition sous 48 à 72h ouvrées.
-          </p>
+          <div className="font-display text-sm font-semibold text-success">{c.boxTitle}</div>
+          <p className="mt-1 text-xs text-muted-foreground">{c.boxText}</p>
         </div>
       </div>
 
@@ -1098,7 +1128,7 @@ function ConfirmationBlock({
           <h3 className="font-display text-sm font-semibold uppercase tracking-[0.12em]">Résumé de la commande</h3>
         </div>
         <div className="mt-4 space-y-1.5 text-sm">
-          {snapshot.map((it) => (
+          {snap.items.map((it) => (
             <div key={itemKey(it.slug, it.dosage)} className="flex justify-between text-muted-foreground">
               <span>
                 <span className="text-foreground">{it.name}</span> <span className="font-mono text-xs">×{it.qty}</span>
@@ -1108,11 +1138,11 @@ function ConfirmationBlock({
           ))}
           <div className="flex justify-between text-muted-foreground">
             <span>Livraison</span>
-            <span className="text-foreground">{shippingFee === 0 ? "Gratuit" : formatPrice(shippingFee).replace(" €", " EUR")}</span>
+            <span className="text-foreground">{snap.shippingFee === 0 ? "Gratuit" : formatPrice(snap.shippingFee).replace(" €", " EUR")}</span>
           </div>
           <div className="mt-3 flex justify-between border-t border-border pt-3">
             <span className="font-semibold">Total</span>
-            <span className="font-display text-base font-semibold">{formatPrice(total).replace(" €", " EUR")}</span>
+            <span className="font-display text-base font-semibold">{formatPrice(snap.total).replace(" €", " EUR")}</span>
           </div>
           <div className="mt-3 flex items-center justify-between border-t border-border pt-3 text-xs text-muted-foreground">
             <span>Commande</span>
@@ -1120,6 +1150,7 @@ function ConfirmationBlock({
           </div>
         </div>
       </div>
+
 
       <div className="mt-8 space-y-3">
         <Link to="/" className="block font-display text-sm font-medium text-accent hover:underline">

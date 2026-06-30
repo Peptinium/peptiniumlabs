@@ -444,7 +444,7 @@ function PaymentLinkPanel({ order }: { order: any }) {
   return (
     <div className="rounded-lg border border-sky-400/20 bg-sky-400/5 p-4">
       <h4 className="mb-3 text-[10px] font-bold uppercase tracking-[0.18em] text-sky-400">
-        Lien de paiement carte (Revolut / PayPal / Stripe)
+        Lien de paiement carte bancaire
       </h4>
       {alreadySent && (
         <p className="mb-3 text-xs text-muted-foreground">
@@ -455,7 +455,7 @@ function PaymentLinkPanel({ order }: { order: any }) {
       <input
         value={link}
         onChange={(e) => setLink(e.target.value)}
-        placeholder="https://checkout.revolut.com/pay/... ou https://paypal.me/..."
+        placeholder="https://… (lien de paiement sécurisé)"
         className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-sky-400/40"
         maxLength={2000}
       />

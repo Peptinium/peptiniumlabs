@@ -23,7 +23,7 @@ const COPY: Record<Method, { title: string; intro: string; box: string }> = {
   card: {
     title: 'Commande reçue — paiement par carte',
     intro:
-      "Merci pour votre commande. Vous recevrez sous 24 h ouvrées un lien de paiement sécurisé (Revolut / Stripe) pour régler par carte bancaire.",
+      "Merci pour votre commande. Vous recevrez sous 24 h ouvrées un lien de paiement sécurisé par carte bancaire à régler en ligne.",
     box: "Notre équipe prépare votre lien de paiement personnalisé. Aucune action de votre part pour l'instant — surveillez simplement votre boîte mail.",
   },
   crypto: {

@@ -4,7 +4,7 @@
 // without a user session.
 
 import * as React from 'react'
-import { render } from '@react-email/render'
+import { render } from '@react-email/components'
 import { TEMPLATES } from '@/lib/email-templates/registry'
 
 const SITE_NAME = 'Peptinium'
