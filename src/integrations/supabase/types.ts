@@ -336,6 +336,53 @@ export type Database = {
           },
         ]
       }
+      product_variants: {
+        Row: {
+          created_at: string
+          dosage: string
+          id: string
+          low_stock_threshold: number
+          position: number
+          price_eur: number
+          product_id: string
+          sold_out: boolean
+          stock: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          dosage: string
+          id?: string
+          low_stock_threshold?: number
+          position?: number
+          price_eur?: number
+          product_id: string
+          sold_out?: boolean
+          stock?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          dosage?: string
+          id?: string
+          low_stock_threshold?: number
+          position?: number
+          price_eur?: number
+          product_id?: string
+          sold_out?: boolean
+          stock?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_variants_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       products: {
         Row: {
           active: boolean
@@ -410,6 +457,39 @@ export type Database = {
           phone?: string | null
           postal_code?: string | null
           updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      push_subscriptions: {
+        Row: {
+          auth_key: string
+          created_at: string
+          endpoint: string
+          id: string
+          label: string | null
+          last_used_at: string | null
+          p256dh: string
+          user_id: string
+        }
+        Insert: {
+          auth_key: string
+          created_at?: string
+          endpoint: string
+          id?: string
+          label?: string | null
+          last_used_at?: string | null
+          p256dh: string
+          user_id: string
+        }
+        Update: {
+          auth_key?: string
+          created_at?: string
+          endpoint?: string
+          id?: string
+          label?: string | null
+          last_used_at?: string | null
+          p256dh?: string
           user_id?: string
         }
         Relationships: []
