@@ -830,3 +830,79 @@ async function buildInvoicePdf(opts: {
 function truncate(s: string, n: number) {
   return s.length > n ? s.slice(0, n - 1) + "…" : s;
 }
+
+// ─────────── Test d'envoi des emails de marque (admin) ───────────
+export const sendBrandedEmailTests = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) =>
+    z.object({ recipient: z.string().email() }).parse(d),
+  )
+  .handler(async ({ data, context }) => {
+    await requireAdmin(context);
+    const { sendAppEmail } = await import("@/lib/email/send.server");
+    const stamp = Date.now();
+    const sends = [
+      {
+        templateName: "order-confirmation",
+        templateData: {
+          customerName: "Peptinium",
+          orderNumber: "TEST-OC-001",
+          totalEur: 149.9,
+          items: [{ name: "BPC-157 5mg", quantity: 2, price_eur: 74.95 }],
+        },
+      },
+      {
+        templateName: "payment-link",
+        templateData: {
+          customerName: "Peptinium",
+          orderNumber: "TEST-PL-001",
+          totalEur: 189,
+          paymentLink: "https://checkout.revolut.com/pay/example",
+          items: [{ name: "Retatrutide 10mg", quantity: 1, price_eur: 189 }],
+        },
+      },
+      {
+        templateName: "crypto-payment",
+        templateData: {
+          customerName: "Peptinium",
+          orderNumber: "TEST-CP-001",
+          totalEur: 189,
+          currencyName: "Bitcoin",
+          currencyCode: "BTC",
+          network: "Bitcoin (BTC)",
+          address: "bc1qexampleexampleexampleexampleexampleex",
+        },
+      },
+      {
+        templateName: "order-shipped",
+        templateData: {
+          customerName: "Peptinium",
+          orderNumber: "TEST-OS-001",
+          carrier: "Colissimo",
+          trackingNumber: "6A12345678901",
+          trackingUrl:
+            "https://www.laposte.fr/outils/suivre-vos-envois?code=6A12345678901",
+        },
+      },
+      {
+        templateName: "support-reply",
+        templateData: {
+          subject: "Test mise en page Peptinium",
+          body: "Bonjour, ceci est un test de la nouvelle mise en page Peptinium pour les emails SAV.",
+          ticketRef: "SAV-TEST-001",
+        },
+      },
+    ];
+    const results: Array<{ template: string; ok: boolean; error?: string }> = [];
+    for (const s of sends) {
+      const r = await sendAppEmail({
+        templateName: s.templateName,
+        recipientEmail: data.recipient,
+        idempotencyKey: `test-${s.templateName}-${stamp}`,
+        templateData: s.templateData,
+      });
+      results.push({ template: s.templateName, ok: r.ok, error: r.error });
+    }
+    return { recipient: data.recipient, results };
+  });
+
