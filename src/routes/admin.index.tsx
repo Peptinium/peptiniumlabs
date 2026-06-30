@@ -214,8 +214,8 @@ function CommandesPage() {
           filteredOrders.map((o: any) => {
             const isOpen = expandedId === o.id;
             const orderItems = itemsByOrder.get(o.id) ?? [];
-            const trackingValue =
-              trackingDrafts[o.id] ?? (o.tracking_number ? String(o.tracking_number) : "");
+
+
 
             return (
               <div key={o.id} className="rounded-xl border border-border bg-card">
