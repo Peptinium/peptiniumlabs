@@ -294,12 +294,12 @@ function OrderActionCard({
         <div className="rounded-lg border border-violet-400/30 bg-background p-3 space-y-2">
           <div className="text-xs font-semibold flex items-center gap-1.5">
             <LinkIcon className="size-3.5 text-violet-400" />
-            Envoyer le lien de paiement Revolut au client
+            Envoyer le lien de paiement carte bancaire au client
           </div>
           <input
             value={paymentLink}
             onChange={(e) => setPaymentLink(e.target.value)}
-            placeholder="https://checkout.revolut.com/pay/…"
+            placeholder="https://… (lien de paiement sécurisé)"
             className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm outline-none"
           />
           <Button
