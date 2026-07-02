@@ -31,30 +31,51 @@ export function Hero() {
         className="pointer-events-none absolute -top-px left-0 h-px w-1/2 bg-gradient-to-r from-transparent via-[oklch(0.62_0.26_296)] to-transparent [animation:beam-sweep_7s_ease-in-out_infinite]"
       />
 
-      <div className="container-prose relative flex flex-col items-center px-5 pt-24 pb-6 text-center sm:pt-28 lg:pt-32">
+      <div className="container-prose relative flex flex-col items-center px-5 pt-20 pb-6 text-center sm:pt-28 lg:pt-32">
         {/* Pill */}
-        <div className="inline-flex items-center gap-2 rounded-full border border-[oklch(0.18_0.02_270)]/10 bg-white/60 px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.28em] text-[oklch(0.30_0.03_270)] shadow-[0_1px_0_oklch(1_0_0)] backdrop-blur">
+        <div className="inline-flex items-center gap-2 rounded-full border border-[oklch(0.18_0.02_270)]/10 bg-white/60 px-3 py-1 font-mono text-[9px] uppercase tracking-[0.24em] text-[oklch(0.30_0.03_270)] shadow-[0_1px_0_oklch(1_0_0)] backdrop-blur sm:px-3.5 sm:py-1.5 sm:text-[10px] sm:tracking-[0.28em]">
           <span className="size-1.5 animate-pulse rounded-full bg-[oklch(0.55_0.24_296)]" />
           Recherche avancée
         </div>
 
         {/* Title */}
-        <h1 className="mt-8 font-display text-[44px] font-semibold leading-[0.95] tracking-[-0.035em] text-balance text-[oklch(0.15_0.02_270)] sm:text-[72px] lg:text-[92px]">
+        <h1 className="mt-6 font-display text-[34px] font-semibold leading-[1] tracking-[-0.03em] text-balance text-[oklch(0.15_0.02_270)] sm:mt-8 sm:text-[72px] sm:leading-[0.95] sm:tracking-[-0.035em] lg:text-[92px]">
           <span className="shimmer-text block">L'Avenir de la</span>
           <span className="shimmer-text block">Précision Moléculaire.</span>
         </h1>
 
 
         {/* Subtitle */}
-        <p className="mt-7 max-w-2xl text-[15px] leading-[1.7] text-[oklch(0.35_0.02_270)] sm:text-[17px]">
+        <p className="mt-5 max-w-2xl text-[14px] leading-[1.65] text-[oklch(0.35_0.02_270)] sm:mt-7 sm:text-[17px] sm:leading-[1.7]">
           Peptides synthétiques haute pureté, contrôlés par HPLC et livrés avec
           Certificat d'Analyse. L'exigence du laboratoire, pensée pour le
           chercheur.
         </p>
 
 
-        {/* CTAs */}
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+        {/* CTAs — Mobile (solid, high contrast) */}
+        <div className="mt-8 flex w-full flex-col items-stretch gap-3 sm:hidden">
+          <Link
+            to="/produits"
+            className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-6 py-3.5 font-mono text-[11px] uppercase tracking-[0.22em] text-white shadow-[0_18px_40px_-16px_color-mix(in_oklab,var(--brand-violet)_70%,transparent)]"
+            style={{
+              backgroundImage:
+                "linear-gradient(120deg, oklch(0.55 0.20 210) 0%, oklch(0.50 0.24 280) 55%, oklch(0.58 0.26 330) 100%)",
+            }}
+          >
+            <span className="relative">Explorer le catalogue</span>
+            <span className="relative">→</span>
+          </Link>
+          <Link
+            to="/tester-fioles"
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-[oklch(0.18_0.02_270)]/25 bg-white px-6 py-3.5 font-mono text-[11px] uppercase tracking-[0.22em] text-[oklch(0.18_0.02_270)] shadow-[0_10px_30px_-14px_color-mix(in_oklab,var(--brand-violet)_45%,transparent)]"
+          >
+            Tester vos fioles
+          </Link>
+        </div>
+
+        {/* CTAs — Desktop (glass) */}
+        <div className="mt-10 hidden flex-wrap items-center justify-center gap-3 sm:flex">
           <Link
             to="/produits"
             className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-white/60 px-7 py-3.5 font-mono text-[11px] uppercase tracking-[0.22em] text-[oklch(0.18_0.02_270)] shadow-[0_20px_50px_-18px_color-mix(in_oklab,var(--brand-violet)_55%,transparent)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:border-white hover:shadow-[0_28px_70px_-20px_color-mix(in_oklab,var(--brand-violet)_75%,transparent)]"
