@@ -189,7 +189,8 @@ export function Hero() {
                 {/* Premium label */}
                 <g
                   style={{
-                    transform: `translateX(${(1 - label) * -40}px)`,
+                    transform: `scale(${0.92 + label * 0.08})`,
+                    transformOrigin: "110px 205px",
                     transition: "transform 0.5s ease",
                   }}
                 >
