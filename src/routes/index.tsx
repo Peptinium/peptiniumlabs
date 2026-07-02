@@ -256,6 +256,44 @@ function HomePage() {
         </div>
       </section>
 
+      {/* ============ FINAL CTA ============ */}
+      <section className="container-prose py-20 sm:py-24">
+        <Reveal>
+          <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-10 sm:p-14">
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 opacity-[0.9]"
+              style={{
+                background:
+                  "radial-gradient(60% 100% at 100% 0%, color-mix(in oklab, var(--brand-violet) 14%, transparent) 0%, transparent 60%), radial-gradient(60% 100% at 0% 100%, color-mix(in oklab, var(--brand-cyan) 12%, transparent) 0%, transparent 60%)",
+              }}
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -top-px left-0 h-px w-1/2 bg-gradient-to-r from-transparent via-accent to-transparent [animation:beam-sweep_6s_ease-in-out_infinite]"
+            />
+            <div className="relative flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-end">
+              <div className="max-w-xl">
+                <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">— Prêt à commander</div>
+                <h2 className="mt-3 font-display text-3xl font-medium leading-[1.1] tracking-tight text-balance sm:text-4xl">
+                  Passez commande avec la sérénité du labo.
+                </h2>
+                <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">
+                  Certificat d'Analyse, traçabilité complète, expédition sous 24 h.
+                </p>
+              </div>
+              <Link
+                to="/produits"
+                className="group inline-flex items-center gap-2 rounded-full brand-gradient-bg px-7 py-3.5 font-mono text-[11px] uppercase tracking-[0.22em] text-white shadow-[0_18px_40px_-16px_oklch(0.55_0.22_296/0.55)] transition-transform hover:-translate-y-0.5"
+              >
+                Voir le catalogue
+                <span className="transition-transform group-hover:translate-x-0.5">→</span>
+              </Link>
+            </div>
+          </div>
+        </Reveal>
+      </section>
+
       {/* ============ RUO REMINDER with lab background ============ */}
       <section className="relative overflow-hidden border-t border-border">
         <img
