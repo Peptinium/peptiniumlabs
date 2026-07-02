@@ -33,16 +33,16 @@ export function RuoModal() {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-end justify-center bg-foreground/55 p-4 backdrop-blur-md sm:items-center"
+      className="fixed inset-0 z-50 flex items-end justify-center bg-black/70 p-4 backdrop-blur-md sm:items-center"
       style={{ animation: "fade-in 0.4s cubic-bezier(0.22,1,0.36,1) both" }}
     >
       <div
-        className="w-full max-w-xl overflow-hidden rounded-xl border border-border bg-card shadow-2xl"
+        className="w-full max-w-xl overflow-hidden rounded-xl border border-white/10 bg-card shadow-2xl"
         style={{ animation: "scale-in 0.5s cubic-bezier(0.22,1,0.36,1) both" }}
       >
-        <div className="relative overflow-hidden border-b border-border bg-foreground text-background">
+        <div className="relative overflow-hidden border-b border-border bg-surface-2">
           <div className="relative z-10 flex items-center justify-between px-6 py-4">
-            <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-background/80">
+            <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-foreground/80">
               <span className="size-1.5 animate-pulse rounded-full bg-accent" />
               Vérification d'accès — Laboratoire
             </div>

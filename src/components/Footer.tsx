@@ -4,14 +4,14 @@ export function Footer() {
   return (
     <footer className="mt-32 border-t border-border bg-surface">
       <div className="ruo-stripe border-b border-warning/20">
-        <div className="container-prose py-3.5 text-center font-mono text-[10px] uppercase tracking-[0.22em] text-warning">
+        <div className="container-prose py-3.5 text-center font-mono text-[10px] uppercase tracking-[0.22em] text-warning-foreground">
           ⚠ Pour motif de recherche uniquement — Pas pour usage vétérinaire, diagnostique ou thérapeutique
         </div>
       </div>
       <div className="container-prose grid gap-12 py-16 md:grid-cols-12">
         <div className="md:col-span-5">
           <div className="flex items-center gap-3">
-            <span className="grid size-9 place-items-center overflow-hidden rounded-full bg-background ring-1 ring-border">
+            <span className="grid size-9 place-items-center overflow-hidden rounded-full bg-card ring-1 ring-border">
               <svg viewBox="0 0 40 40" className="size-7" fill="none" aria-hidden>
                 <defs>
                   <linearGradient id="pep-footer-grad" x1="0" y1="0" x2="1" y2="1">
@@ -33,7 +33,7 @@ export function Footer() {
             CRO et instituts. Validation HPLC et spectrométrie de masse, Certificat d'Analyse
             (CoA) systématique.
           </p>
-          <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+          <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
             <span className="size-1.5 animate-pulse rounded-full bg-accent" />
             QC Lab actif — lots audités quotidiennement
           </div>
@@ -59,7 +59,6 @@ export function Footer() {
             { to: "/mentions-legales", label: "Mentions légales" },
             { to: "/cgv", label: "CGV" },
           ]}
-
         />
         <div className="md:col-span-3">
           <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-foreground">
@@ -75,7 +74,7 @@ export function Footer() {
       </div>
       <div className="border-t border-border bg-background">
         <div className="container-prose py-10">
-          <div className="rounded-xl border border-border bg-surface p-5 sm:p-6">
+          <div className="rounded-xl border border-border bg-card p-5 sm:p-6">
             <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">
               — Clause de non-responsabilité
             </div>

@@ -78,15 +78,15 @@ export function Header() {
     <header
       className={`sticky top-0 z-40 transition-all duration-300 ${
         scrolled
-          ? "border-b border-border bg-background/85 backdrop-blur-xl"
-          : "border-b border-transparent bg-background/0"
+          ? "border-b border-border bg-background/80 backdrop-blur-2xl"
+          : "border-b border-transparent bg-transparent"
       }`}
     >
       <div className="container-prose flex h-16 items-center justify-between lg:h-20">
         <Link to="/" className="group flex items-center gap-3">
           <Logo />
           <div className="leading-tight">
-            <div className="font-display text-[15px] font-medium tracking-tight lg:text-[18px]">
+            <div className="font-display text-[15px] font-medium tracking-tight text-foreground lg:text-[18px]">
               <span className="brand-gradient-text font-semibold">Peptinium</span> <span className="text-muted-foreground">Labs</span>
             </div>
             <div className="font-mono text-[9px] uppercase tracking-[0.22em] text-muted-foreground lg:text-[10px]">

@@ -36,7 +36,7 @@
   --color-success: var(--success);
   --color-success-foreground: var(--success-foreground);
   --font-sans: "Inter", system-ui, sans-serif;
-  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-display: "Sora", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
   --animate-fade-in: fade-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -47,6 +47,9 @@
   --animate-marquee: marquee 38s linear infinite;
   --animate-grid: grid-drift 24s linear infinite;
   --animate-beam: beam-sweep 5s ease-in-out infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-float-slow: float 8s ease-in-out infinite;
+  --animate-vial-glow: vial-glow 4s ease-in-out infinite;
 }
 
 @keyframes fade-in { from { opacity: 0 } to { opacity: 1 } }
@@ -81,65 +84,80 @@
 }
 @keyframes float {
   0%, 100% { transform: translateY(0) }
-  50% { transform: translateY(-6px) }
+  50% { transform: translateY(-12px) }
+}
+@keyframes vial-glow {
+  0%, 100% { opacity: 0.5; transform: scale(1) }
+  50% { opacity: 0.8; transform: scale(1.05) }
+}
+@keyframes ruo-shine {
+  0% { transform: translateX(-120%) skewX(-18deg); opacity: 0; }
+  12% { opacity: 1; }
+  60% { opacity: 1; }
+  100% { transform: translateX(220%) skewX(-18deg); opacity: 0; }
+}
+@keyframes hero-text-reveal {
+  from { opacity: 0; transform: translateY(20px) }
+  to { opacity: 1; transform: translateY(0) }
 }
 
 :root {
   --radius: 6px;
-  --background: oklch(1 0 0);
-  --surface: oklch(0.985 0.005 230);
-  --surface-2: oklch(0.965 0.008 240);
-  --ink: oklch(0.18 0.05 270);
-  --foreground: oklch(0.18 0.05 270);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.18 0.05 270);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.18 0.05 270);
+  /* Dark premium by default — Apple/biotech mood */
+  --background: oklch(0.08 0.02 270);
+  --surface: oklch(0.12 0.025 270);
+  --surface-2: oklch(0.16 0.03 270);
+  --ink: oklch(0.97 0.01 240);
+  --foreground: oklch(0.97 0.01 240);
+  --card: oklch(0.11 0.025 270);
+  --card-foreground: oklch(0.97 0.01 240);
+  --popover: oklch(0.11 0.025 270);
+  --popover-foreground: oklch(0.97 0.01 240);
   /* Peptinium brand: cyan → blue → violet → magenta */
   --brand-cyan: oklch(0.81 0.13 200);
   --brand-blue: oklch(0.61 0.18 260);
   --brand-violet: oklch(0.50 0.26 296);
   --brand-magenta: oklch(0.65 0.24 0);
   --gradient-brand: linear-gradient(135deg, var(--brand-cyan) 0%, var(--brand-blue) 35%, var(--brand-violet) 70%, var(--brand-magenta) 100%);
-  --primary: oklch(0.50 0.26 296);
-  --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.965 0.008 240);
-  --secondary-foreground: oklch(0.22 0.06 280);
-  --muted: oklch(0.965 0.008 240);
-  --muted-foreground: oklch(0.5 0.03 270);
+  --primary: oklch(0.70 0.20 296);
+  --primary-foreground: oklch(0.10 0.02 270);
+  --secondary: oklch(0.18 0.03 270);
+  --secondary-foreground: oklch(0.95 0.01 240);
+  --muted: oklch(0.18 0.03 270);
+  --muted-foreground: oklch(0.70 0.03 270);
   --accent: oklch(0.78 0.14 200);
-  --accent-foreground: oklch(0.18 0.05 270);
+  --accent-foreground: oklch(0.12 0.02 270);
   --warning: oklch(0.55 0.18 38);
   --warning-foreground: oklch(0.99 0 0);
   --success: oklch(0.62 0.16 155);
   --success-foreground: oklch(0.99 0 0);
   --destructive: oklch(0.55 0.22 27);
   --destructive-foreground: oklch(0.99 0 0);
-  --border: oklch(0.92 0.008 260);
-  --input: oklch(0.92 0.008 260);
-  --ring: oklch(0.61 0.18 260);
+  --border: oklch(0.22 0.025 270);
+  --input: oklch(0.22 0.025 270);
+  --ring: oklch(0.70 0.20 296);
 }
 
 .dark {
-  --background: oklch(0.16 0.025 270);
-  --surface: oklch(0.21 0.03 270);
-  --surface-2: oklch(0.25 0.03 270);
+  --background: oklch(0.08 0.02 270);
+  --surface: oklch(0.12 0.025 270);
+  --surface-2: oklch(0.16 0.03 270);
   --ink: oklch(0.97 0.01 240);
   --foreground: oklch(0.97 0.01 240);
-  --card: oklch(0.20 0.03 270);
+  --card: oklch(0.11 0.025 270);
   --card-foreground: oklch(0.97 0.01 240);
-  --popover: oklch(0.20 0.03 270);
+  --popover: oklch(0.11 0.025 270);
   --popover-foreground: oklch(0.97 0.01 240);
   --primary: oklch(0.70 0.20 296);
   --primary-foreground: oklch(0.10 0.02 270);
-  --secondary: oklch(0.27 0.03 270);
+  --secondary: oklch(0.18 0.03 270);
   --secondary-foreground: oklch(0.95 0.01 240);
-  --muted: oklch(0.25 0.03 270);
+  --muted: oklch(0.18 0.03 270);
   --muted-foreground: oklch(0.70 0.03 270);
   --accent: oklch(0.78 0.14 200);
   --accent-foreground: oklch(0.12 0.02 270);
-  --border: oklch(0.30 0.025 270);
-  --input: oklch(0.30 0.025 270);
+  --border: oklch(0.22 0.025 270);
+  --input: oklch(0.22 0.025 270);
   --ring: oklch(0.70 0.20 296);
 }
 
@@ -168,8 +186,8 @@
   }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    letter-spacing: -0.025em;
-    font-weight: 500;
+    letter-spacing: -0.02em;
+    font-weight: 600;
   }
   ::selection { background: color-mix(in oklab, var(--accent) 35%, transparent); }
 }
@@ -188,23 +206,23 @@
 
 @utility grid-bg {
   background-image:
-    linear-gradient(to right, oklch(0.92 0.005 240 / 50%) 1px, transparent 1px),
-    linear-gradient(to bottom, oklch(0.92 0.005 240 / 50%) 1px, transparent 1px);
+    linear-gradient(to right, oklch(0.92 0.005 240 / 20%) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.92 0.005 240 / 20%) 1px, transparent 1px);
   background-size: 60px 60px;
 }
 
 @utility dot-bg {
-  background-image: radial-gradient(oklch(0.85 0.01 240) 1px, transparent 1px);
+  background-image: radial-gradient(oklch(0.85 0.01 240 / 30%) 1px, transparent 1px);
   background-size: 22px 22px;
 }
 
 @utility ruo-stripe {
   background: repeating-linear-gradient(
     -45deg,
-    oklch(0.98 0.02 38),
-    oklch(0.98 0.02 38) 8px,
-    oklch(0.95 0.04 38) 8px,
-    oklch(0.95 0.04 38) 16px
+    oklch(0.25 0.02 38),
+    oklch(0.25 0.02 38) 8px,
+    oklch(0.20 0.03 38) 8px,
+    oklch(0.20 0.03 38) 16px
   );
 }
 
@@ -260,11 +278,19 @@
   will-change: background-position;
 }
 
-@keyframes ruo-shine {
-  0% { transform: translateX(-120%) skewX(-18deg); opacity: 0; }
-  12% { opacity: 1; }
-  60% { opacity: 1; }
-  100% { transform: translateX(220%) skewX(-18deg); opacity: 0; }
+@utility glass-card {
+  background: color-mix(in oklab, var(--card) 80%, transparent);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(24px) saturate(140%);
+}
+
+@utility hero-glow {
+  background: radial-gradient(ellipse at center, color-mix(in oklab, var(--brand-blue) 20%, transparent) 0%, transparent 70%);
+}
+
+@utility vial-halo {
+  background: radial-gradient(ellipse at center, color-mix(in oklab, var(--brand-blue) 35%, transparent) 0%, transparent 65%);
+  filter: blur(40px);
 }
 
 .ruo-badge { isolation: isolate; }
@@ -284,4 +310,3 @@
   animation: ruo-shine 7s ease-in-out infinite;
   animation-delay: 1.2s;
 }
-
