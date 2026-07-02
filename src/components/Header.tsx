@@ -83,13 +83,13 @@ export function Header() {
       }`}
     >
       <div className="container-prose flex h-16 items-center justify-between lg:h-20">
-        <Link to="/" className="group flex items-center gap-3">
+        <Link to="/" className="group flex items-center gap-2 sm:gap-3">
           <Logo />
           <div className="leading-tight">
-            <div className="font-display text-[15px] font-medium tracking-tight text-foreground lg:text-[18px]">
+            <div className="font-display text-[14px] font-medium tracking-tight text-foreground sm:text-[15px] lg:text-[18px]">
               <span className="brand-gradient-text font-semibold">Peptinium</span> <span className="text-muted-foreground">Labs</span>
             </div>
-            <div className="font-mono text-[9px] uppercase tracking-[0.22em] text-muted-foreground lg:text-[10px]">
+            <div className="hidden font-mono text-[9px] uppercase tracking-[0.22em] text-muted-foreground sm:block lg:text-[10px]">
               Peptide de Recherche
             </div>
           </div>
