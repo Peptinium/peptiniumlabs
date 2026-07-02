@@ -74,14 +74,13 @@ export function Hero() {
               style={{
                 transform: `translateY(${(1 - glass) * 20}px) scale(${0.94 + glass * 0.06})`,
                 transition: "transform 0.3s ease-out",
-                filter: "drop-shadow(0 28px 60px oklch(0.55 0.08 260 / 0.22))",
+                filter: "drop-shadow(0 32px 70px oklch(0.50 0.09 260 / 0.28))",
               }}
             >
               <svg
                 width="260"
                 height="420"
                 viewBox="0 0 220 360"
-                style={{ opacity: 0.75 + glass * 0.25 }}
               >
                 <defs>
                   <linearGradient id="glassBody" x1="0" y1="0" x2="1" y2="1">
