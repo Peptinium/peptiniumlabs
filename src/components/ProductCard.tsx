@@ -85,7 +85,7 @@ export function ProductCard({ product }: { product: Product }) {
         <p className="line-clamp-2 hidden text-xs leading-relaxed text-muted-foreground sm:block">
           {product.shortDescription}
         </p>
-        <div className="mt-2 flex items-center justify-between border-t border-border pt-2.5 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground sm:mt-3 sm:pt-3">
+        <div className="mt-2 flex items-center justify-between gap-2 border-t border-border pt-2.5 font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground sm:mt-3 sm:pt-3 sm:tracking-[0.18em]">
           <span className="truncate">
             {hasMultiple ? `${product.variants.length} dosages` : `CAS ${product.cas ?? "—"}`}
           </span>
