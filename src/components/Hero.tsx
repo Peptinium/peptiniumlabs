@@ -39,7 +39,7 @@ export function Hero() {
         </div>
 
         {/* Title */}
-        <h1 className="mt-7 font-display text-[42px] font-semibold leading-[1] tracking-[-0.035em] text-balance text-[oklch(0.15_0.02_270)] sm:text-[60px] lg:mt-8 lg:text-[92px] lg:leading-[0.95]">
+        <h1 className="mt-7 font-display text-[38px] font-semibold leading-[1.02] tracking-[-0.035em] text-balance text-[oklch(0.15_0.02_270)] sm:text-[60px] lg:mt-8 lg:text-[92px] lg:leading-[0.95]">
           <span className="shimmer-text block">L'Avenir de la</span>
           <span className="shimmer-text block">Précision Moléculaire.</span>
         </h1>
