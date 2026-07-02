@@ -43,7 +43,7 @@ export function ProductCard({ product }: { product: Product }) {
     <Link
       to="/produits/$slug"
       params={{ slug: product.slug }}
-      className="hover-lift group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card"
+      className="hover-lift group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm"
     >
       <div className="relative aspect-[2/3] overflow-hidden border-b border-border bg-surface">
         <ProductVisual
@@ -54,7 +54,7 @@ export function ProductCard({ product }: { product: Product }) {
           imageClassName="size-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
           loading="lazy"
         />
-        <div className="absolute right-3 top-3 rounded-full border border-white/10 bg-card/84 px-2.5 py-1 font-display text-sm font-medium text-foreground shadow-sm backdrop-blur-sm">
+        <div className="absolute right-3 top-3 rounded-full border border-border bg-card/92 px-2.5 py-1 font-display text-sm font-medium text-foreground shadow-sm backdrop-blur-sm">
           {hasMultiple ? <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-muted-foreground">dès </span> : null}
           {formatPrice(price)}
         </div>
@@ -63,7 +63,7 @@ export function ProductCard({ product }: { product: Product }) {
             Rupture de stock
           </div>
         )}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-background/35 via-background/8 to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-background/25 via-background/5 to-transparent" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
       </div>
       <div className="flex flex-1 flex-col gap-2 p-3 sm:p-5">
@@ -182,18 +182,18 @@ function FallbackVialIllustration({ label }: { label: string }) {
     <svg viewBox="0 0 200 160" className="size-full">
       <defs>
         <linearGradient id="vialGlass" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stopColor="oklch(1 0 0 / 80%)" />
-          <stop offset="100%" stopColor="oklch(0.96 0.01 230 / 90%)" />
+          <stop offset="0%" stopColor="oklch(1 0 0 / 90%)" />
+          <stop offset="100%" stopColor="oklch(0.97 0.01 230 / 95%)" />
         </linearGradient>
         <linearGradient id="vialLiquid" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stopColor="oklch(0.85 0.09 200 / 70%)" />
-          <stop offset="100%" stopColor="oklch(0.7 0.12 200 / 80%)" />
+          <stop offset="0%" stopColor="oklch(0.85 0.09 200 / 60%)" />
+          <stop offset="100%" stopColor="oklch(0.7 0.12 200 / 70%)" />
         </linearGradient>
       </defs>
       <g transform="translate(70 18)">
-        <rect x="8" y="0" width="44" height="10" rx="1.5" fill="oklch(0.32 0.04 245)" />
-        <rect x="4" y="10" width="52" height="7" fill="oklch(0.55 0.03 245)" />
-        <rect x="4" y="10" width="52" height="2" fill="oklch(0.7 0.02 245)" />
+        <rect x="8" y="0" width="44" height="10" rx="1.5" fill="oklch(0.55 0.03 245)" />
+        <rect x="4" y="10" width="52" height="7" fill="oklch(0.75 0.03 245)" />
+        <rect x="4" y="10" width="52" height="2" fill="oklch(0.88 0.02 245)" />
         <path
           d="M8 17 H52 V108 a18 18 0 0 1 -18 18 H26 a18 18 0 0 1 -18 -18 Z"
           fill="url(#vialGlass)"
@@ -205,14 +205,14 @@ function FallbackVialIllustration({ label }: { label: string }) {
           fill="url(#vialLiquid)"
         />
         <rect x="11" y="42" width="38" height="26" fill="oklch(1 0 0)" stroke="oklch(0.88 0.01 240)" />
-        <line x1="11" y1="48" x2="49" y2="48" stroke="oklch(0.18 0.04 245)" strokeWidth="0.6" />
+        <line x1="11" y1="48" x2="49" y2="48" stroke="oklch(0.55 0.03 245)" strokeWidth="0.6" />
         <text
           x="30"
           y="58"
           textAnchor="middle"
           fontSize="6"
           fontFamily="Space Grotesk, sans-serif"
-          fill="oklch(0.18 0.04 245)"
+          fill="oklch(0.35 0.04 245)"
           fontWeight="600"
         >
           {label.slice(0, 14).toUpperCase()}
@@ -223,7 +223,7 @@ function FallbackVialIllustration({ label }: { label: string }) {
           textAnchor="middle"
           fontSize="3.4"
           fontFamily="JetBrains Mono, monospace"
-          fill="oklch(0.5 0.02 240)"
+          fill="oklch(0.55 0.02 240)"
         >
           RUO · LYO
         </text>

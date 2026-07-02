@@ -103,39 +103,39 @@
 
 :root {
   --radius: 6px;
-  /* Dark premium by default — Apple/biotech mood */
-  --background: oklch(0.08 0.02 270);
-  --surface: oklch(0.12 0.025 270);
-  --surface-2: oklch(0.16 0.03 270);
-  --ink: oklch(0.97 0.01 240);
-  --foreground: oklch(0.97 0.01 240);
-  --card: oklch(0.11 0.025 270);
-  --card-foreground: oklch(0.97 0.01 240);
-  --popover: oklch(0.11 0.025 270);
-  --popover-foreground: oklch(0.97 0.01 240);
+  /* Light premium — Peptinium logo coherence: cyan → blue → violet → magenta */
+  --background: oklch(0.97 0.008 260);
+  --surface: oklch(0.95 0.012 260);
+  --surface-2: oklch(0.92 0.015 260);
+  --ink: oklch(0.18 0.03 260);
+  --foreground: oklch(0.20 0.03 260);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.20 0.03 260);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.20 0.03 260);
   /* Peptinium brand: cyan → blue → violet → magenta */
-  --brand-cyan: oklch(0.81 0.13 200);
-  --brand-blue: oklch(0.61 0.18 260);
+  --brand-cyan: oklch(0.72 0.15 200);
+  --brand-blue: oklch(0.58 0.19 260);
   --brand-violet: oklch(0.50 0.26 296);
-  --brand-magenta: oklch(0.65 0.24 0);
+  --brand-magenta: oklch(0.62 0.25 0);
   --gradient-brand: linear-gradient(135deg, var(--brand-cyan) 0%, var(--brand-blue) 35%, var(--brand-violet) 70%, var(--brand-magenta) 100%);
-  --primary: oklch(0.70 0.20 296);
-  --primary-foreground: oklch(0.10 0.02 270);
-  --secondary: oklch(0.18 0.03 270);
-  --secondary-foreground: oklch(0.95 0.01 240);
-  --muted: oklch(0.18 0.03 270);
-  --muted-foreground: oklch(0.70 0.03 270);
-  --accent: oklch(0.78 0.14 200);
-  --accent-foreground: oklch(0.12 0.02 270);
+  --primary: oklch(0.52 0.21 296);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.94 0.02 260);
+  --secondary-foreground: oklch(0.20 0.03 260);
+  --muted: oklch(0.94 0.015 260);
+  --muted-foreground: oklch(0.55 0.03 260);
+  --accent: oklch(0.62 0.15 200);
+  --accent-foreground: oklch(1 0 0);
   --warning: oklch(0.55 0.18 38);
   --warning-foreground: oklch(0.99 0 0);
   --success: oklch(0.62 0.16 155);
   --success-foreground: oklch(0.99 0 0);
   --destructive: oklch(0.55 0.22 27);
   --destructive-foreground: oklch(0.99 0 0);
-  --border: oklch(0.22 0.025 270);
-  --input: oklch(0.22 0.025 270);
-  --ring: oklch(0.70 0.20 296);
+  --border: oklch(0.88 0.02 260);
+  --input: oklch(0.88 0.02 260);
+  --ring: oklch(0.52 0.21 296);
 }
 
 .dark {
@@ -189,7 +189,7 @@
     letter-spacing: -0.02em;
     font-weight: 600;
   }
-  ::selection { background: color-mix(in oklab, var(--accent) 35%, transparent); }
+  ::selection { background: color-mix(in oklab, var(--primary) 22%, transparent); }
 }
 
 @utility container-prose {
@@ -206,23 +206,23 @@
 
 @utility grid-bg {
   background-image:
-    linear-gradient(to right, oklch(0.92 0.005 240 / 20%) 1px, transparent 1px),
-    linear-gradient(to bottom, oklch(0.92 0.005 240 / 20%) 1px, transparent 1px);
+    linear-gradient(to right, oklch(0.55 0.02 250 / 12%) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.55 0.02 250 / 12%) 1px, transparent 1px);
   background-size: 60px 60px;
 }
 
 @utility dot-bg {
-  background-image: radial-gradient(oklch(0.85 0.01 240 / 30%) 1px, transparent 1px);
+  background-image: radial-gradient(oklch(0.55 0.01 240 / 18%) 1px, transparent 1px);
   background-size: 22px 22px;
 }
 
 @utility ruo-stripe {
   background: repeating-linear-gradient(
     -45deg,
-    oklch(0.25 0.02 38),
-    oklch(0.25 0.02 38) 8px,
-    oklch(0.20 0.03 38) 8px,
-    oklch(0.20 0.03 38) 16px
+    oklch(0.97 0.01 38),
+    oklch(0.97 0.01 38) 8px,
+    oklch(0.94 0.02 38) 8px,
+    oklch(0.94 0.02 38) 16px
   );
 }
 
@@ -234,7 +234,7 @@
               border-color 0.3s ease;
   &:hover {
     transform: translateY(-3px);
-    box-shadow: 0 18px 40px -22px oklch(0.22 0.06 250 / 25%);
+    box-shadow: 0 18px 40px -22px oklch(0.55 0.06 250 / 18%);
   }
 }
 
@@ -279,17 +279,17 @@
 }
 
 @utility glass-card {
-  background: color-mix(in oklab, var(--card) 80%, transparent);
+  background: color-mix(in oklab, var(--card) 92%, transparent);
   border: 1px solid var(--border);
   backdrop-filter: blur(24px) saturate(140%);
 }
 
 @utility hero-glow {
-  background: radial-gradient(ellipse at center, color-mix(in oklab, var(--brand-blue) 20%, transparent) 0%, transparent 70%);
+  background: radial-gradient(ellipse at center, color-mix(in oklab, var(--brand-blue) 14%, transparent) 0%, transparent 70%);
 }
 
 @utility vial-halo {
-  background: radial-gradient(ellipse at center, color-mix(in oklab, var(--brand-blue) 35%, transparent) 0%, transparent 65%);
+  background: radial-gradient(ellipse at center, color-mix(in oklab, var(--brand-blue) 22%, transparent) 0%, transparent 65%);
   filter: blur(40px);
 }
 
@@ -302,7 +302,7 @@
     100deg,
     transparent 0%,
     transparent 40%,
-    color-mix(in oklab, white 35%, transparent) 50%,
+    color-mix(in oklab, white 45%, transparent) 50%,
     transparent 60%,
     transparent 100%
   );

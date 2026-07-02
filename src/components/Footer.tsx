@@ -3,8 +3,8 @@ import { Link } from "@tanstack/react-router";
 export function Footer() {
   return (
     <footer className="mt-32 border-t border-border bg-surface">
-      <div className="ruo-stripe border-b border-warning/20">
-        <div className="container-prose py-3.5 text-center font-mono text-[10px] uppercase tracking-[0.22em] text-warning-foreground">
+      <div className="ruo-stripe border-b border-warning/10">
+        <div className="container-prose py-3.5 text-center font-mono text-[10px] uppercase tracking-[0.22em] text-warning">
           ⚠ Pour motif de recherche uniquement — Pas pour usage vétérinaire, diagnostique ou thérapeutique
         </div>
       </div>
@@ -15,9 +15,9 @@ export function Footer() {
               <svg viewBox="0 0 40 40" className="size-7" fill="none" aria-hidden>
                 <defs>
                   <linearGradient id="pep-footer-grad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stopColor="oklch(0.81 0.13 200)" />
-                    <stop offset="40%" stopColor="oklch(0.61 0.18 260)" />
-                    <stop offset="75%" stopColor="oklch(0.50 0.26 296)" />
+                    <stop offset="0%" stopColor="oklch(0.75 0.14 200)" />
+                    <stop offset="40%" stopColor="oklch(0.62 0.18 260)" />
+                    <stop offset="75%" stopColor="oklch(0.52 0.25 296)" />
                     <stop offset="100%" stopColor="oklch(0.65 0.24 0)" />
                   </linearGradient>
                 </defs>
@@ -75,7 +75,7 @@ export function Footer() {
       <div className="border-t border-border bg-background">
         <div className="container-prose py-10">
           <div className="rounded-xl border border-border bg-card p-5 sm:p-6">
-            <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">
+            <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary">
               — Clause de non-responsabilité
             </div>
             <p className="mt-3 text-[12px] leading-relaxed text-muted-foreground">

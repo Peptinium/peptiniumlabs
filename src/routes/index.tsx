@@ -210,23 +210,23 @@ function HomePage() {
           loading="lazy"
           className="absolute inset-0 size-full object-cover"
         />
-        <div className="absolute inset-0 bg-[oklch(0.08_0.02_270/92%)]" />
+        <div className="absolute inset-0 bg-[oklch(0.99_0.005_260/92%)]" />
         <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background/60" />
         <div className="pointer-events-none absolute -top-px left-0 h-px w-1/2 bg-gradient-to-r from-transparent via-accent to-transparent [animation:beam-sweep_6s_ease-in-out_infinite]" />
 
         <div className="container-prose relative py-20 sm:py-32">
           <Reveal>
             <div className="mx-auto max-w-3xl text-center">
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-white/80 backdrop-blur">
+              <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-foreground/80 backdrop-blur">
                 <span className="size-1.5 rounded-full bg-accent" />
                 Research Use Only
               </div>
-              <h2 className="mt-6 font-display text-[26px] font-normal leading-[1.15] tracking-tight text-balance text-white sm:mt-5 sm:text-4xl sm:font-medium lg:text-5xl">
+              <h2 className="mt-6 font-display text-[26px] font-normal leading-[1.15] tracking-tight text-balance text-foreground sm:mt-5 sm:text-4xl sm:font-medium lg:text-5xl">
                 Avis réglementaire — Research Use Only (RUO)
               </h2>
-              <p className="mt-7 text-[15px] leading-[1.75] text-white/75 sm:mt-6 sm:leading-relaxed">
+              <p className="mt-7 text-[15px] leading-[1.75] text-muted-foreground sm:mt-6 sm:leading-relaxed">
                 Les produits commercialisés par Peptinium Labs sont des{" "}
-                <strong className="text-white">réactifs chimiques destinés à la recherche scientifique in vitro</strong>{" "}
+                <strong className="text-foreground">réactifs chimiques destinés à la recherche scientifique in vitro</strong>{" "}
                 en environnement de laboratoire contrôlé. Ils ne sont pas destinés ni adaptés à un
                 usage vétérinaire, diagnostique, thérapeutique, alimentaire ou cosmétique.
                 Toute manipulation doit être effectuée par un personnel qualifié, dans le respect
@@ -297,7 +297,7 @@ function FeaturedCard({ featured }: { featured: typeof products[number] }) {
     <Link
       to="/produits/$slug"
       params={{ slug: featured.slug }}
-      className="group relative block overflow-hidden rounded-2xl border border-border bg-card shadow-[0_30px_60px_-30px_rgba(0,0,0,0.5)] transition-shadow hover:shadow-[0_40px_80px_-30px_rgba(0,0,0,0.7)]"
+      className="group relative block overflow-hidden rounded-2xl border border-border bg-card shadow-[0_30px_60px_-30px_oklch(0.55_0.06_250/0.18)] transition-shadow hover:shadow-[0_40px_80px_-30px_oklch(0.55_0.06_250/0.24)]"
     >
       {/* header */}
       <div className="relative overflow-hidden border-b border-border bg-surface-2">
