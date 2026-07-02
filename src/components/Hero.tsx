@@ -112,12 +112,14 @@ export function Hero() {
           </Link>
 
         </div>
+      </div>
 
-
-        {/* Vial */}
+      {/* Vial */}
+      <div className="container-prose relative flex flex-col items-center px-5 pb-16 lg:-mt-8 lg:pb-6">
         <VialShowcase />
       </div>
     </section>
+
   );
 }
 
