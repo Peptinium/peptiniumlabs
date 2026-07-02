@@ -88,8 +88,25 @@ function HomePage() {
       {/* ============ IMMERSIVE HERO ============ */}
       <Hero />
 
-      {/* ============ MARQUEE OF SPECS ============ */}
+      {/* ============ TRUST BAR ============ */}
       <section className="border-y border-border bg-surface-2">
+        <div className="container-prose grid grid-cols-2 gap-6 py-6 sm:grid-cols-4 sm:py-7">
+          {[
+            { k: "HPLC", v: "≥ 99 % pureté" },
+            { k: "CoA", v: "À chaque lot" },
+            { k: "RUO", v: "Recherche uniquement" },
+            { k: "24 h", v: "Expédition rapide" },
+          ].map((t) => (
+            <div key={t.k} className="flex flex-col items-start gap-1">
+              <span className="font-display text-sm font-semibold tracking-tight text-foreground sm:text-base">{t.k}</span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">{t.v}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ============ MARQUEE OF SPECS ============ */}
+      <section className="border-b border-border bg-surface">
         <div className="overflow-hidden">
           <div className="flex animate-[marquee_45s_linear_infinite] whitespace-nowrap py-5">
             {[...specsMarquee, ...specsMarquee].map((s, i) => (
@@ -99,6 +116,46 @@ function HomePage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ============ PILLARS ============ */}
+      <section className="container-prose py-20 sm:py-24">
+        <Reveal>
+          <div className="max-w-2xl">
+            <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">— Pourquoi Peptinium</div>
+            <h2 className="mt-3 font-display text-[26px] font-normal leading-[1.15] tracking-tight text-balance sm:text-4xl sm:font-medium">
+              Une exigence de laboratoire, pensée pour le chercheur.
+            </h2>
+          </div>
+        </Reveal>
+        <div className="mt-12 grid gap-5 sm:mt-14 md:grid-cols-3">
+          {[
+            {
+              n: "01",
+              t: "Pureté vérifiée",
+              d: "Chaque lot est analysé par HPLC en phase inverse et validé par spectrométrie de masse. Aucune ambiguïté sur l'identité et le titre.",
+            },
+            {
+              n: "02",
+              t: "Traçabilité totale",
+              d: "Numéro de lot unique, archive de 5 ans, CoA disponible en un clic. Chaque flacon est documenté.",
+            },
+            {
+              n: "03",
+              t: "Support recherche",
+              d: "MSDS, protocoles labo et conseils de reconstitution sur demande. Un interlocuteur qui parle votre langage.",
+            },
+          ].map((p, i) => (
+            <Reveal key={p.n} delay={i * 80}>
+              <div className="hover-lift group relative flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card p-7">
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">— {p.n}</span>
+                <h3 className="mt-5 font-display text-xl font-medium tracking-tight">{p.t}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.d}</p>
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+              </div>
+            </Reveal>
+          ))}
         </div>
       </section>
 
@@ -197,6 +254,44 @@ function HomePage() {
             />
           </div>
         </div>
+      </section>
+
+      {/* ============ FINAL CTA ============ */}
+      <section className="container-prose py-20 sm:py-24">
+        <Reveal>
+          <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-10 sm:p-14">
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 opacity-[0.9]"
+              style={{
+                background:
+                  "radial-gradient(60% 100% at 100% 0%, color-mix(in oklab, var(--brand-violet) 14%, transparent) 0%, transparent 60%), radial-gradient(60% 100% at 0% 100%, color-mix(in oklab, var(--brand-cyan) 12%, transparent) 0%, transparent 60%)",
+              }}
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -top-px left-0 h-px w-1/2 bg-gradient-to-r from-transparent via-accent to-transparent [animation:beam-sweep_6s_ease-in-out_infinite]"
+            />
+            <div className="relative flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-end">
+              <div className="max-w-xl">
+                <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">— Prêt à commander</div>
+                <h2 className="mt-3 font-display text-3xl font-medium leading-[1.1] tracking-tight text-balance sm:text-4xl">
+                  Passez commande avec la sérénité du labo.
+                </h2>
+                <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">
+                  Certificat d'Analyse, traçabilité complète, expédition sous 24 h.
+                </p>
+              </div>
+              <Link
+                to="/produits"
+                className="group inline-flex items-center gap-2 rounded-full brand-gradient-bg px-7 py-3.5 font-mono text-[11px] uppercase tracking-[0.22em] text-white shadow-[0_18px_40px_-16px_oklch(0.55_0.22_296/0.55)] transition-transform hover:-translate-y-0.5"
+              >
+                Voir le catalogue
+                <span className="transition-transform group-hover:translate-x-0.5">→</span>
+              </Link>
+            </div>
+          </div>
+        </Reveal>
       </section>
 
       {/* ============ RUO REMINDER with lab background ============ */}

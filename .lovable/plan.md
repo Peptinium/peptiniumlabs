@@ -1,88 +1,69 @@
-ns# Interface admin mobile complète
 
-Tout est intégré à l'admin existant sur `/_authenticated/admin`, optimisé mobile (onglets en bas, cartes empilables, tables transformées en listes sur petit écran). Aucune app native — c'est une PWA installable depuis Safari/Chrome ("Ajouter à l'écran d'accueil"), donc utilisable comme une vraie app sur ton téléphone.
+# Plan — Flacon "3D" par turntable 4 vues + refonte Home
 
-## Ce qui est ajouté
+Tu m'as fourni 4 vues du flacon Retatrutide (avant, gauche, arrière, droite). Je peux effectivement créer un **effet 3D convaincant** sans modèle GLB, en utilisant une technique éprouvée (Apple, sites e-commerce premium) : **image turntable interactif avec cross-fade angulaire**. Résultat : on peut faire pivoter le flacon à 360° à la souris, avec un rendu très fluide.
 
-### 1. Commandes (existe, enrichi)
-- Liste filtrable (statut, recherche par n° de commande / nom / email)
-- Détail commande : produits, montants, client, adresse, notes
-- Changement de statut : en attente → payée → expédiée → livrée → annulée
-- Numéro de suivi colissimo/DHL optionnel
+## 1. Effet 3D turntable (Hero)
 
-### 2. Validation manuelle des paiements
-- Onglet "Paiements à valider" qui liste les commandes `pending` avec virement attendu
-- Bouton "Marquer comme payée" → passe en `paid` + horodatage + email automatique de confirmation
-- Champ note interne (référence virement, banque, etc.)
+**Principe**
+- Les 4 images (0°, 90°, 180°, 270°) sont mappées sur un cercle de rotation.
+- L'angle courant est calculé depuis le drag horizontal de la souris/tactile.
+- On affiche les 2 images adjacentes empilées avec un cross-fade proportionnel à la position entre les 2 angles → transitions fluides, illusion de rotation continue.
+- Auto-rotation lente (≈ 20 s / tour) quand l'utilisateur n'interagit pas ; pause au hover/drag ; reprise après ~2 s d'inactivité.
+- Halo lumineux animé (cyan → bleu → violet) derrière le flacon, souffle doux qui pulse.
+- Reflet/ombre douce projetée dessous.
+- Curseur `grab` / `grabbing` pour signaler l'interactivité.
+- Support tactile (mobile) : swipe horizontal = rotation.
 
-### 3. Suivi des stocks (existe, enrichi)
-- Édition stock/prix/actif inline (déjà en place)
-- Alerte visuelle si stock ≤ seuil bas (configurable par produit)
-- Historique des mouvements de stock (vente, ajustement manuel, retour)
-- Bouton "Ajuster stock" avec motif
+**Limitation honnête** : 4 vues = illusion 360° convaincante mais on ne voit pas les angles intermédiaires réels (les vues à 45°, 135°, etc. sont interpolées par fondu). Pour un vrai lisse parfait à 360°, il faudrait 24–36 vues ou un modèle GLB. Si tu veux monter en gamme plus tard, on pourra remplacer par un GLB sans changer l'interface.
 
-### 4. Génération de factures PDF
-- Bouton "Télécharger facture" sur chaque commande payée
-- PDF généré côté serveur (pdf-lib, compatible Worker) avec logo Aetherion Labs, infos légales suisses/UE, TVA, mentions RUO
-- Numérotation séquentielle annuelle : `FA-2026-0001`
-- Stockage du n° de facture sur la commande pour rappel
+**Assets**
+- Upload des 4 PNG via `lovable-assets` (CDN), pointeurs `.asset.json` dans `src/assets/vial/`.
+- Preload des 4 images au montage pour éviter tout flash.
 
-### 5. Statistiques de ventes & attraction (avec graphiques)
-- Onglet "Stats" avec cartes KPI : CA jour/semaine/mois, panier moyen, nb commandes, taux de conversion
-- Graphiques (recharts, déjà installé) :
-  - Ventes journalières (30 derniers jours)
-  - Top produits (bar chart)
-  - Sources de trafic & pages vues (tracking interne simple, table `page_views`)
-- Sélecteur de période (7j / 30j / 90j / année)
+## 2. Hero refondu
 
-### 6. Gestion des clients
-- Onglet "Clients" : liste dérivée des commandes (regroupée par email)
-- Détail client : commandes passées, CA total, dernière commande, adresses utilisées
-- Note interne par client (allergies info, préférences…)
-- Recherche par nom/email/téléphone
+- **Titre** : `Peptinium` en très grande typo Sora, avec **effet balai lumineux** (shimmer gradient cyan→bleu→violet→magenta qui balaye) — l'effet qu'on avait avant, réintégré.
+- **Sous-titre FR** : « Peptides de recherche haute pureté » (modifiable).
+- Micro-labels : « Pureté ≥ 99% · Lab-tested · Research Use Only ».
+- 2 CTA : « Explorer le catalogue » + « Voir les COA ».
+- Flacon turntable à droite (desktop) / sous le texte (mobile).
+- Indice visuel discret « Faites glisser pour tourner » qui disparaît à la 1re interaction.
 
-### 7. Système de tickets SAV
-- Page publique `/support` : formulaire (n° commande + email + message + pièce jointe)
-- Onglet admin "Support" : liste des tickets (ouvert / en cours / résolu / fermé)
-- Vue conversation : réponses admin ↔ client, notifications email à chaque réponse
-- Lien automatique vers la commande concernée
+## 3. Restructuration de la Home
+
+```text
+1. Header (sticky, glass)
+2. Hero              → titre FR shimmer + flacon turntable interactif
+3. Trust bar         → RUO · COA · Expédition rapide · Paiement sécurisé
+4. Produits phares   → grille 3-4 ProductCard
+5. Pourquoi Peptinium → 3 piliers (Pureté 99% · Traçabilité · Support)
+6. Process qualité    → Timeline (Synthèse → HPLC → COA → Expédition)
+7. Témoignages       → 3 cartes chercheurs + rating
+8. FAQ concise       → 5-6 accordéons
+9. CTA final         → bandeau gradient
+10. RUO Banner + Footer
+```
+
+Espace généreux, animations d'apparition au scroll (IntersectionObserver + `fade-in`), micro-interactions Apple-like sur hover.
+
+## 4. Cohérence DA
+
+Palette conservée (cyan/bleu/violet/magenta du logo), thème clair, Sora + Inter. Aucune couleur hors DA.
 
 ## Détails techniques
 
-**Schéma DB ajouté**
-- `invoices` (order_id, number, pdf_path, issued_at, total_eur, vat_eur)
-- `stock_movements` (product_id, delta, reason, note, created_by)
-- `payments` (order_id, method, amount, validated_at, validated_by, reference)
-- `page_views` (path, referrer, session_id, user_agent, country, created_at)
-- `support_tickets` (order_id?, email, subject, status, priority)
-- `support_messages` (ticket_id, author_role, body, attachment_path)
-- `customer_notes` (email, note, updated_by)
-- Tous protégés RLS admin-only, écritures via service_role dans server functions
+- Nouveaux fichiers :
+  - `src/assets/vial/RT_AVANT.png.asset.json` + 3 autres (upload CDN).
+  - `src/components/VialTurntable.tsx` — composant turntable drag + autorotate.
+  - `src/components/Hero.tsx` — refonte (remplace l'actuel).
+  - `src/components/home/TrustBar.tsx`, `Pillars.tsx`, `QualityProcess.tsx`, `Testimonials.tsx`, `HomeFAQ.tsx`, `FinalCTA.tsx`.
+- Modifs :
+  - `src/routes/index.tsx` : nouvelle structure de sections.
+  - `src/styles.css` : classe `shimmer-text` réactivée avec keyframe.
+- **Aucune dépendance npm ajoutée** (pas de Three.js) → build léger, zéro impact perf.
+- Non touchés : Header, Footer, catalogue, pages produits, blog, calculatrice, tester-fioles.
 
-**Server functions** (`src/lib/admin/*.functions.ts`)
-- `validatePayment`, `recordStockMovement`, `generateInvoicePdf`, `getStats`, `listCustomers`, `listTickets`, `replyTicket`, `submitTicket` (public)
+## Prochaine étape
 
-**PDF**
-- Génération via `pdf-lib` (pur JS, compatible Worker), pas de Chromium
-- Stocké dans bucket Storage privé `invoices/`, URL signée à la demande
-
-**Tracking de trafic**
-- Hook léger dans `__root.tsx` qui POST sur `/api/public/track` (server route), insère dans `page_views` via service role
-- Anonymisé : pas d'IP brute stockée, juste pays approximatif via header CF
-
-**Mobile/PWA**
-- Manifest + icônes pour installation à l'écran d'accueil
-- Layout admin avec navigation par onglets en bas (style app native), responsive
-
-**Emails transactionnels**
-- Confirmation paiement, réponse SAV, notification commande expédiée — via Resend (à connecter)
-
-## Phasage suggéré
-Je propose de livrer en 2 vagues pour pouvoir tester :
-- **Vague 1** : paiements, stock enrichi, factures PDF, clients, layout mobile/PWA
-- **Vague 2** : stats avec graphiques + tracking trafic, tickets SAV
-
-## À confirmer avant de coder
-1. **Emails sortants** : tu veux que je branche Resend maintenant (il faudra une clé API et un domaine vérifié) ou les emails restent désactivés pour le moment ?
-2. **TVA factures** : taux unique 20 % FR, ou multi-pays (FR 20 %, CH 8.1 %, autre UE selon pays client) ?
-3. **Phasage** : on fait tout d'un coup ou Vague 1 puis Vague 2 ?
+Si tu approuves, j'implémente tout en un passage. Si tu veux le vrai 3D GLB plus tard, on pourra faire l'upgrade en gardant la même UX.
