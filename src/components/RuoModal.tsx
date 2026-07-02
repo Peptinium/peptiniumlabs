@@ -33,11 +33,11 @@ export function RuoModal() {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-end justify-center bg-black/70 p-4 backdrop-blur-md sm:items-center"
+      className="fixed inset-0 z-50 flex items-end justify-center bg-foreground/35 p-4 backdrop-blur-md sm:items-center"
       style={{ animation: "fade-in 0.4s cubic-bezier(0.22,1,0.36,1) both" }}
     >
       <div
-        className="w-full max-w-xl overflow-hidden rounded-xl border border-white/10 bg-card shadow-2xl"
+        className="w-full max-w-xl overflow-hidden rounded-xl border border-border bg-card shadow-2xl"
         style={{ animation: "scale-in 0.5s cubic-bezier(0.22,1,0.36,1) both" }}
       >
         <div className="relative overflow-hidden border-b border-border bg-surface-2">
@@ -46,14 +46,14 @@ export function RuoModal() {
               <span className="size-1.5 animate-pulse rounded-full bg-accent" />
               Vérification d'accès — Laboratoire
             </div>
-            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">
+            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary">
               Recherche uniquement
             </span>
           </div>
           <div className="pointer-events-none absolute inset-0 opacity-30 grid-bg" />
         </div>
         <div className="px-7 py-7">
-          <h2 className="font-display text-xl font-medium tracking-tight">
+          <h2 className="font-display text-xl font-medium tracking-tight text-foreground">
             Certification d'usage recherche
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
@@ -83,14 +83,14 @@ export function RuoModal() {
           <div className="mt-7 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
             <a
               href="https://www.google.com"
-              className="rounded-full border border-border px-5 py-2.5 text-center text-sm text-foreground/70 transition-colors hover:bg-surface"
+              className="rounded-full border border-border bg-surface px-5 py-2.5 text-center text-sm text-foreground/70 transition-colors hover:bg-surface-2"
             >
               Je refuse
             </a>
             <button
               onClick={accept}
               disabled={!canAccept}
-              className={`group relative overflow-hidden rounded-full px-5 py-2.5 text-sm font-medium text-background transition-all ${
+              className={`group relative overflow-hidden rounded-full px-5 py-2.5 text-sm font-medium text-primary-foreground transition-all ${
                 canAccept
                   ? "bg-foreground hover:bg-foreground/90"
                   : "cursor-not-allowed bg-foreground/40"
@@ -118,7 +118,7 @@ function Check({
   label: string;
 }) {
   return (
-    <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-border bg-background p-3.5 transition-colors hover:border-accent/50">
+    <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-border bg-background p-3.5 transition-colors hover:border-primary/40">
       <span className="relative mt-0.5 flex size-4 shrink-0 items-center justify-center">
         <input
           type="checkbox"

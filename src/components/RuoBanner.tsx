@@ -8,7 +8,7 @@ export function RuoBanner() {
   ];
   const loop = [...items, ...items];
   return (
-    <div className="relative overflow-hidden border-b border-white/10 bg-surface-2">
+    <div className="relative overflow-hidden border-b border-border bg-surface-2">
       <div className="flex animate-[marquee_38s_linear_infinite] whitespace-nowrap py-1.5">
         {loop.map((t, i) => (
           <div

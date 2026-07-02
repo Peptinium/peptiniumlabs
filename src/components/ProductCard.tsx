@@ -43,7 +43,7 @@ export function ProductCard({ product }: { product: Product }) {
     <Link
       to="/produits/$slug"
       params={{ slug: product.slug }}
-      className="hover-lift group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card"
+      className="hover-lift group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm"
     >
       <div className="relative aspect-[2/3] overflow-hidden border-b border-border bg-surface">
         <ProductVisual
@@ -54,7 +54,7 @@ export function ProductCard({ product }: { product: Product }) {
           imageClassName="size-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
           loading="lazy"
         />
-        <div className="absolute right-3 top-3 rounded-full border border-white/10 bg-card/84 px-2.5 py-1 font-display text-sm font-medium text-foreground shadow-sm backdrop-blur-sm">
+        <div className="absolute right-3 top-3 rounded-full border border-border bg-card/92 px-2.5 py-1 font-display text-sm font-medium text-foreground shadow-sm backdrop-blur-sm">
           {hasMultiple ? <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-muted-foreground">dès </span> : null}
           {formatPrice(price)}
         </div>
@@ -63,7 +63,7 @@ export function ProductCard({ product }: { product: Product }) {
             Rupture de stock
           </div>
         )}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-background/35 via-background/8 to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-background/25 via-background/5 to-transparent" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
       </div>
       <div className="flex flex-1 flex-col gap-2 p-3 sm:p-5">
