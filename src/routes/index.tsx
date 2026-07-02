@@ -297,7 +297,7 @@ function FeaturedCard({ featured }: { featured: typeof products[number] }) {
     <Link
       to="/produits/$slug"
       params={{ slug: featured.slug }}
-      className="group relative block overflow-hidden rounded-2xl border border-border bg-card shadow-[0_30px_60px_-30px_rgba(0,0,0,0.5)] transition-shadow hover:shadow-[0_40px_80px_-30px_rgba(0,0,0,0.7)]"
+      className="group relative block overflow-hidden rounded-2xl border border-border bg-card shadow-[0_30px_60px_-30px_oklch(0.55_0.06_250/0.18)] transition-shadow hover:shadow-[0_40px_80px_-30px_oklch(0.55_0.06_250/0.24)]"
     >
       {/* header */}
       <div className="relative overflow-hidden border-b border-border bg-surface-2">
