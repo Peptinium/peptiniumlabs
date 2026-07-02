@@ -52,7 +52,7 @@ export function RuoModal() {
           </div>
           <div className="pointer-events-none absolute inset-0 opacity-30 grid-bg" />
         </div>
-        <div className="px-7 py-7">
+        <div className="px-5 py-5 sm:px-7 sm:py-7">
           <h2 className="font-display text-xl font-medium tracking-tight text-foreground">
             Certification d'usage recherche
           </h2>
