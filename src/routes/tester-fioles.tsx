@@ -265,7 +265,7 @@ function TestVialsPage() {
       <section
         className="relative overflow-hidden border-t border-border"
         style={{
-          backgroundImage: `linear-gradient(135deg, oklch(0.18 0.08 245 / 0.92), oklch(0.14 0.07 250 / 0.96)), url(${labBg})`,
+          backgroundImage: `linear-gradient(135deg, oklch(0.97 0.01 245 / 0.92), oklch(0.95 0.015 250 / 0.96)), url(${labBg})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -275,10 +275,10 @@ function TestVialsPage() {
         <div className="container-prose relative py-24">
           <Reveal>
             <RuoBadge variant="ghost" />
-            <h2 className="mt-5 max-w-3xl font-display text-3xl font-medium tracking-tight text-white sm:text-4xl">
+            <h2 className="mt-5 max-w-3xl font-display text-3xl font-medium tracking-tight text-foreground sm:text-4xl">
               Tester pour la <span className="shimmer-text">recherche</span> — pas pour la consommation
             </h2>
-            <p className="mt-5 max-w-3xl text-[15px] leading-relaxed text-white/75">
+            <p className="mt-5 max-w-3xl text-[15px] leading-relaxed text-muted-foreground">
               La vérification analytique d'une fiole s'inscrit dans une démarche scientifique
               rigoureuse de contrôle qualité des réactifs de recherche. Elle ne valide en aucun
               cas une utilisation vétérinaire, diagnostique ou thérapeutique. Les
@@ -289,7 +289,7 @@ function TestVialsPage() {
               {["HPLC ≥ 99 %", "MS · CoA par lot", "ISO 9001", "RUO strict"].map((t) => (
                 <span
                   key={t}
-                  className="rounded-full border border-white/15 bg-white/5 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-white/70 backdrop-blur"
+                  className="rounded-full border border-border bg-card px-3 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground backdrop-blur"
                 >
                   {t}
                 </span>
