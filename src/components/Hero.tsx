@@ -126,17 +126,17 @@ export function Hero() {
                 />
 
                 {/* Glass body */}
-                <g style={{ opacity: 0.75 + glass * 0.25, transition: "opacity 0.4s ease" }}>
+                <g style={{ transition: "opacity 0.4s ease" }}>
                   <path
                     d="M70 110 L70 300 Q70 330 110 330 Q150 330 150 300 L150 110 Z"
                     fill="url(#glassInner)"
-                    stroke="oklch(0.65 0.04 250 / 0.45)"
+                    stroke="oklch(0.60 0.04 250 / 0.5)"
                     strokeWidth="1.5"
                   />
                   <path
                     d="M70 110 L70 300 Q70 330 110 330 Q150 330 150 300 L150 110 Z"
                     fill="url(#glassBody)"
-                    stroke="oklch(0.70 0.03 250 / 0.55)"
+                    stroke="oklch(0.65 0.03 250 / 0.6)"
                     strokeWidth="1.5"
                   />
                   <path
@@ -147,7 +147,7 @@ export function Hero() {
                   <path
                     d="M72 115 L72 300 Q72 325 110 325 Q148 325 148 300 L148 115 Z"
                     fill="none"
-                    stroke="oklch(0.60 0.04 250 / 0.22)"
+                    stroke="oklch(0.55 0.04 250 / 0.28)"
                     strokeWidth="1"
                   />
                 </g>
