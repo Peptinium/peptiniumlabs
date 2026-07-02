@@ -88,8 +88,25 @@ function HomePage() {
       {/* ============ IMMERSIVE HERO ============ */}
       <Hero />
 
-      {/* ============ MARQUEE OF SPECS ============ */}
+      {/* ============ TRUST BAR ============ */}
       <section className="border-y border-border bg-surface-2">
+        <div className="container-prose grid grid-cols-2 gap-6 py-6 sm:grid-cols-4 sm:py-7">
+          {[
+            { k: "HPLC", v: "≥ 99 % pureté" },
+            { k: "CoA", v: "À chaque lot" },
+            { k: "RUO", v: "Recherche uniquement" },
+            { k: "24 h", v: "Expédition rapide" },
+          ].map((t) => (
+            <div key={t.k} className="flex flex-col items-start gap-1">
+              <span className="font-display text-sm font-semibold tracking-tight text-foreground sm:text-base">{t.k}</span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">{t.v}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ============ MARQUEE OF SPECS ============ */}
+      <section className="border-b border-border bg-surface">
         <div className="overflow-hidden">
           <div className="flex animate-[marquee_45s_linear_infinite] whitespace-nowrap py-5">
             {[...specsMarquee, ...specsMarquee].map((s, i) => (
@@ -99,6 +116,46 @@ function HomePage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ============ PILLARS ============ */}
+      <section className="container-prose py-20 sm:py-24">
+        <Reveal>
+          <div className="max-w-2xl">
+            <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">— Pourquoi Peptinium</div>
+            <h2 className="mt-3 font-display text-[26px] font-normal leading-[1.15] tracking-tight text-balance sm:text-4xl sm:font-medium">
+              Une exigence de laboratoire, pensée pour le chercheur.
+            </h2>
+          </div>
+        </Reveal>
+        <div className="mt-12 grid gap-5 sm:mt-14 md:grid-cols-3">
+          {[
+            {
+              n: "01",
+              t: "Pureté vérifiée",
+              d: "Chaque lot est analysé par HPLC en phase inverse et validé par spectrométrie de masse. Aucune ambiguïté sur l'identité et le titre.",
+            },
+            {
+              n: "02",
+              t: "Traçabilité totale",
+              d: "Numéro de lot unique, archive de 5 ans, CoA disponible en un clic. Chaque flacon est documenté.",
+            },
+            {
+              n: "03",
+              t: "Support recherche",
+              d: "MSDS, protocoles labo et conseils de reconstitution sur demande. Un interlocuteur qui parle votre langage.",
+            },
+          ].map((p, i) => (
+            <Reveal key={p.n} delay={i * 80}>
+              <div className="hover-lift group relative flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card p-7">
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">— {p.n}</span>
+                <h3 className="mt-5 font-display text-xl font-medium tracking-tight">{p.t}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.d}</p>
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+              </div>
+            </Reveal>
+          ))}
         </div>
       </section>
 
