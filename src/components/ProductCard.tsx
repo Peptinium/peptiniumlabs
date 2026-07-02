@@ -67,29 +67,29 @@ export function ProductCard({ product }: { product: Product }) {
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
       </div>
       <div className="flex flex-1 flex-col gap-2 p-3 sm:p-5">
-        <div className="flex items-start justify-between gap-3">
-          <div>
+        <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
+          <div className="min-w-0">
             <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent">
               {product.category}
             </div>
-            <h3 className="mt-1 font-display text-[15px] font-medium tracking-tight text-foreground transition-colors group-hover:text-accent sm:text-[17px]">
+            <h3 className="mt-1 truncate font-display text-[15px] font-medium tracking-tight text-foreground transition-colors group-hover:text-accent sm:text-[17px]">
               {product.name}
             </h3>
           </div>
-          <div className="text-right font-mono text-[9px] uppercase tracking-[0.18em] text-muted-foreground">
+          <div className="font-mono text-[9px] uppercase tracking-[0.18em] text-muted-foreground sm:text-right">
             {hasMultiple
               ? product.variants.map((v) => v.dosage).join(" · ")
               : product.variants[0].dosage}
           </div>
         </div>
-        <p className="line-clamp-2 text-xs leading-relaxed text-muted-foreground">
+        <p className="line-clamp-2 hidden text-xs leading-relaxed text-muted-foreground sm:block">
           {product.shortDescription}
         </p>
-        <div className="mt-3 flex items-center justify-between border-t border-border pt-3 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+        <div className="mt-2 flex items-center justify-between border-t border-border pt-2.5 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground sm:mt-3 sm:pt-3">
           <span className="truncate">
             {hasMultiple ? `${product.variants.length} dosages` : `CAS ${product.cas ?? "—"}`}
           </span>
-          <span className="text-accent transition-transform duration-300 group-hover:translate-x-0.5">
+          <span className="shrink-0 text-accent transition-transform duration-300 group-hover:translate-x-0.5">
             {hasMultiple ? "Choisir →" : "Fiche →"}
           </span>
         </div>
