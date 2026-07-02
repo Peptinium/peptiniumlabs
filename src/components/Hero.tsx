@@ -31,33 +31,34 @@ export function Hero() {
         className="pointer-events-none absolute -top-px left-0 h-px w-1/2 bg-gradient-to-r from-transparent via-[oklch(0.62_0.26_296)] to-transparent [animation:beam-sweep_7s_ease-in-out_infinite]"
       />
 
-      <div className="container-prose relative flex flex-col items-center px-5 pt-20 pb-6 text-center sm:pt-28 lg:pt-32">
+      <div className="container-prose relative flex min-h-[100svh] flex-col items-center justify-center px-5 pt-24 pb-10 text-center lg:min-h-0 lg:justify-start lg:pt-32 lg:pb-6">
         {/* Pill */}
-        <div className="inline-flex items-center gap-2 rounded-full border border-[oklch(0.18_0.02_270)]/10 bg-white/60 px-3 py-1 font-mono text-[9px] uppercase tracking-[0.24em] text-[oklch(0.30_0.03_270)] shadow-[0_1px_0_oklch(1_0_0)] backdrop-blur sm:px-3.5 sm:py-1.5 sm:text-[10px] sm:tracking-[0.28em]">
+        <div className="inline-flex items-center gap-2 rounded-full border border-[oklch(0.18_0.02_270)]/10 bg-white/60 px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.26em] text-[oklch(0.30_0.03_270)] shadow-[0_1px_0_oklch(1_0_0)] backdrop-blur lg:px-3.5 lg:py-1.5 lg:text-[10px] lg:tracking-[0.28em]">
           <span className="size-1.5 animate-pulse rounded-full bg-[oklch(0.55_0.24_296)]" />
           Recherche avancée
         </div>
 
         {/* Title */}
-        <h1 className="mt-6 font-display text-[34px] font-semibold leading-[1] tracking-[-0.03em] text-balance text-[oklch(0.15_0.02_270)] sm:mt-8 sm:text-[72px] sm:leading-[0.95] sm:tracking-[-0.035em] lg:text-[92px]">
+        <h1 className="mt-7 font-display text-[52px] font-semibold leading-[0.98] tracking-[-0.035em] text-balance text-[oklch(0.15_0.02_270)] sm:text-[64px] lg:mt-8 lg:text-[92px] lg:leading-[0.95]">
           <span className="shimmer-text block">L'Avenir de la</span>
           <span className="shimmer-text block">Précision Moléculaire.</span>
         </h1>
 
 
         {/* Subtitle */}
-        <p className="mt-5 max-w-2xl text-[14px] leading-[1.65] text-[oklch(0.35_0.02_270)] sm:mt-7 sm:text-[17px] sm:leading-[1.7]">
+        <p className="mt-6 max-w-2xl text-[17px] leading-[1.6] text-[oklch(0.35_0.02_270)] lg:mt-7 lg:text-[17px] lg:leading-[1.7]">
           Peptides synthétiques haute pureté, contrôlés par HPLC et livrés avec
           Certificat d'Analyse. L'exigence du laboratoire, pensée pour le
           chercheur.
         </p>
 
 
+
         {/* CTAs — Mobile (solid, high contrast) */}
-        <div className="mt-8 flex w-full flex-col items-stretch gap-3 sm:hidden">
+        <div className="mt-9 flex w-full flex-col items-stretch gap-3 lg:hidden">
           <Link
             to="/produits"
-            className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-6 py-3.5 font-mono text-[11px] uppercase tracking-[0.22em] text-white shadow-[0_18px_40px_-16px_color-mix(in_oklab,var(--brand-violet)_70%,transparent)]"
+            className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-6 py-4 font-mono text-[13px] uppercase tracking-[0.22em] text-white shadow-[0_18px_40px_-16px_color-mix(in_oklab,var(--brand-violet)_70%,transparent)]"
             style={{
               backgroundImage:
                 "linear-gradient(120deg, oklch(0.55 0.20 210) 0%, oklch(0.50 0.24 280) 55%, oklch(0.58 0.26 330) 100%)",
