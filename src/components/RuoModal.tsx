@@ -41,7 +41,7 @@ export function RuoModal() {
         style={{ animation: "scale-in 0.5s cubic-bezier(0.22,1,0.36,1) both" }}
       >
         <div className="relative overflow-hidden border-b border-border bg-surface-2">
-          <div className="relative z-10 flex items-center justify-between px-6 py-4">
+          <div className="relative z-10 flex items-center justify-between gap-3 px-5 py-3 sm:px-6 sm:py-4">
             <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-foreground/80">
               <span className="size-1.5 animate-pulse rounded-full bg-accent" />
               Vérification d'accès — Laboratoire
