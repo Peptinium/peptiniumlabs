@@ -155,9 +155,8 @@ export function Hero() {
                 {/* Lyophilized powder */}
                 <g
                   style={{
-                    opacity: 0.75 + powder * 0.25,
                     transform: `translateY(${(1 - powder) * 30}px)`,
-                    transition: "opacity 0.4s ease, transform 0.4s ease",
+                    transition: "transform 0.4s ease",
                   }}
                 >
                   <path
