@@ -47,7 +47,7 @@ export function Hero() {
 
   return (
     <div ref={containerRef} className="relative h-[250vh]">
-      <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden bg-background">
+      <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden bg-gradient-to-b from-background via-blue-50/40 to-background">
         {/* Atmospheric background */}
         <div className="pointer-events-none absolute inset-0">
           <div
