@@ -51,13 +51,13 @@ export function Hero() {
         {/* Atmospheric background */}
         <div className="pointer-events-none absolute inset-0">
           <div
-            className="absolute left-1/2 top-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,oklch(0.62_0.14_260/0.16)_0%,transparent_70%)] blur-3xl"
-            style={{ opacity: 0.5 + glow * 0.5 }}
+            className="absolute left-1/2 top-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,oklch(0.62_0.14_260/0.18)_0%,transparent_70%)] blur-3xl"
+            style={{ opacity: 0.6 + glow * 0.4 }}
           />
-          <div className="absolute bottom-0 left-1/2 h-[500px] w-full max-w-4xl -translate-x-1/2 bg-gradient-to-t from-cyan-200/20 via-blue-100/15 to-transparent" />
-          <div className="absolute left-1/4 top-1/3 h-2 w-2 rounded-full bg-blue-500/35 blur-[2px]" />
-          <div className="absolute bottom-1/4 right-1/3 h-3 w-3 rounded-full bg-purple-500/30 blur-[3px]" />
-          <div className="absolute right-1/4 top-1/2 h-1.5 w-1.5 rounded-full bg-cyan-500/45 blur-[1px]" />
+          <div className="absolute bottom-0 left-1/2 h-[500px] w-full max-w-4xl -translate-x-1/2 bg-gradient-to-t from-cyan-200/25 via-blue-100/20 to-transparent" />
+          <div className="absolute left-1/4 top-1/3 h-2 w-2 rounded-full bg-blue-500/40 blur-[2px]" />
+          <div className="absolute bottom-1/4 right-1/3 h-3 w-3 rounded-full bg-purple-500/35 blur-[3px]" />
+          <div className="absolute right-1/4 top-1/2 h-1.5 w-1.5 rounded-full bg-cyan-500/55 blur-[1px]" />
         </div>
 
         {/* Central vial assembly */}
@@ -65,34 +65,38 @@ export function Hero() {
           <div className="relative flex flex-col items-center">
             {/* Vial halo */}
             <div
-              className="pointer-events-none absolute -inset-16 z-0 rounded-full bg-[radial-gradient(circle,oklch(0.62_0.16_260/0.22)_0%,transparent_70%)] blur-2xl"
-              style={{ opacity: 0.5 + glow * 0.5 }}
+              className="pointer-events-none absolute -inset-16 z-0 rounded-full bg-[radial-gradient(circle,oklch(0.62_0.16_260/0.28)_0%,transparent_70%)] blur-2xl"
+              style={{ opacity: 0.6 + glow * 0.4 }}
             />
 
             <div
-              className="relative z-10 flex flex-col items-center drop-shadow-[0_0_60px_oklch(0.62_0.14_260/0.18)]"
+              className="relative z-10 flex flex-col items-center"
               style={{
                 transform: `translateY(${(1 - glass) * 20}px) scale(${0.94 + glass * 0.06})`,
                 transition: "transform 0.3s ease-out",
+                filter: "drop-shadow(0 28px 60px oklch(0.55 0.08 260 / 0.22))",
               }}
             >
               <svg
                 width="260"
                 height="420"
                 viewBox="0 0 220 360"
-                className="drop-shadow-[0_0_40px_oklch(0.55_0.12_260/0.18)]"
-                style={{ opacity: 0.5 + glass * 0.5 }}
+                style={{ opacity: 0.75 + glass * 0.25 }}
               >
                 <defs>
                   <linearGradient id="glassBody" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stopColor="rgba(255,255,255,0.85)" />
-                    <stop offset="50%" stopColor="rgba(245,247,250,0.55)" />
-                    <stop offset="100%" stopColor="rgba(255,255,255,0.75)" />
+                    <stop offset="0%" stopColor="rgba(255,255,255,0.92)" />
+                    <stop offset="50%" stopColor="rgba(240,246,255,0.75)" />
+                    <stop offset="100%" stopColor="rgba(255,255,255,0.88)" />
+                  </linearGradient>
+                  <linearGradient id="glassInner" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="oklch(0.94 0.02 250 / 0.35)" />
+                    <stop offset="100%" stopColor="oklch(0.92 0.03 250 / 0.45)" />
                   </linearGradient>
                   <linearGradient id="glassShine" x1="0" y1="0" x2="1" y2="0">
                     <stop offset="0%" stopColor="rgba(255,255,255,0)" />
-                    <stop offset="40%" stopColor="rgba(255,255,255,0.9)" />
-                    <stop offset="60%" stopColor="rgba(255,255,255,0.35)" />
+                    <stop offset="40%" stopColor="rgba(255,255,255,0.95)" />
+                    <stop offset="60%" stopColor="rgba(255,255,255,0.45)" />
                     <stop offset="100%" stopColor="rgba(255,255,255,0)" />
                   </linearGradient>
                   <linearGradient id="capSilver" x1="0" y1="0" x2="0" y2="1">
@@ -104,7 +108,7 @@ export function Hero() {
                   <linearGradient id="powderGrad" x1="0" y1="1" x2="0" y2="0">
                     <stop offset="0%" stopColor="#f8fafc" />
                     <stop offset="70%" stopColor="#e2e8f0" />
-                    <stop offset="100%" stopColor="rgba(255,255,255,0.85)" />
+                    <stop offset="100%" stopColor="rgba(255,255,255,0.92)" />
                   </linearGradient>
                   <linearGradient id="labelBrand" x1="0" y1="0" x2="1" y2="0">
                     <stop offset="0%" stopColor="#22d3ee" />
@@ -118,16 +122,22 @@ export function Hero() {
                   cy="340"
                   rx="60"
                   ry="8"
-                  fill="oklch(0.55 0.06 260 / 0.25)"
+                  fill="oklch(0.45 0.06 260 / 0.3)"
                   style={{ opacity: glass }}
                 />
 
                 {/* Glass body */}
-                <g style={{ opacity: 0.2 + glass * 0.8, transition: "opacity 0.4s ease" }}>
+                <g style={{ opacity: 0.75 + glass * 0.25, transition: "opacity 0.4s ease" }}>
+                  <path
+                    d="M70 110 L70 300 Q70 330 110 330 Q150 330 150 300 L150 110 Z"
+                    fill="url(#glassInner)"
+                    stroke="oklch(0.65 0.04 250 / 0.45)"
+                    strokeWidth="1.5"
+                  />
                   <path
                     d="M70 110 L70 300 Q70 330 110 330 Q150 330 150 300 L150 110 Z"
                     fill="url(#glassBody)"
-                    stroke="oklch(0.75 0.03 250 / 0.55)"
+                    stroke="oklch(0.70 0.03 250 / 0.55)"
                     strokeWidth="1.5"
                   />
                   <path
@@ -138,7 +148,7 @@ export function Hero() {
                   <path
                     d="M72 115 L72 300 Q72 325 110 325 Q148 325 148 300 L148 115 Z"
                     fill="none"
-                    stroke="oklch(0.65 0.05 250 / 0.18)"
+                    stroke="oklch(0.60 0.04 250 / 0.22)"
                     strokeWidth="1"
                   />
                 </g>
@@ -146,7 +156,7 @@ export function Hero() {
                 {/* Lyophilized powder */}
                 <g
                   style={{
-                    opacity: 0.2 + powder * 0.8,
+                    opacity: 0.75 + powder * 0.25,
                     transform: `translateY(${(1 - powder) * 30}px)`,
                     transition: "opacity 0.4s ease, transform 0.4s ease",
                   }}
@@ -154,6 +164,8 @@ export function Hero() {
                   <path
                     d="M75 300 Q75 315 110 318 Q145 315 145 300 L145 290 Q110 300 75 290 Z"
                     fill="url(#powderGrad)"
+                    stroke="oklch(0.80 0.02 250 / 0.25)"
+                    strokeWidth="0.5"
                   />
                   <path
                     d="M78 292 Q110 300 142 292 Q140 305 110 308 Q80 305 78 292 Z"
@@ -164,7 +176,7 @@ export function Hero() {
                 {/* Crimp cap */}
                 <g
                   style={{
-                    opacity: 0.2 + cap * 0.8,
+                    opacity: 0.75 + cap * 0.25,
                     transform: `translateY(${(1 - cap) * -50}px)`,
                     transition: "opacity 0.4s ease, transform 0.4s ease",
                   }}
@@ -180,12 +192,12 @@ export function Hero() {
                 {/* Premium label */}
                 <g
                   style={{
-                    opacity: 0.2 + label * 0.8,
+                    opacity: 0.75 + label * 0.25,
                     transform: `translateX(${(1 - label) * -120}px)`,
                     transition: "opacity 0.5s ease, transform 0.5s ease",
                   }}
                 >
-                  <rect x="55" y="165" width="110" height="80" rx="4" fill="white" />
+                  <rect x="55" y="165" width="110" height="80" rx="4" fill="white" stroke="oklch(0.85 0.01 240)" strokeWidth="0.5" />
                   <rect x="55" y="165" width="110" height="80" rx="4" fill="rgba(255,255,255,0.98)" />
                   <text x="110" y="185" textAnchor="middle" fontSize="8" fill="#64748b" fontFamily="sans-serif" letterSpacing="2">
                     PEPTINIUM LABS
@@ -206,7 +218,7 @@ export function Hero() {
           <div
             className="relative z-20 mt-14 text-center"
             style={{
-              opacity: 0.2 + text * 0.8,
+              opacity: 0.7 + text * 0.3,
               transform: `translateY(${(1 - text) * 40}px)`,
               transition: "opacity 0.5s ease, transform 0.5s ease",
             }}
