@@ -54,7 +54,7 @@ export function ProductCard({ product }: { product: Product }) {
           imageClassName="size-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
           loading="lazy"
         />
-        <div className="absolute right-3 top-3 rounded-full border border-background/70 bg-background/84 px-2.5 py-1 font-display text-sm font-medium text-foreground shadow-sm backdrop-blur-sm">
+        <div className="absolute right-3 top-3 rounded-full border border-white/10 bg-card/84 px-2.5 py-1 font-display text-sm font-medium text-foreground shadow-sm backdrop-blur-sm">
           {hasMultiple ? <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-muted-foreground">dès </span> : null}
           {formatPrice(price)}
         </div>

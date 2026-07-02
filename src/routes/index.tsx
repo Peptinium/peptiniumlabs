@@ -3,6 +3,7 @@ import { SiteLayout } from "@/components/SiteLayout";
 import { ProductCard, ProductVisual } from "@/components/ProductCard";
 import { RuoBadge } from "@/components/RuoBadge";
 import { Reveal } from "@/components/Reveal";
+import { Hero } from "@/components/Hero";
 import { products, formatPrice } from "@/data/products";
 import labBg from "@/assets/lab-bg-ruo.jpg";
 
@@ -84,115 +85,32 @@ function HomePage() {
 
   return (
     <SiteLayout>
-      <SideOrnaments />
-      {/* ============ HERO ============ */}
-      <section className="relative overflow-hidden border-b border-border">
-
-        {/* animated grid bg */}
-        <div className="pointer-events-none absolute inset-0 grid-bg opacity-60 [animation:grid-drift_24s_linear_infinite]" />
-        {/* radial fade */}
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,transparent_30%,var(--background)_75%)]" />
-        {/* beam */}
-        <div className="pointer-events-none absolute -top-px left-0 h-px w-1/3 bg-gradient-to-r from-transparent via-accent to-transparent [animation:beam-sweep_5s_ease-in-out_infinite]" />
-
-        <div className="container-prose relative grid gap-16 py-20 sm:py-24 lg:grid-cols-[1.15fr_1fr] lg:items-center lg:gap-14 lg:py-32">
-          <div>
-            <Reveal>
-              <div className="flex flex-wrap items-center gap-2">
-                <RuoBadge />
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background/80 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground backdrop-blur">
-                  <span className="size-1 rounded-full bg-accent" /> Lot QC-2026.06 actif
-                </span>
-              </div>
-            </Reveal>
-
-            <Reveal delay={80}>
-              <h1 className="mt-8 font-display text-[34px] font-normal leading-[1.1] tracking-[-0.025em] text-balance sm:mt-6 sm:text-6xl sm:font-medium sm:leading-[1.02] sm:tracking-[-0.035em] lg:text-[68px]">
-                Réactifs peptidiques
-                <br />
-                <span className="shimmer-text">pour motif de recherche.</span>
-              </h1>
-            </Reveal>
-
-            <Reveal delay={160}>
-              <p className="mt-8 max-w-xl text-[15px] leading-[1.75] text-muted-foreground sm:mt-7 sm:leading-relaxed">
-                Peptinium Labs fournit aux laboratoires académiques, CRO et instituts des
-                peptides synthétiques validés par HPLC et spectrométrie de masse. Chaque lot
-                est livré avec son Certificat d'Analyse —{" "}
-                <strong className="text-foreground">
-                  strictement destinés à la recherche scientifique in vitro (RUO).
-                </strong>{" "}
-                <span className="text-foreground/90">
-                  Non recommandé pour toute utilisation hors cadre scientifique, professionnel et de recherche.
-                </span>
-              </p>
-            </Reveal>
-
-            <Reveal delay={240}>
-              <div className="mt-10 flex flex-wrap items-center gap-3 sm:mt-9">
-                <Link
-                  to="/produits"
-                  className="group relative overflow-hidden rounded-full bg-foreground px-6 py-3.5 text-sm font-medium text-background transition-colors hover:bg-foreground/90"
-                >
-                  <span className="relative z-10 flex items-center gap-2">
-                    Explorer le catalogue
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                      <path d="M1 6h10m-4-4 4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                    </svg>
-                  </span>
-                  <span className="absolute inset-y-0 left-0 w-14 -translate-x-full bg-accent/40 blur-md transition-transform duration-700 group-hover:translate-x-[460%]" />
-                </Link>
-                <Link
-                  to="/etudes-scientifiques"
-                  className="link-underline rounded-full border border-border bg-card px-6 py-3.5 text-sm font-medium text-foreground transition-colors hover:bg-surface"
-                >
-                  Bibliographie PubMed
-                </Link>
-              </div>
-            </Reveal>
-
-            <Reveal delay={320}>
-              <dl className="mt-16 grid grid-cols-3 gap-6 border-t border-border pt-10 sm:mt-14 sm:pt-8">
-                {[
-                  { k: "≥ 99 %", v: "Pureté HPLC" },
-                  { k: "CoA", v: "Pour chaque lot" },
-                  { k: "RUO", v: "Recherche uniquement" },
-                ].map((s) => (
-                  <div key={s.v}>
-                    <dt className="font-display text-xl font-medium text-foreground sm:text-2xl">{s.k}</dt>
-                    <dd className="mt-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                      {s.v}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </Reveal>
-          </div>
-
-          {/* Featured molecule card */}
-          <Reveal delay={120}>
-            <div className="relative">
-              <HologramOrnament />
-              <FeaturedCard featured={featured} />
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-
+      {/* ============ IMMERSIVE HERO ============ */}
+      <Hero />
 
       {/* ============ MARQUEE OF SPECS ============ */}
-      <section className="border-b border-border bg-foreground text-background">
+      <section className="border-y border-border bg-surface-2">
         <div className="overflow-hidden">
           <div className="flex animate-[marquee_45s_linear_infinite] whitespace-nowrap py-5">
             {[...specsMarquee, ...specsMarquee].map((s, i) => (
-              <div key={i} className="flex items-center gap-4 px-8 font-mono text-[11px] uppercase tracking-[0.22em] text-background/70">
+              <div key={i} className="flex items-center gap-4 px-8 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground/70">
                 <span className="text-accent">◆</span>
                 {s}
               </div>
             ))}
           </div>
         </div>
+      </section>
+
+      {/* ============ FEATURED PRODUCT ============ */}
+      <section className="container-prose py-20 sm:py-24">
+        <Reveal>
+          <div className="mb-10 flex items-center gap-3">
+            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">— Produit phare</span>
+            <div className="h-px flex-1 bg-gradient-to-r from-border to-transparent" />
+          </div>
+        </Reveal>
+        <FeaturedCard featured={featured} />
       </section>
 
       {/* ============ CATALOG GRID ============ */}
@@ -203,7 +121,7 @@ function HomePage() {
               <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">
                 — Catalogue
               </div>
-              <h2 className="mt-3 font-display text-[26px] font-normal leading-[1.15] tracking-tight sm:mt-2 sm:text-4xl sm:font-medium">
+              <h2 className="mt-3 font-display text-[26px] font-normal leading-[1.15] tracking-tight text-balance sm:mt-2 sm:text-4xl sm:font-medium">
                 Réactifs sélectionnés pour la recherche
               </h2>
             </div>
@@ -292,7 +210,7 @@ function HomePage() {
           loading="lazy"
           className="absolute inset-0 size-full object-cover"
         />
-        <div className="absolute inset-0 bg-[oklch(0.18_0.08_245/88%)]" />
+        <div className="absolute inset-0 bg-[oklch(0.08_0.02_270/92%)]" />
         <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background/60" />
         <div className="pointer-events-none absolute -top-px left-0 h-px w-1/2 bg-gradient-to-r from-transparent via-accent to-transparent [animation:beam-sweep_6s_ease-in-out_infinite]" />
 
@@ -322,35 +240,6 @@ function HomePage() {
   );
 }
 
-function SideOrnaments() {
-  return (
-    <div aria-hidden className="pointer-events-none fixed inset-y-0 left-0 right-0 z-0 hidden xl:block">
-      {/* Left rail */}
-      <div className="absolute left-0 top-0 h-full w-[max(0px,calc((100vw-1240px)/2))]">
-        <div className="absolute inset-y-0 right-8 w-px bg-gradient-to-b from-transparent via-border to-transparent" />
-        <div className="absolute right-6 top-1/4 size-3 rounded-full border border-accent/40 [animation:float_5s_ease-in-out_infinite]" />
-        <div className="absolute right-10 top-1/2 size-1.5 rounded-full bg-accent/60 [animation:pulse-ring_3s_ease-in-out_infinite]" />
-        <div className="absolute right-4 top-2/3 size-12 rounded-full border border-dashed border-accent/25 [animation:spin_30s_linear_infinite]" />
-        <div className="absolute right-2 bottom-1/4 rotate-90 font-mono text-[9px] uppercase tracking-[0.4em] text-muted-foreground/60 origin-bottom-right whitespace-nowrap">
-          ◆ Lot QC-2026.06 · HPLC ≥ 99 %
-        </div>
-      </div>
-      {/* Right rail */}
-      <div className="absolute right-0 top-0 h-full w-[max(0px,calc((100vw-1240px)/2))]">
-        <div className="absolute inset-y-0 left-8 w-px bg-gradient-to-b from-transparent via-border to-transparent" />
-        <div className="absolute left-4 top-1/3 size-16 rounded-full border border-accent/20 [animation:spin_45s_linear_infinite_reverse]">
-          <div className="absolute inset-2 rounded-full border border-dashed border-accent/30" />
-        </div>
-        <div className="absolute left-10 top-2/3 size-2 rounded-full bg-accent/50 [animation:float_4s_ease-in-out_infinite]" />
-        <div className="absolute left-6 bottom-1/3 size-6 rounded-sm border border-border [animation:float_6s_ease-in-out_infinite] rotate-45" />
-        <div className="absolute left-2 top-1/4 -rotate-90 font-mono text-[9px] uppercase tracking-[0.4em] text-muted-foreground/60 origin-top-left whitespace-nowrap">
-          MS · CoA · ISO ◆
-        </div>
-      </div>
-    </div>
-  );
-}
-
 const specsMarquee = [
   "Retatrutide 10 mg",
   "Retatrutide 20 mg",
@@ -368,38 +257,6 @@ const specsMarquee = [
   "Eau bactériostatique 30 mL",
 ];
 
-function HologramOrnament() {
-  return (
-    <div
-      aria-hidden
-      className="pointer-events-none absolute -top-40 left-1/2 z-10 hidden -translate-x-1/2 sm:block"
-    >
-      <div className="relative grid size-24 place-items-center">
-
-        {/* outer rotating ring */}
-        <div className="absolute inset-0 rounded-full border border-accent/30 [animation:spin_18s_linear_infinite]" />
-        <div className="absolute inset-2 rounded-full border border-dashed border-accent/40 [animation:spin_12s_linear_infinite_reverse]" />
-        {/* glow */}
-        <div className="absolute inset-4 rounded-full bg-accent/15 blur-2xl [animation:pulse_3s_ease-in-out_infinite]" />
-        {/* hologram orb */}
-        <div className="relative size-16 rounded-full bg-gradient-to-br from-accent/40 via-accent/10 to-transparent [animation:float_4s_ease-in-out_infinite] shadow-[0_0_40px_oklch(0.7_0.18_220/40%)]">
-          <div className="absolute inset-0 grid place-items-center">
-            <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
-              <circle cx="17" cy="17" r="14" stroke="currentColor" className="text-accent" strokeWidth="1" strokeDasharray="3 4" />
-              <path d="M11 8h12v3l-4 6 4 6v3H11v-3l4-6-4-6V8Z" stroke="currentColor" className="text-accent" strokeWidth="1.2" strokeLinejoin="round" />
-            </svg>
-          </div>
-        </div>
-        {/* scan beam */}
-        <div className="absolute left-1/2 top-1/2 h-px w-24 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-transparent via-accent to-transparent [animation:beam-sweep_3s_ease-in-out_infinite]" />
-      </div>
-      <div className="mt-1 text-center font-mono text-[8px] uppercase tracking-[0.3em] text-accent/80">
-        ◇ Lab-grade ◇
-      </div>
-    </div>
-  );
-}
-
 function QualityCard({
   k, t, d, tag, className = "", big = false,
 }: { k: string; t: string; d: string; tag: string; className?: string; big?: boolean }) {
@@ -411,7 +268,7 @@ function QualityCard({
             <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
               — {k}
             </span>
-            <span className="rounded-full border border-border bg-background px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.18em] text-accent">
+            <span className="rounded-full border border-border bg-surface px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.18em] text-accent">
               {tag}
             </span>
           </div>
@@ -440,13 +297,13 @@ function FeaturedCard({ featured }: { featured: typeof products[number] }) {
     <Link
       to="/produits/$slug"
       params={{ slug: featured.slug }}
-      className="group relative block overflow-hidden rounded-2xl border border-border bg-card shadow-[0_30px_60px_-30px_oklch(0.22_0.06_250/25%)] transition-shadow hover:shadow-[0_40px_80px_-30px_oklch(0.22_0.06_250/35%)]"
+      className="group relative block overflow-hidden rounded-2xl border border-border bg-card shadow-[0_30px_60px_-30px_rgba(0,0,0,0.5)] transition-shadow hover:shadow-[0_40px_80px_-30px_rgba(0,0,0,0.7)]"
     >
       {/* header */}
-      <div className="relative overflow-hidden border-b border-border bg-foreground text-background">
+      <div className="relative overflow-hidden border-b border-border bg-surface-2">
         <div className="pointer-events-none absolute inset-0 opacity-20 grid-bg" />
         <div className="relative flex items-center justify-between px-5 py-3.5">
-          <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-background/80">
+          <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-foreground/80">
             <span className="size-1.5 animate-pulse rounded-full bg-accent" />
             Produit phare · recherche métabolique
           </div>

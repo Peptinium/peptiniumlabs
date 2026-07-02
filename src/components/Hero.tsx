@@ -1,0 +1,260 @@
+import { useEffect, useRef, useState } from "react";
+import { Link } from "@tanstack/react-router";
+
+export function Hero() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [progress, setProgress] = useState(0);
+  const rafRef = useRef<number>(0);
+  const lastScrollRef = useRef(-1);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (rafRef.current) return;
+      rafRef.current = requestAnimationFrame(() => {
+        rafRef.current = 0;
+        if (!containerRef.current) return;
+        const rect = containerRef.current.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const totalHeight = rect.height - viewportHeight;
+        const scrolled = -rect.top;
+        const raw = Math.max(0, Math.min(1, scrolled / totalHeight));
+        if (raw !== lastScrollRef.current) {
+          lastScrollRef.current = raw;
+          setProgress(raw);
+        }
+      });
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
+
+  const p = clamp01;
+  const stage = (threshold: number) => p(progress / threshold);
+
+  const glow = stage(0.12);
+  const glass = stage(0.22);
+  const powder = stage(0.35);
+  const cap = stage(0.5);
+  const label = stage(0.65);
+  const text = stage(0.8);
+
+  return (
+    <div ref={containerRef} className="relative h-[250vh]">
+      <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden bg-background">
+        {/* Atmospheric background */}
+        <div className="pointer-events-none absolute inset-0">
+          <div
+            className="absolute left-1/2 top-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,oklch(0.58_0.16_260/0.25)_0%,transparent_70%)] blur-3xl"
+            style={{ opacity: 0.5 + glow * 0.5 }}
+          />
+          <div className="absolute bottom-0 left-1/2 h-[500px] w-full max-w-4xl -translate-x-1/2 bg-gradient-to-t from-cyan-900/25 via-blue-900/15 to-transparent" />
+          <div className="absolute left-1/4 top-1/3 h-2 w-2 rounded-full bg-blue-400/40 blur-[2px]" />
+          <div className="absolute bottom-1/4 right-1/3 h-3 w-3 rounded-full bg-purple-400/40 blur-[3px]" />
+          <div className="absolute right-1/4 top-1/2 h-1.5 w-1.5 rounded-full bg-cyan-300/50 blur-[1px]" />
+        </div>
+
+        {/* Central vial assembly */}
+        <div className="relative z-10 flex flex-col items-center justify-center px-6">
+          <div className="relative flex flex-col items-center">
+            {/* Vial halo */}
+            <div
+              className="pointer-events-none absolute -inset-16 z-0 rounded-full bg-[radial-gradient(circle,rgba(56,189,248,0.35)_0%,transparent_70%)] blur-2xl"
+              style={{ opacity: 0.5 + glow * 0.5 }}
+            />
+
+            <div
+              className="relative z-10 flex flex-col items-center drop-shadow-[0_0_60px_rgba(34,211,238,0.35)]"
+              style={{
+                transform: `translateY(${(1 - glass) * 20}px) scale(${0.94 + glass * 0.06})`,
+                transition: "transform 0.3s ease-out",
+              }}
+            >
+              <svg
+                width="260"
+                height="420"
+                viewBox="0 0 220 360"
+                className="drop-shadow-[0_0_40px_rgba(59,130,246,0.35)]"
+                style={{ opacity: 0.5 + glass * 0.5 }}
+              >
+                <defs>
+                  <linearGradient id="glassBody" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stopColor="rgba(255,255,255,0.35)" />
+                    <stop offset="50%" stopColor="rgba(255,255,255,0.08)" />
+                    <stop offset="100%" stopColor="rgba(255,255,255,0.25)" />
+                  </linearGradient>
+                  <linearGradient id="glassShine" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stopColor="rgba(255,255,255,0)" />
+                    <stop offset="40%" stopColor="rgba(255,255,255,0.45)" />
+                    <stop offset="60%" stopColor="rgba(255,255,255,0.1)" />
+                    <stop offset="100%" stopColor="rgba(255,255,255,0)" />
+                  </linearGradient>
+                  <linearGradient id="capSilver" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#e2e8f0" />
+                    <stop offset="40%" stopColor="#f8fafc" />
+                    <stop offset="60%" stopColor="#94a3b8" />
+                    <stop offset="100%" stopColor="#64748b" />
+                  </linearGradient>
+                  <linearGradient id="powderGrad" x1="0" y1="1" x2="0" y2="0">
+                    <stop offset="0%" stopColor="#f8fafc" />
+                    <stop offset="70%" stopColor="#e2e8f0" />
+                    <stop offset="100%" stopColor="rgba(255,255,255,0.7)" />
+                  </linearGradient>
+                  <linearGradient id="labelBrand" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stopColor="#22d3ee" />
+                    <stop offset="100%" stopColor="#a855f7" />
+                  </linearGradient>
+                </defs>
+
+                {/* Vial shadow */}
+                <ellipse
+                  cx="110"
+                  cy="340"
+                  rx="60"
+                  ry="8"
+                  fill="rgba(30,58,138,0.6)"
+                  style={{ opacity: glass }}
+                />
+
+                {/* Glass body */}
+                <g style={{ opacity: 0.2 + glass * 0.8, transition: "opacity 0.4s ease" }}>
+                  <path
+                    d="M70 110 L70 300 Q70 330 110 330 Q150 330 150 300 L150 110 Z"
+                    fill="url(#glassBody)"
+                    stroke="rgba(255,255,255,0.4)"
+                    strokeWidth="1.5"
+                  />
+                  <path
+                    d="M80 120 L80 290 Q80 310 110 310 Q140 310 140 290 L140 120 Z"
+                    fill="url(#glassShine)"
+                    opacity="0.8"
+                  />
+                  <path
+                    d="M72 115 L72 300 Q72 325 110 325 Q148 325 148 300 L148 115 Z"
+                    fill="none"
+                    stroke="rgba(255,255,255,0.15)"
+                    strokeWidth="1"
+                  />
+                </g>
+
+                {/* Lyophilized powder */}
+                <g
+                  style={{
+                    opacity: 0.2 + powder * 0.8,
+                    transform: `translateY(${(1 - powder) * 30}px)`,
+                    transition: "opacity 0.4s ease, transform 0.4s ease",
+                  }}
+                >
+                  <path
+                    d="M75 300 Q75 315 110 318 Q145 315 145 300 L145 290 Q110 300 75 290 Z"
+                    fill="url(#powderGrad)"
+                  />
+                  <path
+                    d="M78 292 Q110 300 142 292 Q140 305 110 308 Q80 305 78 292 Z"
+                    fill="rgba(255,255,255,0.95)"
+                  />
+                </g>
+
+                {/* Crimp cap */}
+                <g
+                  style={{
+                    opacity: 0.2 + cap * 0.8,
+                    transform: `translateY(${(1 - cap) * -50}px)`,
+                    transition: "opacity 0.4s ease, transform 0.4s ease",
+                  }}
+                >
+                  <rect x="68" y="100" width="84" height="12" rx="2" fill="#64748b" />
+                  <rect x="70" y="85" width="80" height="20" rx="3" fill="url(#capSilver)" />
+                  <rect x="70" y="80" width="80" height="8" rx="2" fill="#e2e8f0" />
+                  <ellipse cx="110" cy="80" rx="40" ry="6" fill="#f1f5f9" stroke="#94a3b8" strokeWidth="1" />
+                  <rect x="80" y="86" width="20" height="1" rx="0.5" fill="rgba(255,255,255,0.6)" />
+                  <rect x="120" y="86" width="10" height="1" rx="0.5" fill="rgba(255,255,255,0.3)" />
+                </g>
+
+                {/* Premium label */}
+                <g
+                  style={{
+                    opacity: 0.2 + label * 0.8,
+                    transform: `translateX(${(1 - label) * -120}px)`,
+                    transition: "opacity 0.5s ease, transform 0.5s ease",
+                  }}
+                >
+                  <rect x="55" y="165" width="110" height="80" rx="4" fill="white" />
+                  <rect x="55" y="165" width="110" height="80" rx="4" fill="rgba(255,255,255,0.98)" />
+                  <text x="110" y="185" textAnchor="middle" fontSize="8" fill="#64748b" fontFamily="sans-serif" letterSpacing="2">
+                    PEPTINIUM LABS
+                  </text>
+                  <rect x="95" y="192" width="30" height="2" rx="1" fill="url(#labelBrand)" />
+                  <text x="110" y="215" textAnchor="middle" fontSize="20" fontWeight="bold" fill="#0f172a" fontFamily="sans-serif">
+                    PEPTIDE
+                  </text>
+                  <text x="110" y="232" textAnchor="middle" fontSize="8" fill="#475569" fontFamily="sans-serif" letterSpacing="1">
+                    RESEARCH USE ONLY
+                  </text>
+                </g>
+              </svg>
+            </div>
+          </div>
+
+          {/* Headline section */}
+          <div
+            className="relative z-20 mt-14 text-center"
+            style={{
+              opacity: 0.2 + text * 0.8,
+              transform: `translateY(${(1 - text) * 40}px)`,
+              transition: "opacity 0.5s ease, transform 0.5s ease",
+            }}
+          >
+            <h1 className="font-display text-4xl font-extrabold tracking-tight text-white sm:text-6xl md:text-7xl">
+              Engineering{" "}
+              <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(34,211,238,0.25)]">
+                Cellular Precision
+              </span>
+            </h1>
+            <div className="mt-6 flex items-center justify-center gap-4 font-mono text-[10px] font-medium uppercase tracking-[0.4em] text-cyan-200/60">
+              <span>Pure Formulation</span>
+              <div className="h-1 w-1 rounded-full bg-cyan-500/50" />
+              <span>Clinical Grade</span>
+            </div>
+            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <Link
+                to="/produits"
+                className="group relative overflow-hidden rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition-all hover:bg-white/90 hover:shadow-[0_0_30px_rgba(255,255,255,0.2)]"
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  Explorer le catalogue
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M1 6h10m-4-4 4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  </svg>
+                </span>
+              </Link>
+              <Link
+                to="/etudes-scientifiques"
+                className="rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-medium text-white backdrop-blur-sm transition-all hover:bg-white/10"
+              >
+                Bibliographie PubMed
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <div
+          className="pointer-events-none absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 transition-opacity duration-500"
+          style={{ opacity: 1 - progress * 2.5 }}
+        >
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-cyan-200/60">Scroll to assemble</span>
+          <div className="h-12 w-px bg-gradient-to-b from-cyan-500/50 to-transparent" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const clamp01 = (n: number) => Math.max(0, Math.min(1, n));
