@@ -76,7 +76,7 @@ export function Hero() {
         </div>
 
         {/* CTAs — Desktop (glass) */}
-        <div className="mt-10 hidden flex-wrap items-center justify-center gap-3 sm:flex">
+        <div className="mt-10 hidden flex-wrap items-center justify-center gap-3 lg:flex">
           <Link
             to="/produits"
             className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full px-7 py-3.5 font-mono text-[11px] uppercase tracking-[0.22em] text-white shadow-[0_22px_55px_-18px_color-mix(in_oklab,var(--brand-violet)_75%,transparent)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_30px_75px_-20px_color-mix(in_oklab,var(--brand-violet)_90%,transparent)]"
