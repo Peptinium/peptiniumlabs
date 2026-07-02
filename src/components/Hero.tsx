@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import avantAsset from "@/assets/vial/RT_AVANT.png.asset.json";
+import avantAsset from "@/assets/vial/RT_AVANT_TRANSPARENT.png.asset.json";
 
 export function Hero() {
   return (
@@ -40,16 +40,8 @@ export function Hero() {
 
         {/* Title */}
         <h1 className="mt-8 font-display text-[44px] font-semibold leading-[0.95] tracking-[-0.035em] text-balance text-white sm:text-[72px] lg:text-[92px]">
-          <span className="block">L'Avenir de la</span>
-          <span
-            className="block bg-clip-text text-transparent"
-            style={{
-              backgroundImage:
-                "linear-gradient(90deg, oklch(0.78 0.15 200) 0%, oklch(0.68 0.19 260) 30%, oklch(0.62 0.26 296) 60%, oklch(0.72 0.25 0) 100%)",
-            }}
-          >
-            Précision Moléculaire.
-          </span>
+          <span className="shimmer-text block">L'Avenir de la</span>
+          <span className="shimmer-text block">Précision Moléculaire.</span>
         </h1>
 
         {/* Subtitle */}
@@ -63,16 +55,40 @@ export function Hero() {
         <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
           <Link
             to="/produits"
-            className="group inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 font-mono text-[11px] uppercase tracking-[0.22em] text-[oklch(0.15_0.02_270)] shadow-[0_20px_50px_-16px_oklch(0.98_0_0/0.35)] transition-transform hover:-translate-y-0.5"
+            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-white/20 px-7 py-3.5 font-mono text-[11px] uppercase tracking-[0.22em] text-white shadow-[0_20px_50px_-18px_color-mix(in_oklab,var(--brand-violet)_60%,transparent)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:border-white/40 hover:shadow-[0_28px_70px_-20px_color-mix(in_oklab,var(--brand-violet)_80%,transparent)]"
+            style={{
+              backgroundImage:
+                "linear-gradient(120deg, color-mix(in oklab, var(--brand-cyan) 28%, transparent) 0%, color-mix(in oklab, var(--brand-blue) 32%, transparent) 40%, color-mix(in oklab, var(--brand-violet) 34%, transparent) 70%, color-mix(in oklab, var(--brand-magenta) 30%, transparent) 100%)",
+            }}
           >
-            Explorer le catalogue
-            <span className="transition-transform group-hover:translate-x-0.5">→</span>
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-0 -translate-x-full opacity-0 transition-all duration-1000 group-hover:translate-x-full group-hover:opacity-100"
+              style={{
+                background:
+                  "linear-gradient(105deg, transparent 40%, oklch(1 0 0 / 0.28) 50%, transparent 60%)",
+              }}
+            />
+            <span className="relative">Explorer le catalogue</span>
+            <span className="relative transition-transform group-hover:translate-x-0.5">→</span>
           </Link>
           <Link
             to="/tester-fioles"
-            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-7 py-3.5 font-mono text-[11px] uppercase tracking-[0.22em] text-white/90 backdrop-blur transition-colors hover:border-white/30 hover:bg-white/[0.08]"
+            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-white/15 px-7 py-3.5 font-mono text-[11px] uppercase tracking-[0.22em] text-white/90 backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:border-white/30 hover:text-white"
+            style={{
+              backgroundImage:
+                "linear-gradient(120deg, color-mix(in oklab, var(--brand-cyan) 14%, transparent) 0%, color-mix(in oklab, var(--brand-violet) 16%, transparent) 60%, color-mix(in oklab, var(--brand-magenta) 14%, transparent) 100%)",
+            }}
           >
-            Tester vos fioles
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-0 -translate-x-full opacity-0 transition-all duration-1000 group-hover:translate-x-full group-hover:opacity-100"
+              style={{
+                background:
+                  "linear-gradient(105deg, transparent 40%, oklch(1 0 0 / 0.18) 50%, transparent 60%)",
+              }}
+            />
+            <span className="relative">Tester vos fioles</span>
           </Link>
         </div>
 
