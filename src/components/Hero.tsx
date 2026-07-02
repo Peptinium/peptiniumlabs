@@ -174,9 +174,8 @@ export function Hero() {
                 {/* Crimp cap */}
                 <g
                   style={{
-                    opacity: 0.75 + cap * 0.25,
                     transform: `translateY(${(1 - cap) * -50}px)`,
-                    transition: "opacity 0.4s ease, transform 0.4s ease",
+                    transition: "transform 0.4s ease",
                   }}
                 >
                   <rect x="68" y="100" width="84" height="12" rx="2" fill="#94a3b8" />
