@@ -78,29 +78,10 @@ export function Hero() {
         <div className="mt-10 hidden flex-wrap items-center justify-center gap-3 sm:flex">
           <Link
             to="/produits"
-            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-white/60 px-7 py-3.5 font-mono text-[11px] uppercase tracking-[0.22em] text-[oklch(0.18_0.02_270)] shadow-[0_20px_50px_-18px_color-mix(in_oklab,var(--brand-violet)_55%,transparent)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:border-white hover:shadow-[0_28px_70px_-20px_color-mix(in_oklab,var(--brand-violet)_75%,transparent)]"
+            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full px-7 py-3.5 font-mono text-[11px] uppercase tracking-[0.22em] text-white shadow-[0_22px_55px_-18px_color-mix(in_oklab,var(--brand-violet)_75%,transparent)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_30px_75px_-20px_color-mix(in_oklab,var(--brand-violet)_90%,transparent)]"
             style={{
               backgroundImage:
-                "linear-gradient(120deg, color-mix(in oklab, var(--brand-cyan) 22%, white) 0%, color-mix(in oklab, var(--brand-blue) 20%, white) 40%, color-mix(in oklab, var(--brand-violet) 22%, white) 70%, color-mix(in oklab, var(--brand-magenta) 20%, white) 100%)",
-            }}
-          >
-            <span
-              aria-hidden
-              className="pointer-events-none absolute inset-0 -translate-x-full opacity-0 transition-all duration-1000 group-hover:translate-x-full group-hover:opacity-100"
-              style={{
-                background:
-                  "linear-gradient(105deg, transparent 40%, oklch(1 0 0 / 0.55) 50%, transparent 60%)",
-              }}
-            />
-            <span className="relative">Explorer le catalogue</span>
-            <span className="relative transition-transform group-hover:translate-x-0.5">→</span>
-          </Link>
-          <Link
-            to="/tester-fioles"
-            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-white/50 px-7 py-3.5 font-mono text-[11px] uppercase tracking-[0.22em] text-[oklch(0.22_0.02_270)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:border-white/80"
-            style={{
-              backgroundImage:
-                "linear-gradient(120deg, color-mix(in oklab, var(--brand-cyan) 12%, white) 0%, color-mix(in oklab, var(--brand-violet) 12%, white) 60%, color-mix(in oklab, var(--brand-magenta) 12%, white) 100%)",
+                "linear-gradient(120deg, oklch(0.58 0.19 210) 0%, oklch(0.52 0.24 280) 55%, oklch(0.60 0.25 330) 100%)",
             }}
           >
             <span
@@ -111,10 +92,26 @@ export function Hero() {
                   "linear-gradient(105deg, transparent 40%, oklch(1 0 0 / 0.45) 50%, transparent 60%)",
               }}
             />
+            <span className="relative">Explorer le catalogue</span>
+            <span className="relative transition-transform group-hover:translate-x-0.5">→</span>
+          </Link>
+          <Link
+            to="/tester-fioles"
+            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-[oklch(0.20_0.02_270)]/30 bg-white px-7 py-3.5 font-mono text-[11px] uppercase tracking-[0.22em] text-[oklch(0.18_0.02_270)] shadow-[0_14px_40px_-18px_color-mix(in_oklab,var(--brand-violet)_55%,transparent)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[oklch(0.20_0.02_270)]/55 hover:shadow-[0_22px_55px_-18px_color-mix(in_oklab,var(--brand-violet)_70%,transparent)]"
+          >
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-0 -translate-x-full opacity-0 transition-all duration-1000 group-hover:translate-x-full group-hover:opacity-100"
+              style={{
+                background:
+                  "linear-gradient(105deg, transparent 40%, color-mix(in oklab, var(--brand-violet) 20%, transparent) 50%, transparent 60%)",
+              }}
+            />
             <span className="relative">Tester vos fioles</span>
           </Link>
 
         </div>
+
 
         {/* Vial */}
         <VialShowcase />
