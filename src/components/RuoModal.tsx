@@ -33,7 +33,7 @@ export function RuoModal() {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-end justify-center bg-foreground/35 p-4 backdrop-blur-md sm:items-center"
+      className="fixed inset-0 z-50 flex items-end justify-center bg-foreground/25 p-4 backdrop-blur-md sm:items-center"
       style={{ animation: "fade-in 0.4s cubic-bezier(0.22,1,0.36,1) both" }}
     >
       <div
