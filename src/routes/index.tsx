@@ -397,8 +397,8 @@ function FeaturedCard({ featured }: { featured: typeof products[number] }) {
       {/* header */}
       <div className="relative overflow-hidden border-b border-border bg-surface-2">
         <div className="pointer-events-none absolute inset-0 opacity-20 grid-bg" />
-        <div className="relative flex items-center justify-between px-5 py-3.5">
-          <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-foreground/80">
+        <div className="relative flex flex-wrap items-center justify-between gap-2 px-4 py-3 sm:px-5 sm:py-3.5">
+          <div className="flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.2em] text-foreground/80 sm:text-[10px] sm:tracking-[0.22em]">
             <span className="size-1.5 animate-pulse rounded-full bg-accent" />
             Produit phare · recherche métabolique
           </div>
