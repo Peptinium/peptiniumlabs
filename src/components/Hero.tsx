@@ -213,9 +213,8 @@ export function Hero() {
           <div
             className="relative z-20 mt-14 text-center"
             style={{
-              opacity: 0.7 + text * 0.3,
               transform: `translateY(${(1 - text) * 40}px)`,
-              transition: "opacity 0.5s ease, transform 0.5s ease",
+              transition: "transform 0.5s ease",
             }}
           >
             <h1 className="font-display text-4xl font-extrabold tracking-tight text-foreground sm:text-6xl md:text-7xl">
