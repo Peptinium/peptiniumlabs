@@ -189,21 +189,19 @@ export function Hero() {
                 {/* Premium label */}
                 <g
                   style={{
-                    opacity: 0.75 + label * 0.25,
                     transform: `translateX(${(1 - label) * -120}px)`,
-                    transition: "opacity 0.5s ease, transform 0.5s ease",
+                    transition: "transform 0.5s ease",
                   }}
                 >
-                  <rect x="55" y="165" width="110" height="80" rx="4" fill="white" stroke="oklch(0.85 0.01 240)" strokeWidth="0.5" />
-                  <rect x="55" y="165" width="110" height="80" rx="4" fill="rgba(255,255,255,0.98)" />
-                  <text x="110" y="185" textAnchor="middle" fontSize="8" fill="#64748b" fontFamily="sans-serif" letterSpacing="2">
+                  <rect x="55" y="165" width="110" height="80" rx="4" fill="white" stroke="oklch(0.75 0.02 240)" strokeWidth="1" />
+                  <text x="110" y="185" textAnchor="middle" fontSize="8" fill="#475569" fontFamily="sans-serif" letterSpacing="2">
                     PEPTINIUM LABS
                   </text>
-                  <rect x="95" y="192" width="30" height="2" rx="1" fill="url(#labelBrand)" />
+                  <rect x="90" y="192" width="40" height="2" rx="1" fill="url(#labelBrand)" />
                   <text x="110" y="215" textAnchor="middle" fontSize="20" fontWeight="bold" fill="#0f172a" fontFamily="sans-serif">
                     PEPTIDE
                   </text>
-                  <text x="110" y="232" textAnchor="middle" fontSize="8" fill="#475569" fontFamily="sans-serif" letterSpacing="1">
+                  <text x="110" y="232" textAnchor="middle" fontSize="8" fill="#64748b" fontFamily="sans-serif" letterSpacing="1">
                     RESEARCH USE ONLY
                   </text>
                 </g>
