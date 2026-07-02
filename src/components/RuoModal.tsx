@@ -90,10 +90,10 @@ export function RuoModal() {
             <button
               onClick={accept}
               disabled={!canAccept}
-              className={`group relative overflow-hidden rounded-full px-5 py-2.5 text-sm font-medium text-primary-foreground transition-all ${
+              className={`group relative overflow-hidden rounded-full px-5 py-2.5 text-sm font-medium transition-all ${
                 canAccept
-                  ? "bg-foreground hover:bg-foreground/90"
-                  : "cursor-not-allowed bg-foreground/40"
+                  ? "bg-foreground text-primary-foreground hover:bg-foreground/90"
+                  : "cursor-not-allowed bg-foreground/20 text-foreground/50"
               }`}
             >
               <span className="relative z-10">J'accepte et j'entre</span>
