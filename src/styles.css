@@ -104,28 +104,28 @@
 :root {
   --radius: 6px;
   /* Light premium — Peptinium logo coherence: cyan → blue → violet → magenta */
-  --background: oklch(0.99 0.005 260);
-  --surface: oklch(0.98 0.01 260);
-  --surface-2: oklch(0.95 0.015 260);
+  --background: oklch(0.97 0.008 260);
+  --surface: oklch(0.95 0.012 260);
+  --surface-2: oklch(0.92 0.015 260);
   --ink: oklch(0.18 0.03 260);
-  --foreground: oklch(0.22 0.03 260);
+  --foreground: oklch(0.20 0.03 260);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.22 0.03 260);
+  --card-foreground: oklch(0.20 0.03 260);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.22 0.03 260);
+  --popover-foreground: oklch(0.20 0.03 260);
   /* Peptinium brand: cyan → blue → violet → magenta */
-  --brand-cyan: oklch(0.75 0.14 200);
-  --brand-blue: oklch(0.62 0.18 260);
-  --brand-violet: oklch(0.52 0.25 296);
-  --brand-magenta: oklch(0.65 0.24 0);
+  --brand-cyan: oklch(0.72 0.15 200);
+  --brand-blue: oklch(0.58 0.19 260);
+  --brand-violet: oklch(0.50 0.26 296);
+  --brand-magenta: oklch(0.62 0.25 0);
   --gradient-brand: linear-gradient(135deg, var(--brand-cyan) 0%, var(--brand-blue) 35%, var(--brand-violet) 70%, var(--brand-magenta) 100%);
-  --primary: oklch(0.55 0.20 296);
+  --primary: oklch(0.52 0.21 296);
   --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.95 0.02 260);
-  --secondary-foreground: oklch(0.22 0.03 260);
-  --muted: oklch(0.95 0.015 260);
+  --secondary: oklch(0.94 0.02 260);
+  --secondary-foreground: oklch(0.20 0.03 260);
+  --muted: oklch(0.94 0.015 260);
   --muted-foreground: oklch(0.55 0.03 260);
-  --accent: oklch(0.65 0.14 200);
+  --accent: oklch(0.62 0.15 200);
   --accent-foreground: oklch(1 0 0);
   --warning: oklch(0.55 0.18 38);
   --warning-foreground: oklch(0.99 0 0);
@@ -133,9 +133,9 @@
   --success-foreground: oklch(0.99 0 0);
   --destructive: oklch(0.55 0.22 27);
   --destructive-foreground: oklch(0.99 0 0);
-  --border: oklch(0.90 0.02 260);
-  --input: oklch(0.90 0.02 260);
-  --ring: oklch(0.55 0.20 296);
+  --border: oklch(0.88 0.02 260);
+  --input: oklch(0.88 0.02 260);
+  --ring: oklch(0.52 0.21 296);
 }
 
 .dark {
