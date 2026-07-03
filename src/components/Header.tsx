@@ -170,6 +170,18 @@ export function Header() {
                 {n.label}
               </Link>
             ))}
+            {isAdmin && (
+              <Link
+                to="/admin"
+                onClick={() => setOpen(false)}
+                className="mt-2 inline-flex items-center gap-2 rounded-lg border border-accent/40 bg-accent/10 px-3 py-3 text-sm font-semibold text-accent"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 2l9 4.5v6c0 5-3.5 8.5-9 9.5-5.5-1-9-4.5-9-9.5v-6L12 2z" />
+                </svg>
+                Espace admin
+              </Link>
+            )}
             <Link
               to={isLoggedIn ? "/mon-compte" : "/auth"}
               search={isLoggedIn ? undefined : { redirect: "/mon-compte" }}
