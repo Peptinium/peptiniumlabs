@@ -48,8 +48,10 @@ function CalcPage() {
 
   return (
     <SiteLayout>
-      <section className="border-b border-border bg-surface">
-        <div className="container-prose py-14">
+      <section className="relative overflow-hidden border-b border-border">
+        <div className="pointer-events-none absolute inset-0 grid-bg opacity-50 [animation:grid-drift_24s_linear_infinite]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,transparent_30%,var(--background)_85%)]" />
+        <div className="container-prose relative py-14">
           <RuoBadge />
           <h1 className="mt-4 font-display text-3xl font-medium tracking-tight sm:text-4xl">
             <span className="shimmer-text">Calculatrice de reconstitution</span>
