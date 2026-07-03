@@ -263,11 +263,8 @@ function HomePage() {
         <Reveal>
           <div className="flex flex-col items-center text-center">
             <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Prêt à commander</span>
-            <h2 className="mt-6 font-display text-5xl font-light leading-[1.05] tracking-tighter text-foreground sm:text-6xl">
-              La sérénité du laboratoire,{" "}
-              <span className="bg-gradient-to-r from-[var(--brand-cyan)] via-[var(--brand-blue)] via-[var(--brand-violet)] to-[var(--brand-magenta)] bg-clip-text font-medium text-transparent">
-                à portée de commande.
-              </span>
+            <h2 className="mt-6 font-display text-5xl font-light leading-[1.05] tracking-tighter sm:text-6xl">
+              <span className="shimmer-text">La sérénité du laboratoire, à portée de commande.</span>
             </h2>
             <p className="mt-6 max-w-lg text-lg font-light leading-relaxed text-muted-foreground">
               Traçabilité complète, expédition sous 24 h, support français.
