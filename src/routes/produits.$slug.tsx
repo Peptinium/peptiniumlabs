@@ -61,7 +61,7 @@ export const Route = createFileRoute("/produits/$slug")({
         {
           name: "description",
           content: p
-            ? `Achetez ${p.name} (CAS ${p.cas ?? "—"}) — peptide de recherche, pureté ${p.purity}, dosages ${dosages}, livré avec Certificat d'Analyse. ${p.shortDescription} RUO uniquement.`
+            ? `Achetez ${p.name} (CAS ${p.cas ?? "—"}) — peptide de recherche, pureté ${p.purity}, dosages ${dosages}. ${p.shortDescription} RUO uniquement.`
             : "Fiche produit Peptinium Labs.",
         },
         { name: "keywords", content: kw },
