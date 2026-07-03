@@ -1,17 +1,11 @@
 import { Link } from "@tanstack/react-router";
 import avantAsset from "@/assets/vial/RT_AVANT_TRANSPARENT.png.asset.json";
-import { FloatingMolecules } from "@/components/hero/FloatingMolecules";
-import { PurityCounter } from "@/components/hero/PurityCounter";
-import { VialParticles } from "@/components/hero/VialParticles";
-import { TrustBar } from "@/components/hero/TrustBar";
 
 export function Hero() {
   return (
     <>
       <MobileHero />
       <DesktopHero />
-      <TrustBar variant="mobile" />
-      <TrustBar variant="desktop" />
     </>
   );
 }
@@ -40,17 +34,6 @@ function DesktopHero() {
             "radial-gradient(ellipse 70% 60% at 50% 40%, black 0%, transparent 80%)",
         }}
       />
-      {/* Floating molecules — subtle on desktop */}
-      <FloatingMolecules className="opacity-40" />
-      {/* Grain */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-multiply"
-        style={{
-          backgroundImage:
-            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")",
-        }}
-      />
       {/* Beam sweep */}
       <div
         aria-hidden
@@ -58,7 +41,11 @@ function DesktopHero() {
       />
 
       <div className="container-prose relative flex flex-col items-center px-5 pt-20 pb-8 text-center lg:pt-32 lg:pb-6">
-        <PurityCounter />
+        {/* Pill */}
+        <div className="inline-flex items-center gap-2 rounded-full border border-[oklch(0.18_0.02_270)]/10 bg-white/60 px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.24em] text-[oklch(0.30_0.03_270)] shadow-[0_1px_0_oklch(1_0_0)] backdrop-blur lg:tracking-[0.28em]">
+          <span className="size-1.5 animate-pulse rounded-full bg-[oklch(0.55_0.24_296)]" />
+          Recherche avancée
+        </div>
 
         {/* Title */}
         <h1 className="mt-5 font-display text-[40px] font-semibold leading-[1.02] tracking-[-0.035em] text-balance text-[oklch(0.15_0.02_270)] sm:text-[60px] lg:mt-8 lg:text-[92px] lg:leading-[0.95]">
@@ -66,12 +53,35 @@ function DesktopHero() {
           <span className="shimmer-text block">Précision Moléculaire.</span>
         </h1>
 
+        {/* Subtitle */}
         <p className="mt-5 max-w-2xl text-[16px] leading-[1.55] text-[oklch(0.35_0.02_270)] lg:mt-7 lg:text-[17px] lg:leading-[1.7]">
           Peptides synthétiques haute pureté, contrôlés par HPLC et livrés avec
           Certificat d'Analyse. L'exigence du laboratoire, pensée pour le
           chercheur.
         </p>
 
+        {/* CTAs — Mobile (solid, high contrast) */}
+        <div className="mt-7 flex w-full flex-col items-stretch gap-3 lg:hidden">
+          <Link
+            to="/produits"
+            className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-6 py-3.5 font-mono text-[12px] uppercase tracking-[0.22em] text-white shadow-[0_18px_40px_-16px_color-mix(in_oklab,var(--brand-violet)_70%,transparent)]"
+            style={{
+              backgroundImage:
+                "linear-gradient(120deg, oklch(0.55 0.20 210) 0%, oklch(0.50 0.24 280) 55%, oklch(0.58 0.26 330) 100%)",
+            }}
+          >
+            <span className="relative">Explorer le catalogue</span>
+            <span className="relative">→</span>
+          </Link>
+          <Link
+            to="/tester-fioles"
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-[oklch(0.18_0.02_270)]/25 bg-white px-6 py-3.5 font-mono text-[12px] uppercase tracking-[0.22em] text-[oklch(0.18_0.02_270)] shadow-[0_10px_30px_-14px_color-mix(in_oklab,var(--brand-violet)_45%,transparent)]"
+          >
+            Tester vos fioles
+          </Link>
+        </div>
+
+        {/* CTAs — Desktop (glass) */}
         <div className="mt-10 hidden flex-wrap items-center justify-center gap-3 lg:flex">
           <Link
             to="/produits"
@@ -96,10 +106,19 @@ function DesktopHero() {
             to="/tester-fioles"
             className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-[oklch(0.20_0.02_270)]/30 bg-white px-7 py-3.5 font-mono text-[11px] uppercase tracking-[0.22em] text-[oklch(0.18_0.02_270)] shadow-[0_14px_40px_-18px_color-mix(in_oklab,var(--brand-violet)_55%,transparent)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[oklch(0.20_0.02_270)]/55 hover:shadow-[0_22px_55px_-18px_color-mix(in_oklab,var(--brand-violet)_70%,transparent)]"
           >
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-0 -translate-x-full opacity-0 transition-all duration-1000 group-hover:translate-x-full group-hover:opacity-100"
+              style={{
+                background:
+                  "linear-gradient(105deg, transparent 40%, color-mix(in oklab, var(--brand-violet) 20%, transparent) 50%, transparent 60%)",
+              }}
+            />
             <span className="relative">Tester vos fioles</span>
           </Link>
         </div>
 
+        {/* Vial */}
         <VialShowcase />
       </div>
     </section>
@@ -109,7 +128,6 @@ function DesktopHero() {
 function MobileHero() {
   return (
     <section className="mobile-experience relative isolate overflow-hidden bg-[oklch(0.985_0.005_260)] text-[oklch(0.18_0.02_270)]">
-      {/* Ambient gradient */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-30"
@@ -118,7 +136,6 @@ function MobileHero() {
             "radial-gradient(90% 55% at 50% 0%, color-mix(in oklab, var(--brand-cyan) 18%, transparent) 0%, transparent 70%), radial-gradient(75% 55% at 50% 62%, color-mix(in oklab, var(--brand-violet) 24%, transparent) 0%, transparent 68%), linear-gradient(180deg, oklch(0.995 0.003 260) 0%, oklch(0.97 0.012 260) 100%)",
         }}
       />
-      {/* Grid */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-20 opacity-[0.07]"
@@ -130,20 +147,6 @@ function MobileHero() {
             "linear-gradient(to bottom, transparent 0%, black 16%, black 78%, transparent 100%)",
         }}
       />
-      {/* Floating molecules */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-60">
-        <FloatingMolecules />
-      </div>
-      {/* Grain */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.04] mix-blend-multiply"
-        style={{
-          backgroundImage:
-            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")",
-        }}
-      />
-      {/* Beam */}
       <div
         aria-hidden
         className="pointer-events-none absolute -top-px left-0 z-10 h-px w-2/3 bg-gradient-to-r from-transparent via-[oklch(0.62_0.26_296)] to-transparent [animation:beam-sweep_6s_ease-in-out_infinite]"
@@ -151,7 +154,10 @@ function MobileHero() {
 
       <div className="relative mx-auto flex min-h-[calc(100svh-4rem)] w-full max-w-[440px] flex-col px-5 pb-6 pt-6 text-center">
         <div className="flex flex-1 flex-col items-center justify-center">
-          <PurityCounter />
+          <div className="inline-flex items-center gap-2 rounded-full border border-[oklch(0.18_0.02_270)]/12 bg-white/82 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-[oklch(0.26_0.03_270)] shadow-[0_10px_30px_-22px_color-mix(in_oklab,var(--brand-violet)_55%,transparent)] backdrop-blur-md">
+            <span className="size-1.5 animate-pulse rounded-full bg-[oklch(0.55_0.24_296)]" />
+            Recherche avancée
+          </div>
 
           <h1 className="mt-4 font-display text-[38px] font-semibold leading-[0.98] tracking-[-0.035em] text-[oklch(0.15_0.02_270)]">
             <span className="shimmer-text block">L'Avenir</span>
@@ -184,9 +190,7 @@ function MobileHero() {
           </div>
         </div>
 
-        {/* Vial + halo + particles + ground reflection */}
-        <div className="relative mx-auto mt-5 h-[300px] w-full max-w-[320px] shrink-0">
-          {/* Outer halo */}
+        <div className="relative mx-auto mt-5 h-[280px] w-full max-w-[320px] shrink-0">
           <div
             aria-hidden
             className="pointer-events-none absolute left-1/2 top-1/2 -z-20 h-[92%] w-[92%] -translate-x-1/2 -translate-y-1/2 rounded-full"
@@ -197,40 +201,16 @@ function MobileHero() {
               animation: "vial-glow 5s ease-in-out infinite",
             }}
           />
-
-          {/* Rising micro-particles (behind vial glass illusion) */}
-          <VialParticles />
-
-          {/* Vial image */}
           <img
             src={avantAsset.url}
             alt="Flacon Peptinium Retatrutide — pureté 99%"
             draggable={false}
-            className="relative z-20 mx-auto h-[86%] w-auto object-contain drop-shadow-[0_28px_42px_color-mix(in_oklab,var(--brand-violet)_30%,transparent)] [animation:float_6s_ease-in-out_infinite]"
-          />
-
-          {/* Ground reflection (mirror) */}
-          <img
-            src={avantAsset.url}
-            aria-hidden
-            draggable={false}
-            className="pointer-events-none absolute left-1/2 top-[82%] z-10 h-[40%] w-auto -translate-x-1/2 scale-y-[-1] object-contain opacity-25"
-            style={{
-              maskImage: "linear-gradient(to bottom, black 0%, transparent 65%)",
-              filter: "blur(2px)",
-            }}
-          />
-          {/* Floor pool light */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-x-8 bottom-2 h-6 rounded-[50%] blur-2xl"
-            style={{
-              background:
-                "radial-gradient(ellipse at center, color-mix(in oklab, var(--brand-violet) 50%, transparent) 0%, transparent 70%)",
-            }}
+            className="mx-auto h-full w-auto object-contain drop-shadow-[0_28px_42px_color-mix(in_oklab,var(--brand-violet)_30%,transparent)] [animation:float_6s_ease-in-out_infinite]"
           />
         </div>
       </div>
+
+
     </section>
   );
 }
@@ -239,6 +219,7 @@ function MobileHero() {
 function VialShowcase() {
   return (
     <div className="group relative mt-14 w-full max-w-[520px] sm:mt-16">
+      {/* Outer soft halo */}
       <div
         aria-hidden
         className="pointer-events-none absolute left-1/2 top-1/2 -z-20 h-[110%] w-[110%] -translate-x-1/2 -translate-y-1/2 rounded-full"
@@ -249,6 +230,7 @@ function VialShowcase() {
           animation: "vial-glow 6s ease-in-out infinite",
         }}
       />
+      {/* Inner bright halo */}
       <div
         aria-hidden
         className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[75%] w-[75%] -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-700 group-hover:h-[88%] group-hover:w-[88%]"
@@ -259,31 +241,27 @@ function VialShowcase() {
           animation: "vial-glow 4.5s ease-in-out infinite",
         }}
       />
-      {/* Particles inside vial */}
-      <VialParticles />
-      {/* Vial */}
+      {/* Floor reflection */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-20 bottom-4 h-8 rounded-[50%] blur-2xl"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, color-mix(in oklab, var(--brand-violet) 45%, transparent) 0%, transparent 70%)",
+        }}
+      />
+      {/* Image */}
       <div className="relative mx-auto aspect-[2/3] w-full max-w-[420px] overflow-visible">
         <img
           src={avantAsset.url}
           alt="Flacon Peptinium Retatrutide — pureté 99%"
           draggable={false}
-          className="relative z-20 size-full origin-center object-contain drop-shadow-[0_30px_50px_color-mix(in_oklab,var(--brand-violet)_35%,transparent)] transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform [animation:float_6s_ease-in-out_infinite] group-hover:scale-[1.08]"
-        />
-        {/* Reflet miroir */}
-        <img
-          src={avantAsset.url}
-          aria-hidden
-          draggable={false}
-          className="pointer-events-none absolute left-1/2 top-[92%] z-10 h-[45%] w-auto -translate-x-1/2 scale-y-[-1] object-contain opacity-20"
-          style={{
-            maskImage: "linear-gradient(to bottom, black 0%, transparent 60%)",
-            filter: "blur(3px)",
-          }}
+          className="size-full origin-center object-contain drop-shadow-[0_30px_50px_color-mix(in_oklab,var(--brand-violet)_35%,transparent)] transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform [animation:float_6s_ease-in-out_infinite] group-hover:scale-[1.08]"
         />
         {/* Sheen sweep on hover */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 z-30 -translate-x-full opacity-0 transition-all duration-1000 group-hover:translate-x-full group-hover:opacity-100"
+          className="pointer-events-none absolute inset-0 -translate-x-full opacity-0 transition-all duration-1000 group-hover:translate-x-full group-hover:opacity-100"
           style={{
             background:
               "linear-gradient(105deg, transparent 40%, oklch(1 0 0 / 0.25) 50%, transparent 60%)",
@@ -292,5 +270,6 @@ function VialShowcase() {
         />
       </div>
     </div>
+
   );
 }

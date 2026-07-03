@@ -100,23 +100,6 @@
   from { opacity: 0; transform: translateY(20px) }
   to { opacity: 1; transform: translateY(0) }
 }
-@keyframes molecule-drift {
-  0%   { transform: translate3d(0,0,0) rotate(0deg); }
-  50%  { transform: translate3d(14px,-18px,0) rotate(180deg); }
-  100% { transform: translate3d(0,0,0) rotate(360deg); }
-}
-@keyframes molecule-drift-alt {
-  0%   { transform: translate3d(0,0,0) rotate(0deg); }
-  50%  { transform: translate3d(-18px,14px,0) rotate(-180deg); }
-  100% { transform: translate3d(0,0,0) rotate(-360deg); }
-}
-@keyframes particle-rise {
-  0%   { transform: translateY(0) scale(0.6); opacity: 0; }
-  15%  { opacity: 0.9; }
-  85%  { opacity: 0.7; }
-  100% { transform: translateY(-140px) scale(1); opacity: 0; }
-}
-
 
 :root {
   --radius: 6px;
