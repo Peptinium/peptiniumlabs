@@ -15,15 +15,8 @@ export function Hero() {
 function DesktopHero() {
   return (
     <section className="desktop-experience relative overflow-hidden bg-[oklch(0.985_0.005_260)] text-[oklch(0.18_0.02_270)]">
-      {/* Ambient background */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(60% 50% at 50% 0%, color-mix(in oklab, var(--brand-violet) 14%, transparent) 0%, transparent 65%), radial-gradient(50% 40% at 12% 25%, color-mix(in oklab, var(--brand-cyan) 16%, transparent) 0%, transparent 60%), radial-gradient(50% 40% at 88% 35%, color-mix(in oklab, var(--brand-magenta) 12%, transparent) 0%, transparent 60%)",
-        }}
-      />
+      {/* Mouse-reactive ambient halo */}
+      <MouseHalo />
       {/* Grid overlay removed for premium Apple-like feel */}
 
       {/* Beam sweep */}
