@@ -96,7 +96,7 @@ function HomePage() {
       <section className="border-b border-border/60">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-10 gap-y-4 px-8 py-8">
           {[
-            { k: "HPLC ≥ 99 %", v: "Pureté vérifiée" },
+            { k: "HPLC ≥ 99 %", v: "Pureté documentée" },
             { k: "CoA", v: "Consultables en ligne" },
             { k: "RUO", v: "Recherche uniquement" },
             { k: "Expédition 24 h", v: "Depuis la France" },
@@ -137,8 +137,8 @@ function HomePage() {
         <div className="grid grid-cols-1 gap-12 md:grid-cols-3 md:gap-16">
           {[
             {
-              t: "Pureté vérifiée",
-              d: "Chaque lot est analysé par HPLC en phase inverse et validé par spectrométrie de masse.",
+              t: "Pureté documentée",
+              d: "Chaque lot est fourni avec son Certificat d'Analyse (CoA) Janoshik indépendant : HPLC en phase inverse et spectrométrie de masse.",
               Icon: ShieldCheck,
             },
             {
@@ -217,8 +217,8 @@ function HomePage() {
             },
             {
               n: "02",
-              t: "Contrôle HPLC & MS",
-              d: "Chaque lot analysé par chromatographie en phase inverse, identité validée par spectrométrie de masse. Pureté ≥ 99 %.",
+              t: "CoA indépendant Janoshik",
+              d: "Chaque lot est accompagné d'un CoA Janoshik indépendant : HPLC en phase inverse et spectrométrie de masse. Pureté ≥ 99 %.",
               c: "var(--brand-violet)",
             },
             {
@@ -342,7 +342,7 @@ function MobileHome({ featured, rest }: { featured: typeof products[number]; res
         </h2>
         <div className="mt-7 space-y-3">
           {[
-            ["01", "Pureté vérifiée", "HPLC en phase inverse et validation par spectrométrie de masse."],
+            ["01", "Pureté documentée", "CoA Janoshik indépendant par lot : HPLC en phase inverse et spectrométrie de masse."],
             ["02", "Traçabilité totale", "Numéro de lot, documentation auditable et CoA disponible pour chaque flacon."],
             ["03", "Support recherche", "MSDS, protocoles labo et conseils de reconstitution sur demande."],
           ].map(([n, title, body]) => (
