@@ -13,7 +13,7 @@ export function SiteLayout({ children, showRuoModal = true }: { children: ReactN
       <GrainOverlay />
       <RuoBanner />
       <Header />
-      <main className="flex-1 overflow-x-clip">{children}</main>
+      <main className="grid-bg flex-1 overflow-x-clip">{children}</main>
       <Footer />
       {showRuoModal && <RuoModal />}
     </div>
