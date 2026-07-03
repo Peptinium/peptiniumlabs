@@ -2,7 +2,7 @@
   "name": "Peptinium Labs",
   "short_name": "Peptinium",
   "description": "Peptinium Labs — Peptides de recherche (RUO). Gérez vos commandes, tickets SAV et suivi.",
-  "start_url": "/admin",
+  "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",

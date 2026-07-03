@@ -12,7 +12,7 @@ export function Hero() {
 
 function DesktopHero() {
   return (
-    <section className="relative hidden overflow-hidden bg-[oklch(0.985_0.005_260)] text-[oklch(0.18_0.02_270)] lg:block">
+    <section className="desktop-experience relative overflow-hidden bg-[oklch(0.985_0.005_260)] text-[oklch(0.18_0.02_270)]">
       {/* Ambient background */}
       <div
         aria-hidden
@@ -127,7 +127,7 @@ function DesktopHero() {
 
 function MobileHero() {
   return (
-    <section className="relative isolate overflow-hidden bg-[oklch(0.985_0.005_260)] text-[oklch(0.18_0.02_270)] lg:hidden">
+    <section className="mobile-experience relative isolate overflow-hidden bg-[oklch(0.985_0.005_260)] text-[oklch(0.18_0.02_270)]">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-30"
