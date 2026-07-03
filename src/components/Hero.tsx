@@ -127,15 +127,9 @@ function MobileHero() {
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-20 opacity-[0.07]"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, oklch(0.25 0.03 270 / 70%) 1px, transparent 1px), linear-gradient(to bottom, oklch(0.25 0.03 270 / 70%) 1px, transparent 1px)",
-          backgroundSize: "38px 38px",
-          maskImage:
-            "linear-gradient(to bottom, transparent 0%, black 16%, black 78%, transparent 100%)",
-        }}
+        className="pointer-events-none absolute inset-0 -z-20 opacity-0"
       />
+
       <div
         aria-hidden
         className="pointer-events-none absolute -top-px left-0 z-10 h-px w-2/3 bg-gradient-to-r from-transparent via-[oklch(0.62_0.26_296)] to-transparent [animation:beam-sweep_6s_ease-in-out_infinite]"
