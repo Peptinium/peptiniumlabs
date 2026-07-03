@@ -145,7 +145,7 @@ function HomePage() {
             },
             {
               t: "Traçabilité totale",
-              d: "Numéro de lot unique, archive de 5 ans, CoA disponible en un clic pour chaque flacon.",
+              d: "Numéro de lot unique, documentation auditable sur demande, CoA consultable en ligne pour chaque flacon.",
               c: "var(--brand-violet)",
             },
             {
@@ -196,64 +196,70 @@ function HomePage() {
         </div>
       </section>
 
-      {/* ============ QUALITY — BENTO 2 CARDS (light + dark) ============ */}
-      <section className="mx-auto max-w-7xl px-8 pb-32 sm:pb-40">
+      {/* ============ QUALITY — APPLE-STYLE PROCESS ============ */}
+      <section className="mx-auto max-w-6xl px-8 pb-32 sm:pb-40">
         <Reveal>
-          <div className="mb-16 max-w-2xl">
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Notre laboratoire</span>
-            <h2 className="mt-4 font-display text-4xl font-light leading-[1.05] tracking-tighter text-foreground sm:text-5xl">
-              Un protocole qualité<br className="hidden sm:block" /> reproductible, lot après lot.
+          <div className="mb-20 text-center">
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Le protocole</span>
+            <h2 className="mx-auto mt-6 max-w-3xl font-display text-4xl font-light leading-[1.05] tracking-tighter text-foreground sm:text-6xl">
+              Une exigence,{" "}
+              <span className="bg-gradient-to-r from-[var(--brand-cyan)] via-[var(--brand-blue)] via-[var(--brand-violet)] to-[var(--brand-magenta)] bg-clip-text font-medium text-transparent">
+                lot après lot.
+              </span>
             </h2>
           </div>
         </Reveal>
-        <div className="grid gap-6 md:grid-cols-2">
-          {/* Light card */}
-          <Reveal>
-            <div className="group relative flex h-[500px] flex-col overflow-hidden rounded-[32px] border border-border bg-card">
-              <div className="space-y-4 p-12">
-                <p className="font-mono text-[10px] font-medium uppercase tracking-[0.25em] text-accent">Contrôle analytique</p>
-                <h4 className="font-display text-4xl font-light tracking-tight text-foreground">
-                  Chaque lot, sans exception.
-                </h4>
-                <p className="max-w-md text-[15px] leading-relaxed text-muted-foreground">
-                  HPLC en phase inverse, validation par spectrométrie de masse, CoA consultable en ligne avec clé de vérification publique.
-                </p>
-              </div>
-              <div className="mt-auto flex h-1/2 w-full items-end justify-center bg-gradient-to-t from-surface to-transparent p-8">
-                <div className="flex w-full max-w-sm items-center justify-around rounded-t-2xl border border-b-0 border-border bg-background px-6 py-6 shadow-[0_-20px_40px_-15px_rgba(0,0,0,0.05)] transition-transform duration-700 group-hover:-translate-y-1">
-                  {["HPLC", "MS", "CoA"].map((x) => (
-                    <span key={x} className="font-mono text-[11px] uppercase tracking-[0.2em] text-foreground/70">{x}</span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </Reveal>
 
-          {/* Dark accent card */}
-          <Reveal delay={80}>
-            <div className="group relative flex h-[500px] flex-col overflow-hidden rounded-[32px] bg-gradient-to-br from-slate-900 to-black">
-              <div className="space-y-4 p-12">
-                <p className="font-mono text-[10px] font-medium uppercase tracking-[0.25em] text-[color-mix(in_oklab,var(--brand-violet)_60%,white)]">Traçabilité</p>
-                <h4 className="font-display text-4xl font-light tracking-tight text-white">
-                  Documenté au flacon près.
-                </h4>
-                <p className="max-w-md text-[15px] leading-relaxed text-white/60">
-                  Numéro de lot unique, archive de 5 ans, sourcing SPPS Fmoc audité, flacons borosilicate type I sertis aluminium.
-                </p>
-              </div>
-              <div className="relative mt-auto flex h-1/2 w-full items-center justify-center">
-                <div
-                  className="absolute size-64 rounded-full blur-[100px]"
-                  style={{ background: "color-mix(in oklab, var(--brand-violet) 40%, transparent)" }}
-                />
-                <div className="relative flex size-48 items-center justify-center rounded-full border border-white/10">
-                  <div className="size-32 animate-pulse rounded-full border border-white/20" />
+        <div className="space-y-24 sm:space-y-32">
+          {[
+            {
+              n: "01",
+              t: "Synthèse SPPS Fmoc",
+              d: "Partenaires audités, synthèse en phase solide selon les standards les plus stricts. Rien n'est laissé au hasard.",
+              c: "var(--brand-cyan)",
+            },
+            {
+              n: "02",
+              t: "Contrôle HPLC & MS",
+              d: "Chaque lot analysé par chromatographie en phase inverse, identité validée par spectrométrie de masse. Pureté ≥ 99 %.",
+              c: "var(--brand-violet)",
+            },
+            {
+              n: "03",
+              t: "Certificat d'analyse",
+              d: "CoA consultable en ligne avec clé de vérification publique. Traçabilité complète, documentation auditable.",
+              c: "var(--brand-magenta)",
+            },
+          ].map((step, i) => (
+            <Reveal key={step.n} delay={i * 80}>
+              <div className="grid items-start gap-8 sm:grid-cols-[auto_1fr] sm:gap-16">
+                <div className="flex items-baseline gap-4">
+                  <span
+                    className="font-display text-[80px] font-extralight leading-none tracking-tighter sm:text-[120px]"
+                    style={{
+                      background: `linear-gradient(180deg, ${step.c} 0%, color-mix(in oklab, ${step.c} 20%, transparent) 100%)`,
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
+                  >
+                    {step.n}
+                  </span>
+                </div>
+                <div className="max-w-xl pt-4 sm:pt-8">
+                  <h3 className="font-display text-3xl font-light tracking-tight text-foreground sm:text-4xl">
+                    {step.t}
+                  </h3>
+                  <p className="mt-5 text-lg font-light leading-relaxed text-muted-foreground">
+                    {step.d}
+                  </p>
                 </div>
               </div>
-            </div>
-          </Reveal>
+            </Reveal>
+          ))}
         </div>
       </section>
+
 
       {/* ============ FINAL CTA — QUIET ============ */}
       <section className="mx-auto max-w-4xl px-8 pb-32 sm:pb-40">
@@ -343,7 +349,7 @@ function MobileHome({ featured, rest }: { featured: typeof products[number]; res
         <div className="mt-7 space-y-3">
           {[
             ["01", "Pureté vérifiée", "HPLC en phase inverse et validation par spectrométrie de masse."],
-            ["02", "Traçabilité totale", "Numéro de lot, archive qualité et CoA disponible pour chaque flacon."],
+            ["02", "Traçabilité totale", "Numéro de lot, documentation auditable et CoA disponible pour chaque flacon."],
             ["03", "Support recherche", "MSDS, protocoles labo et conseils de reconstitution sur demande."],
           ].map(([n, title, body]) => (
             <div key={n} className="rounded-xl border border-border bg-card p-5 shadow-sm">
