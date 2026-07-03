@@ -103,7 +103,9 @@ function DesktopHero() {
         </div>
 
         {/* Vial */}
-        <VialShowcase />
+        <Parallax speed={0.08} className="w-full flex justify-center">
+          <VialShowcase />
+        </Parallax>
       </div>
     </section>
   );
