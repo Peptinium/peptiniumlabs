@@ -1,5 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import avantAsset from "@/assets/vial/RT_AVANT_TRANSPARENT.png.asset.json";
+import { MouseHalo } from "@/components/premium/MouseHalo";
+import { Parallax } from "@/components/premium/Parallax";
 
 export function Hero() {
   return (
