@@ -279,7 +279,7 @@ function VialShowcase() {
         className="pointer-events-none absolute inset-x-20 bottom-4 h-8 rounded-[50%] blur-2xl"
         style={{
           background:
-            "radial-gradient(ellipse at center, color-mix(in oklab, var(--brand-violet) 28%, transparent) 0%, color-mix(in oklab, var(--brand-blue) 18%, transparent) 55%, transparent 70%)",
+            "radial-gradient(ellipse at center, color-mix(in oklab, var(--brand-blue) 26%, transparent) 0%, color-mix(in oklab, var(--brand-cyan) 18%, transparent) 55%, transparent 72%)",
         }}
       />
       {/* Image */}
