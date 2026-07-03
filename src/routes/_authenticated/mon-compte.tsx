@@ -1,5 +1,6 @@
 import { createFileRoute, Link, Outlet, useLocation, useNavigate } from "@tanstack/react-router";
-import { Package, User, Mail, LogOut } from "lucide-react";
+import { Package, User, Mail, LogOut, ShieldCheck } from "lucide-react";
+import { useEffect, useState } from "react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { supabase } from "@/integrations/supabase/client";
 
