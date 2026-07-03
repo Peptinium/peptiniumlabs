@@ -202,9 +202,7 @@ function HomePage() {
             <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Le protocole</span>
             <h2 className="text-fluid-3xl mx-auto mt-6 max-w-3xl font-display font-light text-foreground">
               Une exigence,{" "}
-              <span className="bg-gradient-to-r from-[var(--brand-cyan)] via-[var(--brand-blue)] via-[var(--brand-violet)] to-[var(--brand-magenta)] bg-clip-text font-medium text-transparent">
-                lot après lot.
-              </span>
+              <span className="shimmer-text font-medium">lot après lot.</span>
             </h2>
           </div>
         </Reveal>
