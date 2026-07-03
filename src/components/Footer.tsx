@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import peptiniumLogo from "@/assets/brand/peptinium-logo.png.asset.json";
 
 export function Footer() {
   return (
