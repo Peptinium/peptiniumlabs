@@ -170,7 +170,7 @@
   color: transparent;
 }
 @utility brand-gradient-bg {
-  background: var(--gradient-brand);
+  background: var(--gradient-cta);
 }
 
 @layer base {
