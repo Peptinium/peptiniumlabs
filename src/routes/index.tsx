@@ -96,7 +96,7 @@ function HomePage() {
         <div className="container-prose grid grid-cols-2 gap-6 py-6 sm:grid-cols-4 sm:py-7">
           {[
             { k: "HPLC", v: "≥ 99 % pureté" },
-            { k: "CoA", v: "À chaque lot" },
+            { k: "CoA", v: "Consultables en ligne" },
             { k: "RUO", v: "Recherche uniquement" },
             { k: "24 h", v: "Expédition rapide" },
           ].map((t) => (
