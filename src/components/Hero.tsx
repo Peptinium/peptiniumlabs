@@ -205,10 +205,10 @@ function MobileHero() {
         <div className="relative mx-auto mt-5 h-[260px] w-full max-w-[320px] shrink-0">
           <div
             aria-hidden
-            className="pointer-events-none absolute left-1/2 top-1/2 -z-20 h-[92%] w-[92%] -translate-x-1/2 -translate-y-1/2 rounded-full"
+            className="pointer-events-none absolute left-1/2 top-1/2 -z-20 h-[96%] w-[96%] -translate-x-1/2 -translate-y-1/2 rounded-full"
             style={{
               background:
-                "radial-gradient(ellipse at center, color-mix(in oklab, var(--brand-cyan) 34%, transparent) 0%, color-mix(in oklab, var(--brand-violet) 26%, transparent) 44%, transparent 72%)",
+                "conic-gradient(from 180deg at 50% 50%, color-mix(in oklab, var(--brand-cyan) 32%, transparent) 0%, color-mix(in oklab, var(--brand-blue) 26%, transparent) 22%, color-mix(in oklab, var(--brand-violet) 30%, transparent) 50%, color-mix(in oklab, var(--brand-magenta) 26%, transparent) 78%, color-mix(in oklab, var(--brand-cyan) 32%, transparent) 100%)",
               filter: "blur(48px)",
               animation: "vial-glow 5s ease-in-out infinite",
             }}
@@ -251,24 +251,24 @@ function MobileHero() {
 function VialShowcase() {
   return (
     <div className="group relative mt-14 w-full max-w-[520px] sm:mt-16">
-      {/* Outer soft halo */}
+      {/* Outer soft halo — logo brand sweep */}
       <div
         aria-hidden
         className="pointer-events-none absolute left-1/2 top-1/2 -z-20 h-[110%] w-[110%] -translate-x-1/2 -translate-y-1/2 rounded-full"
         style={{
           background:
-            "conic-gradient(from 180deg at 50% 50%, color-mix(in oklab, var(--brand-cyan) 32%, transparent) 0%, color-mix(in oklab, var(--brand-blue) 28%, transparent) 30%, color-mix(in oklab, var(--brand-violet) 32%, transparent) 60%, color-mix(in oklab, var(--brand-magenta) 28%, transparent) 85%, color-mix(in oklab, var(--brand-cyan) 32%, transparent) 100%)",
+            "conic-gradient(from 180deg at 50% 50%, color-mix(in oklab, var(--brand-cyan) 32%, transparent) 0%, color-mix(in oklab, var(--brand-blue) 26%, transparent) 25%, color-mix(in oklab, var(--brand-violet) 30%, transparent) 55%, color-mix(in oklab, var(--brand-magenta) 26%, transparent) 80%, color-mix(in oklab, var(--brand-cyan) 32%, transparent) 100%)",
           filter: "blur(80px)",
           animation: "vial-glow 6s ease-in-out infinite",
         }}
       />
-      {/* Inner bright halo */}
+      {/* Inner bright halo — logo brand core */}
       <div
         aria-hidden
         className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[68%] w-[68%] -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-700 group-hover:h-[80%] group-hover:w-[80%]"
         style={{
           background:
-            "radial-gradient(ellipse at center, color-mix(in oklab, var(--brand-violet) 30%, transparent) 0%, color-mix(in oklab, var(--brand-blue) 20%, transparent) 40%, color-mix(in oklab, var(--brand-cyan) 14%, transparent) 65%, transparent 78%)",
+            "radial-gradient(ellipse at center, color-mix(in oklab, var(--brand-cyan) 24%, transparent) 0%, color-mix(in oklab, var(--brand-blue) 20%, transparent) 28%, color-mix(in oklab, var(--brand-violet) 24%, transparent) 55%, color-mix(in oklab, var(--brand-magenta) 18%, transparent) 72%, transparent 82%)",
           filter: "blur(45px)",
           animation: "vial-glow 4.5s ease-in-out infinite",
         }}
@@ -279,7 +279,7 @@ function VialShowcase() {
         className="pointer-events-none absolute inset-x-20 bottom-4 h-8 rounded-[50%] blur-2xl"
         style={{
           background:
-            "radial-gradient(ellipse at center, color-mix(in oklab, var(--brand-violet) 45%, transparent) 0%, transparent 70%)",
+            "radial-gradient(ellipse at center, color-mix(in oklab, var(--brand-violet) 28%, transparent) 0%, color-mix(in oklab, var(--brand-blue) 18%, transparent) 55%, transparent 70%)",
         }}
       />
       {/* Image */}
