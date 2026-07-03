@@ -82,7 +82,7 @@ function DesktopHero() {
               className="relative inline-flex items-center gap-2.5 rounded-full px-7 py-3.5 font-mono text-[11px] font-medium uppercase tracking-[0.24em] text-white"
               style={{
                 backgroundImage:
-                  "linear-gradient(120deg, oklch(0.56 0.19 210) 0%, oklch(0.50 0.24 285) 55%, oklch(0.58 0.25 330) 100%)",
+                  "linear-gradient(120deg, oklch(0.74 0.13 210) 0%, oklch(0.66 0.22 285) 55%, oklch(0.72 0.20 335) 100%)",
               }}
             >
               {/* Top gloss */}
