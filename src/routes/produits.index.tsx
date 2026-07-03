@@ -15,7 +15,7 @@ export const Route = createFileRoute("/produits/")({
       {
         name: "description",
         content:
-          "Catalogue complet de peptides de recherche : Retatrutide, GHK-Cu, AHK-Cu, CJC-1295/Ipamorelin, Semax, BPC-157, Melanotan I & II, KLOW, NAD+, Tesamorelin, eau bactériostatique. HPLC ≥ 99 %, CoA, RUO.",
+          "Catalogue complet de peptides de recherche : Retatrutide, GHK-Cu, AHK-Cu, CJC-1295/Ipamorelin, Semax, BPC-157, Melanotan I & II, KLOW, NAD+, Tesamorelin, eau bactériostatique. HPLC ≥ 99 %, RUO.",
       },
       {
         name: "keywords",
@@ -26,7 +26,7 @@ export const Route = createFileRoute("/produits/")({
       {
         property: "og:description",
         content:
-          "Retatrutide, BPC-157, GHK-Cu, CJC-1295/Ipamorelin, Semax, Melanotan, KLOW, NAD+, Tesamorelin. Pureté HPLC ≥ 99 %, CoA fourni.",
+          "Retatrutide, BPC-157, GHK-Cu, CJC-1295/Ipamorelin, Semax, Melanotan, KLOW, NAD+, Tesamorelin. Pureté HPLC ≥ 99 %.",
       },
       { property: "og:url", content: `${SITE_URL}/produits` },
       { property: "og:type", content: "website" },
@@ -66,7 +66,7 @@ function CatalogPage() {
           <Reveal delay={140}>
             <p className="mt-5 max-w-2xl text-[17px] leading-[1.55] text-muted-foreground lg:text-[15px] lg:leading-relaxed">
               Composés validés par HPLC et spectrométrie de masse, conditionnés en flacons
-              stériles et livrés avec leur Certificat d'Analyse. Réactifs destinés{" "}
+              stériles. Réactifs destinés{" "}
               <strong className="text-foreground">
                 exclusivement à la recherche scientifique en laboratoire.
               </strong>

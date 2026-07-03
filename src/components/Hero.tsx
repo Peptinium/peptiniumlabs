@@ -55,9 +55,8 @@ function DesktopHero() {
 
         {/* Subtitle */}
         <p className="mt-5 max-w-2xl text-[16px] leading-[1.55] text-[oklch(0.35_0.02_270)] lg:mt-7 lg:text-[17px] lg:leading-[1.7]">
-          Peptides synthétiques haute pureté, contrôlés par HPLC et livrés avec
-          Certificat d'Analyse. L'exigence du laboratoire, pensée pour le
-          chercheur.
+          Peptides synthétiques haute pureté, contrôlés par HPLC. L'exigence du
+          laboratoire, pensée pour le chercheur.
         </p>
 
         {/* CTAs — Mobile (solid, high contrast) */}
@@ -166,7 +165,7 @@ function MobileHero() {
           </h1>
 
           <p className="mt-4 max-w-[340px] text-[15px] font-medium leading-[1.5] text-[oklch(0.31_0.025_270)]">
-            Peptides haute pureté contrôlés par HPLC, livrés avec Certificat d'Analyse.
+            Peptides haute pureté contrôlés par HPLC, pour recherche laboratoire.
           </p>
 
           <div className="mt-5 grid w-full max-w-[320px] gap-2.5">
