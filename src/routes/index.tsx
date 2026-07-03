@@ -114,7 +114,7 @@ function HomePage() {
         <Reveal>
           <div className="flex flex-col items-center text-center">
             <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Produit phare</span>
-            <h2 className="mt-6 max-w-3xl font-display text-5xl font-light leading-[1.05] tracking-tighter text-foreground sm:text-7xl">
+            <h2 className="text-fluid-3xl mt-6 max-w-3xl font-display font-light text-foreground">
               Sculpté pour la{" "}
               <span className="bg-gradient-to-r from-[var(--brand-cyan)] via-[var(--brand-blue)] via-[var(--brand-violet)] to-[var(--brand-magenta)] bg-clip-text font-medium text-transparent">
                 recherche.
@@ -202,7 +202,7 @@ function HomePage() {
         <Reveal>
           <div className="mb-20 text-center">
             <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Le protocole</span>
-            <h2 className="mx-auto mt-6 max-w-3xl font-display text-4xl font-light leading-[1.05] tracking-tighter text-foreground sm:text-6xl">
+            <h2 className="text-fluid-3xl mx-auto mt-6 max-w-3xl font-display font-light text-foreground">
               Une exigence,{" "}
               <span className="bg-gradient-to-r from-[var(--brand-cyan)] via-[var(--brand-blue)] via-[var(--brand-violet)] to-[var(--brand-magenta)] bg-clip-text font-medium text-transparent">
                 lot après lot.
@@ -267,7 +267,7 @@ function HomePage() {
         <Reveal>
           <div className="flex flex-col items-center text-center">
             <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Prêt à commander</span>
-            <h2 className="mt-6 font-display text-5xl font-light leading-[1.05] tracking-tighter text-foreground sm:text-6xl">
+            <h2 className="text-fluid-3xl mt-6 font-display font-light text-foreground">
               La sérénité du laboratoire,{" "}
               <span className="bg-gradient-to-r from-[var(--brand-cyan)] via-[var(--brand-blue)] via-[var(--brand-violet)] to-[var(--brand-magenta)] bg-clip-text font-medium text-transparent">
                 à portée de commande.
