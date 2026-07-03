@@ -1,5 +1,21 @@
 import { Link } from "@tanstack/react-router";
+import { lazy, Suspense, useEffect, useState } from "react";
 import avantAsset from "@/assets/vial/RT_AVANT_TRANSPARENT.png.asset.json";
+
+const Vial3D = lazy(() => import("@/components/Vial3D"));
+
+function ClientVial3D({ className, variant }: { className?: string; variant: "product" | "hero" }) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return <div className={className} aria-hidden />;
+  return (
+    <div className={className}>
+      <Suspense fallback={null}>
+        <Vial3D variant={variant} />
+      </Suspense>
+    </div>
+  );
+}
 
 export function Hero() {
   return (
