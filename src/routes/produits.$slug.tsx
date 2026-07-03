@@ -68,7 +68,7 @@ export const Route = createFileRoute("/produits/$slug")({
         { property: "og:title", content: p ? `${p.name} ${dosages} — Peptinium Labs` : "Peptinium Labs" },
         {
           property: "og:description",
-          content: p ? `${p.shortDescription} Pureté ${p.purity}. CoA fourni. RUO.` : "",
+          content: p ? `${p.shortDescription} Pureté ${p.purity}. RUO.` : "",
         },
         { property: "og:url", content: `${SITE}/produits/${params.slug}` },
         { property: "og:type", content: "product" },
