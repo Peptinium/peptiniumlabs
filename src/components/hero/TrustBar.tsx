@@ -1,6 +1,5 @@
 const items = [
   { label: "HPLC ≥ 99%", icon: "▲" },
-  { label: "CoA fourni", icon: "◆" },
   { label: "Expédition 48h", icon: "→" },
   { label: "Paiement sécurisé", icon: "●" },
 ];
