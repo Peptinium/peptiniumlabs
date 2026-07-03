@@ -217,8 +217,8 @@ function HomePage() {
             },
             {
               n: "02",
-              t: "Contrôle HPLC & MS",
-              d: "Chaque lot analysé par chromatographie en phase inverse, identité validée par spectrométrie de masse. Pureté ≥ 99 %.",
+              t: "CoA indépendant Janoshik",
+              d: "Chaque lot est accompagné d'un CoA Janoshik indépendant : HPLC en phase inverse et spectrométrie de masse. Pureté ≥ 99 %.",
               c: "var(--brand-violet)",
             },
             {
