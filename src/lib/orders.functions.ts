@@ -332,33 +332,9 @@ export const updateProduct = createServerFn({ method: "POST" })
     return { ok: true };
   });
 
-// Bootstrap: lets the first signed-in user claim the admin role
-// if no admin exists yet. Safe one-shot for initial setup.
-export const claimAdminIfNone = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .handler(async ({ context }) => {
-    const { userId } = context;
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { count } = await supabaseAdmin
-      .from("user_roles")
-      .select("*", { count: "exact", head: true })
-      .eq("role", "admin");
-    if ((count ?? 0) > 0) {
-      // Already an admin, check if it's me
-      const { data: mine } = await supabaseAdmin
-        .from("user_roles")
-        .select("*")
-        .eq("user_id", userId)
-        .eq("role", "admin")
-        .maybeSingle();
-      return { isAdmin: !!mine, granted: false };
-    }
-    const { error } = await supabaseAdmin
-      .from("user_roles")
-      .insert({ user_id: userId, role: "admin" });
-    if (error) throw new Error(error.message);
-    return { isAdmin: true, granted: true };
-  });
+// NOTE: The public "claim admin" bootstrap endpoint has been removed for
+// security reasons. Admin roles must be granted directly via the database
+// (INSERT INTO public.user_roles ...) — never via a client-callable endpoint.
 
 export const amIAdmin = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
