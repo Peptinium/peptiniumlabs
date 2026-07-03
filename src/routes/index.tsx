@@ -4,6 +4,7 @@ import { ProductCard, ProductVisual } from "@/components/ProductCard";
 import { RuoBadge } from "@/components/RuoBadge";
 import { Reveal } from "@/components/Reveal";
 import { Hero } from "@/components/Hero";
+import { Parallax } from "@/components/premium/Parallax";
 import { products, formatPrice } from "@/data/products";
 import labBg from "@/assets/lab-bg-ruo.jpg";
 
@@ -122,9 +123,9 @@ function HomePage() {
           </div>
         </Reveal>
         <Reveal delay={80}>
-          <div className="mt-16">
+          <Parallax speed={0.06} className="mt-16">
             <FeaturedCard featured={featured} />
-          </div>
+          </Parallax>
         </Reveal>
         <Reveal delay={140}>
           <p className="mx-auto mt-14 max-w-xl text-center text-lg font-light leading-relaxed text-muted-foreground">
