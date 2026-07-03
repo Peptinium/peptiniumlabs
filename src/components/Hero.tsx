@@ -52,7 +52,7 @@ function DesktopHero() {
             className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-6 py-3.5 font-mono text-[12px] uppercase tracking-[0.22em] text-white shadow-[0_18px_40px_-16px_color-mix(in_oklab,var(--brand-violet)_70%,transparent)]"
             style={{
               backgroundImage:
-                "linear-gradient(120deg, oklch(0.74 0.13 210) 0%, oklch(0.66 0.22 285) 55%, oklch(0.72 0.20 335) 100%)",
+                "linear-gradient(120deg, oklch(0.70 0.18 210) 0%, oklch(0.60 0.28 290) 55%, oklch(0.68 0.27 345) 100%)",
             }}
           >
             <span className="relative">Explorer le catalogue</span>
@@ -82,7 +82,7 @@ function DesktopHero() {
               className="relative inline-flex items-center gap-2.5 rounded-full px-7 py-3.5 font-mono text-[11px] font-medium uppercase tracking-[0.24em] text-white"
               style={{
                 backgroundImage:
-                  "linear-gradient(120deg, oklch(0.74 0.13 210) 0%, oklch(0.66 0.22 285) 55%, oklch(0.72 0.20 335) 100%)",
+                  "linear-gradient(120deg, oklch(0.70 0.18 210) 0%, oklch(0.60 0.28 290) 55%, oklch(0.68 0.27 345) 100%)",
               }}
             >
               {/* Top gloss */}
@@ -182,7 +182,7 @@ function MobileHero() {
               className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-6 py-3.5 font-mono text-[12px] font-semibold uppercase tracking-[0.16em] text-white shadow-[0_18px_40px_-18px_color-mix(in_oklab,var(--brand-violet)_80%,transparent)]"
               style={{
                 backgroundImage:
-                  "linear-gradient(120deg, oklch(0.74 0.13 210) 0%, oklch(0.66 0.22 285) 55%, oklch(0.72 0.20 335) 100%)",
+                  "linear-gradient(120deg, oklch(0.70 0.18 210) 0%, oklch(0.60 0.28 290) 55%, oklch(0.68 0.27 345) 100%)",
               }}
             >
               <span>Explorer le catalogue</span>
