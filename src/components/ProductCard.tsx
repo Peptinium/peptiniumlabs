@@ -43,8 +43,18 @@ export function ProductCard({ product }: { product: Product }) {
     <Link
       to="/produits/$slug"
       params={{ slug: product.slug }}
-      className="hover-lift group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm"
+      className="hover-lift group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-shadow duration-500 hover:shadow-[0_30px_60px_-30px_color-mix(in_oklab,var(--brand-violet)_35%,transparent)]"
     >
+      {/* Diagonal sheen sweep on hover */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-20 -translate-x-full opacity-0 transition-all duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-full group-hover:opacity-100"
+        style={{
+          background:
+            "linear-gradient(105deg, transparent 42%, color-mix(in oklab, var(--brand-cyan) 22%, transparent) 48%, oklch(1 0 0 / 0.35) 50%, color-mix(in oklab, var(--brand-magenta) 22%, transparent) 52%, transparent 58%)",
+          mixBlendMode: "overlay",
+        }}
+      />
       <div className="relative aspect-[2/3] overflow-hidden border-b border-border bg-surface">
         <ProductVisual
           product={product}
