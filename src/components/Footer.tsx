@@ -12,18 +12,15 @@ export function Footer() {
       <div className="container-prose grid gap-9 py-10 lg:grid-cols-12 lg:gap-12 lg:py-16">
         <div className="lg:col-span-5">
           <div className="flex items-center gap-3">
-            <span className="grid size-11 place-items-center overflow-hidden rounded-full bg-card ring-1 ring-border lg:size-9">
-              <svg viewBox="0 0 40 40" className="size-8 lg:size-7" fill="none" aria-hidden>
-                <defs>
-                  <linearGradient id="pep-footer-grad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stopColor="oklch(0.75 0.14 200)" />
-                    <stop offset="40%" stopColor="oklch(0.62 0.18 260)" />
-                    <stop offset="75%" stopColor="oklch(0.52 0.25 296)" />
-                    <stop offset="100%" stopColor="oklch(0.65 0.24 0)" />
-                  </linearGradient>
-                </defs>
-                <path d="M13 8h9.5a7.5 7.5 0 0 1 0 15H17v9h-4V8Zm4 4v7h5.5a3.5 3.5 0 0 0 0-7H17Z" fill="url(#pep-footer-grad)" />
-              </svg>
+            <span className="grid size-11 place-items-center overflow-hidden rounded-full bg-white ring-1 ring-border lg:size-9">
+              <img
+                src={peptiniumLogo.url}
+                alt="Peptinium Labs"
+                width={44}
+                height={44}
+                draggable={false}
+                className="size-full object-cover"
+              />
             </span>
             <div className="font-display text-xl font-medium lg:text-base">
               <span className="brand-gradient-text font-semibold">Peptinium</span> <span className="text-muted-foreground">Labs</span>
