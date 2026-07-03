@@ -64,7 +64,7 @@ export function Footer() {
           <ul className="mt-4 space-y-3 text-[15px] leading-relaxed text-muted-foreground lg:space-y-2.5 lg:text-xs">
             <li className="flex items-center gap-2"><Tick /> HPLC en phase inverse ≥ 99 %</li>
             <li className="flex items-center gap-2"><Tick /> Spectrométrie de masse (MS)</li>
-            <li className="flex items-center gap-2"><Tick /> CoA fourni avec chaque lot</li>
+            <li className="flex items-center gap-2"><Tick /> CoA consultables en ligne</li>
             <li className="flex items-center gap-2"><Tick /> Flacons verre type I borosilicate</li>
           </ul>
         </div>
