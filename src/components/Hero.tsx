@@ -22,18 +22,8 @@ function DesktopHero() {
             "radial-gradient(60% 50% at 50% 0%, color-mix(in oklab, var(--brand-violet) 14%, transparent) 0%, transparent 65%), radial-gradient(50% 40% at 12% 25%, color-mix(in oklab, var(--brand-cyan) 16%, transparent) 0%, transparent 60%), radial-gradient(50% 40% at 88% 35%, color-mix(in oklab, var(--brand-magenta) 12%, transparent) 0%, transparent 60%)",
         }}
       />
-      {/* Grid overlay */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.08]"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, oklch(0.25 0.03 270 / 60%) 1px, transparent 1px), linear-gradient(to bottom, oklch(0.25 0.03 270 / 60%) 1px, transparent 1px)",
-          backgroundSize: "64px 64px",
-          maskImage:
-            "radial-gradient(ellipse 70% 60% at 50% 40%, black 0%, transparent 80%)",
-        }}
-      />
+      {/* Grid overlay removed for premium Apple-like feel */}
+
       {/* Beam sweep */}
       <div
         aria-hidden
