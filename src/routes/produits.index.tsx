@@ -26,7 +26,7 @@ export const Route = createFileRoute("/produits/")({
       {
         property: "og:description",
         content:
-          "Retatrutide, BPC-157, GHK-Cu, CJC-1295/Ipamorelin, Semax, Melanotan, KLOW, NAD+, Tesamorelin. Pureté HPLC ≥ 99 %, CoA fourni.",
+          "Retatrutide, BPC-157, GHK-Cu, CJC-1295/Ipamorelin, Semax, Melanotan, KLOW, NAD+, Tesamorelin. Pureté HPLC ≥ 99 %.",
       },
       { property: "og:url", content: `${SITE_URL}/produits` },
       { property: "og:type", content: "website" },
