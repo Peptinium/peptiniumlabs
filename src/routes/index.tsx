@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { lazy, Suspense, useEffect, useState } from "react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { ProductCard, ProductVisual } from "@/components/ProductCard";
 import { RuoBadge } from "@/components/RuoBadge";
@@ -7,22 +6,6 @@ import { Reveal } from "@/components/Reveal";
 import { Hero } from "@/components/Hero";
 import { products, formatPrice } from "@/data/products";
 import labBg from "@/assets/lab-bg-ruo.jpg";
-
-const Vial3D = lazy(() => import("@/components/Vial3D"));
-
-function ClientVial({ className, variant = "product" }: { className?: string; variant?: "product" | "hero" }) {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-  if (!mounted) return <div className={className} aria-hidden />;
-  return (
-    <div className={className}>
-      <Suspense fallback={null}>
-        <Vial3D variant={variant} />
-      </Suspense>
-    </div>
-  );
-}
-
 
 const SITE_URL = "https://peptinium.com";
 const ALL_PEPTIDES_KEYWORDS = [
@@ -531,48 +514,53 @@ function FeaturedCard({ featured }: { featured: typeof products[number] }) {
     <Link
       to="/produits/$slug"
       params={{ slug: featured.slug }}
-      className="group relative block overflow-hidden rounded-[40px] border border-border bg-card shadow-[0_40px_100px_-40px_oklch(0.55_0.06_250/0.22)] transition-shadow duration-700 hover:shadow-[0_60px_140px_-40px_oklch(0.55_0.06_250/0.32)]"
+      className="group relative block overflow-hidden rounded-2xl border border-border bg-card shadow-[0_30px_60px_-30px_oklch(0.55_0.06_250/0.18)] transition-shadow hover:shadow-[0_40px_80px_-30px_oklch(0.55_0.06_250/0.24)]"
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-70"
-        style={{
-          background:
-            "radial-gradient(60% 60% at 25% 40%, color-mix(in oklab, var(--brand-cyan) 14%, transparent) 0%, transparent 60%), radial-gradient(50% 60% at 80% 70%, color-mix(in oklab, var(--brand-violet) 14%, transparent) 0%, transparent 65%)",
-        }}
-      />
-
-      <div className="relative grid gap-8 p-8 sm:grid-cols-[1.1fr_1fr] sm:items-center sm:gap-4 sm:p-14">
-        {/* 3D Vial */}
-        <ClientVial className="relative h-[380px] w-full sm:h-[520px]" />
-
-
-        {/* Text */}
-        <div className="relative">
-          <div className="mb-6 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+      {/* header */}
+      <div className="relative overflow-hidden border-b border-border bg-surface-2">
+        <div className="pointer-events-none absolute inset-0 opacity-20 grid-bg" />
+        <div className="relative flex flex-wrap items-center justify-between gap-2 px-4 py-3 sm:px-5 sm:py-3.5">
+          <div className="flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.2em] text-foreground/80 sm:text-[10px] sm:tracking-[0.22em]">
             <span className="size-1.5 animate-pulse rounded-full bg-accent" />
-            Produit phare
+            Produit phare · recherche métabolique
           </div>
-          <h2 className="font-display text-4xl font-light leading-[1.05] tracking-tighter text-foreground transition-colors group-hover:text-accent sm:text-6xl">
+          <RuoBadge compact variant="ghost" />
+        </div>
+        <div className="pointer-events-none absolute -bottom-px left-0 h-px w-1/2 bg-gradient-to-r from-transparent via-accent to-transparent [animation:beam-sweep_5s_ease-in-out_infinite]" />
+      </div>
+
+      <div className="grid gap-5 p-6 sm:grid-cols-[160px_1fr] sm:items-center sm:p-7">
+        <div className="relative mx-auto aspect-[2/3] w-36 overflow-hidden rounded-[18px] border border-border bg-surface sm:mx-0">
+          <ProductVisual
+            product={featured}
+            dosage={featured.variants[0]?.dosage}
+            alt={`Flacon ${featured.name} — Research Use Only`}
+            className="size-full"
+            imageClassName="size-full object-cover"
+            loading="eager"
+          />
+        </div>
+        <div>
+          <h2 className="font-display text-2xl font-medium tracking-tight transition-colors group-hover:text-accent">
             {featured.name}
           </h2>
-          <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
+          <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
             CAS {featured.cas} · {featured.molecularWeight}
           </p>
-          <p className="mt-6 text-[15px] font-light leading-relaxed text-muted-foreground sm:text-base">
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             {featured.shortDescription}
           </p>
-          <div className="mt-10 flex items-end justify-between border-t border-border/60 pt-6">
+          <div className="mt-5 flex items-end justify-between border-t border-border pt-4">
             <div>
-              <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+              <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">
                 À partir de
               </div>
-              <div className="mt-1 font-display text-3xl font-light tracking-tight text-foreground">
+              <div className="font-display text-2xl font-medium">
                 {formatPrice(Math.min(...featured.variants.map((v) => v.price)))}
               </div>
             </div>
-            <span className="inline-flex items-center gap-2 font-display text-sm font-medium text-foreground transition-transform duration-500 group-hover:translate-x-1">
-              Voir la fiche <span aria-hidden>→</span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent transition-transform duration-300 group-hover:translate-x-0.5">
+              Voir la fiche →
             </span>
           </div>
         </div>
@@ -580,4 +568,3 @@ function FeaturedCard({ featured }: { featured: typeof products[number] }) {
     </Link>
   );
 }
-
