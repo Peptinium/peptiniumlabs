@@ -5,6 +5,7 @@ import { RuoBadge } from "@/components/RuoBadge";
 import { Reveal } from "@/components/Reveal";
 import { Hero } from "@/components/Hero";
 import { products, formatPrice } from "@/data/products";
+import { ShieldCheck, Fingerprint, LifeBuoy } from "lucide-react";
 import labBg from "@/assets/lab-bg-ruo.jpg";
 
 const SITE_URL = "https://peptinium.com";
