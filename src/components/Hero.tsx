@@ -1,5 +1,21 @@
 import { Link } from "@tanstack/react-router";
+import { lazy, Suspense, useEffect, useState } from "react";
 import avantAsset from "@/assets/vial/RT_AVANT_TRANSPARENT.png.asset.json";
+
+const Vial3D = lazy(() => import("@/components/Vial3D"));
+
+function ClientVial3D({ className, variant }: { className?: string; variant: "product" | "hero" }) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return <div className={className} aria-hidden />;
+  return (
+    <div className={className}>
+      <Suspense fallback={null}>
+        <Vial3D variant={variant} />
+      </Suspense>
+    </div>
+  );
+}
 
 export function Hero() {
   return (
@@ -221,7 +237,7 @@ function MobileHero() {
 
 function VialShowcase() {
   return (
-    <div className="group relative mt-14 w-full max-w-[520px] sm:mt-16">
+    <div className="group relative mt-14 w-full max-w-[560px] sm:mt-16">
       {/* Outer soft halo */}
       <div
         aria-hidden
@@ -244,35 +260,11 @@ function VialShowcase() {
           animation: "vial-glow 4.5s ease-in-out infinite",
         }}
       />
-      {/* Floor reflection */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-20 bottom-4 h-8 rounded-[50%] blur-2xl"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, color-mix(in oklab, var(--brand-violet) 45%, transparent) 0%, transparent 70%)",
-        }}
+      {/* 3D Vial */}
+      <ClientVial3D
+        variant="product"
+        className="relative mx-auto h-[520px] w-full max-w-[560px]"
       />
-      {/* Image */}
-      <div className="relative mx-auto aspect-[2/3] w-full max-w-[420px] overflow-visible">
-        <img
-          src={avantAsset.url}
-          alt="Flacon Peptinium Retatrutide — pureté 99%"
-          draggable={false}
-          className="size-full origin-center object-contain drop-shadow-[0_30px_50px_color-mix(in_oklab,var(--brand-violet)_35%,transparent)] transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform [animation:float_6s_ease-in-out_infinite] group-hover:scale-[1.08]"
-        />
-        {/* Sheen sweep on hover */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 -translate-x-full opacity-0 transition-all duration-1000 group-hover:translate-x-full group-hover:opacity-100"
-          style={{
-            background:
-              "linear-gradient(105deg, transparent 40%, oklch(1 0 0 / 0.25) 50%, transparent 60%)",
-            mixBlendMode: "overlay",
-          }}
-        />
-      </div>
     </div>
-
   );
 }

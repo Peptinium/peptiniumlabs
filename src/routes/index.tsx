@@ -10,14 +10,14 @@ import labBg from "@/assets/lab-bg-ruo.jpg";
 
 const Vial3D = lazy(() => import("@/components/Vial3D"));
 
-function ClientVial({ className }: { className?: string }) {
+function ClientVial({ className, variant = "product" }: { className?: string; variant?: "product" | "hero" }) {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
   if (!mounted) return <div className={className} aria-hidden />;
   return (
     <div className={className}>
       <Suspense fallback={null}>
-        <Vial3D />
+        <Vial3D variant={variant} />
       </Suspense>
     </div>
   );
