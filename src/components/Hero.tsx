@@ -66,37 +66,70 @@ function DesktopHero() {
           </Link>
         </div>
 
-        {/* CTAs — Desktop (glass) */}
-        <div className="mt-10 hidden flex-wrap items-center justify-center gap-3 lg:flex">
+        {/* CTAs — Desktop (premium) */}
+        <div className="mt-10 hidden flex-wrap items-center justify-center gap-4 lg:flex">
           <Link
             to="/produits"
-            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full px-7 py-3.5 font-mono text-[11px] uppercase tracking-[0.22em] text-white shadow-[0_22px_55px_-18px_color-mix(in_oklab,var(--brand-violet)_75%,transparent)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_30px_75px_-20px_color-mix(in_oklab,var(--brand-violet)_90%,transparent)]"
+            className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full p-[1.5px] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5"
             style={{
               backgroundImage:
-                "linear-gradient(120deg, oklch(0.58 0.19 210) 0%, oklch(0.52 0.24 280) 55%, oklch(0.60 0.25 330) 100%)",
+                "linear-gradient(135deg, color-mix(in oklab, var(--brand-cyan) 90%, white) 0%, var(--brand-violet) 55%, color-mix(in oklab, var(--brand-magenta) 90%, white) 100%)",
+              boxShadow:
+                "0 24px 60px -22px color-mix(in oklab, var(--brand-violet) 70%, transparent), 0 8px 24px -12px color-mix(in oklab, var(--brand-blue) 55%, transparent)",
             }}
           >
             <span
-              aria-hidden
-              className="pointer-events-none absolute inset-0 -translate-x-full opacity-0 transition-all duration-1000 group-hover:translate-x-full group-hover:opacity-100"
+              className="relative inline-flex items-center gap-2.5 rounded-full px-7 py-3.5 font-mono text-[11px] font-medium uppercase tracking-[0.24em] text-white"
               style={{
-                background:
-                  "linear-gradient(105deg, transparent 40%, oklch(1 0 0 / 0.45) 50%, transparent 60%)",
+                backgroundImage:
+                  "linear-gradient(120deg, oklch(0.56 0.19 210) 0%, oklch(0.50 0.24 285) 55%, oklch(0.58 0.25 330) 100%)",
               }}
-            />
-            <span className="relative">Explorer le catalogue</span>
-            <span className="relative transition-transform group-hover:translate-x-0.5">→</span>
+            >
+              {/* Top gloss */}
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-full opacity-70"
+                style={{
+                  background:
+                    "linear-gradient(180deg, oklch(1 0 0 / 0.28) 0%, transparent 100%)",
+                }}
+              />
+              {/* Sheen sweep */}
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-0 -translate-x-full opacity-0 transition-all duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-full group-hover:opacity-100"
+                style={{
+                  background:
+                    "linear-gradient(105deg, transparent 40%, oklch(1 0 0 / 0.55) 50%, transparent 60%)",
+                }}
+              />
+              <span className="relative tracking-[0.24em]">Explorer le catalogue</span>
+              <span
+                aria-hidden
+                className="relative inline-flex size-5 items-center justify-center rounded-full bg-white/15 text-[10px] transition-transform duration-500 group-hover:translate-x-1 group-hover:bg-white/25"
+              >
+                →
+              </span>
+            </span>
           </Link>
+
           <Link
             to="/tester-fioles"
-            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-[oklch(0.20_0.02_270)]/30 bg-white px-7 py-3.5 font-mono text-[11px] uppercase tracking-[0.22em] text-[oklch(0.18_0.02_270)] shadow-[0_14px_40px_-18px_color-mix(in_oklab,var(--brand-violet)_55%,transparent)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[oklch(0.20_0.02_270)]/55 hover:shadow-[0_22px_55px_-18px_color-mix(in_oklab,var(--brand-violet)_70%,transparent)]"
+            className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full px-7 py-3.5 font-mono text-[11px] font-medium uppercase tracking-[0.24em] text-[oklch(0.18_0.02_270)] backdrop-blur-xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5"
+            style={{
+              backgroundImage:
+                "linear-gradient(180deg, oklch(1 0 0 / 0.95) 0%, oklch(0.985 0.006 260 / 0.85) 100%)",
+              boxShadow:
+                "inset 0 1px 0 oklch(1 0 0 / 0.9), 0 1px 0 oklch(0.20 0.03 270 / 0.05), 0 18px 44px -22px color-mix(in oklab, var(--brand-violet) 55%, transparent), 0 0 0 1px color-mix(in oklab, var(--brand-violet) 22%, transparent)",
+            }}
           >
+            {/* Sheen sweep */}
             <span
               aria-hidden
-              className="pointer-events-none absolute inset-0 -translate-x-full opacity-0 transition-all duration-1000 group-hover:translate-x-full group-hover:opacity-100"
+              className="pointer-events-none absolute inset-0 -translate-x-full opacity-0 transition-all duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-full group-hover:opacity-100"
               style={{
                 background:
-                  "linear-gradient(105deg, transparent 40%, color-mix(in oklab, var(--brand-violet) 20%, transparent) 50%, transparent 60%)",
+                  "linear-gradient(105deg, transparent 40%, color-mix(in oklab, var(--brand-violet) 22%, transparent) 50%, transparent 60%)",
               }}
             />
             <span className="relative">Tester vos fioles</span>
