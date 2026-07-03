@@ -28,8 +28,7 @@ export function Footer() {
           </div>
           <p className="mt-5 max-w-md text-[16px] leading-[1.6] text-muted-foreground lg:text-sm lg:leading-relaxed">
             Fournisseur de réactifs peptidiques de qualité recherche pour laboratoires académiques,
-            CRO et instituts. Validation HPLC et spectrométrie de masse, Certificat d'Analyse
-            (CoA) systématique.
+            CRO et instituts. Contrôles internes par HPLC et spectrométrie de masse.
           </p>
           <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-2 font-mono text-[11px] uppercase tracking-[0.13em] text-muted-foreground lg:px-3 lg:py-1.5 lg:text-[10px] lg:tracking-[0.18em]">
             <span className="size-1.5 animate-pulse rounded-full bg-accent" />
