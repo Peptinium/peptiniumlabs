@@ -294,12 +294,18 @@ function HomePage() {
               <span className="size-1.5 rounded-full bg-accent" />
               Research Use Only
             </div>
-            <h2 className="mt-8 font-display text-3xl font-light leading-tight tracking-tight text-foreground sm:text-4xl">
+            <h2 className="shimmer-text mt-8 font-display text-3xl font-light leading-tight tracking-tight text-foreground sm:text-4xl">
               Avis réglementaire — RUO
             </h2>
             <p className="mt-6 text-[15px] leading-[1.75] text-muted-foreground">
               Les produits commercialisés par Peptinium Labs sont des{" "}
-              <strong className="font-medium text-foreground">réactifs chimiques destinés à la recherche scientifique in vitro</strong>{" "}
+              <strong className="font-medium text-foreground">
+                réactifs chimiques destinés à la{" "}
+                <span className="bg-gradient-to-r from-[var(--brand-cyan)] via-[var(--brand-violet)] to-[var(--brand-magenta)] bg-clip-text text-transparent">
+                  recherche
+                </span>{" "}
+                scientifique in vitro
+              </strong>{" "}
               en environnement de laboratoire contrôlé. Ils ne sont pas destinés ni adaptés à un
               usage vétérinaire, diagnostique, thérapeutique, alimentaire ou cosmétique.
             </p>
