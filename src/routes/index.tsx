@@ -175,8 +175,8 @@ function HomePage() {
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
               <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">La collection</span>
-              <h2 className="mt-4 font-display text-4xl font-light leading-[1.05] tracking-tighter text-foreground sm:text-5xl">
-                Réactifs sélectionnés<br className="hidden sm:block" /> pour la recherche.
+              <h2 className="mt-4 font-display text-4xl font-light leading-[1.05] tracking-tighter sm:text-5xl">
+                <span className="shimmer-text">Réactifs sélectionnés pour la recherche.</span>
               </h2>
             </div>
             <Link
