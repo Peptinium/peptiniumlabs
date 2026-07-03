@@ -286,7 +286,7 @@
   background-repeat: no-repeat;
   background-clip: text;
   -webkit-background-clip: text;
-  animation: shimmer 5s cubic-bezier(0.45, 0, 0.55, 1) infinite both;
+  animation: shimmer 9s cubic-bezier(0.45, 0, 0.55, 1) infinite both;
   backface-visibility: hidden;
   transform: translateZ(0);
   will-change: background-position;
