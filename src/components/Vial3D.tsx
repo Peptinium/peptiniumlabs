@@ -103,9 +103,16 @@ function VialModel({
     if (!ref.current) return;
     if (autoRotate) ref.current.rotation.y += delta * 0.25;
     if (!interactive) {
-      // For hero background: fully driven by scroll
+      // Hero variant: fully driven by scroll
       ref.current.rotation.y = scrollRot;
       ref.current.rotation.x = Math.sin(scrollRot * 0.5) * 0.1;
+    } else {
+      // Product variant: subtle scroll parallax tilt
+      ref.current.rotation.x = THREE.MathUtils.lerp(
+        ref.current.rotation.x,
+        Math.sin(scrollRot * 0.4) * 0.12,
+        0.08,
+      );
     }
   });
 
