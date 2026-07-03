@@ -116,9 +116,7 @@ function HomePage() {
             <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Produit phare</span>
             <h2 className="text-fluid-3xl mt-6 max-w-3xl font-display font-light text-foreground">
               Sculpté pour la{" "}
-              <span className="bg-gradient-to-r from-[var(--brand-cyan)] via-[var(--brand-blue)] via-[var(--brand-violet)] to-[var(--brand-magenta)] bg-clip-text font-medium text-transparent">
-                recherche.
-              </span>
+              <span className="shimmer-text font-medium">recherche.</span>
             </h2>
           </div>
         </Reveal>
@@ -204,9 +202,7 @@ function HomePage() {
             <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Le protocole</span>
             <h2 className="text-fluid-3xl mx-auto mt-6 max-w-3xl font-display font-light text-foreground">
               Une exigence,{" "}
-              <span className="bg-gradient-to-r from-[var(--brand-cyan)] via-[var(--brand-blue)] via-[var(--brand-violet)] to-[var(--brand-magenta)] bg-clip-text font-medium text-transparent">
-                lot après lot.
-              </span>
+              <span className="shimmer-text font-medium">lot après lot.</span>
             </h2>
           </div>
         </Reveal>
@@ -268,10 +264,8 @@ function HomePage() {
           <div className="flex flex-col items-center text-center">
             <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Prêt à commander</span>
             <h2 className="text-fluid-3xl mt-6 font-display font-light text-foreground">
-              La sérénité du laboratoire,{" "}
-              <span className="bg-gradient-to-r from-[var(--brand-cyan)] via-[var(--brand-blue)] via-[var(--brand-violet)] to-[var(--brand-magenta)] bg-clip-text font-medium text-transparent">
-                à portée de commande.
-              </span>
+              La sérénité du laboratoire, à portée de{" "}
+              <span className="shimmer-text font-medium">commande.</span>
             </h2>
             <p className="mt-6 max-w-lg text-lg font-light leading-relaxed text-muted-foreground">
               Traçabilité complète, expédition sous 24 h, support français.
@@ -301,11 +295,7 @@ function HomePage() {
             <p className="mt-6 text-[15px] leading-[1.75] text-muted-foreground">
               Les produits commercialisés par Peptinium Labs sont des{" "}
               <strong className="font-medium text-foreground">
-                réactifs chimiques destinés à la{" "}
-                <span className="bg-gradient-to-r from-[var(--brand-cyan)] via-[var(--brand-violet)] to-[var(--brand-magenta)] bg-clip-text text-transparent">
-                  recherche
-                </span>{" "}
-                scientifique in vitro
+                réactifs chimiques destinés à la recherche scientifique in vitro
               </strong>{" "}
               en environnement de laboratoire contrôlé. Ils ne sont pas destinés ni adaptés à un
               usage vétérinaire, diagnostique, thérapeutique, alimentaire ou cosmétique.
