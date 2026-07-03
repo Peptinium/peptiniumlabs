@@ -216,7 +216,7 @@ function HomePage() {
               className="md:col-span-3 md:row-span-2"
               k="01"
               t="Contrôle analytique"
-              d="Chaque lot est analysé par HPLC en phase inverse et validation d'identité par spectrométrie de masse. Le Certificat d'Analyse (CoA) accompagne chaque expédition."
+              d="Chaque lot est analysé par HPLC en phase inverse et validation d'identité par spectrométrie de masse. Le Certificat d'Analyse (CoA) est consultable en ligne, avec clé de vérification publique."
               tag="HPLC · MS · CoA"
               big
             />
