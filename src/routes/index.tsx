@@ -139,24 +139,26 @@ function HomePage() {
             {
               t: "Pureté vérifiée",
               d: "Chaque lot est analysé par HPLC en phase inverse et validé par spectrométrie de masse.",
-              c: "var(--brand-cyan)",
+              Icon: ShieldCheck,
             },
             {
               t: "Traçabilité totale",
               d: "Numéro de lot unique, documentation auditable sur demande, CoA consultable en ligne pour chaque flacon.",
-              c: "var(--brand-violet)",
+              Icon: Fingerprint,
             },
             {
               t: "Support recherche",
               d: "MSDS, protocoles labo et conseils de reconstitution. Un interlocuteur qui parle votre langage.",
-              c: "var(--brand-magenta)",
+              Icon: LifeBuoy,
             },
           ].map((p, i) => (
             <Reveal key={p.t} delay={i * 80}>
               <div className="flex flex-col gap-8 p-2">
-                <div className="flex size-12 items-center justify-center rounded-2xl border border-border bg-card shadow-sm">
-                  <div className="size-4 rounded-full" style={{ backgroundColor: p.c }} />
-                </div>
+                <p.Icon
+                  className="size-7 text-foreground/85"
+                  strokeWidth={1.25}
+                  aria-hidden
+                />
                 <div className="space-y-3">
                   <h3 className="font-display text-2xl font-normal tracking-tight text-foreground">{p.t}</h3>
                   <p className="text-[15px] leading-relaxed text-muted-foreground">{p.d}</p>
