@@ -58,7 +58,7 @@ function StudiesPage() {
           </Reveal>
           <Reveal delay={80}>
             <h1 className="mt-4 font-display text-4xl font-medium tracking-tight sm:text-5xl">
-              Études de référence par molécule
+              <span className="shimmer-text">Études de référence par molécule</span>
             </h1>
           </Reveal>
           <Reveal delay={160}>
