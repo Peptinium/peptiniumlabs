@@ -116,9 +116,7 @@ function HomePage() {
             <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Produit phare</span>
             <h2 className="text-fluid-3xl mt-6 max-w-3xl font-display font-light text-foreground">
               Sculpté pour la{" "}
-              <span className="bg-gradient-to-r from-[var(--brand-cyan)] via-[var(--brand-blue)] via-[var(--brand-violet)] to-[var(--brand-magenta)] bg-clip-text font-medium text-transparent">
-                recherche.
-              </span>
+              <span className="shimmer-text font-medium">recherche.</span>
             </h2>
           </div>
         </Reveal>
