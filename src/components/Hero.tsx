@@ -268,7 +268,7 @@ function VialShowcase() {
         className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[68%] w-[68%] -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-700 group-hover:h-[80%] group-hover:w-[80%]"
         style={{
           background:
-            "radial-gradient(ellipse at center, color-mix(in oklab, var(--brand-cyan) 24%, transparent) 0%, color-mix(in oklab, var(--brand-blue) 20%, transparent) 28%, color-mix(in oklab, var(--brand-violet) 24%, transparent) 55%, color-mix(in oklab, var(--brand-magenta) 18%, transparent) 72%, transparent 82%)",
+            "radial-gradient(ellipse at center, color-mix(in oklab, var(--brand-cyan) 32%, transparent) 0%, color-mix(in oklab, var(--brand-blue) 24%, transparent) 32%, color-mix(in oklab, var(--brand-violet) 14%, transparent) 58%, color-mix(in oklab, var(--brand-magenta) 20%, transparent) 74%, transparent 84%)",
           filter: "blur(45px)",
           animation: "vial-glow 4.5s ease-in-out infinite",
         }}
