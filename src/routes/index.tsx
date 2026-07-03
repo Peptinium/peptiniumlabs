@@ -1,13 +1,28 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { ProductCard, ProductVisual } from "@/components/ProductCard";
 import { RuoBadge } from "@/components/RuoBadge";
 import { Reveal } from "@/components/Reveal";
 import { Hero } from "@/components/Hero";
-import { Vial3D } from "@/components/Vial3D";
-
 import { products, formatPrice } from "@/data/products";
 import labBg from "@/assets/lab-bg-ruo.jpg";
+
+const Vial3D = lazy(() => import("@/components/Vial3D"));
+
+function ClientVial({ className }: { className?: string }) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return <div className={className} aria-hidden />;
+  return (
+    <div className={className}>
+      <Suspense fallback={null}>
+        <Vial3D />
+      </Suspense>
+    </div>
+  );
+}
+
 
 const SITE_URL = "https://peptinium.com";
 const ALL_PEPTIDES_KEYWORDS = [
