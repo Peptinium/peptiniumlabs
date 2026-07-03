@@ -11,7 +11,7 @@ import {
   LogOut,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { amIAdmin, claimAdminIfNone } from "@/lib/orders.functions";
+import { amIAdmin } from "@/lib/orders.functions";
 
 export const Route = createFileRoute("/admin")({
   ssr: false,
