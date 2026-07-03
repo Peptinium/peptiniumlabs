@@ -52,7 +52,7 @@ function DesktopHero() {
             className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-6 py-3.5 font-mono text-[12px] uppercase tracking-[0.22em] text-white shadow-[0_18px_40px_-16px_color-mix(in_oklab,var(--brand-violet)_70%,transparent)]"
             style={{
               backgroundImage:
-                "linear-gradient(120deg, oklch(0.55 0.20 210) 0%, oklch(0.50 0.24 280) 55%, oklch(0.58 0.26 330) 100%)",
+                "linear-gradient(120deg, oklch(0.74 0.13 210) 0%, oklch(0.66 0.22 285) 55%, oklch(0.72 0.20 335) 100%)",
             }}
           >
             <span className="relative">Explorer le catalogue</span>
