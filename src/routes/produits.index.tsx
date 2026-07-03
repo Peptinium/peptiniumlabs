@@ -1,5 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Link } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { ProductCard, ProductVisual } from "@/components/ProductCard";
@@ -60,7 +59,7 @@ function CatalogPage() {
             </div>
           </Reveal>
           <Reveal delay={80}>
-            <h1 className="mt-5 max-w-3xl font-display text-[42px] font-semibold leading-[1.02] tracking-[-0.035em] text-balance lg:text-4xl lg:font-medium lg:leading-normal lg:tracking-[-0.03em] xl:text-5xl">
+            <h1 className="mt-5 max-w-3xl font-display text-[42px] font-semibold leading-[1.02] tracking-[-0.035em] text-balance lg:text-5xl lg:font-medium lg:leading-normal lg:tracking-[-0.03em]">
               Catalogue de réactifs peptidiques
             </h1>
           </Reveal>
