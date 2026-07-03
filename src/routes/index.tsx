@@ -343,7 +343,7 @@ function MobileHome({ featured, rest }: { featured: typeof products[number]; res
         <div className="mt-7 space-y-3">
           {[
             ["01", "Pureté vérifiée", "HPLC en phase inverse et validation par spectrométrie de masse."],
-            ["02", "Traçabilité totale", "Numéro de lot, archive qualité et CoA disponible pour chaque flacon."],
+            ["02", "Traçabilité totale", "Numéro de lot, documentation auditable et CoA disponible pour chaque flacon."],
             ["03", "Support recherche", "MSDS, protocoles labo et conseils de reconstitution sur demande."],
           ].map(([n, title, body]) => (
             <div key={n} className="rounded-xl border border-border bg-card p-5 shadow-sm">
