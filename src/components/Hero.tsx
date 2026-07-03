@@ -31,11 +31,7 @@ function DesktopHero() {
       />
 
       <div className="container-prose relative flex flex-col items-center px-5 pt-20 pb-8 text-center lg:pt-32 lg:pb-6">
-        {/* Pill */}
-        <div className="inline-flex items-center gap-2 rounded-full border border-[oklch(0.18_0.02_270)]/10 bg-white/60 px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.24em] text-[oklch(0.30_0.03_270)] shadow-[0_1px_0_oklch(1_0_0)] backdrop-blur lg:tracking-[0.28em]">
-          <span className="size-1.5 animate-pulse rounded-full bg-[oklch(0.55_0.24_296)]" />
-          Recherche avancée
-        </div>
+        {/* Pill removed */}
 
         {/* Title */}
         <h1 className="mt-5 font-display text-[40px] font-semibold leading-[1.02] tracking-[-0.035em] text-balance text-[oklch(0.15_0.02_270)] sm:text-[60px] lg:mt-8 lg:text-[92px] lg:leading-[0.95]">
