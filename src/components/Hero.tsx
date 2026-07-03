@@ -224,7 +224,7 @@ function VialShowcase() {
         className="pointer-events-none absolute left-1/2 top-1/2 -z-20 h-[110%] w-[110%] -translate-x-1/2 -translate-y-1/2 rounded-full"
         style={{
           background:
-            "radial-gradient(ellipse at center, color-mix(in oklab, var(--brand-cyan) 30%, transparent) 0%, color-mix(in oklab, var(--brand-violet) 22%, transparent) 40%, transparent 72%)",
+            "radial-gradient(ellipse at center, color-mix(in oklab, var(--brand-cyan) 12%, transparent) 0%, color-mix(in oklab, var(--brand-violet) 9%, transparent) 40%, transparent 72%)",
           filter: "blur(80px)",
           animation: "vial-glow 6s ease-in-out infinite",
         }}
@@ -232,10 +232,10 @@ function VialShowcase() {
       {/* Inner bright halo */}
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[75%] w-[75%] -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-700 group-hover:h-[88%] group-hover:w-[88%]"
+        className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[65%] w-[65%] -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-700 group-hover:h-[78%] group-hover:w-[78%]"
         style={{
           background:
-            "radial-gradient(ellipse at center, color-mix(in oklab, var(--brand-violet) 55%, transparent) 0%, color-mix(in oklab, var(--brand-blue) 30%, transparent) 45%, transparent 72%)",
+            "radial-gradient(ellipse at center, color-mix(in oklab, var(--brand-violet) 22%, transparent) 0%, color-mix(in oklab, var(--brand-blue) 12%, transparent) 45%, transparent 72%)",
           filter: "blur(45px)",
           animation: "vial-glow 4.5s ease-in-out infinite",
         }}
