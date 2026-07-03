@@ -251,15 +251,35 @@ function MobileHero() {
 function VialShowcase() {
   return (
     <div className="group relative mt-14 w-full max-w-[520px] sm:mt-16">
-      {/* Outer halo — same conic brand sweep as mobile */}
+      {/* Outer soft halo — Peptinium brand linear sweep (matches CTA gradient) */}
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/2 -z-20 h-[110%] w-[110%] -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-700 group-hover:h-[118%] group-hover:w-[118%]"
+        className="pointer-events-none absolute left-1/2 top-1/2 -z-20 h-[115%] w-[115%] -translate-x-1/2 -translate-y-1/2 rounded-[45%]"
         style={{
           background:
-            "conic-gradient(from 180deg at 50% 50%, color-mix(in oklab, var(--brand-cyan) 38%, transparent) 0%, color-mix(in oklab, var(--brand-blue) 30%, transparent) 25%, color-mix(in oklab, var(--brand-violet) 16%, transparent) 55%, color-mix(in oklab, var(--brand-magenta) 30%, transparent) 78%, color-mix(in oklab, var(--brand-cyan) 38%, transparent) 100%)",
+            "linear-gradient(135deg, color-mix(in oklab, var(--brand-cyan) 55%, transparent) 0%, color-mix(in oklab, var(--brand-blue) 40%, transparent) 32%, color-mix(in oklab, var(--brand-violet) 22%, transparent) 60%, color-mix(in oklab, var(--brand-magenta) 50%, transparent) 100%)",
           filter: "blur(70px)",
           animation: "vial-glow 6s ease-in-out infinite",
+        }}
+      />
+      {/* Cyan accent — top-left */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -left-6 top-4 -z-10 h-[55%] w-[55%] rounded-full"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, color-mix(in oklab, var(--brand-cyan) 55%, transparent) 0%, transparent 70%)",
+          filter: "blur(55px)",
+        }}
+      />
+      {/* Magenta accent — bottom-right */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-6 bottom-6 -z-10 h-[55%] w-[55%] rounded-full"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, color-mix(in oklab, var(--brand-magenta) 55%, transparent) 0%, transparent 70%)",
+          filter: "blur(55px)",
         }}
       />
       {/* Floor reflection — brand blue */}
