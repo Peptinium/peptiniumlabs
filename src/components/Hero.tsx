@@ -208,7 +208,7 @@ function MobileHero() {
             className="pointer-events-none absolute left-1/2 top-1/2 -z-20 h-[96%] w-[96%] -translate-x-1/2 -translate-y-1/2 rounded-full"
             style={{
               background:
-                "conic-gradient(from 180deg at 50% 50%, color-mix(in oklab, var(--brand-cyan) 32%, transparent) 0%, color-mix(in oklab, var(--brand-blue) 26%, transparent) 22%, color-mix(in oklab, var(--brand-violet) 30%, transparent) 50%, color-mix(in oklab, var(--brand-magenta) 26%, transparent) 78%, color-mix(in oklab, var(--brand-cyan) 32%, transparent) 100%)",
+                "conic-gradient(from 180deg at 50% 50%, color-mix(in oklab, var(--brand-cyan) 38%, transparent) 0%, color-mix(in oklab, var(--brand-blue) 30%, transparent) 25%, color-mix(in oklab, var(--brand-violet) 16%, transparent) 55%, color-mix(in oklab, var(--brand-magenta) 30%, transparent) 78%, color-mix(in oklab, var(--brand-cyan) 38%, transparent) 100%)",
               filter: "blur(48px)",
               animation: "vial-glow 5s ease-in-out infinite",
             }}
