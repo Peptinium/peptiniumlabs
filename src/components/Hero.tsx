@@ -1,6 +1,5 @@
 import { Link } from "@tanstack/react-router";
 import avantAsset from "@/assets/vial/RT_AVANT_TRANSPARENT.png.asset.json";
-import { MouseHalo } from "@/components/premium/MouseHalo";
 import { Parallax } from "@/components/premium/Parallax";
 
 export function Hero() {
@@ -15,8 +14,6 @@ export function Hero() {
 function DesktopHero() {
   return (
     <section className="desktop-experience relative overflow-hidden bg-[oklch(0.985_0.005_260)] text-[oklch(0.18_0.02_270)]">
-      {/* Mouse-reactive ambient halo */}
-      <MouseHalo />
       {/* Grid overlay removed for premium Apple-like feel */}
 
       {/* Beam sweep */}
