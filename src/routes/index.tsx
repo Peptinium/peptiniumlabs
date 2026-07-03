@@ -4,7 +4,6 @@ import { ProductCard, ProductVisual } from "@/components/ProductCard";
 import { RuoBadge } from "@/components/RuoBadge";
 import { Reveal } from "@/components/Reveal";
 import { Hero } from "@/components/Hero";
-import { Parallax } from "@/components/premium/Parallax";
 import { products, formatPrice } from "@/data/products";
 import labBg from "@/assets/lab-bg-ruo.jpg";
 
@@ -114,16 +113,18 @@ function HomePage() {
         <Reveal>
           <div className="flex flex-col items-center text-center">
             <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Produit phare</span>
-            <h2 className="text-fluid-3xl mt-6 max-w-3xl font-display font-light text-foreground">
+            <h2 className="mt-6 max-w-3xl font-display text-5xl font-light leading-[1.05] tracking-tighter text-foreground sm:text-7xl">
               Sculpté pour la{" "}
-              <span className="shimmer-text font-medium">recherche.</span>
+              <span className="bg-gradient-to-r from-[var(--brand-cyan)] via-[var(--brand-blue)] via-[var(--brand-violet)] to-[var(--brand-magenta)] bg-clip-text font-medium text-transparent">
+                recherche.
+              </span>
             </h2>
           </div>
         </Reveal>
         <Reveal delay={80}>
-          <Parallax speed={0.06} className="mt-16">
+          <div className="mt-16">
             <FeaturedCard featured={featured} />
-          </Parallax>
+          </div>
         </Reveal>
         <Reveal delay={140}>
           <p className="mx-auto mt-14 max-w-xl text-center text-lg font-light leading-relaxed text-muted-foreground">
@@ -200,9 +201,11 @@ function HomePage() {
         <Reveal>
           <div className="mb-20 text-center">
             <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Le protocole</span>
-            <h2 className="text-fluid-3xl mx-auto mt-6 max-w-3xl font-display font-light text-foreground">
+            <h2 className="mx-auto mt-6 max-w-3xl font-display text-4xl font-light leading-[1.05] tracking-tighter text-foreground sm:text-6xl">
               Une exigence,{" "}
-              <span className="shimmer-text font-medium">lot après lot.</span>
+              <span className="bg-gradient-to-r from-[var(--brand-cyan)] via-[var(--brand-blue)] via-[var(--brand-violet)] to-[var(--brand-magenta)] bg-clip-text font-medium text-transparent">
+                lot après lot.
+              </span>
             </h2>
           </div>
         </Reveal>
@@ -263,9 +266,11 @@ function HomePage() {
         <Reveal>
           <div className="flex flex-col items-center text-center">
             <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Prêt à commander</span>
-            <h2 className="text-fluid-3xl mt-6 font-display font-light text-foreground">
-              La sérénité du laboratoire, à portée de{" "}
-              <span className="shimmer-text font-medium">commande.</span>
+            <h2 className="mt-6 font-display text-5xl font-light leading-[1.05] tracking-tighter text-foreground sm:text-6xl">
+              La sérénité du laboratoire,{" "}
+              <span className="bg-gradient-to-r from-[var(--brand-cyan)] via-[var(--brand-blue)] via-[var(--brand-violet)] to-[var(--brand-magenta)] bg-clip-text font-medium text-transparent">
+                à portée de commande.
+              </span>
             </h2>
             <p className="mt-6 max-w-lg text-lg font-light leading-relaxed text-muted-foreground">
               Traçabilité complète, expédition sous 24 h, support français.
@@ -289,14 +294,12 @@ function HomePage() {
               <span className="size-1.5 rounded-full bg-accent" />
               Research Use Only
             </div>
-            <h2 className="shimmer-text mt-8 font-display text-3xl font-light leading-tight tracking-tight text-foreground sm:text-4xl">
+            <h2 className="mt-8 font-display text-3xl font-light leading-tight tracking-tight text-foreground sm:text-4xl">
               Avis réglementaire — RUO
             </h2>
             <p className="mt-6 text-[15px] leading-[1.75] text-muted-foreground">
               Les produits commercialisés par Peptinium Labs sont des{" "}
-              <strong className="font-medium text-foreground">
-                réactifs chimiques destinés à la recherche scientifique in vitro
-              </strong>{" "}
+              <strong className="font-medium text-foreground">réactifs chimiques destinés à la recherche scientifique in vitro</strong>{" "}
               en environnement de laboratoire contrôlé. Ils ne sont pas destinés ni adaptés à un
               usage vétérinaire, diagnostique, thérapeutique, alimentaire ou cosmétique.
             </p>

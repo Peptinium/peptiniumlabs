@@ -20,7 +20,6 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { CartProvider } from "../lib/cart";
 import { Toaster } from "../components/ui/sonner";
-import { PageTransition } from "../components/premium/PageTransition";
 
 function NotFoundComponent() {
   return (
@@ -150,9 +149,7 @@ function RootComponent() {
       <CartProvider>
         <PageViewTracker />
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-        <PageTransition>
-          <Outlet />
-        </PageTransition>
+        <Outlet />
         <Toaster position="top-center" richColors />
       </CartProvider>
     </QueryClientProvider>

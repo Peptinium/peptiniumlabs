@@ -324,25 +324,3 @@
   animation: ruo-shine 7s ease-in-out infinite;
   animation-delay: 1.2s;
 }
-
-/* Fluid clamp typography — respiration continue mobile → desktop */
-@utility text-fluid-xl {
-  font-size: clamp(1.75rem, 1.25rem + 2.2vw, 3rem);
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-}
-@utility text-fluid-2xl {
-  font-size: clamp(2rem, 1.4rem + 3vw, 3.75rem);
-  line-height: 1.05;
-  letter-spacing: -0.025em;
-}
-@utility text-fluid-3xl {
-  font-size: clamp(2.5rem, 1.6rem + 4vw, 4.75rem);
-  line-height: 1.02;
-  letter-spacing: -0.03em;
-}
-@utility text-fluid-hero {
-  font-size: clamp(2.75rem, 1.8rem + 5.6vw, 6rem);
-  line-height: 0.98;
-  letter-spacing: -0.035em;
-}

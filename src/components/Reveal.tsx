@@ -38,10 +38,11 @@ export function Reveal({
       className={className}
       style={{
         opacity: shown ? 1 : 0,
-        transform: shown ? "translateY(0)" : "translateY(20px)",
-        transition: `opacity 0.9s cubic-bezier(0.16,1,0.3,1) ${delay}ms, transform 0.9s cubic-bezier(0.16,1,0.3,1) ${delay}ms`,
+        transform: shown ? "translateY(0) scale(1)" : "translateY(24px) scale(0.985)",
+        transition: `opacity 1s cubic-bezier(0.16,1,0.3,1) ${delay}ms, transform 1.1s cubic-bezier(0.16,1,0.3,1) ${delay}ms`,
         willChange: "opacity, transform",
       }}
+
     >
       {children}
     </As>
