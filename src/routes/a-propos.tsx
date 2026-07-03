@@ -147,7 +147,7 @@ function AboutPage() {
           </Reveal>
           <Reveal delay={80}>
             <h1 className="mt-5 font-display text-4xl font-medium tracking-tight sm:text-5xl">
-              Laboratoire Peptinium — <span className="shimmer-text">transparence analytique</span>
+              <span className="shimmer-text">Laboratoire Peptinium — transparence analytique</span>
             </h1>
           </Reveal>
           <Reveal delay={160}>
