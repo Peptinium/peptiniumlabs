@@ -152,33 +152,27 @@ function MobileHero() {
         className="pointer-events-none absolute -top-px left-0 z-10 h-px w-2/3 bg-gradient-to-r from-transparent via-[oklch(0.62_0.26_296)] to-transparent [animation:beam-sweep_6s_ease-in-out_infinite]"
       />
 
-      <div className="relative mx-auto flex min-h-[calc(100svh-4rem)] w-full max-w-[560px] flex-col px-5 pb-6 pt-7 text-center md:max-w-[720px] md:px-8 md:pt-12">
+      <div className="relative mx-auto flex min-h-[calc(100svh-4rem)] w-full max-w-[440px] flex-col px-5 pb-6 pt-6 text-center">
         <div className="flex flex-1 flex-col items-center justify-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-[oklch(0.18_0.02_270)]/12 bg-white/82 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.18em] text-[oklch(0.26_0.03_270)] shadow-[0_10px_30px_-22px_color-mix(in_oklab,var(--brand-violet)_55%,transparent)] backdrop-blur-md md:text-[13px] md:tracking-[0.22em]">
-            <span className="size-2 animate-pulse rounded-full bg-[oklch(0.55_0.24_296)]" />
+          <div className="inline-flex items-center gap-2 rounded-full border border-[oklch(0.18_0.02_270)]/12 bg-white/82 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-[oklch(0.26_0.03_270)] shadow-[0_10px_30px_-22px_color-mix(in_oklab,var(--brand-violet)_55%,transparent)] backdrop-blur-md">
+            <span className="size-1.5 animate-pulse rounded-full bg-[oklch(0.55_0.24_296)]" />
             Recherche avancée
           </div>
 
-          <h1
-            className="mt-5 font-display font-semibold leading-[0.95] tracking-[-0.035em] text-[oklch(0.15_0.02_270)] md:mt-7"
-            style={{ fontSize: "clamp(46px, 12.5vw, 96px)" }}
-          >
+          <h1 className="mt-4 font-display text-[38px] font-semibold leading-[0.98] tracking-[-0.035em] text-[oklch(0.15_0.02_270)]">
             <span className="shimmer-text block">L'Avenir</span>
             <span className="shimmer-text block">de la Précision</span>
             <span className="shimmer-text block">Moléculaire.</span>
           </h1>
 
-          <p
-            className="mt-5 font-medium leading-[1.5] text-[oklch(0.31_0.025_270)] md:mt-7"
-            style={{ fontSize: "clamp(17px, 2.4vw, 22px)", maxWidth: "min(90%, 620px)" }}
-          >
+          <p className="mt-4 max-w-[340px] text-[15px] font-medium leading-[1.5] text-[oklch(0.31_0.025_270)]">
             Peptides haute pureté contrôlés par HPLC, livrés avec Certificat d'Analyse.
           </p>
 
-          <div className="mt-6 grid w-full max-w-[380px] gap-3 md:mt-8 md:max-w-[460px]">
+          <div className="mt-5 grid w-full max-w-[320px] gap-2.5">
             <Link
               to="/produits"
-              className="group relative inline-flex min-h-14 items-center justify-center gap-2 overflow-hidden rounded-full px-6 py-4 font-mono text-[13px] font-semibold uppercase tracking-[0.14em] text-white shadow-[0_22px_48px_-18px_color-mix(in_oklab,var(--brand-violet)_80%,transparent)] md:min-h-16 md:text-[14px] md:tracking-[0.2em]"
+              className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-6 py-3.5 font-mono text-[12px] font-semibold uppercase tracking-[0.16em] text-white shadow-[0_18px_40px_-18px_color-mix(in_oklab,var(--brand-violet)_80%,transparent)]"
               style={{
                 backgroundImage:
                   "linear-gradient(120deg, oklch(0.55 0.20 210) 0%, oklch(0.50 0.24 280) 55%, oklch(0.58 0.26 330) 100%)",
@@ -189,17 +183,14 @@ function MobileHero() {
             </Link>
             <Link
               to="/tester-fioles"
-              className="inline-flex min-h-14 items-center justify-center rounded-full border border-[oklch(0.18_0.02_270)]/28 bg-white/95 px-6 py-4 font-mono text-[13px] font-semibold uppercase tracking-[0.14em] text-[oklch(0.16_0.025_270)] shadow-[0_16px_38px_-22px_color-mix(in_oklab,var(--brand-violet)_60%,transparent)] backdrop-blur-md md:min-h-16 md:text-[14px] md:tracking-[0.2em]"
+              className="inline-flex items-center justify-center rounded-full border border-[oklch(0.18_0.02_270)]/28 bg-white/95 px-6 py-3.5 font-mono text-[12px] font-semibold uppercase tracking-[0.16em] text-[oklch(0.16_0.025_270)] shadow-[0_14px_32px_-22px_color-mix(in_oklab,var(--brand-violet)_60%,transparent)] backdrop-blur-md"
             >
               Tester vos fioles
             </Link>
           </div>
         </div>
 
-        <div
-          className="relative mx-auto mt-5 w-full shrink-0 md:mt-8"
-          style={{ height: "clamp(240px, 34svh, 460px)", maxWidth: "min(90%, 460px)" }}
-        >
+        <div className="relative mx-auto mt-5 h-[280px] w-full max-w-[320px] shrink-0">
           <div
             aria-hidden
             className="pointer-events-none absolute left-1/2 top-1/2 -z-20 h-[92%] w-[92%] -translate-x-1/2 -translate-y-1/2 rounded-full"
@@ -218,6 +209,7 @@ function MobileHero() {
           />
         </div>
       </div>
+
 
     </section>
   );
