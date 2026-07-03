@@ -207,7 +207,7 @@
 .mobile-grid { display: grid; }
 .mobile-block { display: block; }
 
-@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+@media (min-width: 1024px) {
   .mobile-experience { display: none; }
   .desktop-experience { display: block; }
   .desktop-flex { display: flex; }

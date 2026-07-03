@@ -82,7 +82,7 @@ export function Header() {
           : "border-b border-transparent bg-background/50"
       }`}
     >
-      <div className="container-prose flex h-20 items-center justify-between">
+      <div className="container-prose flex h-16 items-center justify-between lg:h-20">
         <Link to="/" className="group flex items-center gap-2 sm:gap-3">
           <Logo />
           <div className="leading-tight">
@@ -147,7 +147,7 @@ export function Header() {
           </Link>
           <button
             onClick={() => setOpen((v) => !v)}
-            className="mobile-grid size-11 place-items-center rounded-full border border-border"
+            className="mobile-grid size-9 place-items-center rounded-full border border-border"
             aria-label="Menu"
           >
             <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.6">
