@@ -82,11 +82,11 @@ export function Header() {
           : "border-b border-transparent bg-background/50"
       }`}
     >
-      <div className="container-prose flex h-16 items-center justify-between lg:h-20">
+      <div className="container-prose flex h-20 items-center justify-between">
         <Link to="/" className="group flex items-center gap-2 sm:gap-3">
           <Logo />
           <div className="leading-tight">
-            <div className="font-display text-[14px] font-medium tracking-tight text-foreground sm:text-[15px] lg:text-[18px]">
+            <div className="font-display text-[16px] font-medium tracking-tight text-foreground sm:text-[17px] lg:text-[18px]">
               <span className="brand-gradient-text font-semibold">Peptinium</span> <span className="text-muted-foreground">Labs</span>
             </div>
             <div className="hidden font-mono text-[9px] uppercase tracking-[0.22em] text-muted-foreground sm:block lg:text-[10px]">
@@ -95,7 +95,7 @@ export function Header() {
           </div>
         </Link>
 
-        <nav className="hidden items-center gap-8 lg:flex">
+        <nav className="desktop-flex items-center gap-8">
           {nav.map((n) => (
             <Link
               key={n.to}
@@ -147,7 +147,7 @@ export function Header() {
           </Link>
           <button
             onClick={() => setOpen((v) => !v)}
-            className="grid size-9 place-items-center rounded-full border border-border lg:hidden"
+            className="mobile-grid size-11 place-items-center rounded-full border border-border"
             aria-label="Menu"
           >
             <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.6">
@@ -158,7 +158,7 @@ export function Header() {
       </div>
 
       {open && (
-        <div className="border-t border-border bg-background lg:hidden">
+        <div className="mobile-block border-t border-border bg-background">
           <div className="container-prose flex flex-col py-2">
             {nav.map((n) => (
               <Link
@@ -203,8 +203,8 @@ function AccountLink({ isLoggedIn, children }: { isLoggedIn: boolean; children: 
 
 function Logo() {
   return (
-    <span className="relative grid size-9 place-items-center overflow-hidden rounded-full bg-background ring-1 ring-border">
-      <svg viewBox="0 0 40 40" className="size-7" fill="none" aria-hidden>
+    <span className="relative grid size-11 place-items-center overflow-hidden rounded-full bg-background ring-1 ring-border lg:size-9">
+      <svg viewBox="0 0 40 40" className="size-8 lg:size-7" fill="none" aria-hidden>
         <defs>
           <linearGradient id="pep-grad" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0%" stopColor="oklch(0.81 0.13 200)" />

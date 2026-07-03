@@ -8,8 +8,8 @@ export function Footer() {
           ⚠ Pour motif de recherche uniquement — Pas pour usage vétérinaire, diagnostique ou thérapeutique
         </div>
       </div>
-      <div className="container-prose grid gap-9 py-10 lg:gap-12 lg:py-16 md:grid-cols-12">
-        <div className="md:col-span-5">
+      <div className="container-prose grid gap-9 py-10 lg:grid-cols-12 lg:gap-12 lg:py-16">
+        <div className="lg:col-span-5">
           <div className="flex items-center gap-3">
             <span className="grid size-11 place-items-center overflow-hidden rounded-full bg-card ring-1 ring-border lg:size-9">
               <svg viewBox="0 0 40 40" className="size-8 lg:size-7" fill="none" aria-hidden>
@@ -60,7 +60,7 @@ export function Footer() {
             { to: "/cgv", label: "CGV" },
           ]}
         />
-        <div className="md:col-span-3">
+        <div className="lg:col-span-3">
           <div className="font-mono text-[12px] uppercase tracking-[0.18em] text-foreground lg:text-[10px] lg:tracking-[0.22em]">
             Qualité
           </div>
@@ -114,7 +114,7 @@ function FooterCol({
   links: { to: string; label: string }[];
 }) {
   return (
-    <div className="md:col-span-2">
+    <div className="lg:col-span-2">
       <div className="font-mono text-[12px] uppercase tracking-[0.18em] text-foreground lg:text-[10px] lg:tracking-[0.22em]">
         {title}
       </div>
