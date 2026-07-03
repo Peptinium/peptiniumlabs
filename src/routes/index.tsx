@@ -346,52 +346,31 @@ function MobileHome({ featured, rest }: { featured: typeof products[number]; res
     <div className="mobile-experience">
       <Hero />
 
-      <section className="relative overflow-hidden border-y border-border bg-surface-2 px-4 py-6">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-60"
-          style={{
-            background:
-              "radial-gradient(60% 60% at 15% 0%, color-mix(in oklab, var(--brand-cyan) 10%, transparent) 0%, transparent 70%), radial-gradient(60% 60% at 100% 100%, color-mix(in oklab, var(--brand-magenta) 9%, transparent) 0%, transparent 70%)",
-          }}
-        />
-        <div className="relative grid grid-cols-2 gap-2.5">
+      <section className="relative border-y border-border bg-surface px-5 py-8">
+        <div className="mb-5 flex items-center gap-3">
+          <span className="h-px flex-1 bg-border" />
+          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+            Standards laboratoire
+          </span>
+          <span className="h-px flex-1 bg-border" />
+        </div>
+        <dl className="divide-y divide-border/70">
           {[
-            { k: "99 %", v: "Pureté HPLC", icon: "◈" },
-            { k: "CoA", v: "À chaque lot", icon: "❋" },
-            { k: "RUO", v: "Recherche labo", icon: "▲" },
-            { k: "24 h", v: "Expédition", icon: "↗" },
+            { k: "≥ 99 %", v: "Pureté HPLC" },
+            { k: "CoA", v: "Certificat par lot" },
+            { k: "RUO", v: "Recherche uniquement" },
+            { k: "24 h", v: "Expédition" },
           ].map((t) => (
-            <div
-              key={t.k}
-              className="group relative overflow-hidden rounded-2xl border border-border/70 bg-white/85 p-4 shadow-[0_10px_28px_-22px_oklch(0.55_0.06_250/0.35)] backdrop-blur"
-            >
-              <div
-                aria-hidden
-                className="pointer-events-none absolute -top-6 -right-6 size-16 rounded-full opacity-70"
-                style={{
-                  background:
-                    "radial-gradient(circle, color-mix(in oklab, var(--brand-violet) 22%, transparent) 0%, transparent 70%)",
-                }}
-              />
-              <div className="relative flex items-center gap-1.5">
-                <span
-                  className="font-mono text-[11px] leading-none brand-gradient-text"
-                  aria-hidden
-                >
-                  {t.icon}
-                </span>
-                <span className="h-px flex-1 bg-gradient-to-r from-[color-mix(in_oklab,var(--brand-cyan)_35%,transparent)] to-transparent" />
-              </div>
-              <div className="relative mt-2 font-display text-[26px] font-semibold leading-none tracking-tight text-foreground">
-                {t.k}
-              </div>
-              <div className="relative mt-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+            <div key={t.k} className="flex items-baseline justify-between py-4">
+              <dt className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
                 {t.v}
-              </div>
+              </dt>
+              <dd className="font-display text-[22px] font-semibold tracking-tight text-foreground">
+                {t.k}
+              </dd>
             </div>
           ))}
-        </div>
+        </dl>
       </section>
 
       <section className="px-5 py-12">
