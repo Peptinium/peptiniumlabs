@@ -145,7 +145,7 @@ function HomePage() {
             },
             {
               t: "Traçabilité totale",
-              d: "Numéro de lot unique, archive de 5 ans, CoA disponible en un clic pour chaque flacon.",
+              d: "Numéro de lot unique, documentation auditable sur demande, CoA consultable en ligne pour chaque flacon.",
               c: "var(--brand-violet)",
             },
             {
