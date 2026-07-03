@@ -370,7 +370,7 @@ function MobileHome({ featured, rest }: { featured: typeof products[number]; res
         <div className="font-mono text-[12px] uppercase tracking-[0.16em] text-accent">
           — Sélection laboratoire
         </div>
-        <h2 className="mt-3 max-w-[620px] font-display font-semibold leading-[1.02] tracking-tight text-foreground" style={{ fontSize: "clamp(38px, 7.4vw, 58px)" }}>
+        <h2 className="mt-3 max-w-[620px] font-display text-[32px] font-semibold leading-[1.05] tracking-tight text-foreground">
           Réactifs haute pureté prêts pour vos protocoles.
         </h2>
         <div className="mt-7 grid gap-4">
@@ -390,7 +390,7 @@ function MobileHome({ featured, rest }: { featured: typeof products[number]; res
         <div className="font-mono text-[12px] uppercase tracking-[0.16em] text-accent">
           — Pourquoi Peptinium
         </div>
-        <h2 className="mt-3 font-display font-semibold leading-[1.05] tracking-tight text-foreground" style={{ fontSize: "clamp(36px, 6.6vw, 52px)" }}>
+        <h2 className="mt-3 font-display text-[30px] font-semibold leading-[1.08] tracking-tight text-foreground">
           Une exigence de laboratoire, pensée pour le chercheur.
         </h2>
         <div className="mt-7 space-y-3">
@@ -424,7 +424,7 @@ function MobileHome({ featured, rest }: { featured: typeof products[number]; res
             <div className="font-mono text-[12px] uppercase tracking-[0.16em] text-accent">
               — Prêt à commander
             </div>
-             <h2 className="mt-3 font-display font-semibold leading-[1.05] tracking-tight text-foreground" style={{ fontSize: "clamp(34px, 6.2vw, 48px)" }}>
+             <h2 className="mt-3 font-display text-[28px] font-semibold leading-[1.08] tracking-tight text-foreground">
               Passez commande avec la sérénité du labo.
             </h2>
             <p className="mt-4 text-[16px] leading-[1.55] text-muted-foreground">
@@ -445,7 +445,7 @@ function MobileHome({ featured, rest }: { featured: typeof products[number]; res
           <span className="size-2 rounded-full bg-accent" />
           Research Use Only
         </div>
-        <h2 className="mt-5 font-display font-semibold leading-[1.08] tracking-tight text-foreground" style={{ fontSize: "clamp(34px, 6vw, 46px)" }}>
+        <h2 className="mt-5 font-display text-[26px] font-semibold leading-[1.1] tracking-tight text-foreground">
           Avis réglementaire RUO
         </h2>
         <p className="mt-4 text-[15px] leading-[1.65] text-muted-foreground">
@@ -464,7 +464,7 @@ function MobileProductCard({ product }: { product: typeof products[number] }) {
     <Link
       to="/produits/$slug"
       params={{ slug: product.slug }}
-      className="grid grid-cols-[clamp(132px,26vw,178px)_minmax(0,1fr)] gap-4 rounded-xl border border-border bg-card p-3.5 shadow-sm"
+      className="grid grid-cols-[112px_minmax(0,1fr)] gap-3 rounded-xl border border-border bg-card p-3 shadow-sm"
     >
       <div className="relative aspect-[2/3] overflow-hidden rounded-xl border border-border bg-surface">
         <ProductVisual
@@ -480,7 +480,7 @@ function MobileProductCard({ product }: { product: typeof products[number] }) {
         <div className="font-mono text-[12px] uppercase tracking-[0.14em] text-accent">
           {product.category}
         </div>
-        <h3 className="mt-1 font-display font-semibold leading-[1.05] tracking-tight text-foreground" style={{ fontSize: "clamp(24px, 4.8vw, 34px)" }}>
+        <h3 className="mt-1 font-display text-[19px] font-semibold leading-[1.15] tracking-tight text-foreground">
           {product.name}
         </h3>
         <div className="mt-2 font-mono text-[12px] uppercase tracking-[0.12em] text-muted-foreground">
@@ -491,7 +491,7 @@ function MobileProductCard({ product }: { product: typeof products[number] }) {
             <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
               Dès
             </div>
-            <div className="font-display font-semibold leading-none text-foreground" style={{ fontSize: "clamp(26px, 4.4vw, 34px)" }}>
+            <div className="font-display text-[22px] font-semibold leading-none text-foreground">
               {formatPrice(price)}
             </div>
           </div>
