@@ -5,6 +5,7 @@ import { RuoBadge } from "@/components/RuoBadge";
 import { Reveal } from "@/components/Reveal";
 import { Hero } from "@/components/Hero";
 import { products, formatPrice } from "@/data/products";
+import { ShieldCheck, Fingerprint, LifeBuoy } from "lucide-react";
 import labBg from "@/assets/lab-bg-ruo.jpg";
 
 const SITE_URL = "https://peptinium.com";
@@ -113,11 +114,8 @@ function HomePage() {
         <Reveal>
           <div className="flex flex-col items-center text-center">
             <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Produit phare</span>
-            <h2 className="mt-6 max-w-3xl font-display text-5xl font-light leading-[1.05] tracking-tighter text-foreground sm:text-7xl">
-              Sculpté pour la{" "}
-              <span className="bg-gradient-to-r from-[var(--brand-cyan)] via-[var(--brand-blue)] via-[var(--brand-violet)] to-[var(--brand-magenta)] bg-clip-text font-medium text-transparent">
-                recherche.
-              </span>
+            <h2 className="mt-6 max-w-3xl font-display text-5xl font-light leading-[1.05] tracking-tighter sm:text-7xl">
+              <span className="shimmer-text">Sculpté pour la recherche.</span>
             </h2>
           </div>
         </Reveal>
@@ -141,24 +139,26 @@ function HomePage() {
             {
               t: "Pureté vérifiée",
               d: "Chaque lot est analysé par HPLC en phase inverse et validé par spectrométrie de masse.",
-              c: "var(--brand-cyan)",
+              Icon: ShieldCheck,
             },
             {
               t: "Traçabilité totale",
               d: "Numéro de lot unique, documentation auditable sur demande, CoA consultable en ligne pour chaque flacon.",
-              c: "var(--brand-violet)",
+              Icon: Fingerprint,
             },
             {
               t: "Support recherche",
               d: "MSDS, protocoles labo et conseils de reconstitution. Un interlocuteur qui parle votre langage.",
-              c: "var(--brand-magenta)",
+              Icon: LifeBuoy,
             },
           ].map((p, i) => (
             <Reveal key={p.t} delay={i * 80}>
               <div className="flex flex-col gap-8 p-2">
-                <div className="flex size-12 items-center justify-center rounded-2xl border border-border bg-card shadow-sm">
-                  <div className="size-4 rounded-full" style={{ backgroundColor: p.c }} />
-                </div>
+                <p.Icon
+                  className="size-7 text-foreground/85"
+                  strokeWidth={1.25}
+                  aria-hidden
+                />
                 <div className="space-y-3">
                   <h3 className="font-display text-2xl font-normal tracking-tight text-foreground">{p.t}</h3>
                   <p className="text-[15px] leading-relaxed text-muted-foreground">{p.d}</p>
@@ -175,8 +175,8 @@ function HomePage() {
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
               <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">La collection</span>
-              <h2 className="mt-4 font-display text-4xl font-light leading-[1.05] tracking-tighter text-foreground sm:text-5xl">
-                Réactifs sélectionnés<br className="hidden sm:block" /> pour la recherche.
+              <h2 className="mt-4 font-display text-4xl font-light leading-[1.05] tracking-tighter sm:text-5xl">
+                <span className="shimmer-text">Réactifs sélectionnés pour la recherche.</span>
               </h2>
             </div>
             <Link
@@ -201,11 +201,8 @@ function HomePage() {
         <Reveal>
           <div className="mb-20 text-center">
             <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Le protocole</span>
-            <h2 className="mx-auto mt-6 max-w-3xl font-display text-4xl font-light leading-[1.05] tracking-tighter text-foreground sm:text-6xl">
-              Une exigence,{" "}
-              <span className="bg-gradient-to-r from-[var(--brand-cyan)] via-[var(--brand-blue)] via-[var(--brand-violet)] to-[var(--brand-magenta)] bg-clip-text font-medium text-transparent">
-                lot après lot.
-              </span>
+            <h2 className="mx-auto mt-6 max-w-3xl font-display text-4xl font-light leading-[1.05] tracking-tighter sm:text-6xl">
+              <span className="shimmer-text">Une exigence, lot après lot.</span>
             </h2>
           </div>
         </Reveal>
@@ -266,11 +263,8 @@ function HomePage() {
         <Reveal>
           <div className="flex flex-col items-center text-center">
             <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Prêt à commander</span>
-            <h2 className="mt-6 font-display text-5xl font-light leading-[1.05] tracking-tighter text-foreground sm:text-6xl">
-              La sérénité du laboratoire,{" "}
-              <span className="bg-gradient-to-r from-[var(--brand-cyan)] via-[var(--brand-blue)] via-[var(--brand-violet)] to-[var(--brand-magenta)] bg-clip-text font-medium text-transparent">
-                à portée de commande.
-              </span>
+            <h2 className="mt-6 font-display text-5xl font-light leading-[1.05] tracking-tighter sm:text-6xl">
+              <span className="shimmer-text">La sérénité du laboratoire, à portée de commande.</span>
             </h2>
             <p className="mt-6 max-w-lg text-lg font-light leading-relaxed text-muted-foreground">
               Traçabilité complète, expédition sous 24 h, support français.

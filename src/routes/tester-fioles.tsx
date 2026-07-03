@@ -92,7 +92,7 @@ function TestVialsPage() {
           </Reveal>
           <Reveal delay={80}>
             <h1 className="mt-5 max-w-4xl font-display text-4xl font-medium tracking-[-0.03em] sm:text-5xl">
-              Tester ses fioles de <span className="shimmer-text">recherche</span>
+              <span className="shimmer-text">Tester ses fioles de recherche</span>
             </h1>
           </Reveal>
           <Reveal delay={160}>

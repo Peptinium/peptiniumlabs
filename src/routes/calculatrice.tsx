@@ -52,7 +52,7 @@ function CalcPage() {
         <div className="container-prose py-14">
           <RuoBadge />
           <h1 className="mt-4 font-display text-3xl font-medium tracking-tight sm:text-4xl">
-            Calculatrice de reconstitution
+            <span className="shimmer-text">Calculatrice de reconstitution</span>
           </h1>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
             Calcul du volume à prélever après reconstitution d'un flacon de peptide
