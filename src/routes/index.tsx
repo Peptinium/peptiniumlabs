@@ -91,106 +91,103 @@ function HomePage() {
       {/* ============ IMMERSIVE HERO ============ */}
       <Hero />
 
-      {/* ============ TRUST BAR ============ */}
-      <section className="border-y border-border bg-surface-2">
-        <div className="container-prose grid grid-cols-2 gap-6 py-6 sm:grid-cols-4 sm:py-7">
+      {/* ============ QUIET TRUST ROW ============ */}
+      <section className="border-b border-border/60">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-10 gap-y-4 px-8 py-8">
           {[
-            { k: "HPLC", v: "≥ 99 % pureté" },
+            { k: "HPLC ≥ 99 %", v: "Pureté vérifiée" },
             { k: "CoA", v: "Consultables en ligne" },
             { k: "RUO", v: "Recherche uniquement" },
-            { k: "24 h", v: "Expédition rapide" },
+            { k: "Expédition 24 h", v: "Depuis la France" },
           ].map((t) => (
-            <div key={t.k} className="flex flex-col items-start gap-1">
-              <span className="font-display text-sm font-semibold tracking-tight text-foreground sm:text-base">{t.k}</span>
-              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">{t.v}</span>
+            <div key={t.k} className="flex flex-col">
+              <span className="font-display text-[15px] font-medium tracking-tight text-foreground">{t.k}</span>
+              <span className="mt-1 text-[12px] text-muted-foreground">{t.v}</span>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ============ MARQUEE OF SPECS ============ */}
-      <section className="border-b border-border bg-surface">
-        <div className="overflow-hidden">
-          <div className="flex animate-[marquee_45s_linear_infinite] whitespace-nowrap py-5">
-            {[...specsMarquee, ...specsMarquee].map((s, i) => (
-              <div key={i} className="flex items-center gap-4 px-8 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground/70">
-                <span className="text-accent">◆</span>
-                {s}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ============ PILLARS ============ */}
-      <section className="container-prose py-20 sm:py-24">
+      {/* ============ FEATURED PRODUCT — MAGNIFIED ============ */}
+      <section className="mx-auto max-w-6xl px-8 py-32 sm:py-40">
         <Reveal>
-          <div className="max-w-2xl">
-            <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">— Pourquoi Peptinium</div>
-            <h2 className="mt-3 font-display text-[26px] font-normal leading-[1.15] tracking-tight text-balance sm:text-4xl sm:font-medium">
-              Une exigence de laboratoire, pensée pour le chercheur.
+          <div className="flex flex-col items-center text-center">
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Produit phare</span>
+            <h2 className="mt-6 max-w-3xl font-display text-5xl font-light leading-[1.05] tracking-tighter text-foreground sm:text-7xl">
+              Sculpté pour la{" "}
+              <span className="bg-gradient-to-r from-[var(--brand-cyan)] via-[var(--brand-blue)] via-[var(--brand-violet)] to-[var(--brand-magenta)] bg-clip-text font-medium text-transparent">
+                recherche.
+              </span>
             </h2>
           </div>
         </Reveal>
-        <div className="mt-12 grid gap-5 sm:mt-14 md:grid-cols-3">
+        <Reveal delay={80}>
+          <div className="mt-16">
+            <FeaturedCard featured={featured} />
+          </div>
+        </Reveal>
+        <Reveal delay={140}>
+          <p className="mx-auto mt-14 max-w-xl text-center text-lg font-light leading-relaxed text-muted-foreground">
+            Pureté HPLC vérifiée, conditionnement stérile, traçabilité complète.
+            L'exigence du laboratoire, sans compromis.
+          </p>
+        </Reveal>
+      </section>
+
+      {/* ============ AIRY PILLARS ============ */}
+      <section className="mx-auto max-w-7xl px-8 pb-32 sm:pb-40">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-3 md:gap-16">
           {[
             {
-              n: "01",
               t: "Pureté vérifiée",
-              d: "Chaque lot est analysé par HPLC en phase inverse et validé par spectrométrie de masse. Aucune ambiguïté sur l'identité et le titre.",
+              d: "Chaque lot est analysé par HPLC en phase inverse et validé par spectrométrie de masse.",
+              c: "var(--brand-cyan)",
             },
             {
-              n: "02",
               t: "Traçabilité totale",
-              d: "Numéro de lot unique, archive de 5 ans, CoA disponible en un clic. Chaque flacon est documenté.",
+              d: "Numéro de lot unique, archive de 5 ans, CoA disponible en un clic pour chaque flacon.",
+              c: "var(--brand-violet)",
             },
             {
-              n: "03",
               t: "Support recherche",
-              d: "MSDS, protocoles labo et conseils de reconstitution sur demande. Un interlocuteur qui parle votre langage.",
+              d: "MSDS, protocoles labo et conseils de reconstitution. Un interlocuteur qui parle votre langage.",
+              c: "var(--brand-magenta)",
             },
           ].map((p, i) => (
-            <Reveal key={p.n} delay={i * 80}>
-              <div className="hover-lift group relative flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card p-7">
-                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">— {p.n}</span>
-                <h3 className="mt-5 font-display text-xl font-medium tracking-tight">{p.t}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.d}</p>
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+            <Reveal key={p.t} delay={i * 80}>
+              <div className="flex flex-col gap-8 p-2">
+                <div className="flex size-12 items-center justify-center rounded-2xl border border-border bg-card shadow-sm">
+                  <div className="size-4 rounded-full" style={{ backgroundColor: p.c }} />
+                </div>
+                <div className="space-y-3">
+                  <h3 className="font-display text-2xl font-normal tracking-tight text-foreground">{p.t}</h3>
+                  <p className="text-[15px] leading-relaxed text-muted-foreground">{p.d}</p>
+                </div>
               </div>
             </Reveal>
           ))}
         </div>
       </section>
 
-      {/* ============ FEATURED PRODUCT ============ */}
-      <section className="container-prose py-20 sm:py-24">
+      {/* ============ CATALOG — AIRY ============ */}
+      <section className="mx-auto max-w-7xl px-8 pb-32 sm:pb-40">
         <Reveal>
-          <div className="mb-10 flex items-center gap-3">
-            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">— Produit phare</span>
-            <div className="h-px flex-1 bg-gradient-to-r from-border to-transparent" />
-          </div>
-        </Reveal>
-        <FeaturedCard featured={featured} />
-      </section>
-
-      {/* ============ CATALOG GRID ============ */}
-      <section className="container-prose py-20 sm:py-24">
-        <Reveal>
-          <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-8">
+          <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">
-                — Catalogue
-              </div>
-              <h2 className="mt-3 font-display text-[26px] font-normal leading-[1.15] tracking-tight text-balance sm:mt-2 sm:text-4xl sm:font-medium">
-                Réactifs sélectionnés pour la recherche
+              <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">La collection</span>
+              <h2 className="mt-4 font-display text-4xl font-light leading-[1.05] tracking-tighter text-foreground sm:text-5xl">
+                Réactifs sélectionnés<br className="hidden sm:block" /> pour la recherche.
               </h2>
             </div>
-            <Link to="/produits" className="link-underline font-mono text-[11px] uppercase tracking-[0.2em] text-foreground">
-              Tout voir →
+            <Link
+              to="/produits"
+              className="inline-flex items-center gap-2 font-display text-sm font-medium text-foreground transition-colors hover:text-accent"
+            >
+              Tout voir <span aria-hidden>→</span>
             </Link>
           </div>
         </Reveal>
-        <div className="mt-12 grid grid-cols-2 gap-3 sm:mt-10 sm:gap-5 lg:grid-cols-3">
+        <div className="mt-16 grid grid-cols-2 gap-6 lg:grid-cols-3">
           {rest.map((p, i) => (
             <Reveal key={p.slug} delay={i * 60}>
               <ProductCard product={p} />
@@ -199,138 +196,107 @@ function HomePage() {
         </div>
       </section>
 
-      {/* ============ QUALITY BENTO ============ */}
-      <section className="border-y border-border bg-surface">
-        <div className="container-prose py-20 sm:py-24">
-          <Reveal>
-            <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">
-              — Notre laboratoire
-            </div>
-            <h2 className="mt-3 max-w-2xl font-display text-[26px] font-normal leading-[1.15] tracking-tight text-balance sm:mt-2 sm:text-4xl sm:font-medium">
-              Un protocole qualité reproductible, lot après lot.
+      {/* ============ QUALITY — BENTO 2 CARDS (light + dark) ============ */}
+      <section className="mx-auto max-w-7xl px-8 pb-32 sm:pb-40">
+        <Reveal>
+          <div className="mb-16 max-w-2xl">
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Notre laboratoire</span>
+            <h2 className="mt-4 font-display text-4xl font-light leading-[1.05] tracking-tighter text-foreground sm:text-5xl">
+              Un protocole qualité<br className="hidden sm:block" /> reproductible, lot après lot.
             </h2>
+          </div>
+        </Reveal>
+        <div className="grid gap-6 md:grid-cols-2">
+          {/* Light card */}
+          <Reveal>
+            <div className="group relative flex h-[500px] flex-col overflow-hidden rounded-[32px] border border-border bg-card">
+              <div className="space-y-4 p-12">
+                <p className="font-mono text-[10px] font-medium uppercase tracking-[0.25em] text-accent">Contrôle analytique</p>
+                <h4 className="font-display text-4xl font-light tracking-tight text-foreground">
+                  Chaque lot, sans exception.
+                </h4>
+                <p className="max-w-md text-[15px] leading-relaxed text-muted-foreground">
+                  HPLC en phase inverse, validation par spectrométrie de masse, CoA consultable en ligne avec clé de vérification publique.
+                </p>
+              </div>
+              <div className="mt-auto flex h-1/2 w-full items-end justify-center bg-gradient-to-t from-surface to-transparent p-8">
+                <div className="flex w-full max-w-sm items-center justify-around rounded-t-2xl border border-b-0 border-border bg-background px-6 py-6 shadow-[0_-20px_40px_-15px_rgba(0,0,0,0.05)] transition-transform duration-700 group-hover:-translate-y-1">
+                  {["HPLC", "MS", "CoA"].map((x) => (
+                    <span key={x} className="font-mono text-[11px] uppercase tracking-[0.2em] text-foreground/70">{x}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
           </Reveal>
 
-          <div className="mt-14 grid gap-5 sm:mt-12 sm:gap-4 md:grid-cols-6">
-            <QualityCard
-              className="md:col-span-3 md:row-span-2"
-              k="01"
-              t="Contrôle analytique"
-              d="Chaque lot est analysé par HPLC en phase inverse et validation d'identité par spectrométrie de masse. Le Certificat d'Analyse (CoA) est consultable en ligne, avec clé de vérification publique."
-              tag="HPLC · MS · CoA"
-              big
-            />
-            <QualityCard
-              className="md:col-span-3"
-              k="02"
-              t="Conditionnement type I"
-              d="Flacons en verre borosilicate, bouchons butyle, sertissage aluminium."
-              tag="ISO-friendly"
-            />
-            <QualityCard
-              className="md:col-span-3"
-              k="03"
-              t="Traçabilité de lot"
-              d="Numéro de lot unique, archive de 5 ans, documentation auditable à la demande."
-              tag="QMS"
-            />
-            <QualityCard
-              className="md:col-span-2"
-              k="04"
-              t="Conditionnement stérile"
-              d="Lyophilisation sous atmosphère contrôlée."
-              tag="LYO"
-            />
-            <QualityCard
-              className="md:col-span-2"
-              k="05"
-              t="Sourcing audité"
-              d="Partenaires SPPS Fmoc audités."
-              tag="SPPS"
-            />
-            <QualityCard
-              className="md:col-span-2"
-              k="06"
-              t="Support recherche"
-              d="MSDS, protocoles labo sur demande."
-              tag="Support"
-            />
-          </div>
+          {/* Dark accent card */}
+          <Reveal delay={80}>
+            <div className="group relative flex h-[500px] flex-col overflow-hidden rounded-[32px] bg-gradient-to-br from-slate-900 to-black">
+              <div className="space-y-4 p-12">
+                <p className="font-mono text-[10px] font-medium uppercase tracking-[0.25em] text-[color-mix(in_oklab,var(--brand-violet)_60%,white)]">Traçabilité</p>
+                <h4 className="font-display text-4xl font-light tracking-tight text-white">
+                  Documenté au flacon près.
+                </h4>
+                <p className="max-w-md text-[15px] leading-relaxed text-white/60">
+                  Numéro de lot unique, archive de 5 ans, sourcing SPPS Fmoc audité, flacons borosilicate type I sertis aluminium.
+                </p>
+              </div>
+              <div className="relative mt-auto flex h-1/2 w-full items-center justify-center">
+                <div
+                  className="absolute size-64 rounded-full blur-[100px]"
+                  style={{ background: "color-mix(in oklab, var(--brand-violet) 40%, transparent)" }}
+                />
+                <div className="relative flex size-48 items-center justify-center rounded-full border border-white/10">
+                  <div className="size-32 animate-pulse rounded-full border border-white/20" />
+                </div>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* ============ FINAL CTA ============ */}
-      <section className="container-prose py-20 sm:py-24">
+      {/* ============ FINAL CTA — QUIET ============ */}
+      <section className="mx-auto max-w-4xl px-8 pb-32 sm:pb-40">
         <Reveal>
-          <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-10 sm:p-14">
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0 opacity-[0.9]"
-              style={{
-                background:
-                  "radial-gradient(60% 100% at 100% 0%, color-mix(in oklab, var(--brand-violet) 14%, transparent) 0%, transparent 60%), radial-gradient(60% 100% at 0% 100%, color-mix(in oklab, var(--brand-cyan) 12%, transparent) 0%, transparent 60%)",
-              }}
-            />
-            <div
-              aria-hidden
-              className="pointer-events-none absolute -top-px left-0 h-px w-1/2 bg-gradient-to-r from-transparent via-accent to-transparent [animation:beam-sweep_6s_ease-in-out_infinite]"
-            />
-            <div className="relative flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-end">
-              <div className="max-w-xl">
-                <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">— Prêt à commander</div>
-                <h2 className="mt-3 font-display text-3xl font-medium leading-[1.1] tracking-tight text-balance sm:text-4xl">
-                  Passez commande avec la sérénité du labo.
-                </h2>
-                <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">
-                  Certificat d'Analyse, traçabilité complète, expédition sous 24 h.
-                </p>
-              </div>
-              <Link
-                to="/produits"
-                className="group inline-flex items-center gap-2 rounded-full brand-gradient-bg px-7 py-3.5 font-mono text-[11px] uppercase tracking-[0.22em] text-white shadow-[0_18px_40px_-16px_oklch(0.55_0.22_296/0.55)] transition-transform hover:-translate-y-0.5"
-              >
-                Voir le catalogue
-                <span className="transition-transform group-hover:translate-x-0.5">→</span>
-              </Link>
-            </div>
+          <div className="flex flex-col items-center text-center">
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Prêt à commander</span>
+            <h2 className="mt-6 font-display text-5xl font-light leading-[1.05] tracking-tighter text-foreground sm:text-6xl">
+              La sérénité du laboratoire,{" "}
+              <span className="bg-gradient-to-r from-[var(--brand-cyan)] via-[var(--brand-blue)] via-[var(--brand-violet)] to-[var(--brand-magenta)] bg-clip-text font-medium text-transparent">
+                à portée de commande.
+              </span>
+            </h2>
+            <p className="mt-6 max-w-lg text-lg font-light leading-relaxed text-muted-foreground">
+              Traçabilité complète, expédition sous 24 h, support français.
+            </p>
+            <Link
+              to="/produits"
+              className="mt-10 inline-flex items-center gap-2 rounded-full bg-foreground px-8 py-4 font-display text-sm font-medium text-background transition-transform hover:-translate-y-0.5"
+            >
+              Voir le catalogue
+              <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
+            </Link>
           </div>
         </Reveal>
       </section>
 
-      {/* ============ RUO REMINDER with lab background ============ */}
-      <section className="relative overflow-hidden border-t border-border">
-        <img
-          src={labBg}
-          alt=""
-          aria-hidden
-          width={1920}
-          height={1080}
-          loading="lazy"
-          className="absolute inset-0 size-full object-cover"
-        />
-        <div className="absolute inset-0 bg-[oklch(0.99_0.005_260/92%)]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background/60" />
-        <div className="pointer-events-none absolute -top-px left-0 h-px w-1/2 bg-gradient-to-r from-transparent via-accent to-transparent [animation:beam-sweep_6s_ease-in-out_infinite]" />
-
-        <div className="container-prose relative py-20 sm:py-32">
+      {/* ============ RUO REMINDER — QUIET ============ */}
+      <section className="border-t border-border/60">
+        <div className="mx-auto max-w-3xl px-8 py-24 text-center">
           <Reveal>
-            <div className="mx-auto max-w-3xl text-center">
-              <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-foreground/80 backdrop-blur">
-                <span className="size-1.5 rounded-full bg-accent" />
-                Research Use Only
-              </div>
-              <h2 className="mt-6 font-display text-[26px] font-normal leading-[1.15] tracking-tight text-balance text-foreground sm:mt-5 sm:text-4xl sm:font-medium lg:text-5xl">
-                Avis réglementaire — Research Use Only (RUO)
-              </h2>
-              <p className="mt-7 text-[15px] leading-[1.75] text-muted-foreground sm:mt-6 sm:leading-relaxed">
-                Les produits commercialisés par Peptinium Labs sont des{" "}
-                <strong className="text-foreground">réactifs chimiques destinés à la recherche scientifique in vitro</strong>{" "}
-                en environnement de laboratoire contrôlé. Ils ne sont pas destinés ni adaptés à un
-                usage vétérinaire, diagnostique, thérapeutique, alimentaire ou cosmétique.
-                Toute manipulation doit être effectuée par un personnel qualifié, dans le respect
-                des bonnes pratiques de laboratoire et des réglementations en vigueur.
-              </p>
+            <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 font-mono text-[10px] uppercase tracking-[0.25em] text-foreground/80">
+              <span className="size-1.5 rounded-full bg-accent" />
+              Research Use Only
             </div>
+            <h2 className="mt-8 font-display text-3xl font-light leading-tight tracking-tight text-foreground sm:text-4xl">
+              Avis réglementaire — RUO
+            </h2>
+            <p className="mt-6 text-[15px] leading-[1.75] text-muted-foreground">
+              Les produits commercialisés par Peptinium Labs sont des{" "}
+              <strong className="font-medium text-foreground">réactifs chimiques destinés à la recherche scientifique in vitro</strong>{" "}
+              en environnement de laboratoire contrôlé. Ils ne sont pas destinés ni adaptés à un
+              usage vétérinaire, diagnostique, thérapeutique, alimentaire ou cosmétique.
+            </p>
           </Reveal>
         </div>
       </section>
