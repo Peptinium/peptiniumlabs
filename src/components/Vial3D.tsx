@@ -22,8 +22,12 @@ function VialModel() {
 }
 
 export function Vial3D({ className = "" }: { className?: string }) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return <div className={className} aria-hidden />;
   return (
     <div className={className}>
+
       <Canvas
         dpr={[1, 2]}
         camera={{ position: [0, 0.4, 3.6], fov: 32 }}
