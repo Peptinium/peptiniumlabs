@@ -137,8 +137,8 @@ function HomePage() {
         <div className="grid grid-cols-1 gap-12 md:grid-cols-3 md:gap-16">
           {[
             {
-              t: "Pureté vérifiée",
-              d: "Chaque lot est analysé par HPLC en phase inverse et validé par spectrométrie de masse.",
+              t: "Pureté documentée",
+              d: "Chaque lot est fourni avec son Certificat d'Analyse (CoA) Janoshik indépendant : HPLC en phase inverse et spectrométrie de masse.",
               Icon: ShieldCheck,
             },
             {
