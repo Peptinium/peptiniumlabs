@@ -55,9 +55,8 @@ function DesktopHero() {
 
         {/* Subtitle */}
         <p className="mt-5 max-w-2xl text-[16px] leading-[1.55] text-[oklch(0.35_0.02_270)] lg:mt-7 lg:text-[17px] lg:leading-[1.7]">
-          Peptides synthétiques haute pureté, contrôlés par HPLC et livrés avec
-          Certificat d'Analyse. L'exigence du laboratoire, pensée pour le
-          chercheur.
+          Peptides synthétiques haute pureté, contrôlés par HPLC. L'exigence du
+          laboratoire, pensée pour le chercheur.
         </p>
 
         {/* CTAs — Mobile (solid, high contrast) */}
