@@ -24,6 +24,26 @@ function MonCompteLayout() {
   const loc = useLocation();
   const navigate = useNavigate();
   const path = loc.pathname.replace(/\/$/, "");
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const { data } = await supabase.auth.getUser();
+      const uid = data.user?.id;
+      if (!uid) return;
+      const { data: role } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", uid)
+        .eq("role", "admin")
+        .maybeSingle();
+      if (!cancelled) setIsAdmin(!!role);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const isActive = (to: string, exact?: boolean) =>
     exact ? path === to : path === to || path.startsWith(to + "/");
@@ -37,16 +57,27 @@ function MonCompteLayout() {
           </div>
           <div className="mt-1 flex flex-wrap items-center justify-between gap-3">
             <h1 className="font-display text-2xl font-medium">Mon compte</h1>
-            <button
-              onClick={async () => {
-                await supabase.auth.signOut();
-                navigate({ to: "/" });
-              }}
-              className="inline-flex items-center gap-2 rounded-lg border border-border bg-background px-3 py-2 text-xs font-medium hover:border-accent"
-            >
-              <LogOut className="size-3.5" />
-              Déconnexion
-            </button>
+            <div className="flex flex-wrap items-center gap-2">
+              {isAdmin && (
+                <Link
+                  to="/admin"
+                  className="inline-flex items-center gap-2 rounded-lg border border-accent/40 bg-accent/10 px-3 py-2 text-xs font-semibold text-accent transition-all hover:bg-accent/20"
+                >
+                  <ShieldCheck className="size-3.5" />
+                  Espace admin
+                </Link>
+              )}
+              <button
+                onClick={async () => {
+                  await supabase.auth.signOut();
+                  navigate({ to: "/" });
+                }}
+                className="inline-flex items-center gap-2 rounded-lg border border-border bg-background px-3 py-2 text-xs font-medium hover:border-accent"
+              >
+                <LogOut className="size-3.5" />
+                Déconnexion
+              </button>
+            </div>
           </div>
         </div>
       </div>
