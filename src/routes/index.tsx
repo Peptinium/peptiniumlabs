@@ -346,32 +346,6 @@ function MobileHome({ featured, rest }: { featured: typeof products[number]; res
     <div className="mobile-experience">
       <Hero />
 
-      <section className="relative border-y border-border bg-surface px-5 py-8">
-        <div className="mb-5 flex items-center gap-3">
-          <span className="h-px flex-1 bg-border" />
-          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-            Standards laboratoire
-          </span>
-          <span className="h-px flex-1 bg-border" />
-        </div>
-        <dl className="divide-y divide-border/70">
-          {[
-            { k: "≥ 99 %", v: "Pureté HPLC" },
-            { k: "CoA", v: "Certificat par lot" },
-            { k: "RUO", v: "Recherche uniquement" },
-            { k: "24 h", v: "Expédition" },
-          ].map((t) => (
-            <div key={t.k} className="flex items-baseline justify-between py-4">
-              <dt className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-                {t.v}
-              </dt>
-              <dd className="font-display text-[22px] font-semibold tracking-tight text-foreground">
-                {t.k}
-              </dd>
-            </div>
-          ))}
-        </dl>
-      </section>
 
       <section className="px-5 py-12">
         <div className="font-mono text-[12px] uppercase tracking-[0.16em] text-accent">
