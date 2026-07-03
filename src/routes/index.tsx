@@ -96,7 +96,7 @@ function HomePage() {
       <section className="border-b border-border/60">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-10 gap-y-4 px-8 py-8">
           {[
-            { k: "HPLC ≥ 99 %", v: "Pureté vérifiée" },
+            { k: "HPLC ≥ 99 %", v: "Pureté documentée" },
             { k: "CoA", v: "Consultables en ligne" },
             { k: "RUO", v: "Recherche uniquement" },
             { k: "Expédition 24 h", v: "Depuis la France" },
