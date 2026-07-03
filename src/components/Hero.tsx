@@ -165,7 +165,7 @@ function MobileHero() {
           </h1>
 
           <p className="mt-4 max-w-[340px] text-[15px] font-medium leading-[1.5] text-[oklch(0.31_0.025_270)]">
-            Peptides haute pureté contrôlés par HPLC, livrés avec Certificat d'Analyse.
+            Peptides haute pureté contrôlés par HPLC, pour recherche laboratoire.
           </p>
 
           <div className="mt-5 grid w-full max-w-[320px] gap-2.5">
