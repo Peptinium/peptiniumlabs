@@ -190,7 +190,7 @@ function MobileHero() {
           </div>
         </div>
 
-        <div className="relative mx-auto mt-5 h-[280px] w-full max-w-[320px] shrink-0">
+        <div className="relative mx-auto mt-5 h-[260px] w-full max-w-[320px] shrink-0">
           <div
             aria-hidden
             className="pointer-events-none absolute left-1/2 top-1/2 -z-20 h-[92%] w-[92%] -translate-x-1/2 -translate-y-1/2 rounded-full"
@@ -208,7 +208,27 @@ function MobileHero() {
             className="mx-auto h-full w-auto object-contain drop-shadow-[0_28px_42px_color-mix(in_oklab,var(--brand-violet)_30%,transparent)] [animation:float_6s_ease-in-out_infinite]"
           />
         </div>
+
+        {/* Inline hero stats */}
+        <div className="relative mt-6 flex items-center justify-between gap-2 border-t border-[oklch(0.18_0.02_270)]/12 pt-5 text-left">
+          {[
+            { k: "≥ 99%", v: "Pureté HPLC" },
+            { k: "CoA", v: "Par lot" },
+            { k: "RUO", v: "Recherche" },
+            { k: "24 h", v: "Expédition" },
+          ].map((t, i) => (
+            <div key={t.k} className={`flex-1 ${i > 0 ? "border-l border-[oklch(0.18_0.02_270)]/10 pl-2" : ""}`}>
+              <div className="font-display text-[15px] font-semibold leading-none tracking-tight text-[oklch(0.15_0.02_270)]">
+                {t.k}
+              </div>
+              <div className="mt-1.5 font-mono text-[9px] uppercase tracking-[0.14em] text-[oklch(0.42_0.02_270)]">
+                {t.v}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
+
 
 
     </section>
