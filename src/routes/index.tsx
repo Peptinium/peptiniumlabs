@@ -544,9 +544,8 @@ function FeaturedCard({ featured }: { featured: typeof products[number] }) {
 
       <div className="relative grid gap-8 p-8 sm:grid-cols-[1.1fr_1fr] sm:items-center sm:gap-4 sm:p-14">
         {/* 3D Vial */}
-        <div className="relative h-[380px] w-full sm:h-[520px]">
-          <Vial3D className="absolute inset-0" />
-        </div>
+        <ClientVial className="relative h-[380px] w-full sm:h-[520px]" />
+
 
         {/* Text */}
         <div className="relative">
