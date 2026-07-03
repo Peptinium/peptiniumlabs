@@ -166,11 +166,6 @@ function MobileHero() {
 
       <div className="relative mx-auto flex min-h-[calc(100svh-4rem)] w-full max-w-[440px] flex-col px-5 pb-6 pt-6 text-center">
         <div className="flex flex-1 flex-col items-center justify-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-[oklch(0.18_0.02_270)]/12 bg-white/82 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-[oklch(0.26_0.03_270)] shadow-[0_10px_30px_-22px_color-mix(in_oklab,var(--brand-violet)_55%,transparent)] backdrop-blur-md">
-            <span className="size-1.5 animate-pulse rounded-full bg-[oklch(0.55_0.24_296)]" />
-            Recherche avancée
-          </div>
-
           <h1 className="mt-4 font-display text-[38px] font-semibold leading-[0.98] tracking-[-0.035em] text-[oklch(0.15_0.02_270)]">
             <span className="shimmer-text block">L'Avenir</span>
             <span className="shimmer-text block">de la Précision</span>
