@@ -4,6 +4,8 @@ import { ProductCard, ProductVisual } from "@/components/ProductCard";
 import { RuoBadge } from "@/components/RuoBadge";
 import { Reveal } from "@/components/Reveal";
 import { Hero } from "@/components/Hero";
+import { Vial3D } from "@/components/Vial3D";
+
 import { products, formatPrice } from "@/data/products";
 import labBg from "@/assets/lab-bg-ruo.jpg";
 
