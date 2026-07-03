@@ -90,7 +90,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Peptinium Labs : peptides synthétiques de qualité recherche, pureté ≥ 99 % HPLC, livrés avec CoA. Réservés strictement à la recherche scientifique en laboratoire (RUO).",
+          "Peptinium Labs : peptides synthétiques de qualité recherche, pureté ≥ 99 % HPLC. Réservés strictement à la recherche scientifique en laboratoire (RUO).",
       },
       { name: "robots", content: "index,follow" },
       { property: "og:site_name", content: "Peptinium Labs" },
