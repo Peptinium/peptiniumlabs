@@ -66,7 +66,7 @@ function CatalogPage() {
           <Reveal delay={140}>
             <p className="mt-5 max-w-2xl text-[17px] leading-[1.55] text-muted-foreground lg:text-[15px] lg:leading-relaxed">
               Composés validés par HPLC et spectrométrie de masse, conditionnés en flacons
-              stériles et livrés avec leur Certificat d'Analyse. Réactifs destinés{" "}
+              stériles. Réactifs destinés{" "}
               <strong className="text-foreground">
                 exclusivement à la recherche scientifique en laboratoire.
               </strong>
