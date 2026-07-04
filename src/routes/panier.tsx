@@ -13,6 +13,7 @@ import {
 } from "@/lib/cart";
 import { formatPrice } from "@/data/products";
 import { placeOrder, validatePromoCode } from "@/lib/orders.functions";
+import { createPeptidePayCheckout } from "@/lib/peptidepay.functions";
 import { getMyProfile } from "@/lib/account.functions";
 import { supabase } from "@/integrations/supabase/client";
 
