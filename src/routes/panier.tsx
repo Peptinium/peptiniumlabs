@@ -1153,6 +1153,12 @@ function ConfirmationBlock({
       boxTitle: "Adresse BTC en cours d'envoi",
       boxText: "Notre équipe vous transmet une adresse BTC unique dédiée à votre commande. Vous pourrez ensuite régler depuis votre wallet préféré.",
     },
+    peptidepay: {
+      title: "Paiement reçu",
+      intro: "Votre paiement a été confirmé par PeptidePay. Votre commande est en cours de préparation.",
+      boxTitle: "Paiement confirmé",
+      boxText: "Vous recevrez un email de confirmation avec le suivi de votre commande dès son expédition.",
+    },
   };
   const c = COPY[paymentMethod];
 
