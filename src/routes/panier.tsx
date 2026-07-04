@@ -50,6 +50,7 @@ function PanierPage() {
     country: "France",
   });
   const [orderRef, setOrderRef] = useState<string>("");
+  const [peptidePayUrl, setPeptidePayUrl] = useState<string>("");
   const [paymentMethod, setPaymentMethod] = useState<PayMethod>("bank");
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
