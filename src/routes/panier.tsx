@@ -982,6 +982,19 @@ function VirementBlock({
         cta: "J'ai compris, je patiente",
       };
     }
+    if (paymentMethod === "peptidepay") {
+      // Fallback (should never render — redirected immediately after checkout).
+      return {
+        icon: (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/><path d="M6 16h2M10 16h8"/></svg>
+        ),
+        title: "Redirection PeptidePay",
+        intro: "Vous allez être redirigé vers la page de paiement sécurisée PeptidePay.",
+        boxTitle: "Paiement en cours",
+        boxText: "Si vous voyez cette page, cliquez sur « Continuer » pour ouvrir le checkout.",
+        cta: "Continuer vers PeptidePay",
+      };
+    }
     return {
       icon: (
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
