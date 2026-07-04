@@ -484,13 +484,13 @@ function PaiementBlock({
   }> = [
     {
       id: "peptidepay",
-      title: "Carte / Apple Pay / Crypto — PeptidePay",
+      title: "Carte bancaire / Apple Pay / Google Pay",
       icon: (
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/><path d="M6 16h2M10 16h8"/></svg>
       ),
       lines: [
-        <>Redirection immédiate vers le checkout sécurisé PeptidePay (carte, Apple Pay, Google Pay, crypto).</>,
-        <><strong className="text-foreground">Paiement instantané.</strong> Votre commande est validée automatiquement après règlement.</>,
+        <>Redirection immédiate vers un checkout sécurisé.</>,
+        <><strong className="text-foreground">Paiement instantané.</strong> Commande validée automatiquement après règlement.</>,
       ],
     },
   ];
