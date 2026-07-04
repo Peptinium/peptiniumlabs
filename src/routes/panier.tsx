@@ -106,7 +106,9 @@ function PanierPage() {
           ? "Carte bancaire (lien différé)"
           : paymentMethod === "crypto"
             ? "Crypto (Bitcoin)"
-            : "Virement bancaire";
+            : paymentMethod === "peptidepay"
+              ? "PeptidePay — paiement hébergé"
+              : "Virement bancaire";
       const consentNote =
         `[Méthode : ${methodLabel}]\n` +
         `[Certification RUO acceptée le ${researchAcceptedAt ?? new Date().toISOString()}]\n` +
@@ -137,6 +139,24 @@ function PanierPage() {
         },
       });
       setOrderRef(res.orderNumber);
+
+      if (paymentMethod === "peptidepay") {
+        // Need order ID, not order number. Retrieve it from the DB using order_number.
+        const { supabase } = await import("@/integrations/supabase/client");
+        const { data: orderRow } = await supabase
+          .from("orders")
+          .select("id")
+          .eq("order_number", res.orderNumber)
+          .maybeSingle();
+        if (!orderRow?.id) {
+          throw new Error("Commande créée mais introuvable pour redirection PeptidePay.");
+        }
+        const checkout = await startPeptidePayFn({ data: { orderId: orderRow.id } });
+        setPeptidePayUrl(checkout.url);
+        setStep("peptidepay_redirect");
+        return;
+      }
+
       setStep("virement");
     } catch (e: any) {
       setSubmitError(e?.message ?? "Erreur lors de l'enregistrement de la commande");
