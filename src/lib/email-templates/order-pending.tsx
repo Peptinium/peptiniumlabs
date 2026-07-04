@@ -3,7 +3,7 @@ import { Body, Head, Html, Preview, Section, Text } from '@react-email/component
 import type { TemplateEntry } from './registry'
 import { BrandLayout, brand, styles } from './_brand'
 
-type Method = 'bank' | 'card' | 'crypto'
+type Method = 'bank' | 'card' | 'crypto' | 'peptidepay'
 
 interface Props {
   customerName?: string
@@ -31,6 +31,12 @@ const COPY: Record<Method, { title: string; intro: string; box: string }> = {
     intro:
       "Merci pour votre commande. Vous recevrez sous 24 h ouvrées un email avec l'adresse Bitcoin unique de réception pour régler votre commande.",
     box: "Notre équipe vous transmet une adresse BTC dédiée à votre commande. Vous pourrez ensuite payer depuis votre wallet préféré.",
+  },
+  peptidepay: {
+    title: 'Commande reçue — paiement en ligne',
+    intro:
+      "Merci pour votre commande. Vous allez être redirigé vers une page de paiement sécurisée hébergée par PeptidePay.",
+    box: "Si la page ne s'affiche pas, vérifiez votre navigateur ou connectez-vous à votre compte client pour relancer le paiement.",
   },
 }
 
