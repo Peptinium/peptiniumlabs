@@ -253,6 +253,16 @@ function PanierPage() {
             onSignaled={() => setStep("confirmation")}
           />
 
+        ) : step === "peptidepay_redirect" ? (
+          <PeptidePayRedirectBlock
+            url={peptidePayUrl}
+            orderRef={orderRef}
+            total={total}
+            cart={cart}
+            subtotal={subtotal}
+            shippingFee={shippingFee}
+          />
+
         ) : (
           <ConfirmationBlock
             total={total}
