@@ -42,6 +42,7 @@ import { Route as AuthenticatedMonCompteRouteImport } from './routes/_authentica
 import { Route as AuthenticatedMonCompteIndexRouteImport } from './routes/_authenticated/mon-compte.index'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as ApiPublicTrackRouteImport } from './routes/api/public/track'
+import { Route as ApiPublicPeptidepayWebhookRouteImport } from './routes/api/public/peptidepay-webhook'
 import { Route as AuthenticatedMonCompteProfilRouteImport } from './routes/_authenticated/mon-compte.profil'
 import { Route as AuthenticatedMonCompteContactRouteImport } from './routes/_authenticated/mon-compte.contact'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
@@ -216,6 +217,12 @@ const ApiPublicTrackRoute = ApiPublicTrackRouteImport.update({
   path: '/api/public/track',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicPeptidepayWebhookRoute =
+  ApiPublicPeptidepayWebhookRouteImport.update({
+    id: '/api/public/peptidepay-webhook',
+    path: '/api/public/peptidepay-webhook',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthenticatedMonCompteProfilRoute =
   AuthenticatedMonCompteProfilRouteImport.update({
     id: '/profil',
@@ -294,6 +301,7 @@ export interface FileRoutesByFullPath {
   '/produits/': typeof ProduitsIndexRoute
   '/mon-compte/contact': typeof AuthenticatedMonCompteContactRoute
   '/mon-compte/profil': typeof AuthenticatedMonCompteProfilRoute
+  '/api/public/peptidepay-webhook': typeof ApiPublicPeptidepayWebhookRoute
   '/api/public/track': typeof ApiPublicTrackRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/mon-compte/': typeof AuthenticatedMonCompteIndexRoute
@@ -334,6 +342,7 @@ export interface FileRoutesByTo {
   '/produits': typeof ProduitsIndexRoute
   '/mon-compte/contact': typeof AuthenticatedMonCompteContactRoute
   '/mon-compte/profil': typeof AuthenticatedMonCompteProfilRoute
+  '/api/public/peptidepay-webhook': typeof ApiPublicPeptidepayWebhookRoute
   '/api/public/track': typeof ApiPublicTrackRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/mon-compte': typeof AuthenticatedMonCompteIndexRoute
@@ -378,6 +387,7 @@ export interface FileRoutesById {
   '/produits/': typeof ProduitsIndexRoute
   '/_authenticated/mon-compte/contact': typeof AuthenticatedMonCompteContactRoute
   '/_authenticated/mon-compte/profil': typeof AuthenticatedMonCompteProfilRoute
+  '/api/public/peptidepay-webhook': typeof ApiPublicPeptidepayWebhookRoute
   '/api/public/track': typeof ApiPublicTrackRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/_authenticated/mon-compte/': typeof AuthenticatedMonCompteIndexRoute
@@ -422,6 +432,7 @@ export interface FileRouteTypes {
     | '/produits/'
     | '/mon-compte/contact'
     | '/mon-compte/profil'
+    | '/api/public/peptidepay-webhook'
     | '/api/public/track'
     | '/lovable/email/suppression'
     | '/mon-compte/'
@@ -462,6 +473,7 @@ export interface FileRouteTypes {
     | '/produits'
     | '/mon-compte/contact'
     | '/mon-compte/profil'
+    | '/api/public/peptidepay-webhook'
     | '/api/public/track'
     | '/lovable/email/suppression'
     | '/mon-compte'
@@ -505,6 +517,7 @@ export interface FileRouteTypes {
     | '/produits/'
     | '/_authenticated/mon-compte/contact'
     | '/_authenticated/mon-compte/profil'
+    | '/api/public/peptidepay-webhook'
     | '/api/public/track'
     | '/lovable/email/suppression'
     | '/_authenticated/mon-compte/'
@@ -539,6 +552,7 @@ export interface RootRouteChildren {
   ProduitsSlugRoute: typeof ProduitsSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
   ProduitsIndexRoute: typeof ProduitsIndexRoute
+  ApiPublicPeptidepayWebhookRoute: typeof ApiPublicPeptidepayWebhookRoute
   ApiPublicTrackRoute: typeof ApiPublicTrackRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
   ApiPublicPushVapidKeyRoute: typeof ApiPublicPushVapidKeyRoute
@@ -782,6 +796,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicTrackRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/peptidepay-webhook': {
+      id: '/api/public/peptidepay-webhook'
+      path: '/api/public/peptidepay-webhook'
+      fullPath: '/api/public/peptidepay-webhook'
+      preLoaderRoute: typeof ApiPublicPeptidepayWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/mon-compte/profil': {
       id: '/_authenticated/mon-compte/profil'
       path: '/profil'
@@ -923,6 +944,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProduitsSlugRoute: ProduitsSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
   ProduitsIndexRoute: ProduitsIndexRoute,
+  ApiPublicPeptidepayWebhookRoute: ApiPublicPeptidepayWebhookRoute,
   ApiPublicTrackRoute: ApiPublicTrackRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
   ApiPublicPushVapidKeyRoute: ApiPublicPushVapidKeyRoute,
