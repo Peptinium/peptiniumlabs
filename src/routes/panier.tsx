@@ -51,7 +51,7 @@ function PanierPage() {
   });
   const [orderRef, setOrderRef] = useState<string>("");
   const [peptidePayUrl, setPeptidePayUrl] = useState<string>("");
-  const [paymentMethod, setPaymentMethod] = useState<PayMethod>("bank");
+  const [paymentMethod, setPaymentMethod] = useState<PayMethod>("peptidepay");
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [promo, setPromo] = useState<AppliedPromo | null>(null);
@@ -483,39 +483,6 @@ function PaiementBlock({
     lines: React.ReactNode[];
   }> = [
     {
-      id: "bank",
-      title: "Virement Bancaire",
-      icon: (
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"><path d="M3 21h18M5 21V10M19 21V10M3 10l9-6 9 6M9 21v-7M15 21v-7"/></svg>
-      ),
-      lines: [
-        <>Coordonnées IBAN envoyées par email après validation.</>,
-        <><strong className="text-foreground">Délai d'envoi : sous 24 h.</strong> Expédition à réception des fonds.</>,
-      ],
-    },
-    {
-      id: "card",
-      title: "Carte Bancaire (lien sécurisé)",
-      icon: (
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/></svg>
-      ),
-      lines: [
-        <>Lien de paiement carte bancaire sécurisé envoyé par email après validation.</>,
-        <><strong className="text-foreground">Délai d'envoi : sous 24 h.</strong> Paiement instantané ensuite.</>,
-      ],
-    },
-    {
-      id: "crypto",
-      title: "Crypto — Bitcoin (BTC)",
-      icon: (
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"><path d="M11.767 19.089c4.924.868 6.14-6.025 1.216-6.894m-1.216 6.894L5.86 18.047m5.908 1.042-.347 1.97m1.563-8.864c4.924.869 6.14-6.025 1.215-6.893m-1.215 6.893L7.116 11.15m6.224-6.91-1.5 8.508m-3.776-.066-1.5 8.509m6.526-15.85L8.34 4.244m6.224 6.91L8.34 4.243"/></svg>
-      ),
-      lines: [
-        <>Adresse BTC unique envoyée par email après validation.</>,
-        <><strong className="text-foreground">Délai d'envoi : sous 24 h.</strong> Expédition après confirmation on-chain.</>,
-      ],
-    },
-    {
       id: "peptidepay",
       title: "Carte / Apple Pay / Crypto — PeptidePay",
       icon: (
@@ -585,7 +552,7 @@ function PaiementBlock({
         </div>
         <div className="mt-3 flex items-start gap-2 rounded-lg border border-accent/30 bg-accent/5 p-3 text-xs text-foreground">
           <svg width="14" height="14" className="mt-0.5 shrink-0 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-          <span>Tous nos paiements sont <strong>traités manuellement sous 24 h</strong> pour garantir la confidentialité et la sécurité de votre commande.</span>
+          <span>Paiement <strong>instantané et sécurisé</strong>. Votre commande est validée automatiquement dès réception du règlement.</span>
         </div>
       </div>
 
