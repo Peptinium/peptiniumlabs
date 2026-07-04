@@ -1038,6 +1038,82 @@ function VirementBlock({
   );
 }
 
+function PeptidePayRedirectBlock({
+  url,
+  orderRef,
+  total,
+  cart,
+  subtotal,
+  shippingFee,
+}: {
+  url: string;
+  orderRef: string;
+  total: number;
+  cart: ReturnType<typeof useCart>;
+  subtotal: number;
+  shippingFee: number;
+}) {
+  const [countdown, setCountdown] = useState(3);
+  useEffect(() => {
+    if (!url) return;
+    if (countdown <= 0) {
+      window.location.href = url;
+      return;
+    }
+    const id = window.setTimeout(() => setCountdown((c) => c - 1), 1000);
+    return () => window.clearTimeout(id);
+  }, [url, countdown]);
+
+  return (
+    <div className="mx-auto max-w-xl">
+      <div className="text-center">
+        <div className="mx-auto grid size-14 place-items-center rounded-full border border-border bg-card text-accent">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/><path d="M6 16h2M10 16h8"/></svg>
+        </div>
+        <h1 className="mt-4 font-display text-3xl font-medium">Redirection vers PeptidePay</h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Votre commande est enregistrée. Vous allez être redirigé vers la page de paiement sécurisée dans {countdown}s.
+        </p>
+      </div>
+
+      <div className="mt-8 overflow-hidden rounded-2xl border border-border bg-card">
+        <div className="border-b border-border p-5">
+          <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">Référence commande</div>
+          <div className="mt-1 font-mono text-base font-semibold tracking-wide text-foreground">{orderRef}</div>
+        </div>
+        <div className="border-b border-border p-5">
+          <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">Montant</div>
+          <div className="mt-1 font-display text-xl font-semibold">{formatPrice(total).replace(" €", "")} EUR</div>
+        </div>
+        <div className="border-b border-border bg-accent/5 p-5">
+          <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-accent">Paiement sécurisé</div>
+          <p className="mt-2 text-sm leading-relaxed text-foreground">
+            Les données de carte sont collectées uniquement sur l'infrastructure de PeptidePay. Aucune donnée bancaire ne transite par Peptinium.
+          </p>
+        </div>
+
+        <div className="bg-surface p-5">
+          <a
+            href={url}
+            className="group relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-accent px-6 py-4 text-sm font-semibold uppercase tracking-[0.16em] text-background transition-colors hover:bg-accent/90"
+          >
+            Payer maintenant
+          </a>
+          <p className="mt-3 text-center text-[11px] leading-relaxed text-muted-foreground">
+            Si la redirection ne fonctionne pas, cliquez sur le bouton ci-dessus.
+            <br />
+            <a href="https://pay.qistdigital.com" rel="noopener" className="text-accent hover:underline">
+              Secured by PeptidePay
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <OrderSummary orderRef={orderRef} cart={cart} subtotal={subtotal} shippingFee={shippingFee} total={total} />
+    </div>
+  );
+}
+
 function CopyRow({ label, value, mono = false, highlight = false }: { label: string; value: string; mono?: boolean; highlight?: boolean }) {
   const [copied, setCopied] = useState(false);
   return (
