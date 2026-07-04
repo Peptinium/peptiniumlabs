@@ -36,6 +36,7 @@ type AppliedPromo = { code: string; rate: number };
 function PanierPage() {
   const cart = useCart();
   const submitOrderFn = useServerFn(placeOrder);
+  const startPeptidePayFn = useServerFn(createPeptidePayCheckout);
   const [step, setStep] = useState<Step>("livraison");
   const [shipping, setShipping] = useState({
     email: "",
