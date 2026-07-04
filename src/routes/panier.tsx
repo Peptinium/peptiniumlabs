@@ -28,8 +28,8 @@ export const Route = createFileRoute("/panier")({
   component: PanierPage,
 });
 
-type Step = "livraison" | "paiement" | "virement" | "confirmation";
-type PayMethod = "bank" | "card" | "crypto";
+type Step = "livraison" | "paiement" | "virement" | "confirmation" | "peptidepay_redirect";
+type PayMethod = "bank" | "card" | "crypto" | "peptidepay";
 
 type AppliedPromo = { code: string; rate: number };
 
