@@ -105,10 +105,10 @@ export const Route = createFileRoute("/api/public/peptidepay-webhook")({
           await supabaseAdmin.from("payments").insert({
             order_id: orderId,
             method: "peptidepay",
-            amount_eur: (event.amount / 100).toFixed(2),
-            currency: event.currency,
+            amount_eur: event.amount / 100,
             reference: event.txid ?? event.session_id,
-            status: "paid",
+            validated_at: paidAt,
+            note: `PeptidePay ${event.currency} · session ${event.session_id}`,
           });
         } catch (e) {
           console.error("[peptidepay-webhook] payments insert failed", e);
