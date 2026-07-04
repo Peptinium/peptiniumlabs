@@ -8,7 +8,7 @@ interface Props {
   customerName?: string
   email?: string
   totalEur?: number
-  paymentMethod?: 'bank' | 'card' | 'crypto'
+  paymentMethod?: 'bank' | 'card' | 'crypto' | 'peptidepay'
   adminUrl?: string
   items?: Array<{ name: string; quantity: number; price_eur: number }>
 }
@@ -17,6 +17,7 @@ const METHOD_LABEL: Record<string, string> = {
   bank: 'Virement bancaire',
   card: 'Carte bancaire (lien à envoyer)',
   crypto: 'Crypto (adresse à envoyer)',
+  peptidepay: 'PeptidePay (hébergé — automatique)',
 }
 
 const Email = ({
