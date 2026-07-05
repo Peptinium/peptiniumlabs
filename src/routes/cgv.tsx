@@ -26,7 +26,7 @@ export const Route = createFileRoute("/cgv")({
               N° TVA : Non applicable – franchise en base (article 293 B du CGI)
             </p>
             <p className="mt-2">
-              <strong>Le client :</strong> professionnel ou particulier passant commande pour motif de recherche sur le site peptinium.com.
+              <strong>Le client :</strong> tout professionnel, chercheur ou membre d'une entité de recherche passant commande pour motif de recherche sur le site peptinium.com.
             </p>
             <p className="mt-2">
               Le site propose à la vente des produits chimiques et réactifs destinés exclusivement à la recherche scientifique en laboratoire (usage in vitro uniquement). Toute commande implique l'acceptation sans réserve des présentes CGV.
