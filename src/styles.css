@@ -200,6 +200,15 @@
   }
 }
 
+@layer base {
+  .press-active {
+    transform: scale(0.97) !important;
+    transition-duration: 150ms !important;
+    background-color: var(--color-success) !important;
+    color: var(--color-success-foreground) !important;
+  }
+}
+
 
 
 @layer base {
