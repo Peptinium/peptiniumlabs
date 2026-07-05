@@ -35,8 +35,8 @@ function DesktopHero() {
 
         {/* Title */}
         <h1 className="mt-5 font-display text-[40px] font-semibold leading-[1.02] tracking-[-0.035em] text-balance text-[oklch(0.15_0.02_270)] sm:text-[60px] lg:mt-8 lg:text-[92px] lg:leading-[0.95]">
-          <span className="shimmer-text block">L'Avenir de la</span>
-          <span className="shimmer-text block">Précision Moléculaire.</span>
+          <span className="shimmer-text block" data-shimmer="L'Avenir de la">L'Avenir de la</span>
+          <span className="shimmer-text block" data-shimmer="Précision Moléculaire.">Précision Moléculaire.</span>
         </h1>
 
         {/* Subtitle */}
@@ -167,9 +167,9 @@ function MobileHero() {
       <div className="relative mx-auto flex min-h-[calc(100svh-4rem)] w-full max-w-[440px] flex-col px-5 pb-6 pt-6 text-center">
         <div className="flex flex-1 flex-col items-center justify-center">
           <h1 className="mt-4 font-display text-[38px] font-semibold leading-[0.98] tracking-[-0.035em] text-[oklch(0.15_0.02_270)]">
-            <span className="shimmer-text block">L'Avenir</span>
-            <span className="shimmer-text block">de la Précision</span>
-            <span className="shimmer-text block">Moléculaire.</span>
+            <span className="shimmer-text block" data-shimmer="L'Avenir">L'Avenir</span>
+            <span className="shimmer-text block" data-shimmer="de la Précision">de la Précision</span>
+            <span className="shimmer-text block" data-shimmer="Moléculaire.">Moléculaire.</span>
           </h1>
 
           <p className="mt-4 max-w-[340px] text-[15px] font-medium leading-[1.5] text-[oklch(0.31_0.025_270)]">

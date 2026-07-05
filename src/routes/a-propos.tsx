@@ -81,7 +81,7 @@ function AboutPage() {
             </Reveal>
 
             <Reveal delay={80}>
-              <h1 className="shimmer-text mt-10 max-w-5xl text-[52px] font-semibold leading-[0.98] tracking-[-0.035em] sm:text-[104px] sm:leading-[0.94]">
+              <h1 className="shimmer-text mt-10 max-w-5xl text-[52px] font-semibold leading-[0.98] tracking-[-0.035em] sm:text-[104px] sm:leading-[0.94]" data-shimmer="La science, sans compromis.">
                 La science, sans compromis.
               </h1>
             </Reveal>
@@ -134,7 +134,7 @@ function AboutPage() {
             <Reveal>
               <div className="flex flex-col">
                 <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">— Qualité &amp; normes</span>
-                <h2 className="shimmer-text mt-4 text-[36px] font-semibold leading-[1.02] tracking-[-0.03em] sm:text-[56px]">
+                <h2 className="shimmer-text mt-4 text-[36px] font-semibold leading-[1.02] tracking-[-0.03em] sm:text-[56px]" data-shimmer="Chaque lot testé, vérifié, documenté.">
                   Chaque lot testé, vérifié, documenté.
                 </h2>
                 <div className="mt-8 space-y-5 text-[15.5px] leading-[1.7] text-muted-foreground">
@@ -186,7 +186,7 @@ function AboutPage() {
               <div className="flex flex-wrap items-end justify-between gap-6">
                 <div>
                   <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">— Notre méthode</span>
-                  <h2 className="shimmer-text mt-4 max-w-3xl text-[36px] font-semibold leading-[1.0] tracking-[-0.03em] sm:text-[56px]">
+                  <h2 className="shimmer-text mt-4 max-w-3xl text-[36px] font-semibold leading-[1.0] tracking-[-0.03em] sm:text-[56px]" data-shimmer="Quatre piliers, zéro raccourci.">
                     Quatre piliers, zéro raccourci.
                   </h2>
                 </div>
@@ -238,7 +238,7 @@ function AboutPage() {
             <Reveal delay={80}>
               <div className="flex flex-col justify-center">
                 <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">— Confiance &amp; conformité</span>
-                <h2 className="shimmer-text mt-4 text-[36px] font-semibold leading-[1.02] tracking-[-0.03em] sm:text-[52px]">
+                <h2 className="shimmer-text mt-4 text-[36px] font-semibold leading-[1.02] tracking-[-0.03em] sm:text-[52px]" data-shimmer="Un partenaire fiable pour la recherche.">
                   Un partenaire fiable pour la recherche.
                 </h2>
                 <div className="mt-8 space-y-5 text-[15.5px] leading-[1.7] text-muted-foreground">
@@ -264,7 +264,7 @@ function AboutPage() {
             <Reveal>
               <div className="flex flex-col justify-center">
                 <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">— Expérience &amp; opérations</span>
-                <h2 className="shimmer-text mt-4 text-[36px] font-semibold leading-[1.02] tracking-[-0.03em] sm:text-[52px]">
+                <h2 className="shimmer-text mt-4 text-[36px] font-semibold leading-[1.02] tracking-[-0.03em] sm:text-[52px]" data-shimmer="Commande simple, expédition maîtrisée.">
                   Commande simple, expédition maîtrisée.
                 </h2>
                 <div className="mt-8 space-y-5 text-[15.5px] leading-[1.7] text-muted-foreground">
@@ -317,7 +317,7 @@ function AboutPage() {
               <div className="grid gap-10 md:grid-cols-[1fr_1.4fr] md:gap-16">
                 <div>
                   <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">— Preuves</span>
-                  <h2 className="shimmer-text mt-4 text-[40px] font-semibold leading-[0.98] tracking-[-0.03em] sm:text-[64px]">
+                  <h2 className="shimmer-text mt-4 text-[40px] font-semibold leading-[0.98] tracking-[-0.03em] sm:text-[64px]" data-shimmer="Vérifié par Janoshik Analytical.">
                     Vérifié par Janoshik Analytical.
                   </h2>
                 </div>

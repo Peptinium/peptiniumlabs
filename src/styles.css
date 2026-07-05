@@ -366,7 +366,6 @@
 
 .shimmer-text[data-shimmer]::after,
 .shimmer-text-light[data-shimmer]::after {
-    content: "";
     position: absolute;
     inset: 0;
     pointer-events: none;
