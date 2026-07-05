@@ -259,21 +259,29 @@ function HomePage() {
       <section data-reveal-blur className="mx-auto max-w-4xl px-8 pb-32 sm:pb-40">
         <Reveal>
           <div className="flex flex-col items-center text-center">
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Prêt à commander</span>
-            <h2 className="mt-6 font-display text-5xl font-light leading-[1.05] tracking-tighter sm:text-6xl">
-              <span className="shimmer-text">La sérénité du laboratoire, à portée de commande.</span>
+            <span className="brand-gradient-text font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
+              Prêt à commander
+            </span>
+            <h2 className="mt-6 text-[44px] font-semibold leading-[1.0] tracking-[-0.03em] text-foreground sm:text-[68px] sm:leading-[0.96]">
+              La sérénité du laboratoire,<br />
+              <span className="brand-gradient-text italic">à portée de commande</span>.
             </h2>
-            <p className="mt-6 max-w-lg text-lg font-light leading-relaxed text-muted-foreground">
+            <p className="mt-7 max-w-lg text-[17px] leading-[1.6] text-muted-foreground">
               Traçabilité complète, expédition sous 24 h, support français.
             </p>
             <Link
               to="/produits"
-              className="mt-10 inline-flex items-center gap-2 rounded-full bg-foreground px-8 py-4 font-display text-sm font-medium text-background transition-transform hover:-translate-y-0.5"
+              className="group mt-10 inline-flex items-center gap-3 rounded-full px-8 py-4 text-[14px] font-medium text-white shadow-[0_18px_44px_-18px_color-mix(in_oklab,var(--brand-violet)_70%,transparent)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5"
+              style={{
+                backgroundImage:
+                  "linear-gradient(120deg, oklch(0.70 0.18 210) 0%, oklch(0.58 0.28 290) 55%, oklch(0.68 0.27 345) 100%)",
+              }}
             >
               Voir le catalogue
-              <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
+              <span aria-hidden className="grid size-7 place-items-center rounded-full bg-white/20 transition-transform duration-500 group-hover:translate-x-0.5">→</span>
             </Link>
           </div>
+
         </Reveal>
       </section>
 
