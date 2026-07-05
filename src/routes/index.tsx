@@ -3,12 +3,10 @@ import { SiteLayout } from "@/components/SiteLayout";
 import { ProductCard, ProductVisual } from "@/components/ProductCard";
 import { RuoBadge } from "@/components/RuoBadge";
 import { Reveal } from "@/components/Reveal";
-import { HeroVela } from "@/components/HeroVela";
+import { Hero } from "@/components/Hero";
 import { products, formatPrice } from "@/data/products";
-import { ShieldCheck, Fingerprint, Truck, FlaskConical, Plus } from "lucide-react";
-
-import promoBacWater from "@/assets/promo-bacwater.png";
-
+import { ShieldCheck, Fingerprint, LifeBuoy } from "lucide-react";
+import labBg from "@/assets/lab-bg-ruo.jpg";
 
 const SITE_URL = "https://peptinium.com";
 const ALL_PEPTIDES_KEYWORDS = [
@@ -83,211 +81,128 @@ export const Route = createFileRoute("/")({
 });
 
 function HomePage() {
-
   const featured = products.find((p) => p.featured)!;
-  const rest = products.filter((p) => !p.featured);
-  const bestSellers = rest.slice(0, 4);
-  const moreProducts = rest.slice(4, 8);
-
+  const rest = products.filter((p) => !p.featured).slice(0, 6);
 
   return (
     <SiteLayout>
-      {/* ============ 1. IMMERSIVE HERO ============ */}
-      <HeroVela />
+      <MobileHome featured={featured} rest={rest} />
 
+      <div className="desktop-experience">
+      {/* ============ IMMERSIVE HERO ============ */}
+      <Hero />
 
-      {/* ============ 2. BEST SELLERS — 4 cards + "Tout voir" pill ============ */}
-      <section data-reveal-blur className="mx-auto max-w-[1400px] px-8 pt-24 sm:pt-32">
-        <Reveal>
-          <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
-            <div className="min-w-0">
-              <span className="block text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
-                Meilleures ventes
-              </span>
-              <h2 className="mt-5 max-w-3xl shimmer-text text-[44px] font-semibold leading-[1.05] tracking-[-0.035em] sm:text-[64px] sm:leading-[1.02]" data-shimmer="Des peptides de la plus haute qualité.">
-                Des peptides de la plus haute qualité.
-              </h2>
+      {/* ============ QUIET TRUST ROW ============ */}
+      <section className="border-b border-border/60">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-10 gap-y-4 px-8 py-8">
+          {[
+            { k: "HPLC ≥ 99 %", v: "Pureté documentée" },
+            { k: "CoA", v: "Consultables en ligne" },
+            { k: "RUO", v: "Recherche uniquement" },
+            { k: "Expédition 24 h", v: "Depuis la France" },
+          ].map((t) => (
+            <div key={t.k} className="flex flex-col">
+              <span className="font-display text-[15px] font-medium tracking-tight text-foreground">{t.k}</span>
+              <span className="mt-1 text-[12px] text-muted-foreground">{t.v}</span>
             </div>
-            <Link
-              to="/produits"
-              className="group inline-flex shrink-0 items-center gap-2 self-start rounded-full border border-border/70 bg-card px-5 py-2.5 text-[13px] font-medium text-foreground transition-all hover:border-foreground sm:self-end"
-            >
-              Tout voir
-              <span
-                aria-hidden
-                className="grid size-6 place-items-center rounded-full brand-gradient-bg text-white transition-transform group-hover:translate-x-0.5"
-              >
-                →
-              </span>
-            </Link>
-          </div>
-        </Reveal>
-
-
-        <div className="mt-14 grid grid-cols-2 gap-5 lg:grid-cols-4 lg:gap-6">
-          {[featured, ...bestSellers.slice(0, 3)].map((p, i) => (
-            <Reveal key={p.slug} delay={i * 60}>
-              <ProductCard product={p} />
-            </Reveal>
           ))}
         </div>
       </section>
 
-      {/* ============ 3. MORE PRODUCTS — 4 cards + centered CTA ============ */}
-      <section data-reveal-blur className="mx-auto max-w-[1400px] px-8 pt-16 sm:pt-24">
-        <div className="grid grid-cols-2 gap-5 lg:grid-cols-4 lg:gap-6">
-          {moreProducts.map((p, i) => (
-            <Reveal key={p.slug} delay={i * 60}>
-              <ProductCard product={p} />
-            </Reveal>
-          ))}
-        </div>
-        <Reveal delay={120}>
-          <div className="mt-14 flex justify-center">
-            <Link
-              to="/produits"
-              className="group inline-flex items-center gap-3 rounded-full px-7 py-3.5 text-[14px] font-medium text-white shadow-[0_18px_44px_-18px_color-mix(in_oklab,var(--brand-violet)_70%,transparent)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-[0_24px_54px_-18px_color-mix(in_oklab,var(--brand-violet)_85%,transparent)]"
-              style={{
-                backgroundImage:
-                  "linear-gradient(120deg, oklch(0.70 0.18 210) 0%, oklch(0.58 0.28 290) 55%, oklch(0.68 0.27 345) 100%)",
-              }}
-            >
-              Voir plus de produits
-              <span
-                aria-hidden
-                className="grid size-6 place-items-center rounded-full bg-white/20 transition-transform group-hover:translate-x-0.5"
-              >
-                →
-              </span>
-            </Link>
-          </div>
-        </Reveal>
-      </section>
-
-      {/* ============ 4. PROMO — Bac Water offert ============ */}
-      <section data-reveal-blur className="px-6 pt-24 sm:pt-32">
+      {/* ============ FEATURED PRODUCT — MAGNIFIED ============ */}
+      <section className="mx-auto max-w-6xl px-8 py-32 sm:py-40">
         <Reveal>
-          <div className="relative mx-auto max-w-[1400px] overflow-hidden rounded-[32px] border border-border/40 bg-gradient-to-br from-[#eef1ff] via-[#f5f2ff] to-[#fdf2f6]">
-            <div className="grid grid-cols-1 items-center gap-8 px-8 py-14 sm:px-16 sm:py-20 md:grid-cols-2">
-              <div className="flex flex-col items-start">
-                <span className="block text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
-                  Promotion
-                </span>
-                <h2 className="mt-6 max-w-lg shimmer-text text-[36px] font-semibold leading-[1.02] tracking-[-0.03em] sm:text-[52px] sm:leading-[1.0]" data-shimmer="Offerte : 3 ml d'eau bactériostatique à chaque commande.">
-                  Offerte : 3 ml d'eau bactériostatique à chaque commande.
-                </h2>
-                <p className="mt-6 max-w-md text-[15px] leading-[1.6] text-[#0f1d3a]/70 sm:text-[16px]">
-                  Tout ce qu'il vous faut pour démarrer, inclus.
-                </p>
-                <Link
-                  to="/produits"
-                  className="group mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 text-[14px] font-medium text-white shadow-[0_18px_44px_-18px_color-mix(in_oklab,var(--brand-violet)_70%,transparent)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(120deg, oklch(0.70 0.18 210) 0%, oklch(0.58 0.28 290) 55%, oklch(0.68 0.27 345) 100%)",
-                  }}
-                >
-                  <span className="size-1.5 rounded-full bg-white/90" aria-hidden />
-                  Découvrir
-                </Link>
-              </div>
-              <div className="relative flex items-center justify-center md:justify-end">
-                <div
-                  className="pointer-events-none absolute inset-0 -z-0"
-                  style={{
-                    background:
-                      "radial-gradient(circle at 60% 50%, color-mix(in oklab, var(--brand-violet) 22%, transparent) 0%, transparent 65%)",
-                  }}
+          <div className="flex flex-col items-center text-center">
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Produit phare</span>
+            <h2 className="mt-6 max-w-3xl font-display text-5xl font-light leading-[1.05] tracking-tighter sm:text-7xl">
+              <span className="shimmer-text">Sculpté pour la recherche.</span>
+            </h2>
+          </div>
+        </Reveal>
+        <Reveal delay={80}>
+          <div className="mt-16">
+            <FeaturedCard featured={featured} />
+          </div>
+        </Reveal>
+        <Reveal delay={140}>
+          <p className="mx-auto mt-14 max-w-xl text-center text-lg font-light leading-relaxed text-muted-foreground">
+            Pureté HPLC vérifiée, conditionnement stérile, traçabilité complète.
+            L'exigence du laboratoire, sans compromis.
+          </p>
+        </Reveal>
+      </section>
+
+      {/* ============ AIRY PILLARS ============ */}
+      <section className="mx-auto max-w-7xl px-8 pb-32 sm:pb-40">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-3 md:gap-16">
+          {[
+            {
+              t: "Pureté documentée",
+              d: "Chaque lot est fourni avec son Certificat d'Analyse (CoA) Janoshik indépendant : HPLC en phase inverse et spectrométrie de masse.",
+              Icon: ShieldCheck,
+            },
+            {
+              t: "Traçabilité totale",
+              d: "Numéro de lot unique, documentation auditable sur demande, CoA consultable en ligne pour chaque flacon.",
+              Icon: Fingerprint,
+            },
+            {
+              t: "Support recherche",
+              d: "MSDS, protocoles labo et conseils de reconstitution. Un interlocuteur qui parle votre langage.",
+              Icon: LifeBuoy,
+            },
+          ].map((p, i) => (
+            <Reveal key={p.t} delay={i * 80}>
+              <div className="flex flex-col gap-8 p-2">
+                <p.Icon
+                  className="size-7 text-foreground/85"
+                  strokeWidth={1.25}
                   aria-hidden
                 />
-                <img
-                  src={promoBacWater}
-                  alt="Flacons d'eau bactériostatique Peptinium Labs offerts"
-                  width={1024}
-                  height={1024}
-                  loading="lazy"
-                  className="relative z-10 h-auto w-full max-w-[420px] object-contain drop-shadow-[0_30px_60px_rgba(30,20,80,0.18)]"
-                />
-              </div>
-            </div>
-          </div>
-        </Reveal>
-      </section>
-
-      {/* ============ 5. PLUS QUE LA SCIENCE — clean background ============ */}
-      <section
-        data-reveal-blur
-        className="relative mt-24 overflow-hidden bg-background sm:mt-32"
-      >
-        <div
-          className="pointer-events-none absolute inset-x-0 top-0 h-px"
-          aria-hidden
-          style={{ background: "linear-gradient(90deg, transparent, color-mix(in oklab, var(--brand-violet) 40%, transparent), transparent)" }}
-        />
-        <div className="relative mx-auto max-w-[1400px] px-8 py-24 sm:py-32">
-          <Reveal>
-            <div className="flex flex-col gap-6">
-              <span className="block text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
-                — À propos de Peptinium
-              </span>
-
-              <h2 className="max-w-4xl shimmer-text text-[44px] font-semibold leading-[1.05] tracking-[-0.035em] sm:text-[80px] sm:leading-[1.0]" data-shimmer="Plus que de la science.">
-                Plus que de la science.
-              </h2>
-            </div>
-            <div className="mt-10 h-px w-full bg-gradient-to-r from-black/30 via-black/10 to-transparent" />
-          </Reveal>
-
-          <div className="mt-16 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-10">
-            {[
-              {
-                Icon: ShieldCheck,
-                t: "Le plus haut standard de qualité du marché",
-                d: "Nous ne nous contentons pas de la moyenne du secteur. Chaque peptide de notre catalogue est synthétisé à une pureté minimale ≥ 99 %.",
-              },
-              {
-                Icon: Truck,
-                t: "Expédition rapide & support dédié",
-                d: "Commandes avant 14 h du lundi au vendredi : votre colis quitte nos installations le jour même, entièrement suivi jusqu'à la livraison.",
-              },
-              {
-                Icon: FlaskConical,
-                t: "Fabriqué selon les normes GMP",
-                d: "Chaque composé est produit dans une installation certifiée, conforme aux protocoles pharmaceutiques les plus stricts.",
-              },
-              {
-                Icon: Fingerprint,
-                t: "Traçabilité complète, lot après lot",
-                d: "Numéro de lot unique, CoA Janoshik indépendant, documentation auditable en ligne pour chaque flacon expédié.",
-              },
-            ].map((f, i) => (
-              <Reveal key={f.t} delay={i * 80}>
-                <div className="flex flex-col gap-6">
-                  <f.Icon className="size-6 text-black/80" strokeWidth={1.4} aria-hidden />
-                  <div className="space-y-3">
-                    <h3 className="text-[17px] font-semibold leading-[1.2] tracking-[-0.01em] text-black">
-                      {f.t}
-                    </h3>
-                    <p className="text-[13.5px] leading-[1.6] text-black/65">{f.d}</p>
-                  </div>
+                <div className="space-y-3">
+                  <h3 className="font-display text-2xl font-normal tracking-tight text-foreground">{p.t}</h3>
+                  <p className="text-[15px] leading-relaxed text-muted-foreground">{p.d}</p>
                 </div>
-              </Reveal>
-            ))}
-          </div>
+              </div>
+            </Reveal>
+          ))}
         </div>
       </section>
 
+      {/* ============ CATALOG — AIRY ============ */}
+      <section className="mx-auto max-w-7xl px-8 pb-32 sm:pb-40">
+        <Reveal>
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">La collection</span>
+              <h2 className="mt-4 font-display text-4xl font-light leading-[1.05] tracking-tighter sm:text-5xl">
+                <span className="shimmer-text">Réactifs sélectionnés pour la recherche.</span>
+              </h2>
+            </div>
+            <Link
+              to="/produits"
+              className="inline-flex items-center gap-2 font-display text-sm font-medium text-foreground transition-colors hover:text-accent"
+            >
+              Tout voir <span aria-hidden>→</span>
+            </Link>
+          </div>
+        </Reveal>
+        <div className="mt-16 grid grid-cols-2 gap-6 lg:grid-cols-3">
+          {rest.map((p, i) => (
+            <Reveal key={p.slug} delay={i * 60}>
+              <ProductCard product={p} />
+            </Reveal>
+          ))}
+        </div>
+      </section>
 
-
-      {/* ============ 6. PROTOCOLE 01/02/03 — kept from previous version (better than Vela) ============ */}
-      <section data-reveal-blur className="mx-auto max-w-6xl px-8 py-32 sm:py-40">
+      {/* ============ QUALITY — APPLE-STYLE PROCESS ============ */}
+      <section className="mx-auto max-w-6xl px-8 pb-32 sm:pb-40">
         <Reveal>
           <div className="mb-20 text-center">
-            <span className="block text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
-              Le protocole
-            </span>
-            <h2 className="mx-auto mt-6 max-w-3xl shimmer-text text-[40px] font-semibold leading-[1.0] tracking-[-0.03em] sm:text-[72px] sm:leading-[0.96]" data-shimmer="Une exigence, lot après lot.">
-              Une exigence, lot après lot.
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Le protocole</span>
+            <h2 className="mx-auto mt-6 max-w-3xl font-display text-4xl font-light leading-[1.05] tracking-tighter sm:text-6xl">
+              <span className="shimmer-text">Une exigence, lot après lot.</span>
             </h2>
           </div>
         </Reveal>
@@ -329,10 +244,10 @@ function HomePage() {
                   </span>
                 </div>
                 <div className="max-w-xl pt-4 sm:pt-8">
-                  <h3 className="text-[28px] font-semibold leading-[1.05] tracking-[-0.02em] text-foreground sm:text-[40px]">
+                  <h3 className="font-display text-3xl font-light tracking-tight text-foreground sm:text-4xl">
                     {step.t}
                   </h3>
-                  <p className="mt-5 text-[17px] leading-[1.6] text-muted-foreground">
+                  <p className="mt-5 text-lg font-light leading-relaxed text-muted-foreground">
                     {step.d}
                   </p>
                 </div>
@@ -342,104 +257,26 @@ function HomePage() {
         </div>
       </section>
 
-      {/* ============ 7. FAQ — accordion 2 columns ============ */}
-      <section data-reveal-blur className="mx-auto max-w-[1400px] px-8 pb-32 sm:pb-40">
-        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.6fr] lg:gap-20">
-          <Reveal>
-            <div>
-              <span className="block text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
-                FAQ
-              </span>
-              <h2 className="mt-5 shimmer-text text-[40px] font-semibold leading-[1.0] tracking-[-0.03em] sm:text-[56px] sm:leading-[0.98]" data-shimmer="Foire aux questions.">
-                Foire aux questions.
-              </h2>
-              <p className="mt-6 max-w-sm text-[15px] leading-[1.65] text-muted-foreground">
-                Vous ne trouvez pas la réponse que vous cherchez ? Parlez à notre équipe.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link
-                  to="/contact"
-                  className="group inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px] font-medium text-white shadow-[0_18px_44px_-18px_color-mix(in_oklab,var(--brand-violet)_70%,transparent)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-[0_24px_54px_-18px_color-mix(in_oklab,var(--brand-violet)_85%,transparent)]"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(120deg, oklch(0.70 0.18 210) 0%, oklch(0.58 0.28 290) 55%, oklch(0.68 0.27 345) 100%)",
-                  }}
-                >
-                  Nous contacter
-                  <span aria-hidden className="grid size-5 place-items-center rounded-full bg-white/20">→</span>
-                </Link>
-
-                <Link
-                  to="/support"
-                  className="inline-flex items-center gap-2 rounded-full border border-border/70 px-5 py-2.5 text-[13px] font-medium text-foreground transition-colors hover:border-foreground"
-                >
-                  Voir toutes les FAQ
-                </Link>
-              </div>
-            </div>
-          </Reveal>
-
-          <Reveal delay={100}>
-            <div className="divide-y divide-border/60 border-y border-border/60">
-              {[
-                {
-                  q: "Que faire si je ne trouve pas un produit dans votre catalogue ?",
-                  a: "Contactez-nous directement par e-mail ou via notre formulaire. Nous faisons de notre mieux pour sourcer des peptides spécifiques sur demande et nous vous orienterons vers la meilleure solution disponible dans notre réseau de partenaires audités.",
-                },
-                {
-                  q: "Proposez-vous un programme de fidélité ou de parrainage ?",
-                  a: "Un programme de fidélité chercheur est en cours de déploiement. En attendant, contactez-nous pour des remises volume sur les commandes récurrentes.",
-                },
-                {
-                  q: "Que faire si mon colis est endommagé ou manquant ?",
-                  a: "Signalez-nous le problème sous 48 h avec photos à l'appui. Nous procédons à un remplacement ou remboursement immédiat après vérification.",
-                },
-                {
-                  q: "Puis-je créer un compte professionnel ?",
-                  a: "Oui. Créez votre compte, puis contactez notre équipe pour obtenir le statut « compte laboratoire » avec facturation dédiée et tarifs volume.",
-                },
-                {
-                  q: "Quel est le délai de livraison en France ?",
-                  a: "Expédition sous 24 h ouvrées, livraison en 24-48 h en France métropolitaine via transporteur suivi.",
-                },
-              ].map((item) => (
-                <FaqItem key={item.q} q={item.q} a={item.a} />
-              ))}
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-
-
 
       {/* ============ FINAL CTA — QUIET ============ */}
-      <section data-reveal-blur className="mx-auto max-w-4xl px-8 pb-32 sm:pb-40">
+      <section className="mx-auto max-w-4xl px-8 pb-32 sm:pb-40">
         <Reveal>
           <div className="flex flex-col items-center text-center">
-            <span className="block text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
-              Prêt à commander
-            </span>
-            <h2 className="shimmer-text mt-6 text-[44px] font-semibold leading-[1.05] tracking-[-0.03em] sm:text-[68px] sm:leading-[1.02]" data-shimmer="La sérénité du laboratoire, à portée de commande.">
-              La sérénité du laboratoire, à portée de commande.
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Prêt à commander</span>
+            <h2 className="mt-6 font-display text-5xl font-light leading-[1.05] tracking-tighter sm:text-6xl">
+              <span className="shimmer-text">La sérénité du laboratoire, à portée de commande.</span>
             </h2>
-
-            <p className="mt-7 max-w-lg text-[17px] leading-[1.6] text-muted-foreground">
+            <p className="mt-6 max-w-lg text-lg font-light leading-relaxed text-muted-foreground">
               Traçabilité complète, expédition sous 24 h, support français.
             </p>
             <Link
               to="/produits"
-              className="group mt-10 inline-flex items-center gap-3 rounded-full px-8 py-4 text-[14px] font-medium text-white shadow-[0_18px_44px_-18px_color-mix(in_oklab,var(--brand-violet)_70%,transparent)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5"
-              style={{
-                backgroundImage:
-                  "linear-gradient(120deg, oklch(0.70 0.18 210) 0%, oklch(0.58 0.28 290) 55%, oklch(0.68 0.27 345) 100%)",
-              }}
+              className="mt-10 inline-flex items-center gap-2 rounded-full bg-foreground px-8 py-4 font-display text-sm font-medium text-background transition-transform hover:-translate-y-0.5"
             >
               Voir le catalogue
-              <span aria-hidden className="grid size-7 place-items-center rounded-full bg-white/20 transition-transform duration-500 group-hover:translate-x-0.5">→</span>
+              <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
             </Link>
           </div>
-
         </Reveal>
       </section>
 
@@ -463,33 +300,156 @@ function HomePage() {
           </Reveal>
         </div>
       </section>
+      </div>
     </SiteLayout>
-
   );
 }
 
-function FaqItem({ q, a }: { q: string; a: string }) {
+function MobileHome({ featured, rest }: { featured: typeof products[number]; rest: typeof products }) {
+  const mobileProducts = [featured, ...rest].slice(0, 5);
+
   return (
-    <details className="group py-6">
-      <summary className="flex cursor-pointer list-none items-center justify-between gap-6">
-        <span className="text-[17px] font-medium leading-[1.35] tracking-[-0.01em] text-foreground sm:text-[19px]">
-          {q}
-        </span>
-        <span
-          aria-hidden
-          className="grid size-8 shrink-0 place-items-center rounded-full border border-border/70 text-foreground/70 transition-all group-open:rotate-45 group-open:border-foreground group-open:bg-foreground group-open:text-background"
+    <div className="mobile-experience">
+      <Hero />
+
+
+      <section className="px-5 py-12">
+        <div className="font-mono text-[12px] uppercase tracking-[0.16em] text-accent">
+          — Sélection laboratoire
+        </div>
+        <h2 className="mt-3 max-w-[620px] font-display text-[32px] font-semibold leading-[1.05] tracking-tight text-foreground">
+          Réactifs haute pureté prêts pour vos protocoles.
+        </h2>
+        <div className="mt-7 grid gap-4">
+          {mobileProducts.map((product) => (
+            <MobileProductCard key={product.slug} product={product} />
+          ))}
+        </div>
+        <Link
+          to="/produits"
+          className="mt-6 inline-flex min-h-14 w-full items-center justify-center rounded-full brand-gradient-bg px-6 py-4 font-mono text-[13px] font-semibold uppercase tracking-[0.14em] text-white shadow-[0_18px_44px_-18px_oklch(0.55_0.22_296/0.58)]"
         >
-          <Plus className="size-4" strokeWidth={1.6} />
-        </span>
-      </summary>
-      <p className="mt-4 max-w-2xl pr-14 text-[14.5px] leading-[1.7] text-muted-foreground">
-        {a}
-      </p>
-    </details>
+          Voir tout le catalogue →
+        </Link>
+      </section>
+
+      <section className="border-y border-border bg-surface px-5 py-12">
+        <div className="font-mono text-[12px] uppercase tracking-[0.16em] text-accent">
+          — Pourquoi Peptinium
+        </div>
+        <h2 className="mt-3 font-display text-[30px] font-semibold leading-[1.08] tracking-tight text-foreground">
+          Une exigence de laboratoire, pensée pour le chercheur.
+        </h2>
+        <div className="mt-7 space-y-3">
+          {[
+            ["01", "Pureté documentée", "CoA Janoshik indépendant par lot : HPLC en phase inverse et spectrométrie de masse."],
+            ["02", "Traçabilité totale", "Numéro de lot, documentation auditable et CoA disponible pour chaque flacon."],
+            ["03", "Support recherche", "MSDS, protocoles labo et conseils de reconstitution sur demande."],
+          ].map(([n, title, body]) => (
+            <div key={n} className="rounded-xl border border-border bg-card p-5 shadow-sm">
+              <div className="font-mono text-[11px] uppercase tracking-[0.16em] text-accent">— {n}</div>
+              <h3 className="mt-3 font-display text-[22px] font-semibold tracking-tight text-foreground">
+                {title}
+              </h3>
+              <p className="mt-2 text-[15px] leading-[1.55] text-muted-foreground">{body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="px-5 py-12">
+        <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-[0_24px_58px_-32px_oklch(0.55_0.06_250/0.24)]">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 opacity-90"
+            style={{
+              background:
+                "radial-gradient(90% 80% at 100% 0%, color-mix(in oklab, var(--brand-violet) 16%, transparent) 0%, transparent 60%), radial-gradient(90% 80% at 0% 100%, color-mix(in oklab, var(--brand-cyan) 14%, transparent) 0%, transparent 65%)",
+            }}
+          />
+          <div className="relative">
+            <div className="font-mono text-[12px] uppercase tracking-[0.16em] text-accent">
+              — Prêt à commander
+            </div>
+             <h2 className="mt-3 font-display text-[28px] font-semibold leading-[1.08] tracking-tight text-foreground">
+              Passez commande avec la sérénité du labo.
+            </h2>
+            <p className="mt-4 text-[16px] leading-[1.55] text-muted-foreground">
+              Certificat d'Analyse, traçabilité complète et expédition rapide.
+            </p>
+            <Link
+              to="/produits"
+              className="mt-6 inline-flex min-h-14 w-full items-center justify-center rounded-full brand-gradient-bg px-6 py-4 font-mono text-[13px] font-semibold uppercase tracking-[0.14em] text-white"
+            >
+              Explorer les peptides →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-border bg-surface px-5 py-10">
+        <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-foreground/80">
+          <span className="size-2 rounded-full bg-accent" />
+          Research Use Only
+        </div>
+        <h2 className="mt-5 font-display text-[26px] font-semibold leading-[1.1] tracking-tight text-foreground">
+          Avis réglementaire RUO
+        </h2>
+        <p className="mt-4 text-[15px] leading-[1.65] text-muted-foreground">
+          Les produits Peptinium Labs sont des réactifs chimiques destinés exclusivement à la recherche scientifique in vitro en laboratoire contrôlé.
+        </p>
+      </section>
+    </div>
   );
 }
 
+function MobileProductCard({ product }: { product: typeof products[number] }) {
+  const hasMultiple = product.variants.length > 1;
+  const price = Math.min(...product.variants.map((v) => v.price));
 
+  return (
+    <Link
+      to="/produits/$slug"
+      params={{ slug: product.slug }}
+      className="grid grid-cols-[112px_minmax(0,1fr)] gap-3 rounded-xl border border-border bg-card p-3 shadow-sm"
+    >
+      <div className="relative aspect-[2/3] overflow-hidden rounded-xl border border-border bg-surface">
+        <ProductVisual
+          product={product}
+          dosage={product.variants[0]?.dosage}
+          alt={`Flacon ${product.name} — Research Use Only`}
+          className="size-full"
+          imageClassName="size-full object-cover"
+          loading="lazy"
+        />
+      </div>
+      <div className="flex min-w-0 flex-col py-1">
+        <div className="font-mono text-[12px] uppercase tracking-[0.14em] text-accent">
+          {product.category}
+        </div>
+        <h3 className="mt-1 font-display text-[19px] font-semibold leading-[1.15] tracking-tight text-foreground">
+          {product.name}
+        </h3>
+        <div className="mt-2 font-mono text-[12px] uppercase tracking-[0.12em] text-muted-foreground">
+          {hasMultiple ? product.variants.map((v) => v.dosage).join(" · ") : product.variants[0].dosage}
+        </div>
+        <div className="mt-auto flex items-end justify-between gap-3 pt-4">
+          <div>
+            <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+              Dès
+            </div>
+            <div className="font-display text-[22px] font-semibold leading-none text-foreground">
+              {formatPrice(price)}
+            </div>
+          </div>
+          <span className="shrink-0 font-mono text-[12px] uppercase tracking-[0.12em] text-accent">
+            Fiche →
+          </span>
+        </div>
+      </div>
+    </Link>
+  );
+}
 
 const specsMarquee = [
   "Retatrutide 10 mg",

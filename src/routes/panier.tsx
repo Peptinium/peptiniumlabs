@@ -197,32 +197,18 @@ function PanierPage() {
 
   return (
     <SiteLayout>
-      {/* Fil d'ariane éditorial + balayage */}
-      <section className="relative overflow-hidden border-b border-border/60 bg-background">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(45% 40% at 88% 20%, color-mix(in oklab, var(--brand-violet) 8%, transparent) 0%, transparent 65%)",
-          }}
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -top-px left-0 h-px w-1/2 bg-gradient-to-r from-transparent via-[oklch(0.62_0.26_296)] to-transparent [animation:beam-sweep_7s_ease-in-out_infinite]"
-        />
-        <div className="container-prose relative flex items-center gap-2 px-5 py-5 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+      <div className="border-b border-border bg-surface">
+        <div className="container-prose flex items-center gap-2 py-5 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
           <Link to="/" className="hover:text-foreground">Peptinium</Link>
           <span className="text-border">›</span>
           <span className="text-foreground">Panier</span>
         </div>
-      </section>
+      </div>
 
       <div className="container-prose py-10 sm:py-14">
         {step !== "confirmation" && step !== "virement" && (
           <Stepper step={step} />
         )}
-
 
         {isEmpty && step !== "confirmation" ? (
           <EmptyCart />
@@ -377,31 +363,27 @@ function Stepper({ step }: { step: Step }) {
 
 function EmptyCart() {
   return (
-    <div className="mx-auto max-w-xl px-5 py-16 text-center">
-      <span className="block text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
-        Panier vide
-      </span>
-      <h1 className="mt-6 text-[44px] font-semibold leading-[1.0] tracking-[-0.03em] text-foreground sm:text-[60px]">
-        Rien à <span className="brand-gradient-text italic">expédier</span>.
-      </h1>
-      <p className="mt-6 text-[16px] leading-[1.6] text-muted-foreground">
-        Découvrez notre catalogue de réactifs peptidiques de qualité recherche.
+    <div className="mx-auto max-w-md rounded-2xl border border-border bg-card p-10 text-center">
+      <div className="mx-auto grid size-14 place-items-center rounded-full border border-border bg-surface text-accent">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
+          <path d="M3 3h2l2.4 12.3a2 2 0 0 0 2 1.7h9.7a2 2 0 0 0 2-1.6L23 8H6" />
+          <circle cx="10" cy="21" r="1.4" />
+          <circle cx="18" cy="21" r="1.4" />
+        </svg>
+      </div>
+      <h1 className="mt-5 font-display text-2xl font-medium">Votre panier est vide</h1>
+      <p className="mt-2 text-sm text-muted-foreground">
+        Découvrez nos réactifs peptidiques de qualité recherche.
       </p>
       <Link
         to="/produits"
-        className="group mt-10 inline-flex items-center gap-3 rounded-full px-8 py-4 text-[14px] font-medium text-white shadow-[0_18px_44px_-18px_color-mix(in_oklab,var(--brand-violet)_70%,transparent)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5"
-        style={{
-          backgroundImage:
-            "linear-gradient(120deg, oklch(0.70 0.18 210) 0%, oklch(0.58 0.28 290) 55%, oklch(0.68 0.27 345) 100%)",
-        }}
+        className="mt-6 inline-flex items-center justify-center rounded-full bg-accent px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-background hover:bg-accent/90"
       >
         Voir le catalogue
-        <span aria-hidden className="grid size-7 place-items-center rounded-full bg-white/20 transition-transform duration-500 group-hover:translate-x-0.5">→</span>
       </Link>
     </div>
   );
 }
-
 
 // ─────────────────────────── LIVRAISON ───────────────────────────
 function LivraisonForm({
@@ -759,7 +741,7 @@ function CgvFullText() {
     { h: "Article 4 – Prix et paiement", p: "Les prix sont indiqués en euros toutes taxes comprises (TTC). La TVA n'est pas applicable – franchise en base (article 293 B du CGI). Le paiement est exigible immédiatement à la commande et s'effectue par les moyens de paiement proposés sur le site." },
     { h: "Article 5 – Livraison", p: "Les produits sont expédiés dans un emballage neutre et discret, sans mention du contenu à l'extérieur du colis. Les délais de livraison (48 à 72h ouvrées) sont donnés à titre indicatif. Le client est seul responsable du respect des réglementations locales applicables à l'importation et à l'utilisation des produits." },
     { h: "Article 6 – Droit de rétractation", p: "Conformément à l'article L.221-18 du Code de la consommation, le client dispose d'un droit de rétractation de 14 jours à compter de la réception des produits. Toutefois, conformément à l'article L.221-28, ce droit ne peut être exercé pour les produits ayant été ouverts, reconstitués ou dont le conditionnement scellé a été altéré après livraison. Aucun retour ni remboursement ne sera accepté pour tout produit dont le conditionnement scellé a été ouvert." },
-    { h: "Article 7 – Garantie et responsabilité", p: "Les produits sont vendus en l'état, sans aucune garantie d'usage spécifique. Le vendeur ne pourra en aucun cas être tenu responsable de l'utilisation qui sera faite des produits par le client. Le client assume l'entière responsabilité de l'usage qu'il fait des produits, y compris en cas de mauvaise utilisation, d'erreur de manipulation ou d'usage non conforme à leur destination (recherche in vitro)." },
+    { h: "Article 7 – Garantie et responsabilité", p: "Les produits sont vendus en l'état, sans aucune garantie d'usage particulier. Le vendeur ne pourra en aucun cas être tenu responsable de l'utilisation qui sera faite des produits par le client. Le client assume l'entière responsabilité de l'usage qu'il fait des produits, y compris en cas de mauvaise utilisation, d'erreur de manipulation ou d'usage non conforme à leur destination (recherche in vitro)." },
     { h: "Article 8 – Usage strictement réservé – Engagement du client", p: "Le client s'engage expressément à n'utiliser les produits que dans un cadre de recherche scientifique en laboratoire. Toute utilisation animale, thérapeutique, diagnostique ou cosmétique n'est pas promue et relève de la seule responsabilité du client. Le vendeur se réserve le droit de refuser toute commande s'il a un doute sur l'usage réel qui sera fait des produits." },
     { h: "Article 9 – Données personnelles", p: "Les données collectées sont traitées conformément au RGPD. Elles ne sont utilisées que pour le traitement des commandes et la relation client. Le client dispose d'un droit d'accès, de rectification et d'opposition qu'il peut exercer par email à l'adresse indiquée sur le site." },
     { h: "Article 10 – Preuve et conservation des contrats", p: "Le fait de cocher la case « J'accepte les conditions générales de vente » avant la validation du paiement constitue une acceptation irrévocable et sans réserve des présentes. Les contrats sont archivés par le vendeur." },

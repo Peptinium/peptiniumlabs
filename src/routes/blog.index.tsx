@@ -25,15 +25,14 @@ function BlogIndex() {
   const sorted = [...blogArticles].sort((a, b) => b.date.localeCompare(a.date));
   return (
     <SiteLayout>
-      <section className="relative overflow-hidden border-b border-border bg-background">
+      <section className="relative overflow-hidden border-b border-border">
+        <div className="pointer-events-none absolute inset-0 grid-bg opacity-50 [animation:grid-drift_24s_linear_infinite]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,transparent_30%,var(--background)_85%)]" />
         <div className="container-prose relative py-16">
           <Reveal>
             <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-accent">Journal laboratoire</p>
             <h1 className="mt-3 font-display text-3xl font-medium tracking-tight md:text-5xl">
-              <span className="journal-title-sweep" aria-label="Le Carnet Peptinium">
-                <span className="journal-title-sweep__base">Le Carnet Peptinium</span>
-                <span className="journal-title-sweep__light" aria-hidden="true">Le Carnet Peptinium</span>
-              </span>
+              <span className="shimmer-text">Le Carnet Peptinium</span>
             </h1>
             <p className="mt-4 max-w-2xl text-base text-muted-foreground">
               Méthodologie analytique, histoire scientifique et lecture des certificats. Des articles pensés pour comprendre la recherche peptidique.

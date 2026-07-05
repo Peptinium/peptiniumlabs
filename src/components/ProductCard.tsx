@@ -38,8 +38,6 @@ export function ProductCard({ product }: { product: Product }) {
   const hasMultiple = product.variants.length > 1;
   const price = minPrice(product);
   const allSoldOut = product.variants.every((v) => v.soldOut);
-  const anyLowStock = !allSoldOut && product.variants.some((v) => v.lowStock);
-
 
   return (
     <Link
@@ -65,13 +63,6 @@ export function ProductCard({ product }: { product: Product }) {
             Rupture de stock
           </div>
         )}
-        {anyLowStock && (
-          <div className="absolute left-3 top-3 flex items-center gap-1.5 rounded-full border border-accent/40 bg-accent/15 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.18em] text-accent backdrop-blur-sm">
-            <span className="size-1.5 animate-pulse rounded-full bg-accent" />
-            Stock faible
-          </div>
-        )}
-
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-background/25 via-background/5 to-transparent" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
       </div>
