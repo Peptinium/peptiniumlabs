@@ -424,10 +424,10 @@ function HomePage() {
             <span className="block text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
               Prêt à commander
             </span>
-            <h2 className="shimmer-text mt-6 text-[44px] font-semibold leading-[1.0] tracking-[-0.03em] sm:text-[68px] sm:leading-[0.96]" data-shimmer={"La sérénité du laboratoire,\nà portée de commande."}>
-              La sérénité du laboratoire,<br />
-              à portée de commande.
+            <h2 className="shimmer-text mt-6 text-[44px] font-semibold leading-[1.05] tracking-[-0.03em] sm:text-[68px] sm:leading-[1.02]" data-shimmer="La sérénité du laboratoire, à portée de commande.">
+              La sérénité du laboratoire, à portée de commande.
             </h2>
+
             <p className="mt-7 max-w-lg text-[17px] leading-[1.6] text-muted-foreground">
               Traçabilité complète, expédition sous 24 h, support français.
             </p>
