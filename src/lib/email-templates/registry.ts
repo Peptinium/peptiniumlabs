@@ -8,6 +8,7 @@ import { template as orderPending } from './order-pending'
 import { template as adminNewOrder } from './admin-new-order'
 import { template as orderPaid } from './order-paid'
 import { template as adminNewTicket } from './admin-new-ticket'
+import { template as paymentReminder } from './payment-reminder'
 
 export interface TemplateEntry {
   component: ComponentType<any>
@@ -27,4 +28,5 @@ export const TEMPLATES: Record<string, TemplateEntry> = {
   'order-paid': orderPaid,
   'admin-new-order': adminNewOrder,
   'admin-new-ticket': adminNewTicket,
+  'payment-reminder': paymentReminder,
 }

@@ -43,6 +43,7 @@ import { Route as AuthenticatedMonCompteIndexRouteImport } from './routes/_authe
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as ApiPublicTrackRouteImport } from './routes/api/public/track'
 import { Route as ApiPublicPeptidepayWebhookRouteImport } from './routes/api/public/peptidepay-webhook'
+import { Route as ApiPublicPaymentReminderRouteImport } from './routes/api/public/payment-reminder'
 import { Route as ApiPublicCryptoWatcherRouteImport } from './routes/api/public/crypto-watcher'
 import { Route as AuthenticatedMonCompteProfilRouteImport } from './routes/_authenticated/mon-compte.profil'
 import { Route as AuthenticatedMonCompteContactRouteImport } from './routes/_authenticated/mon-compte.contact'
@@ -224,6 +225,12 @@ const ApiPublicPeptidepayWebhookRoute =
     path: '/api/public/peptidepay-webhook',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicPaymentReminderRoute =
+  ApiPublicPaymentReminderRouteImport.update({
+    id: '/api/public/payment-reminder',
+    path: '/api/public/payment-reminder',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicCryptoWatcherRoute = ApiPublicCryptoWatcherRouteImport.update({
   id: '/api/public/crypto-watcher',
   path: '/api/public/crypto-watcher',
@@ -308,6 +315,7 @@ export interface FileRoutesByFullPath {
   '/mon-compte/contact': typeof AuthenticatedMonCompteContactRoute
   '/mon-compte/profil': typeof AuthenticatedMonCompteProfilRoute
   '/api/public/crypto-watcher': typeof ApiPublicCryptoWatcherRoute
+  '/api/public/payment-reminder': typeof ApiPublicPaymentReminderRoute
   '/api/public/peptidepay-webhook': typeof ApiPublicPeptidepayWebhookRoute
   '/api/public/track': typeof ApiPublicTrackRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -350,6 +358,7 @@ export interface FileRoutesByTo {
   '/mon-compte/contact': typeof AuthenticatedMonCompteContactRoute
   '/mon-compte/profil': typeof AuthenticatedMonCompteProfilRoute
   '/api/public/crypto-watcher': typeof ApiPublicCryptoWatcherRoute
+  '/api/public/payment-reminder': typeof ApiPublicPaymentReminderRoute
   '/api/public/peptidepay-webhook': typeof ApiPublicPeptidepayWebhookRoute
   '/api/public/track': typeof ApiPublicTrackRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -396,6 +405,7 @@ export interface FileRoutesById {
   '/_authenticated/mon-compte/contact': typeof AuthenticatedMonCompteContactRoute
   '/_authenticated/mon-compte/profil': typeof AuthenticatedMonCompteProfilRoute
   '/api/public/crypto-watcher': typeof ApiPublicCryptoWatcherRoute
+  '/api/public/payment-reminder': typeof ApiPublicPaymentReminderRoute
   '/api/public/peptidepay-webhook': typeof ApiPublicPeptidepayWebhookRoute
   '/api/public/track': typeof ApiPublicTrackRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -442,6 +452,7 @@ export interface FileRouteTypes {
     | '/mon-compte/contact'
     | '/mon-compte/profil'
     | '/api/public/crypto-watcher'
+    | '/api/public/payment-reminder'
     | '/api/public/peptidepay-webhook'
     | '/api/public/track'
     | '/lovable/email/suppression'
@@ -484,6 +495,7 @@ export interface FileRouteTypes {
     | '/mon-compte/contact'
     | '/mon-compte/profil'
     | '/api/public/crypto-watcher'
+    | '/api/public/payment-reminder'
     | '/api/public/peptidepay-webhook'
     | '/api/public/track'
     | '/lovable/email/suppression'
@@ -529,6 +541,7 @@ export interface FileRouteTypes {
     | '/_authenticated/mon-compte/contact'
     | '/_authenticated/mon-compte/profil'
     | '/api/public/crypto-watcher'
+    | '/api/public/payment-reminder'
     | '/api/public/peptidepay-webhook'
     | '/api/public/track'
     | '/lovable/email/suppression'
@@ -565,6 +578,7 @@ export interface RootRouteChildren {
   BlogIndexRoute: typeof BlogIndexRoute
   ProduitsIndexRoute: typeof ProduitsIndexRoute
   ApiPublicCryptoWatcherRoute: typeof ApiPublicCryptoWatcherRoute
+  ApiPublicPaymentReminderRoute: typeof ApiPublicPaymentReminderRoute
   ApiPublicPeptidepayWebhookRoute: typeof ApiPublicPeptidepayWebhookRoute
   ApiPublicTrackRoute: typeof ApiPublicTrackRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
@@ -816,6 +830,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicPeptidepayWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/payment-reminder': {
+      id: '/api/public/payment-reminder'
+      path: '/api/public/payment-reminder'
+      fullPath: '/api/public/payment-reminder'
+      preLoaderRoute: typeof ApiPublicPaymentReminderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/crypto-watcher': {
       id: '/api/public/crypto-watcher'
       path: '/api/public/crypto-watcher'
@@ -965,6 +986,7 @@ const rootRouteChildren: RootRouteChildren = {
   BlogIndexRoute: BlogIndexRoute,
   ProduitsIndexRoute: ProduitsIndexRoute,
   ApiPublicCryptoWatcherRoute: ApiPublicCryptoWatcherRoute,
+  ApiPublicPaymentReminderRoute: ApiPublicPaymentReminderRoute,
   ApiPublicPeptidepayWebhookRoute: ApiPublicPeptidepayWebhookRoute,
   ApiPublicTrackRoute: ApiPublicTrackRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
