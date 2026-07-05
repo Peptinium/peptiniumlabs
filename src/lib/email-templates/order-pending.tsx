@@ -38,7 +38,7 @@ const COPY: Record<Method, { title: string; intro: string; box: string }> = {
     title: 'Commande reçue — paiement par carte',
     intro:
       "Merci pour votre commande. Votre lien de paiement sécurisé est prêt ci-dessous.",
-    box: "Cliquez sur le bouton pour régler votre commande en ligne par carte bancaire.",
+    box: "Cliquez sur le bouton pour régler votre commande en ligne par carte bancaire. ⏱ Après le paiement, la confirmation définitive peut prendre 5 à 10 minutes (délai bancaire) — vous recevrez un second email dès validation. Inutile de repayer.",
   },
   crypto: {
     title: 'Commande reçue — paiement crypto',
@@ -50,7 +50,7 @@ const COPY: Record<Method, { title: string; intro: string; box: string }> = {
     title: 'Commande reçue — paiement en ligne',
     intro:
       "Merci pour votre commande. Votre lien de paiement sécurisé est prêt ci-dessous.",
-    box: "Cliquez sur le bouton pour régler votre commande par carte, Apple Pay ou Google Pay.",
+    box: "Cliquez sur le bouton pour régler votre commande par carte, Apple Pay ou Google Pay. ⏱ Après le paiement, la confirmation définitive peut prendre 5 à 10 minutes (délai bancaire) — vous recevrez un second email dès validation. Inutile de repayer.",
   },
 }
 
