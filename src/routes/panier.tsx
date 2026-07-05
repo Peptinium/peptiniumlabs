@@ -1178,6 +1178,13 @@ function PeptidePayRedirectBlock({
               Secured by PeptidePay
             </a>
           </p>
+          <button
+            type="button"
+            onClick={onBack}
+            className="mt-3 w-full text-center text-xs text-muted-foreground hover:text-foreground"
+          >
+            ← Retour au choix du paiement
+          </button>
         </div>
       </div>
 
