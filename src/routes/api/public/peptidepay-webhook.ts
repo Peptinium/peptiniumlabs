@@ -5,6 +5,7 @@ type PeptidePayEvent = {
   event: string;
   session_id: string;
   order_id?: string;
+  metadata?: { order_id?: string; order_number?: string } & Record<string, unknown>;
   address_in?: string;
   status: string;
   amount: number;
@@ -13,6 +14,7 @@ type PeptidePayEvent = {
   paid_at?: string;
   attempt?: number;
 };
+
 
 export const Route = createFileRoute("/api/public/peptidepay-webhook")({
   server: {
