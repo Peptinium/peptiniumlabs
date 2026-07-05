@@ -33,13 +33,14 @@ export function HeroVela() {
             La plus haute qualité
           </span>
 
-          <h1 className="mt-6 pb-2 text-[54px] font-semibold leading-[1.05] tracking-[-0.03em] text-transparent sm:text-[76px] lg:text-[104px] lg:leading-[1.02] shimmer-gradient">
+          <h1 className="mt-6 pb-2 text-[54px] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground sm:text-[76px] lg:text-[104px] lg:leading-[1.02]">
             Le leader
             <br />
             européen
             <br />
             des peptides
           </h1>
+
 
           <p className="mt-7 max-w-md text-[16px] leading-[1.6] text-muted-foreground lg:text-[17px]">
             Découvrez notre gamme de peptides rigoureusement testés, fabriqués
