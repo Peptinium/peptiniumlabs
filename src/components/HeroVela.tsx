@@ -37,7 +37,10 @@ export function HeroVela() {
             La plus haute qualité
           </span>
 
-          <h1 className="shimmer-text mt-6 text-[54px] font-semibold leading-[0.98] tracking-[-0.03em] sm:text-[76px] lg:text-[104px] lg:leading-[0.94]">
+          <h1
+            className="shimmer-text mt-6 text-[54px] font-semibold leading-[0.98] tracking-[-0.03em] sm:text-[76px] lg:text-[104px] lg:leading-[0.94]"
+            data-shimmer={"Le leader\neuropéen\ndes peptides"}
+          >
             Le leader
             <br />
             européen
