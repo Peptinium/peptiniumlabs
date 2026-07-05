@@ -44,7 +44,7 @@ export function HeroVela() {
                   backgroundSize: "230% 100%",
                   backgroundRepeat: "no-repeat",
                   WebkitBackgroundClip: "text",
-                  animation: `shimmer 7s linear ${i * 0.6}s infinite`,
+                  animation: `shimmer 3s linear ${i * 0.35}s infinite`,
                 }}
               >
                 {line}
