@@ -34,12 +34,13 @@ export function HeroVela() {
           </span>
 
           <h1 className="mt-6 pb-2 text-[54px] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground sm:text-[76px] lg:text-[104px] lg:leading-[1.02]">
-            Le leader
+            La science
             <br />
-            européen
+            des peptides,
             <br />
-            des peptides
+            à l'état pur.
           </h1>
+
 
 
           <p className="mt-7 max-w-md text-[16px] leading-[1.6] text-muted-foreground lg:text-[17px]">
