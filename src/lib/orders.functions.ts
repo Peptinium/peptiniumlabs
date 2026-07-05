@@ -2,6 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { getRequestHeader } from "@tanstack/react-start/server";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { products as catalogProducts } from "@/data/products";
 
 async function getOptionalUserId(): Promise<string | null> {
   try {
@@ -20,6 +21,7 @@ async function getOptionalUserId(): Promise<string | null> {
 const itemSchema = z.object({
   slug: z.string().min(1),
   name: z.string().min(1),
+  dosage: z.string().min(1).optional(),
   quantity: z.number().int().positive(),
   unitPrice: z.number().nonnegative(),
 });
@@ -45,35 +47,75 @@ const placeOrderSchema = z.object({
 const SHIPPING_FEE_EUR = 6.0;
 const FREE_SHIPPING_THRESHOLD_EUR = 150;
 
+const normalizeDosage = (value: string) => value.toLowerCase().replace(/\s+/g, "").trim();
+
+function findCatalogVariant(slug: string, dosage?: string, displayName?: string) {
+  const product = catalogProducts.find((p) => p.slug === slug);
+  if (!product) return null;
+  const normalizedDosage = dosage ? normalizeDosage(dosage) : "";
+  const normalizedName = displayName ? normalizeDosage(displayName) : "";
+  const variant =
+    product.variants.find((v) => normalizedDosage && normalizeDosage(v.dosage) === normalizedDosage) ??
+    product.variants.find((v) => normalizedName.includes(normalizeDosage(v.dosage))) ??
+    (product.variants.length === 1 ? product.variants[0] : null);
+  if (!variant) return null;
+  return { product, variant };
+}
+
 
 export const placeOrder = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => placeOrderSchema.parse(data))
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-    // Re-price server-side from products table to prevent tampering
+    // Re-price server-side from the same catalog used by the cart, by dosage.
+    // This prevents the previous bug where Retatrutide 10 mg was charged as the base 5 mg product price.
     const slugs = data.items.map((i) => i.slug);
     const { data: prods, error: prodErr } = await supabaseAdmin
       .from("products")
-      .select("slug,name,price_eur,stock,active")
+      .select("id,slug,name,stock,active,product_variants(id,dosage,stock,sold_out)")
       .in("slug", slugs);
     if (prodErr) throw new Error("Erreur produits");
-    const bySlug = new Map((prods ?? []).map((p) => [p.slug, p]));
+    const bySlug = new Map((prods ?? []).map((p: any) => [p.slug, p]));
 
     let subtotal = 0;
+    const stockUpdates: Array<{
+      slug: string;
+      productId: string;
+      productStock: number;
+      variantId: string | null;
+      currentVariantStock: number | null;
+      quantity: number;
+    }> = [];
+
     const items = data.items.map((i) => {
-      const p = bySlug.get(i.slug);
-      if (!p || !p.active) throw new Error(`Produit indisponible : ${i.slug}`);
-      if (p.stock < i.quantity)
-        throw new Error(`Stock insuffisant pour ${p.name}`);
-      const unit = Number(p.price_eur);
+      const p: any = bySlug.get(i.slug);
+      const catalog = findCatalogVariant(i.slug, i.dosage, i.name);
+      if (!p || !p.active || !catalog) throw new Error(`Produit indisponible : ${i.slug}`);
+
+      const variantRows = Array.isArray(p.product_variants) ? p.product_variants : [];
+      const variantRow = variantRows.find(
+        (v: any) => normalizeDosage(String(v.dosage ?? "")) === normalizeDosage(catalog.variant.dosage),
+      );
+      const stock = variantRow ? Number(variantRow.stock ?? 0) : Number(p.stock ?? 0);
+      if (catalog.variant.soldOut || variantRow?.sold_out || stock < i.quantity) {
+        throw new Error(`Stock insuffisant pour ${catalog.product.name} ${catalog.variant.dosage}`);
+      }
+
+      const unit = Number(catalog.variant.price);
       const line = unit * i.quantity;
       subtotal += line;
+      stockUpdates.push({
+        slug: i.slug,
+        productId: String(p.id),
+        productStock: Number(p.stock ?? 0),
+        variantId: variantRow?.id ? String(variantRow.id) : null,
+        currentVariantStock: variantRow ? Number(variantRow.stock ?? 0) : null,
+        quantity: i.quantity,
+      });
       return {
         product_slug: i.slug,
-        // Prefer the client-sent display name (includes dosage, e.g. "Retatrutide 10 MG").
-        // Falls back to the DB product name if the client omitted it.
-        product_name: (i.name && i.name.trim().length > 0) ? i.name.trim() : p.name,
+        product_name: `${catalog.product.name} ${catalog.variant.dosage}`.trim(),
         quantity: i.quantity,
         unit_price_eur: unit,
         line_total_eur: line,
@@ -133,13 +175,30 @@ export const placeOrder = createServerFn({ method: "POST" })
       .insert(items.map((i) => ({ ...i, order_id: order.id })));
     if (itemsErr) throw new Error("Articles non enregistrés");
 
-    // Decrement stock
-    for (const i of data.items) {
-      const p = bySlug.get(i.slug)!;
+    // Decrement stock on the ordered dosage, then keep product aggregate stock in sync.
+    for (const update of stockUpdates) {
+      if (update.variantId && update.currentVariantStock !== null) {
+        const nextVariantStock = Math.max(0, update.currentVariantStock - update.quantity);
+        await supabaseAdmin
+          .from("product_variants")
+          .update({ stock: nextVariantStock, sold_out: nextVariantStock <= 0 })
+          .eq("id", update.variantId);
+      }
+
+      const { data: variantsAfter } = await supabaseAdmin
+        .from("product_variants")
+        .select("stock")
+        .eq("product_id", update.productId);
+
+      const nextProductStock =
+        variantsAfter && variantsAfter.length > 0
+          ? variantsAfter.reduce((sum: number, v: any) => sum + Number(v.stock ?? 0), 0)
+          : Math.max(0, update.productStock - update.quantity);
+
       await supabaseAdmin
         .from("products")
-        .update({ stock: p.stock - i.quantity })
-        .eq("slug", i.slug);
+        .update({ stock: nextProductStock })
+        .eq("slug", update.slug);
     }
 
     try {
