@@ -93,6 +93,54 @@ function HomePage() {
       {/* ============ IMMERSIVE HERO — Vela-inspired editorial ============ */}
       <HeroVela />
 
+      {/* ============ PROMO BANNER — Bac Water offert ============ */}
+      <section data-reveal-blur className="px-6 pt-16 sm:pt-24">
+        <Reveal>
+          <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[28px] border border-border/40 bg-gradient-to-br from-[#eef1ff] via-[#f5f2ff] to-[#fdf2f6]">
+            <div className="grid grid-cols-1 items-center gap-8 px-8 py-12 sm:px-14 sm:py-16 md:grid-cols-2 md:gap-4 md:py-20">
+              <div className="flex flex-col items-start">
+                <span className="brand-gradient-text font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
+                  Promotion
+                </span>
+                <h2 className="mt-6 max-w-lg text-[36px] font-semibold leading-[1.02] tracking-[-0.03em] text-foreground sm:text-[52px] sm:leading-[1.0]">
+                  Offerte : <span className="brand-gradient-text">3 ml d'eau bactériostatique</span> à chaque commande.
+                </h2>
+                <p className="mt-6 max-w-md text-[15px] leading-[1.6] text-muted-foreground sm:text-[16px]">
+                  Tout ce qu'il vous faut pour démarrer, inclus.
+                </p>
+                <Link
+                  to="/produits"
+                  className="mt-8 inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-[14px] font-medium text-background transition-transform hover:scale-[1.02]"
+                >
+                  <span className="size-1.5 rounded-full bg-background/90" aria-hidden />
+                  Découvrir
+                </Link>
+              </div>
+              <div className="relative flex items-center justify-center md:justify-end">
+                <div
+                  className="pointer-events-none absolute inset-0 -z-0"
+                  style={{
+                    background:
+                      "radial-gradient(circle at 60% 50%, color-mix(in oklab, var(--brand-violet) 22%, transparent) 0%, transparent 65%)",
+                  }}
+                  aria-hidden
+                />
+                <img
+                  src={promoBacWater}
+                  alt="Flacons d'eau bactériostatique Peptinium Labs offerts"
+                  width={1024}
+                  height={1024}
+                  loading="lazy"
+                  className="relative z-10 h-auto w-full max-w-[420px] object-contain drop-shadow-[0_30px_60px_rgba(30,20,80,0.18)]"
+                />
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </section>
+
+
+
 
 
 
