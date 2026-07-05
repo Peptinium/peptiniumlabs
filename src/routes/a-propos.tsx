@@ -155,12 +155,8 @@ function AboutPage() {
               <div className="grid gap-10 md:grid-cols-[1fr_1.4fr] md:gap-16">
                 <div>
                   <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-white/60">— Preuves</span>
-                  <h2 className="mt-4 text-[40px] font-semibold leading-[0.98] tracking-[-0.03em] text-white sm:text-[64px]">
-                    Vérifié par{" "}
-                    <span className="italic font-serif font-light" style={{ background: "linear-gradient(120deg, var(--brand-cyan), var(--brand-violet))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                      Janoshik Analytical
-                    </span>
-                    .
+                  <h2 className="shimmer-text-light mt-4 text-[40px] font-semibold leading-[0.98] tracking-[-0.03em] sm:text-[64px]">
+                    Vérifié par Janoshik Analytical.
                   </h2>
                 </div>
                 <div className="space-y-4 text-[15.5px] leading-[1.7] text-white/75">
