@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState } from "react";
 import { useCart } from "@/lib/cart";
 import { supabase } from "@/integrations/supabase/client";
 import peptiniumLogo from "@/assets/brand/peptinium-logo.png.asset.json";
