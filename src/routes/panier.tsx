@@ -1347,9 +1347,9 @@ function ConfirmationBlock({
     },
     peptidepay: {
       title: "Paiement reçu",
-      intro: "Votre paiement a été confirmé par PeptidePay. Votre commande est en cours de préparation.",
-      boxTitle: "Paiement confirmé",
-      boxText: "Vous recevrez un email de confirmation avec le suivi de votre commande dès son expédition.",
+      intro: "Votre paiement a bien été transmis à PeptidePay. La confirmation définitive peut prendre 5 à 10 minutes (délai de validation bancaire) — vous n'avez rien à faire.",
+      boxTitle: "⏱ Validation en cours (5 à 10 minutes)",
+      boxText: "Ne rechargez pas la page et ne repayez pas. Vous recevrez un email de confirmation dès que le paiement est définitivement validé, puis un second email avec le suivi de votre commande dès son expédition.",
     },
   };
   const c = COPY[paymentMethod];
