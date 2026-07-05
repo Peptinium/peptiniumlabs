@@ -50,11 +50,7 @@ function CatalogPage() {
       <section className="relative overflow-hidden border-b border-border/60 bg-background">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(55% 45% at 82% 22%, color-mix(in oklab, var(--brand-violet) 10%, transparent) 0%, transparent 65%), radial-gradient(40% 40% at 8% 88%, color-mix(in oklab, var(--brand-cyan) 8%, transparent) 0%, transparent 70%)",
-          }}
+          className="pointer-events-none absolute inset-0 header-sweep-bg"
         />
         <div
           aria-hidden

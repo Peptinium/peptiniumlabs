@@ -25,8 +25,8 @@ function BlogIndex() {
   const sorted = [...blogArticles].sort((a, b) => b.date.localeCompare(a.date));
   return (
     <SiteLayout>
-      <section className="relative overflow-hidden border-b border-border">
-        <div className="pointer-events-none absolute inset-0 grid-bg opacity-50 [animation:grid-drift_24s_linear_infinite]" />
+      <section className="relative overflow-hidden border-b border-border bg-background">
+        <div className="pointer-events-none absolute inset-0 header-sweep-bg" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,transparent_30%,var(--background)_85%)]" />
         <div className="container-prose relative py-16">
           <Reveal>
