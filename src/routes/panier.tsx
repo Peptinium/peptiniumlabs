@@ -377,27 +377,31 @@ function Stepper({ step }: { step: Step }) {
 
 function EmptyCart() {
   return (
-    <div className="mx-auto max-w-md rounded-2xl border border-border bg-card p-10 text-center">
-      <div className="mx-auto grid size-14 place-items-center rounded-full border border-border bg-surface text-accent">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
-          <path d="M3 3h2l2.4 12.3a2 2 0 0 0 2 1.7h9.7a2 2 0 0 0 2-1.6L23 8H6" />
-          <circle cx="10" cy="21" r="1.4" />
-          <circle cx="18" cy="21" r="1.4" />
-        </svg>
-      </div>
-      <h1 className="mt-5 font-display text-2xl font-medium">Votre panier est vide</h1>
-      <p className="mt-2 text-sm text-muted-foreground">
-        Découvrez nos réactifs peptidiques de qualité recherche.
+    <div className="mx-auto max-w-xl px-5 py-16 text-center">
+      <span className="brand-gradient-text font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
+        Panier vide
+      </span>
+      <h1 className="mt-6 text-[44px] font-semibold leading-[1.0] tracking-[-0.03em] text-foreground sm:text-[60px]">
+        Rien à <span className="brand-gradient-text italic">expédier</span>.
+      </h1>
+      <p className="mt-6 text-[16px] leading-[1.6] text-muted-foreground">
+        Découvrez notre catalogue de réactifs peptidiques de qualité recherche.
       </p>
       <Link
         to="/produits"
-        className="mt-6 inline-flex items-center justify-center rounded-full bg-accent px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-background hover:bg-accent/90"
+        className="group mt-10 inline-flex items-center gap-3 rounded-full px-8 py-4 text-[14px] font-medium text-white shadow-[0_18px_44px_-18px_color-mix(in_oklab,var(--brand-violet)_70%,transparent)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5"
+        style={{
+          backgroundImage:
+            "linear-gradient(120deg, oklch(0.70 0.18 210) 0%, oklch(0.58 0.28 290) 55%, oklch(0.68 0.27 345) 100%)",
+        }}
       >
         Voir le catalogue
+        <span aria-hidden className="grid size-7 place-items-center rounded-full bg-white/20 transition-transform duration-500 group-hover:translate-x-0.5">→</span>
       </Link>
     </div>
   );
 }
+
 
 // ─────────────────────────── LIVRAISON ───────────────────────────
 function LivraisonForm({
