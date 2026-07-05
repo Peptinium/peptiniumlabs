@@ -116,7 +116,7 @@ function AboutPage() {
             <Reveal>
               <div className="overflow-hidden rounded-[28px] border border-border">
                 <img
-                  src={labHero}
+                  src={labHero.url}
                   alt="Laboratoire Peptinium — banc de synthèse et flacons de peptides lyophilisés"
                   width={1600}
                   height={1024}
