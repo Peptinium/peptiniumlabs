@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
-import vialAsset from "@/assets/products/Reta_10mg.png.asset.json";
+import vialAsset from "@/assets/products/Reta_10mg_no_bg.png";
 
 
 import { useRevealBlur } from "@/hooks/useScrollBlur";
