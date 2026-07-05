@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
-import vialAsset from "@/assets/vial/RT_AVANT_TRANSPARENT.png.asset.json";
-import penAsset from "@/assets/hero/peptinium-pen.png.asset.json";
+import vialAsset from "@/assets/products/Reta_10mg.png.asset.json";
+
 
 import { useRevealBlur } from "@/hooks/useScrollBlur";
 
@@ -34,12 +34,13 @@ export function HeroVela() {
           </span>
 
           <h1 className="mt-6 pb-2 text-[54px] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground sm:text-[76px] lg:text-[104px] lg:leading-[1.02]">
-            Le leader
+            La science
             <br />
-            européen
+            des peptides,
             <br />
-            des peptides
+            à l'état pur.
           </h1>
+
 
 
           <p className="mt-7 max-w-md text-[16px] leading-[1.6] text-muted-foreground lg:text-[17px]">
@@ -90,14 +91,8 @@ export function HeroVela() {
 
           />
 
-          {/* Pen — behind, top-right, tilted */}
-          <img
-            src={penAsset.url}
-            alt=""
-            aria-hidden
-            draggable={false}
-            className="absolute right-2 top-4 h-[78%] w-auto rotate-[24deg] object-contain drop-shadow-[0_24px_32px_color-mix(in_oklab,var(--brand-blue)_18%,transparent)] [animation:float_9s_ease-in-out_infinite] lg:right-6 lg:top-2"
-          />
+
+
 
           {/* Vial — main, centered */}
           <img
