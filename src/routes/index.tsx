@@ -83,7 +83,7 @@ export const Route = createFileRoute("/")({
 });
 
 function HomePage() {
-function HomePage() {
+
   const featured = products.find((p) => p.featured)!;
   const rest = products.filter((p) => !p.featured);
   const bestSellers = rest.slice(0, 4);
