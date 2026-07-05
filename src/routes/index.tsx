@@ -188,7 +188,7 @@ function HomePage() {
             {
               t: "Support recherche",
               d: "MSDS, protocoles labo et conseils de reconstitution. Un interlocuteur qui parle votre langage.",
-              Icon: LifeBuoy,
+              Icon: FileCheck2,
             },
           ].map((p, i) => (
             <Reveal key={p.t} delay={i * 80}>
