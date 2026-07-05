@@ -110,6 +110,75 @@ function AboutPage() {
           </div>
         </section>
 
+        {/* ============ Grande image labo ============ */}
+        <section className="relative">
+          <div className="mx-auto max-w-[1400px] px-6 pb-24 lg:px-10 sm:pb-32">
+            <Reveal>
+              <div className="overflow-hidden rounded-[28px] border border-border">
+                <img
+                  src={labHero}
+                  alt="Laboratoire Peptinium — banc de synthèse et flacons de peptides lyophilisés"
+                  width={1600}
+                  height={1024}
+                  loading="lazy"
+                  className="block h-auto w-full object-cover"
+                />
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* ============ Qualité & normes — image + texte ============ */}
+        <section className="relative border-t border-border">
+          <div className="mx-auto grid max-w-[1400px] gap-14 px-6 py-24 lg:grid-cols-2 lg:gap-20 lg:px-10 sm:py-32">
+            <Reveal>
+              <div className="flex flex-col">
+                <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">— Qualité &amp; normes</span>
+                <h2 className="shimmer-text mt-4 text-[36px] font-semibold leading-[1.02] tracking-[-0.03em] sm:text-[56px]">
+                  Chaque lot testé, vérifié, documenté.
+                </h2>
+                <div className="mt-8 space-y-5 text-[15.5px] leading-[1.7] text-muted-foreground">
+                  <p>
+                    Nos partenaires de fabrication opèrent en environnement contrôlé et suivent des
+                    protocoles de synthèse stricts. Chaque composé est soumis à un contrôle interne,
+                    puis à une <span className="text-foreground">contre-analyse indépendante</span> par un
+                    laboratoire tiers accrédité.
+                  </p>
+                  <p>
+                    Pour maintenir une qualité constante dans le temps, nous ré-échantillonnons nos
+                    références selon un cycle semestriel. Les certificats disponibles sur cette page
+                    datent tous de <span className="text-foreground">moins de six mois</span>.
+                  </p>
+                </div>
+                <dl className="mt-10 grid grid-cols-3 gap-6 border-t border-border pt-8">
+                  {[
+                    { k: "Intégrité", v: "Partenaires audités, sourcing tracé." },
+                    { k: "Pureté", v: "Tests par lot, identité et stabilité." },
+                    { k: "Transparence", v: "CoA récents, vérifiables en ligne." },
+                  ].map((s) => (
+                    <div key={s.k}>
+                      <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-foreground">{s.k}</dt>
+                      <dd className="mt-2 text-[13px] leading-[1.55] text-muted-foreground">{s.v}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            </Reveal>
+            <Reveal delay={80}>
+              <div className="overflow-hidden rounded-[28px] border border-border">
+                <img
+                  src={labQuality}
+                  alt="Analyse HPLC — chargement d'un flacon de peptide sur un passeur d'échantillons"
+                  width={1600}
+                  height={1200}
+                  loading="lazy"
+                  className="block h-full w-full object-cover"
+                />
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
         {/* ============ 4 piliers ============ */}
         <section className="relative border-t border-border">
           <div className="mx-auto max-w-[1400px] px-6 py-24 lg:px-10 sm:py-32">
