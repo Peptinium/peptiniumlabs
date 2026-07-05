@@ -92,22 +92,8 @@ function HomePage() {
       {/* ============ IMMERSIVE HERO — Vela-inspired editorial ============ */}
       <HeroVela />
 
-      {/* ============ QUIET TRUST ROW ============ */}
-      <section className="border-b border-border/60">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-10 gap-y-4 px-8 py-8">
-          {[
-            { k: "HPLC ≥ 99 %", v: "Pureté documentée" },
-            { k: "CoA", v: "Consultables en ligne" },
-            { k: "RUO", v: "Recherche uniquement" },
-            { k: "Expédition 24 h", v: "Depuis la France" },
-          ].map((t) => (
-            <div key={t.k} className="flex flex-col">
-              <span className="font-display text-[15px] font-medium tracking-tight text-foreground">{t.k}</span>
-              <span className="mt-1 text-[12px] text-muted-foreground">{t.v}</span>
-            </div>
-          ))}
-        </div>
-      </section>
+
+
 
       {/* ============ FEATURED PRODUCT — MAGNIFIED ============ */}
       <section data-reveal-blur className="mx-auto max-w-6xl px-8 py-32 sm:py-40">
