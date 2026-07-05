@@ -1483,7 +1483,10 @@ function CryptoPaymentBlock({
 
       <div className="mt-6 overflow-hidden rounded-2xl border border-border bg-card">
         <div className="flex justify-center border-b border-border bg-white p-6">
-          <QRCodeSVG value={current.paymentUri} size={200} level="M" includeMargin={false} />
+          <QRCodeSVG value={current.walletAddress} size={200} level="M" includeMargin={false} />
+        </div>
+        <div className="border-b border-border px-5 pt-3 pb-2 text-center text-[11px] text-muted-foreground">
+          Scannez l'adresse puis saisissez le montant exact ci-dessous dans votre wallet.
         </div>
         <CopyRow
           label={`Montant exact à envoyer (${current.unit})`}
