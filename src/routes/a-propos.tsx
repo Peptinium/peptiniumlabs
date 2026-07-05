@@ -188,7 +188,7 @@ function AboutPage() {
                   >
                     <div className="relative aspect-[3/4] overflow-hidden bg-white">
                       <img src={c.src} alt={`Rapport Janoshik — ${c.name} ${c.dosage}`} loading="lazy" className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
-                      <div className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-black/80 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.2em] text-foreground backdrop-blur">
+                      <div className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-foreground px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.2em] text-background backdrop-blur">
                         <span className="size-1 rounded-full" style={{ background: "var(--brand-cyan)" }} /> Vérifié
                       </div>
                     </div>
