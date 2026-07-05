@@ -70,13 +70,6 @@ export function Footer() {
               <span className="size-1.5 animate-pulse rounded-full bg-accent" />
               Réservé à la recherche
             </div>
-
-            <div className="mt-6 flex flex-wrap items-center gap-3">
-              <QualityBadge label="Pureté 99%" sub="HPLC" />
-              <QualityBadge label="Made in EU" sub="UE" />
-              <QualityBadge label="3rd party" sub="Vérifié" />
-              <QualityBadge label="Analyse" sub="Avancée" />
-            </div>
           </div>
         </div>
       </div>
