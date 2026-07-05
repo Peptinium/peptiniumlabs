@@ -1,0 +1,1 @@
+ALTER TABLE public.orders DROP CONSTRAINT orders_payment_method_check; ALTER TABLE public.orders ADD CONSTRAINT orders_payment_method_check CHECK (payment_method = ANY (ARRAY['bank'::text, 'card'::text, 'crypto'::text, 'peptidepay'::text]));
