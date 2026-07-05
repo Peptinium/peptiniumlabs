@@ -6,7 +6,7 @@ import { Reveal } from "@/components/Reveal";
 import { HeroVela } from "@/components/HeroVela";
 import { products, formatPrice } from "@/data/products";
 import { ShieldCheck, Fingerprint, Truck, FlaskConical, Plus } from "lucide-react";
-import labBg from "@/assets/lab-bg-ruo.jpg";
+
 import promoBacWater from "@/assets/promo-bacwater.png";
 
 
