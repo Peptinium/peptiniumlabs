@@ -197,18 +197,32 @@ function PanierPage() {
 
   return (
     <SiteLayout>
-      <div className="border-b border-border bg-surface">
-        <div className="container-prose flex items-center gap-2 py-5 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+      {/* Fil d'ariane éditorial + balayage */}
+      <section className="relative overflow-hidden border-b border-border/60 bg-background">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(45% 40% at 88% 20%, color-mix(in oklab, var(--brand-violet) 8%, transparent) 0%, transparent 65%)",
+          }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -top-px left-0 h-px w-1/2 bg-gradient-to-r from-transparent via-[oklch(0.62_0.26_296)] to-transparent [animation:beam-sweep_7s_ease-in-out_infinite]"
+        />
+        <div className="container-prose relative flex items-center gap-2 px-5 py-5 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
           <Link to="/" className="hover:text-foreground">Peptinium</Link>
           <span className="text-border">›</span>
           <span className="text-foreground">Panier</span>
         </div>
-      </div>
+      </section>
 
       <div className="container-prose py-10 sm:py-14">
         {step !== "confirmation" && step !== "virement" && (
           <Stepper step={step} />
         )}
+
 
         {isEmpty && step !== "confirmation" ? (
           <EmptyCart />
