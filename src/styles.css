@@ -353,7 +353,7 @@
   );
   background-size: 200% 100%;
   background-position: 0% 50%;
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   background-clip: text;
   -webkit-background-clip: text;
   animation: shimmer 8s linear infinite both;
@@ -375,7 +375,7 @@
   );
   background-size: 200% 100%;
   background-position: 0% 50%;
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   background-clip: text;
   -webkit-background-clip: text;
   animation: shimmer 8s linear infinite both;
