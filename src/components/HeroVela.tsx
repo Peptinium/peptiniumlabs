@@ -140,7 +140,7 @@ function LabTestsStrip() {
   ];
   return (
     <div className="relative border-t border-border/60 bg-surface/40 backdrop-blur-sm">
-      <div className="container-prose flex flex-wrap items-center gap-x-10 gap-y-6 px-5 py-6">
+      <div className="container-prose flex flex-wrap items-center gap-x-12 gap-y-7 px-5 py-8">
         <div className="flex items-center gap-4">
           <div className="flex -space-x-2">
             {[
@@ -150,35 +150,35 @@ function LabTestsStrip() {
             ].map((bg, i) => (
               <span
                 key={i}
-                className="grid size-8 place-items-center rounded-full border-2 border-background font-serif text-[11px] font-medium text-white"
+                className="grid size-9 place-items-center rounded-full border-2 border-background font-serif text-[13px] font-medium text-white"
                 style={{ background: bg }}
               >
                 {["S", "M", "Dr"][i]}
               </span>
             ))}
-            <span className="ml-2 grid h-5 place-items-center rounded-full bg-success/20 px-2 font-mono text-[9px] font-semibold uppercase tracking-wider text-success">
+            <span className="ml-2 grid h-6 place-items-center rounded-full bg-success/20 px-2.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-success">
               New
             </span>
           </div>
-          <span className="font-sans text-[13px] font-medium text-foreground">
+          <span className="font-sans text-[15px] font-medium text-foreground">
             Tests de laboratoire avancés
           </span>
         </div>
 
-        <div className="flex flex-1 flex-wrap items-center gap-x-8 gap-y-4">
+        <div className="flex flex-1 flex-wrap items-center gap-x-10 gap-y-5">
           {tests.map((t) => (
-            <div key={t.k} className="flex items-center gap-2.5">
+            <div key={t.k} className="flex items-center gap-3">
               <span
                 aria-hidden
-                className="grid size-8 place-items-center rounded-lg border border-border bg-background text-muted-foreground"
+                className="grid size-10 place-items-center rounded-lg border border-border bg-background text-muted-foreground"
               >
                 <LabIcon name={t.k} />
               </span>
               <div className="leading-tight">
-                <div className="font-sans text-[12px] font-semibold text-foreground">
+                <div className="font-sans text-[15px] font-semibold text-foreground">
                   {t.k}
                 </div>
-                <div className="font-mono text-[9px] uppercase tracking-[0.14em] text-muted-foreground">
+                <div className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
                   {t.v}
                 </div>
               </div>
@@ -187,6 +187,7 @@ function LabTestsStrip() {
         </div>
       </div>
     </div>
+
   );
 }
 
