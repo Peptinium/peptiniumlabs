@@ -41,6 +41,7 @@ const placeOrderSchema = z.object({
   }),
   items: z.array(itemSchema).min(1).max(50),
   paymentMethod: z.enum(["bank", "card", "crypto", "peptidepay"]).default("bank"),
+  cryptoCurrency: z.enum(["BTC", "USDC_POLYGON", "LTC"]).optional(),
   promoCode: z.string().trim().max(40).optional().nullable(),
   expectedTotal: z.number().nonnegative().optional(),
 });
@@ -208,6 +209,85 @@ export const placeOrder = createServerFn({ method: "POST" })
         .eq("slug", update.slug);
     }
 
+    // ─── Auto-create payment resource (link or crypto intent) BEFORE the email ───
+    let peptidePayUrl: string | null = null;
+    let cryptoDetails: {
+      currency: string;
+      label: string;
+      network: string;
+      walletAddress: string;
+      amountCrypto: number;
+      amountCryptoFormatted: string;
+      unit: string;
+      paymentUri: string;
+      expiresAt: string;
+    } | null = null;
+
+    if (data.paymentMethod === "peptidepay") {
+      try {
+        const { createPeptidePaySession } = await import("./peptidepay.server");
+        const origin = "https://peptinium.com";
+        const session = await createPeptidePaySession({
+          amountCents: Math.round(total * 100),
+          currency: "EUR",
+          customerEmail: data.shipping.email,
+          productName: `Commande ${order.order_number}`,
+          metadata: { order_id: order.id, order_number: order.order_number },
+          successUrl: `${origin}/mon-compte?order=${order.order_number}`,
+          cancelUrl: `${origin}/panier`,
+          idempotencyKey: `order-${order.id}`,
+        });
+        peptidePayUrl = session.url;
+        await supabaseAdmin
+          .from("orders")
+          .update({
+            payment_link: session.url,
+            payment_link_sent_at: new Date().toISOString(),
+          })
+          .eq("id", order.id);
+      } catch (e) {
+        console.error("peptidepay auto-create failed", e);
+      }
+    } else if (data.paymentMethod === "crypto" && data.cryptoCurrency) {
+      try {
+        const mod = await import("./crypto-payments.server");
+        const address = mod.getWalletAddress(data.cryptoCurrency);
+        const rate = await mod.fetchEurRate(data.cryptoCurrency);
+        const amountCrypto = mod.computeUniqueAmount(total, rate, data.cryptoCurrency, order.id);
+        const expiresAt = new Date(Date.now() + 20 * 60 * 1000).toISOString();
+        const { data: inserted } = await supabaseAdmin
+          .from("crypto_payments")
+          .insert({
+            order_id: order.id,
+            currency: data.cryptoCurrency,
+            wallet_address: address,
+            amount_eur: total,
+            rate_eur_per_unit: rate,
+            amount_crypto: amountCrypto,
+            status: "pending",
+            expires_at: expiresAt,
+          })
+          .select("*")
+          .single();
+        if (inserted) {
+          const meta = mod.CRYPTO_META[data.cryptoCurrency];
+          cryptoDetails = {
+            currency: data.cryptoCurrency,
+            label: meta.label,
+            network: meta.network,
+            walletAddress: address,
+            amountCrypto,
+            amountCryptoFormatted: mod.formatCryptoAmount(amountCrypto, data.cryptoCurrency),
+            unit: meta.unit,
+            paymentUri: mod.buildPaymentUri(data.cryptoCurrency, address, amountCrypto),
+            expiresAt,
+          };
+        }
+      } catch (e) {
+        console.error("crypto auto-create failed", e);
+      }
+    }
+
     try {
       const { broadcastToAdmins } = await import("./push.server");
       await broadcastToAdmins({
@@ -220,7 +300,7 @@ export const placeOrder = createServerFn({ method: "POST" })
       console.error("admin push failed", e);
     }
 
-    // Customer "order received — instructions sous 24 h"
+    // Customer "order received" — includes the payment link / crypto details when available
     try {
       const { enqueueAppEmail } = await import("./email/enqueue.server");
       await enqueueAppEmail({
@@ -232,6 +312,8 @@ export const placeOrder = createServerFn({ method: "POST" })
           orderNumber: order.order_number,
           totalEur: Number(order.total_eur),
           paymentMethod: data.paymentMethod,
+          paymentLink: peptidePayUrl,
+          crypto: cryptoDetails,
           items: items.map((i) => ({
             name: i.product_name,
             quantity: i.quantity,

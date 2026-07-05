@@ -145,6 +145,7 @@ function PanierPage() {
             unitPrice: it.price,
           })),
           paymentMethod,
+          cryptoCurrency: paymentMethod === "crypto" ? cryptoCurrency : undefined,
           promoCode: promo?.code ?? null,
           expectedTotal: total,
         },
