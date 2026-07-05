@@ -3,6 +3,11 @@ import { SiteLayout } from "@/components/SiteLayout";
 import { Reveal } from "@/components/Reveal";
 import { FlaskConical, ShieldCheck, Beaker, FileCheck2 } from "lucide-react";
 
+import labHero from "@/assets/about/lab-hero.jpg";
+import labQuality from "@/assets/about/lab-quality.jpg";
+import labLogistics from "@/assets/about/lab-logistics.jpg";
+import labPromise from "@/assets/about/lab-promise.jpg";
+
 import coaRetatrutide from "@/assets/coa/coa-retatrutide-10mg.jpg.asset.json";
 import coaGhkCu from "@/assets/coa/coa-ghk-cu.jpg.asset.json";
 import coaCjcIpa from "@/assets/coa/coa-cjc-1295-ipamorelin.jpg.asset.json";
