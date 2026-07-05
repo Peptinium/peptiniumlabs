@@ -37,12 +37,12 @@ export function HeroVela() {
             La plus haute qualité
           </span>
 
-          <h1 className="mt-6 font-serif text-[54px] font-normal leading-[0.98] tracking-[-0.03em] text-foreground sm:text-[76px] lg:text-[104px] lg:leading-[0.94]">
+          <h1 className="mt-6 text-[54px] font-semibold leading-[0.98] tracking-[-0.03em] text-foreground sm:text-[76px] lg:text-[104px] lg:leading-[0.94]">
             Le leader
             <br />
             européen
             <br />
-            <span className="italic">des peptides</span>
+            <span className="brand-gradient-text">des peptides</span>
           </h1>
 
           <p className="mt-7 max-w-md text-[16px] leading-[1.6] text-muted-foreground lg:text-[17px]">
