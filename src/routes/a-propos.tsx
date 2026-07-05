@@ -73,7 +73,7 @@ function AboutPage() {
 
           <div className="relative mx-auto max-w-[1400px] px-6 pt-28 pb-24 lg:px-10 sm:pt-36 sm:pb-32">
             <Reveal>
-              <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">
+              <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.28em] text-accent">
                 <span className="inline-block size-1.5 rounded-full bg-muted" />
                 Peptinium Labs · Édition n°01
                 <span className="hidden sm:inline">— Sunday, July 5, 2026</span>
@@ -133,7 +133,7 @@ function AboutPage() {
           <div className="mx-auto grid max-w-[1400px] gap-14 px-6 py-24 lg:grid-cols-2 lg:gap-20 lg:px-10 sm:py-32">
             <Reveal>
               <div className="flex flex-col">
-                <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">— Qualité &amp; normes</span>
+                <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-accent">— Qualité &amp; normes</span>
                 <h2 className="shimmer-text mt-4 text-[36px] font-semibold leading-[1.02] tracking-[-0.03em] sm:text-[56px]" data-shimmer="Chaque lot testé, vérifié, documenté.">
                   Chaque lot testé, vérifié, documenté.
                 </h2>
@@ -184,7 +184,7 @@ function AboutPage() {
           <div className="mx-auto max-w-[1400px] px-6 py-24 lg:px-10 sm:py-32">
             <Reveal>
               <div className="flex flex-col gap-4">
-                <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">— Notre méthode</span>
+                <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-accent">— Notre méthode</span>
                 <h2 className="shimmer-text max-w-3xl text-[36px] font-semibold leading-[1.05] tracking-[-0.03em] sm:text-[56px] sm:leading-[1.02]" data-shimmer="Quatre piliers, zéro raccourci.">
                   Quatre piliers, zéro raccourci.
                 </h2>
@@ -203,7 +203,7 @@ function AboutPage() {
                   <div className="group relative flex flex-col gap-6 p-10 sm:p-12" style={{ background: "var(--card)" }}>
                     <div className="flex items-center justify-between">
                       <p.Icon className="size-6 text-muted-foreground" strokeWidth={1.4} />
-                      <span className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground">{p.n}</span>
+                      <span className="font-mono text-[11px] uppercase tracking-[0.28em] text-accent">{p.n}</span>
                     </div>
                     <h3 className="text-[24px] font-semibold leading-[1.15] tracking-[-0.015em] text-foreground sm:text-[28px]">{p.t}</h3>
                     <p className="max-w-lg text-[14.5px] leading-[1.65] text-muted-foreground">{p.d}</p>
@@ -236,7 +236,7 @@ function AboutPage() {
             </Reveal>
             <Reveal delay={80}>
               <div className="flex flex-col justify-center">
-                <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">— Confiance &amp; conformité</span>
+                <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-accent">— Confiance &amp; conformité</span>
                 <h2 className="shimmer-text mt-4 text-[36px] font-semibold leading-[1.02] tracking-[-0.03em] sm:text-[52px]" data-shimmer="Un partenaire fiable pour la recherche.">
                   Un partenaire fiable pour la recherche.
                 </h2>
@@ -262,7 +262,7 @@ function AboutPage() {
           <div className="mx-auto grid max-w-[1400px] gap-14 px-6 py-24 lg:grid-cols-2 lg:gap-20 lg:px-10 sm:py-32">
             <Reveal>
               <div className="flex flex-col justify-center">
-                <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">— Expérience &amp; opérations</span>
+                <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-accent">— Expérience &amp; opérations</span>
                 <h2 className="shimmer-text mt-4 text-[36px] font-semibold leading-[1.02] tracking-[-0.03em] sm:text-[52px]" data-shimmer="Commande simple, expédition maîtrisée.">
                   Commande simple, expédition maîtrisée.
                 </h2>
@@ -315,7 +315,7 @@ function AboutPage() {
             <Reveal>
               <div className="grid gap-10 md:grid-cols-[1fr_1.4fr] md:gap-16">
                 <div>
-                  <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">— Preuves</span>
+                  <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-accent">— Preuves</span>
                   <h2 className="shimmer-text mt-4 text-[40px] font-semibold leading-[0.98] tracking-[-0.03em] sm:text-[64px]" data-shimmer="Vérifié par Janoshik Analytical.">
                     Vérifié par Janoshik Analytical.
                   </h2>
@@ -391,7 +391,7 @@ function AboutPage() {
             <div className="mt-16 rounded-2xl border border-border bg-card p-8 backdrop-blur-sm sm:p-12">
               <div className="grid gap-10 md:grid-cols-[1fr_1.4fr] md:gap-16">
                 <div>
-                  <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">— Guide</span>
+                  <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-accent">— Guide</span>
                   <h3 className="mt-4 text-[26px] font-semibold leading-[1.1] tracking-[-0.02em] text-foreground sm:text-[32px]">
                     Comment vérifier un rapport ?
                   </h3>

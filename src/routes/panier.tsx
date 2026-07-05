@@ -378,7 +378,7 @@ function Stepper({ step }: { step: Step }) {
 function EmptyCart() {
   return (
     <div className="mx-auto max-w-xl px-5 py-16 text-center">
-      <span className="text-muted-foreground font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
+      <span className="text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
         Panier vide
       </span>
       <h1 className="mt-6 text-[44px] font-semibold leading-[1.0] tracking-[-0.03em] text-foreground sm:text-[60px]">
