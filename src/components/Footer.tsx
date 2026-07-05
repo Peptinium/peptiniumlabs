@@ -3,7 +3,7 @@ import peptiniumLogo from "@/assets/brand/peptinium-logo.png.asset.json";
 
 export function Footer() {
   return (
-    <footer className="mt-24 border-t border-border/60 bg-background lg:mt-40">
+    <footer className="mt-24 bg-surface lg:mt-32">
       {/* RUO stripe */}
       <div className="border-b border-warning/15 bg-warning/[0.04]">
         <div className="mx-auto max-w-[1400px] px-6 py-3.5 text-center font-mono text-[10px] uppercase leading-relaxed tracking-[0.28em] text-warning/90 lg:px-10">
@@ -11,128 +11,109 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Editorial main block */}
-      <div className="mx-auto max-w-[1400px] px-6 pt-20 lg:px-10 lg:pt-32">
-        <div className="grid gap-14 lg:grid-cols-12 lg:gap-12">
-          {/* Left — brand + newsletter */}
-          <div className="lg:col-span-5">
-            <div className="flex items-center gap-3">
-              <span className="grid size-10 place-items-center overflow-hidden rounded-full bg-white ring-1 ring-border/70">
+      {/* Main editorial block */}
+      <div className="mx-auto max-w-[1400px] px-6 pt-20 lg:px-10 lg:pt-24">
+        <div className="grid gap-14 lg:grid-cols-[1.2fr_0.9fr_1fr_1fr] lg:gap-12">
+          {/* Left — brand */}
+          <div>
+            <Link to="/" className="inline-flex items-center gap-3">
+              <span className="grid size-11 place-items-center overflow-hidden rounded-full bg-white ring-1 ring-border/70">
                 <img
                   src={peptiniumLogo.url}
                   alt="Peptinium Labs"
-                  width={40}
-                  height={40}
+                  width={44}
+                  height={44}
                   draggable={false}
                   className="size-full object-cover"
                 />
               </span>
               <span className="font-display text-[18px] font-medium tracking-[-0.01em]">
                 <span className="brand-gradient-text font-semibold">Peptinium</span>
-                <span className="ml-1 text-muted-foreground/80">Labs</span>
+                <span className="ml-1 text-muted-foreground/85">Labs</span>
               </span>
+            </Link>
+          </div>
+
+          <FooterCol
+            title="Boutique"
+            links={[
+              { to: "/", label: "Accueil" },
+              { to: "/produits", label: "Boutique" },
+              { to: "/a-propos", label: "À propos" },
+              { to: "/blog", label: "Journal" },
+              { to: "/contact", label: "Contact" },
+            ]}
+          />
+
+          <FooterCol
+            title="Mentions légales"
+            links={[
+              { to: "/mentions-legales", label: "Politique de confidentialité" },
+              { to: "/cgv", label: "Conditions générales" },
+              { to: "/support", label: "Politique d'expédition" },
+              { to: "/coa", label: "Certificats d'analyse" },
+            ]}
+          />
+
+          {/* Right — quality signals */}
+          <div>
+            <div className="font-mono text-[10px] font-semibold uppercase tracking-[0.28em] text-foreground">
+              Adresse
             </div>
-            <p className="mt-8 max-w-md text-[16px] leading-[1.65] text-muted-foreground">
-              Réactifs peptidiques de qualité recherche pour laboratoires
-              académiques, CRO et instituts. Pureté HPLC vérifiée, traçabilité
-              complète, lot après lot.
-            </p>
-            <div className="mt-8 inline-flex items-center gap-2 rounded-full border border-border/70 bg-card/50 px-3.5 py-2 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+            <address className="mt-5 not-italic text-[14px] leading-[1.7] text-muted-foreground">
+              Peptinium Labs
+              <br />
+              France · Europe
+            </address>
+
+            <div className="mt-8 inline-flex items-center gap-2 rounded-full border border-border/70 bg-background/60 px-3.5 py-2 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
               <span className="size-1.5 animate-pulse rounded-full bg-accent" />
-              QC Lab actif — lots audités quotidiennement
+              Réservé à la recherche
+            </div>
+
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <QualityBadge label="Pureté 99%" sub="HPLC" />
+              <QualityBadge label="Made in EU" sub="UE" />
+              <QualityBadge label="3rd party" sub="Vérifié" />
+              <QualityBadge label="Analyse" sub="Avancée" />
             </div>
           </div>
-
-          {/* Right — link columns */}
-          <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:col-span-7 lg:gap-8">
-            <FooterCol
-              title="Catalogue"
-              links={[
-                { to: "/produits", label: "Toutes les références" },
-                { to: "/calculatrice", label: "Calculatrice" },
-                { to: "/tester-fioles", label: "Tester ses fioles" },
-                { to: "/coa", label: "Certificats d'analyse" },
-              ]}
-            />
-            <FooterCol
-              title="Laboratoire"
-              links={[
-                { to: "/a-propos", label: "À propos" },
-                { to: "/etudes-scientifiques", label: "Études" },
-                { to: "/blog", label: "Journal" },
-                { to: "/contact", label: "Contact" },
-              ]}
-            />
-            <FooterCol
-              title="Support"
-              links={[
-                { to: "/support", label: "SAV" },
-                { to: "/mentions-legales", label: "Mentions légales" },
-                { to: "/cgv", label: "CGV" },
-              ]}
-            />
-          </div>
         </div>
       </div>
 
-      {/* Giant wordmark */}
-      <div className="mx-auto mt-24 max-w-[1400px] overflow-hidden px-6 lg:mt-32 lg:px-10">
-        <div className="border-t border-border/50 pt-10">
-          <div
-            className="select-none whitespace-nowrap font-display text-[18vw] font-semibold leading-[0.85] tracking-[-0.05em] brand-gradient-text lg:text-[15vw]"
-            aria-hidden
-          >
-            Peptinium.
-          </div>
-        </div>
-      </div>
-
-      {/* Disclaimer */}
-      <div className="border-t border-border/60">
-        <div className="mx-auto max-w-[1400px] px-6 py-14 lg:px-10">
-          <div className="grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-16">
-            <div>
-              <div className="font-mono text-[10px] font-semibold uppercase tracking-[0.28em] brand-gradient-text">
-                — Clause de non-responsabilité
-              </div>
-              <p className="mt-5 max-w-sm text-[14px] leading-[1.65] text-muted-foreground">
-                En effectuant un achat sur{" "}
-                <strong className="text-foreground">peptinium.com</strong>, vous
-                reconnaissez et acceptez les conditions ci-contre.
-              </p>
+      {/* Divider + bottom bar */}
+      <div className="mx-auto mt-20 max-w-[1400px] px-6 lg:px-10">
+        <div className="border-t border-border/60 py-6">
+          <div className="flex flex-col gap-3 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground lg:flex-row lg:items-center lg:justify-between">
+            <div>© {new Date().getFullYear()} Peptinium Labs — Tous droits réservés</div>
+            <Link to="/mentions-legales" className="hover:text-foreground">
+              Gestion des cookies
+            </Link>
+            <div className="tracking-[0.28em]">
+              Qualité pharmaceutique · Testé en laboratoire · Normes GMP
             </div>
-            <ul className="space-y-4 text-[13px] leading-[1.7] text-muted-foreground">
-              <li>
-                <strong className="text-foreground">Utilisation réservée à la recherche.</strong>{" "}
-                Tous nos produits sont exclusivement vendus à des fins de
-                recherche. Ils ne sont pas destinés à un usage vétérinaire,
-                diagnostique, thérapeutique ou clinique.
-              </li>
-              <li>
-                <strong className="text-foreground">Absence de caractère médical.</strong>{" "}
-                Aucun produit présenté n'est un dispositif médical, et ne doit
-                pas être présenté ou utilisé comme tel.
-              </li>
-              <li>
-                <strong className="text-foreground">Conformité et responsabilité.</strong>{" "}
-                L'acheteur est seul responsable du respect de l'ensemble des
-                lois et réglementations applicables.
-              </li>
-              <li>
-                <strong className="text-foreground">Non-retour.</strong> En
-                raison de la nature des produits commercialisés, nous
-                n'acceptons aucun retour.
-              </li>
-            </ul>
           </div>
         </div>
       </div>
 
-      {/* Bottom bar */}
-      <div className="border-t border-border/60">
-        <div className="mx-auto flex max-w-[1400px] flex-col gap-3 px-6 py-6 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground sm:flex-row sm:items-center sm:justify-between lg:px-10">
-          <div>© {new Date().getFullYear()} peptinium.com — Tous droits réservés</div>
-          <div className="tracking-[0.28em]">Réservé à la recherche · HPLC ≥ 99 %</div>
+      {/* Disclaimer paragraphs — full width, subtle */}
+      <div className="mx-auto max-w-[1400px] px-6 pb-14 lg:px-10">
+        <div className="border-t border-border/60 pt-8">
+          <p className="text-[12px] leading-[1.7] text-muted-foreground">
+            <strong className="text-foreground">Réservé à la recherche — Avis important.</strong>{" "}
+            Tous les produits listés et vendus par Peptinium Labs sont strictement destinés à la
+            recherche en laboratoire — en particulier aux études in vitro. Ils ne sont pas
+            destinés à la consommation humaine ou animale, ni à une utilisation dans les aliments,
+            les médicaments, les cosmétiques, les dispositifs médicaux ou les procédures
+            diagnostiques.
+          </p>
+          <p className="mt-4 text-[12px] leading-[1.7] text-muted-foreground">
+            <strong className="text-foreground">Dosage — Important.</strong> Les informations et
+            le matériel fournis sur ce site sont uniquement destinés à des fins éducatives et
+            informatives. La présence d'un produit sur ce site ne constitue pas une licence
+            d'utilisation de ce produit d'une manière susceptible d'enfreindre des brevets ou de
+            violer les lois applicables.
+          </p>
         </div>
       </div>
     </footer>
@@ -151,19 +132,33 @@ function FooterCol({
       <div className="font-mono text-[10px] font-semibold uppercase tracking-[0.28em] text-foreground">
         {title}
       </div>
-      <ul className="mt-6 space-y-3.5">
+      <ul className="mt-5 space-y-3.5">
         {links.map((l) => (
           <li key={l.to}>
             <Link
               to={l.to}
-              className="group inline-flex items-center gap-2 text-[14px] leading-[1.3] text-muted-foreground transition-colors hover:text-foreground"
+              className="text-[14px] leading-[1.4] text-muted-foreground transition-colors hover:text-foreground"
             >
-              <span className="h-px w-3 bg-border transition-all group-hover:w-5 group-hover:bg-foreground" />
               {l.label}
             </Link>
           </li>
         ))}
       </ul>
+    </div>
+  );
+}
+
+function QualityBadge({ label, sub }: { label: string; sub: string }) {
+  return (
+    <div
+      className="grid size-14 place-items-center rounded-full text-center text-[8px] font-semibold leading-[1.1] text-background"
+      style={{ background: "var(--gradient-brand)" }}
+      title={`${label} — ${sub}`}
+    >
+      <div>
+        <div className="font-mono uppercase tracking-[0.08em]">{label.split(" ")[0]}</div>
+        <div className="font-mono text-[7px] opacity-80">{sub}</div>
+      </div>
     </div>
   );
 }
