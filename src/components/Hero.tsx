@@ -299,15 +299,11 @@ function VialShowcase() {
           draggable={false}
           className="size-full origin-center object-contain drop-shadow-[0_30px_50px_color-mix(in_oklab,var(--brand-blue)_30%,transparent)] transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform [animation:float_6s_ease-in-out_infinite] group-hover:scale-[1.08]"
         />
-        {/* Sheen sweep on hover */}
+        {/* Continuous light sheen, masked to vial shape */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 -translate-x-full opacity-0 transition-all duration-1000 group-hover:translate-x-full group-hover:opacity-100"
-          style={{
-            background:
-              "linear-gradient(105deg, transparent 40%, oklch(1 0 0 / 0.25) 50%, transparent 60%)",
-            mixBlendMode: "overlay",
-          }}
+          className="vial-sheen-mask pointer-events-none absolute inset-0"
+          style={{ ["--vial-mask" as any]: `url(${avantAsset.url})` }}
         />
       </div>
     </div>
