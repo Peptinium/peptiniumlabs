@@ -84,6 +84,13 @@ export const Route = createFileRoute("/api/public/crypto-watcher")({
                 .update({ status: "paid", paid_at: nowIso })
                 .eq("id", payment.order_id)
                 .neq("status", "paid");
+
+              try {
+                const { notifyAdminsOrderPaid } = await import("@/lib/order-notify.server");
+                await notifyAdminsOrderPaid(payment.order_id);
+              } catch (e) {
+                console.error("[crypto-watcher] notify failed", e);
+              }
             }
 
             updated++;
