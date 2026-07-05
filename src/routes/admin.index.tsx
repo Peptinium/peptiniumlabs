@@ -160,15 +160,6 @@ function CommandesPage() {
             Suivi des commandes, paiements, suivi colis et factures.
           </p>
         </div>
-        <Button
-          size="sm"
-          variant="outline"
-          disabled={testEmailsMut.isPending}
-          onClick={() => testEmailsMut.mutate("peptinium@gmail.com")}
-        >
-          <Send className="mr-1.5 size-4" />
-          {testEmailsMut.isPending ? "Envoi en cours…" : "Tester les 5 emails Peptinium"}
-        </Button>
       </header>
 
       <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
