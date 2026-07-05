@@ -12,7 +12,7 @@ export function Hero() {
 
 function DesktopHero() {
   return (
-    <section className="desktop-experience relative flex min-h-[calc(100svh-4rem)] flex-col overflow-hidden bg-[oklch(0.985_0.005_260)] text-[oklch(0.18_0.02_270)]">
+    <section className="desktop-experience relative overflow-hidden bg-[oklch(0.985_0.005_260)] text-[oklch(0.18_0.02_270)]">
       {/* Ambient background */}
       <div
         aria-hidden
@@ -30,13 +30,13 @@ function DesktopHero() {
         className="pointer-events-none absolute -top-px left-0 h-px w-1/2 bg-gradient-to-r from-transparent via-[oklch(0.62_0.26_296)] to-transparent [animation:beam-sweep_7s_ease-in-out_infinite]"
       />
 
-      <div className="container-prose relative flex flex-1 flex-col items-center px-5 pt-20 pb-8 text-center lg:pt-32 lg:pb-6">
+      <div className="container-prose relative flex flex-col items-center px-5 pt-20 pb-8 text-center lg:pt-32 lg:pb-6">
         {/* Pill removed */}
 
         {/* Title */}
         <h1 className="mt-5 font-display text-[40px] font-semibold leading-[1.02] tracking-[-0.035em] text-balance text-[oklch(0.15_0.02_270)] sm:text-[60px] lg:mt-8 lg:text-[92px] lg:leading-[0.95]">
-          <span className="shimmer-text block">L'Avenir de la</span>
-          <span className="shimmer-text block">Précision Moléculaire.</span>
+          <span className="shimmer-text block" data-shimmer="L'Avenir de la">L'Avenir de la</span>
+          <span className="shimmer-text block" data-shimmer="Précision Moléculaire.">Précision Moléculaire.</span>
         </h1>
 
         {/* Subtitle */}
@@ -167,9 +167,9 @@ function MobileHero() {
       <div className="relative mx-auto flex min-h-[calc(100svh-4rem)] w-full max-w-[440px] flex-col px-5 pb-6 pt-6 text-center">
         <div className="flex flex-1 flex-col items-center justify-center">
           <h1 className="mt-4 font-display text-[38px] font-semibold leading-[0.98] tracking-[-0.035em] text-[oklch(0.15_0.02_270)]">
-            <span className="shimmer-text block">L'Avenir</span>
-            <span className="shimmer-text block">de la Précision</span>
-            <span className="shimmer-text block">Moléculaire.</span>
+            <span className="shimmer-text block" data-shimmer="L'Avenir">L'Avenir</span>
+            <span className="shimmer-text block" data-shimmer="de la Précision">de la Précision</span>
+            <span className="shimmer-text block" data-shimmer="Moléculaire.">Moléculaire.</span>
           </h1>
 
           <p className="mt-4 max-w-[340px] text-[15px] font-medium leading-[1.5] text-[oklch(0.31_0.025_270)]">
@@ -213,11 +213,6 @@ function MobileHero() {
             alt="Flacon Peptinium Retatrutide — pureté 99%"
             draggable={false}
             className="mx-auto h-full w-auto object-contain drop-shadow-[0_28px_42px_color-mix(in_oklab,var(--brand-violet)_30%,transparent)] [animation:float_6s_ease-in-out_infinite]"
-          />
-          <div
-            aria-hidden
-            className="vial-sheen-mask pointer-events-none absolute inset-0"
-            style={{ ["--vial-mask" as any]: `url(${avantAsset.url})` }}
           />
         </div>
 
@@ -299,11 +294,15 @@ function VialShowcase() {
           draggable={false}
           className="size-full origin-center object-contain drop-shadow-[0_30px_50px_color-mix(in_oklab,var(--brand-blue)_30%,transparent)] transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform [animation:float_6s_ease-in-out_infinite] group-hover:scale-[1.08]"
         />
-        {/* Continuous light sheen, masked to vial shape */}
+        {/* Sheen sweep on hover */}
         <div
           aria-hidden
-          className="vial-sheen-mask pointer-events-none absolute inset-0"
-          style={{ ["--vial-mask" as any]: `url(${avantAsset.url})` }}
+          className="pointer-events-none absolute inset-0 -translate-x-full opacity-0 transition-all duration-1000 group-hover:translate-x-full group-hover:opacity-100"
+          style={{
+            background:
+              "linear-gradient(105deg, transparent 40%, oklch(1 0 0 / 0.25) 50%, transparent 60%)",
+            mixBlendMode: "overlay",
+          }}
         />
       </div>
     </div>

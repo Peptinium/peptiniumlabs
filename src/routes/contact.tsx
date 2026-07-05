@@ -1,16 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { ArrowRight, Mail, Clock, MapPin } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
-import { RuoBadge } from "@/components/RuoBadge";
+import { Reveal } from "@/components/Reveal";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact laboratoire — Peptinium Labs" },
+      { title: "Contact — Peptinium Labs" },
       {
         name: "description",
         content:
-          "Contactez l'équipe Peptinium Labs pour un devis recherche, une documentation technique ou une demande de Certificat d'Analyse (CoA).",
+          "Une question, un devis, un suivi de commande ? Notre équipe répond sous un jour ouvré.",
       },
       { property: "og:url", content: "/contact" },
     ],
@@ -21,115 +22,172 @@ export const Route = createFileRoute("/contact")({
 
 function ContactPage() {
   const [sent, setSent] = useState(false);
+  const [form, setForm] = useState({ name: "", phone: "", email: "", message: "" });
+
   return (
     <SiteLayout>
-      <section className="border-b border-border bg-surface">
-        <div className="container-prose py-14">
-          <RuoBadge />
-          <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-            Contact — Service recherche & devis laboratoire
-          </h1>
-          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-            Notre équipe répond aux demandes émanant de laboratoires, CRO et institutions de
-            recherche : devis, Certificats d'Analyse, MSDS, documentation technique.
-          </p>
+      {/* ============ HERO ============ */}
+      <section className="relative overflow-hidden bg-background">
+        <div className="container-prose relative px-5 pt-24 pb-14 lg:pt-32 lg:pb-20">
+          <Reveal>
+            <span className="block text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
+              — Nous contacter
+            </span>
+          </Reveal>
+          <Reveal delay={80}>
+            <h1 className="mt-6 max-w-[16ch] text-[52px] font-semibold leading-[0.98] tracking-[-0.03em] text-foreground sm:text-[76px] lg:text-[96px] lg:leading-[0.94]">
+              On est là, <span className="italic font-light">simplement</span>.
+            </h1>
+          </Reveal>
+          <Reveal delay={160}>
+            <p className="mt-8 max-w-xl text-[17px] leading-[1.6] text-muted-foreground">
+              Une question sur une commande, un produit, un délai&nbsp;? Écrivez-nous —
+              une vraie personne vous répond sous un jour ouvré.
+            </p>
+          </Reveal>
         </div>
       </section>
 
-      <section className="container-prose grid gap-10 py-14 lg:grid-cols-[1fr_1.3fr]">
-        <div>
-          <div className="font-mono text-[11px] uppercase tracking-wider text-medical">Coordonnées</div>
-          <h2 className="mt-1 text-lg font-semibold tracking-tight">Service clientèle laboratoire</h2>
-          <dl className="mt-5 space-y-4 text-sm">
-            <div>
-              <dt className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Email</dt>
-              <dd>contact@peptinium.com</dd>
-            </div>
-            <div>
-              <dt className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Horaires</dt>
-              <dd>Lun–Ven · 9h00–18h00 CET</dd>
-            </div>
-          </dl>
-          <div className="mt-8 rounded-sm border border-warning/40 bg-warning/5 p-4 text-xs leading-relaxed text-foreground/80">
-            <strong className="text-warning">Avis RUO :</strong> les commandes ne sont acceptées
-            qu'auprès d'entités de recherche identifiées. Aucune demande à finalité humaine,
-            vétérinaire ou thérapeutique ne sera traitée.
+      {/* ============ Contenu ============ */}
+      <section className="container-prose grid gap-14 px-5 pb-24 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20 lg:pb-32">
+        {/* Colonne infos */}
+        <Reveal>
+          <div className="flex flex-col gap-10">
+            {[
+              { Icon: Mail, k: "Email", v: "contact@peptinium.com", s: "Réponse sous 24 h" },
+              { Icon: Clock, k: "Horaires", v: "Lun – Ven", s: "9h – 18h CET" },
+              { Icon: MapPin, k: "Expédition", v: "Depuis l'Europe", s: "Suivi fourni" },
+            ].map(({ Icon, k, v, s }) => (
+              <div key={k} className="flex items-start gap-4 border-t border-border pt-6 first:border-t-0 first:pt-0">
+                <Icon className="mt-1 size-5 shrink-0 text-foreground/70" strokeWidth={1.4} />
+                <div className="min-w-0">
+                  <div className="font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+                    {k}
+                  </div>
+                  <div className="mt-1.5 text-[19px] font-medium tracking-tight text-foreground">
+                    {v}
+                  </div>
+                  <div className="mt-0.5 text-sm text-muted-foreground">{s}</div>
+                </div>
+              </div>
+            ))}
           </div>
-        </div>
+        </Reveal>
 
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            setSent(true);
-          }}
-          className="rounded-md border border-border bg-card p-6"
-        >
-          {sent ? (
-            <div className="py-10 text-center">
-              <div className="mx-auto grid size-12 place-items-center rounded-full bg-medical/10 text-medical">
-                ✓
-              </div>
-              <h3 className="mt-4 text-lg font-semibold">Demande transmise</h3>
-              <p className="mt-2 text-sm text-muted-foreground">
-                Notre équipe vous répondra sous 24h ouvrées.
-              </p>
-            </div>
-          ) : (
-            <>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <Input label="Nom du chercheur" />
-                <Input label="Laboratoire / Institution" />
-                <Input label="Email professionnel" type="email" />
-                <Input label="Téléphone" />
-              </div>
-              <label className="mt-4 block">
-                <div className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-                  Nature de la demande
+        {/* Formulaire — style Vela */}
+        <Reveal delay={80}>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              setSent(true);
+            }}
+            className="rounded-3xl border border-border bg-card p-7 sm:p-10"
+          >
+            {sent ? (
+              <div className="py-16 text-center">
+                <div className="mx-auto grid size-14 place-items-center rounded-full bg-foreground text-background">
+                  ✓
                 </div>
-                <select className="mt-1 w-full rounded-sm border border-border bg-background px-3 py-2.5 text-sm focus:border-medical focus:outline-none">
-                  <option>Devis catalogue</option>
-                  <option>Demande de CoA / MSDS</option>
-                  <option>Pack recherche sur-mesure</option>
-                  <option>Documentation technique</option>
-                </select>
-              </label>
-              <label className="mt-4 block">
-                <div className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-                  Détail du protocole / produits
+                <h3 className="mt-6 text-2xl font-semibold tracking-tight text-foreground">
+                  Message envoyé
+                </h3>
+                <p className="mt-3 text-sm text-muted-foreground">
+                  Merci — nous revenons vers vous très vite.
+                </p>
+              </div>
+            ) : (
+              <>
+                <div className="grid gap-8 sm:grid-cols-2">
+                  <VelaField label="Nom" required value={form.name} onChange={(v) => setForm({ ...form, name: v })} />
+                  <VelaField label="Téléphone" optional value={form.phone} onChange={(v) => setForm({ ...form, phone: v })} />
                 </div>
-                <textarea
-                  rows={5}
-                  className="mt-1 w-full rounded-sm border border-border bg-background px-3 py-2.5 text-sm focus:border-medical focus:outline-none"
-                  placeholder="Référence(s) du catalogue, quantités, type de recherche in vitro..."
-                />
-              </label>
-              <label className="mt-4 flex items-start gap-2 text-xs text-muted-foreground">
-                <input type="checkbox" required className="mt-0.5" />
-                <span>
-                  Je certifie représenter une entité de recherche et utiliser les produits
-                  commandés <strong className="text-foreground">exclusivement pour la recherche
-                  scientifique en laboratoire (RUO)</strong>.
-                </span>
-              </label>
-              <button className="mt-6 w-full rounded-sm bg-primary px-4 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90">
-                Envoyer la demande
-              </button>
-            </>
-          )}
-        </form>
+
+                <div className="mt-8">
+                  <VelaField label="E-mail" type="email" required value={form.email} onChange={(v) => setForm({ ...form, email: v })} />
+                </div>
+
+                <div className="mt-8">
+                  <VelaField
+                    label="Message"
+                    required
+                    textarea
+                    placeholder="Comment pouvons-nous vous aider ?"
+                    value={form.message}
+                    onChange={(v) => setForm({ ...form, message: v })}
+                  />
+                </div>
+
+                <div className="mt-10 flex flex-wrap items-center justify-between gap-6 border-t border-border pt-6">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+                    Nous répondons sous un jour ouvré
+                  </span>
+                  <button
+                    type="submit"
+                    className="group inline-flex items-center gap-3 rounded-full bg-foreground px-6 py-3 font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-background transition-transform hover:-translate-y-0.5"
+                  >
+                    Envoyer le message
+                    <span className="grid size-6 place-items-center rounded-full bg-background/15 transition-transform group-hover:translate-x-0.5">
+                      <ArrowRight className="size-3" strokeWidth={2.2} />
+                    </span>
+                  </button>
+                </div>
+              </>
+            )}
+          </form>
+        </Reveal>
       </section>
     </SiteLayout>
   );
 }
 
-function Input({ label, type = "text" }: { label: string; type?: string }) {
+function VelaField({
+  label,
+  type = "text",
+  required,
+  optional,
+  textarea,
+  placeholder,
+  value,
+  onChange,
+}: {
+  label: string;
+  type?: string;
+  required?: boolean;
+  optional?: boolean;
+  textarea?: boolean;
+  placeholder?: string;
+  value: string;
+  onChange: (v: string) => void;
+}) {
   return (
     <label className="block">
-      <div className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">{label}</div>
-      <input
-        type={type}
-        className="mt-1 w-full rounded-sm border border-border bg-background px-3 py-2.5 text-sm focus:border-medical focus:outline-none"
-      />
+      <div className="flex items-baseline justify-between">
+        <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-foreground/80">
+          {label}
+        </span>
+        <span className="font-mono text-[9px] uppercase tracking-[0.24em] text-muted-foreground/70">
+          {required ? "Obligatoire" : optional ? "Facultatif" : ""}
+        </span>
+      </div>
+      {textarea ? (
+        <textarea
+          required={required}
+          rows={5}
+          placeholder={placeholder}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className="mt-3 w-full resize-y border-0 border-b border-border bg-transparent px-0 py-2 text-[15px] text-foreground placeholder:text-muted-foreground/60 focus:border-foreground focus:outline-none focus:ring-0"
+        />
+      ) : (
+        <input
+          type={type}
+          required={required}
+          placeholder={placeholder}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className="mt-3 w-full border-0 border-b border-border bg-transparent px-0 py-2 text-[15px] text-foreground placeholder:text-muted-foreground/60 focus:border-foreground focus:outline-none focus:ring-0"
+        />
+      )}
     </label>
   );
 }

@@ -15,13 +15,15 @@ import "@fontsource/sora/700.css";
 import "@fontsource/inter/400.css";
 import "@fontsource/inter/500.css";
 import "@fontsource/inter/600.css";
+import "@fontsource/fraunces/400.css";
+import "@fontsource/fraunces/500.css";
+import "@fontsource/fraunces/600.css";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { CartProvider } from "../lib/cart";
 import { Toaster } from "../components/ui/sonner";
 import { usePressEffect } from "../hooks/use-press-effect";
-import { useBlurReveal } from "../hooks/use-blur-reveal";
 
 
 function NotFoundComponent() {
@@ -148,7 +150,6 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   usePressEffect();
-  useBlurReveal();
   return (
     <QueryClientProvider client={queryClient}>
       <CartProvider>

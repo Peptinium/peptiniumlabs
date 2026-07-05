@@ -26,7 +26,7 @@ export const Route = createFileRoute("/cgv")({
               N° TVA : Non applicable – franchise en base (article 293 B du CGI)
             </p>
             <p className="mt-2">
-              <strong>Le client :</strong> professionnel ou particulier passant commande pour motif de recherche sur le site peptinium.com.
+              <strong>Le client :</strong> tout professionnel, chercheur ou membre d'une entité de recherche passant commande pour motif de recherche sur le site peptinium.com.
             </p>
             <p className="mt-2">
               Le site propose à la vente des produits chimiques et réactifs destinés exclusivement à la recherche scientifique en laboratoire (usage in vitro uniquement). Toute commande implique l'acceptation sans réserve des présentes CGV.
@@ -92,7 +92,7 @@ export const Route = createFileRoute("/cgv")({
           <section>
             <h2 className="text-base font-semibold text-foreground">Article 7 – Garantie et responsabilité</h2>
             <p>
-              Les produits sont vendus en l'état, sans aucune garantie d'usage particulier. Le vendeur ne pourra en aucun cas être tenu responsable de l'utilisation qui sera faite des produits par le client.
+              Les produits sont vendus en l'état, sans aucune garantie d'usage spécifique. Le vendeur ne pourra en aucun cas être tenu responsable de l'utilisation qui sera faite des produits par le client.
             </p>
             <p className="mt-2">
               Le client assume l'entière responsabilité de l'usage qu'il fait des produits, y compris en cas de mauvaise utilisation, d'erreur de manipulation ou d'usage non conforme à leur destination (recherche in vitro).

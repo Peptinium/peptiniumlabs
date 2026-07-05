@@ -92,7 +92,7 @@ function TestVialsPage() {
           </Reveal>
           <Reveal delay={80}>
             <h1 className="mt-5 max-w-4xl font-display text-4xl font-medium tracking-[-0.03em] sm:text-5xl">
-              <span className="shimmer-text">Tester ses fioles de recherche</span>
+              <span className="shimmer-text" data-shimmer="Tester ses fioles de recherche">Tester ses fioles de recherche</span>
             </h1>
           </Reveal>
           <Reveal delay={160}>
@@ -276,7 +276,7 @@ function TestVialsPage() {
           <Reveal>
             <RuoBadge variant="ghost" />
             <h2 className="mt-5 max-w-3xl font-display text-3xl font-medium tracking-tight text-foreground sm:text-4xl">
-              Tester pour la <span className="shimmer-text">recherche</span> — pas pour la consommation
+              Tester pour la <span className="shimmer-text" data-shimmer="recherche">recherche</span> — pas pour la consommation
             </h2>
             <p className="mt-5 max-w-3xl text-[15px] leading-relaxed text-muted-foreground">
               La vérification analytique d'une fiole s'inscrit dans une démarche scientifique

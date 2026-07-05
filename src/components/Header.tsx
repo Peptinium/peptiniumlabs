@@ -5,12 +5,11 @@ import { supabase } from "@/integrations/supabase/client";
 import peptiniumLogo from "@/assets/brand/peptinium-logo.png.asset.json";
 
 const nav = [
-  { to: "/produits", label: "Catalogue" },
+  { to: "/produits", label: "Boutique" },
+  { to: "/a-propos", label: "À propos" },
+  { to: "/blog", label: "Journal" },
   { to: "/etudes-scientifiques", label: "Études" },
-  { to: "/blog", label: "Blog" },
-  { to: "/calculatrice", label: "Calculatrice" },
-  { to: "/tester-fioles", label: "Tester ses fioles" },
-  { to: "/a-propos", label: "Laboratoire" },
+  { to: "/contact", label: "Contact" },
 ];
 
 export function Header() {
@@ -79,94 +78,93 @@ export function Header() {
     <header
       className={`sticky top-0 z-40 transition-all duration-300 ${
         scrolled
-          ? "border-b border-border bg-background/85 backdrop-blur-2xl"
-          : "border-b border-transparent bg-background/50"
+          ? "border-b border-border/60 bg-background/85 backdrop-blur-2xl"
+          : "border-b border-transparent bg-background/60 backdrop-blur-md"
       }`}
     >
-      <div className="container-prose flex h-16 items-center justify-between lg:h-20">
-        <Link to="/" className="group flex items-center gap-2 sm:gap-3">
+      <div className="mx-auto flex h-[70px] max-w-[1400px] items-center justify-between px-6 lg:px-10">
+        {/* Left — brand */}
+        <Link to="/" className="group flex items-center gap-2.5">
           <Logo />
-          <div className="leading-tight">
-            <div className="font-display text-[16px] font-medium tracking-tight text-foreground sm:text-[17px] lg:text-[18px]">
-              <span className="brand-gradient-text font-semibold">Peptinium</span> <span className="text-muted-foreground">Labs</span>
-            </div>
-            <div className="hidden font-mono text-[9px] uppercase tracking-[0.22em] text-muted-foreground sm:block lg:text-[10px]">
-              Peptide de Recherche
-            </div>
-          </div>
+          <span className="font-display text-[17px] font-medium tracking-[-0.01em] text-foreground">
+            <span className="logo-gradient-text font-semibold">Peptinium</span>
+            <span className="ml-1 text-muted-foreground/85">Labs</span>
+          </span>
         </Link>
 
-        <nav className="desktop-flex items-center gap-8">
+        {/* Center — editorial nav (Vela style: normal case, medium, comfortable spacing) */}
+        <nav className="desktop-flex items-center gap-9">
           {nav.map((n) => (
             <Link
               key={n.to}
               to={n.to}
-              className="link-underline text-[15px] font-medium text-foreground/70 transition-colors hover:text-foreground"
+              className="group relative text-[15px] font-medium text-foreground/75 transition-colors hover:text-foreground"
               activeProps={{ className: "text-foreground" }}
             >
               {n.label}
+              <span className="absolute -bottom-1 left-0 h-px w-0 bg-foreground transition-all duration-300 group-hover:w-full" />
             </Link>
           ))}
         </nav>
 
-        <div className="flex items-center gap-2">
+        {/* Right — round icon buttons (Vela style) */}
+        <div className="flex items-center gap-1.5 lg:gap-2">
           {isAdmin && (
             <Link
               to="/admin"
               aria-label="Espace admin"
-              className="hidden items-center gap-1.5 rounded-full border border-accent/40 bg-accent/10 px-3 py-2 text-xs font-semibold text-accent transition-all hover:bg-accent/20 sm:inline-flex lg:px-3.5 lg:py-2.5"
+              className="hidden size-10 items-center justify-center rounded-full bg-accent/10 text-accent transition-all hover:bg-accent/20 sm:inline-flex"
+              title="Espace admin"
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M12 2l9 4.5v6c0 5-3.5 8.5-9 9.5-5.5-1-9-4.5-9-9.5v-6L12 2z" />
               </svg>
-              <span>Admin</span>
             </Link>
           )}
-          <AccountLink isLoggedIn={isLoggedIn}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="lg:h-4 lg:w-4">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-              <circle cx="12" cy="7" r="4" />
+          <IconPill href="/produits" label="Rechercher">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="11" cy="11" r="7" />
+              <path d="M20 20l-3.5-3.5" />
             </svg>
-            <span className="hidden sm:inline">{isLoggedIn ? "Compte" : "Connexion"}</span>
-          </AccountLink>
+          </IconPill>
+          <AccountIconPill isLoggedIn={isLoggedIn} />
           <Link
             to="/panier"
             aria-label="Panier"
-            className="group relative inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-2 text-xs font-medium text-foreground transition-all hover:border-accent hover:text-accent lg:px-4 lg:py-2.5 lg:text-sm"
+            className="group relative grid size-10 place-items-center rounded-full bg-surface text-foreground transition-all hover:bg-surface-2"
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="lg:h-4 lg:w-4">
-              <path d="M3 3h2l2.4 12.3a2 2 0 0 0 2 1.7h9.7a2 2 0 0 0 2-1.6L23 8H6" />
-              <circle cx="10" cy="21" r="1.4" />
-              <circle cx="18" cy="21" r="1.4" />
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M6 7h13l-1.5 9a2 2 0 0 1-2 1.7H9a2 2 0 0 1-2-1.7L5 4H2" />
+              <circle cx="10" cy="21" r="1.3" />
+              <circle cx="17" cy="21" r="1.3" />
             </svg>
-            <span className="hidden sm:inline">Panier</span>
             {count > 0 && (
-              <span className="ml-0.5 grid min-w-[18px] place-items-center rounded-full bg-accent px-1.5 py-0.5 font-mono text-[10px] font-semibold text-background">
+              <span className="absolute -right-1 -top-1 grid min-w-[18px] place-items-center rounded-full bg-foreground px-1 py-0.5 font-mono text-[10px] font-semibold text-background">
                 {count}
               </span>
             )}
           </Link>
           <button
             onClick={() => setOpen((v) => !v)}
-            className="mobile-grid size-9 place-items-center rounded-full border border-border"
+            className="mobile-grid ml-1 size-10 place-items-center rounded-full bg-surface text-foreground/80"
             aria-label="Menu"
           >
             <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.6">
-              {open ? <path d="M6 6l12 12M6 18L18 6" /> : <path d="M4 7h16M4 17h16" />}
+              {open ? <path d="M6 6l12 12M6 18L18 6" /> : <path d="M4 8h16M4 16h16" />}
             </svg>
           </button>
         </div>
       </div>
 
       {open && (
-        <div className="mobile-block border-t border-border bg-background">
-          <div className="container-prose flex flex-col py-2">
+        <div className="mobile-block border-t border-border/60 bg-background/95 backdrop-blur-xl">
+          <div className="mx-auto flex max-w-[1400px] flex-col px-6 py-3">
             {nav.map((n) => (
               <Link
                 key={n.to}
                 to={n.to}
                 onClick={() => setOpen(false)}
-                className="border-b border-border/60 py-3.5 text-sm text-foreground/80 last:border-0"
+                className="border-b border-border/40 py-4 text-[15px] font-medium text-foreground/85 last:border-0"
               >
                 {n.label}
               </Link>
@@ -175,11 +173,8 @@ export function Header() {
               <Link
                 to="/admin"
                 onClick={() => setOpen(false)}
-                className="mt-2 inline-flex items-center gap-2 rounded-lg border border-accent/40 bg-accent/10 px-3 py-3 text-sm font-semibold text-accent"
+                className="mt-3 inline-flex items-center gap-2 rounded-full bg-accent/10 px-4 py-2.5 text-[14px] font-semibold text-accent"
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 2l9 4.5v6c0 5-3.5 8.5-9 9.5-5.5-1-9-4.5-9-9.5v-6L12 2z" />
-                </svg>
                 Espace admin
               </Link>
             )}
@@ -187,7 +182,7 @@ export function Header() {
               to={isLoggedIn ? "/mon-compte" : "/auth"}
               search={isLoggedIn ? undefined : { redirect: "/mon-compte" }}
               onClick={() => setOpen(false)}
-              className="py-3.5 text-sm font-medium text-accent"
+              className="mt-2 py-3 text-[14px] font-medium text-accent"
             >
               {isLoggedIn ? "Mon compte" : "Connexion / Créer un compte"}
             </Link>
@@ -198,30 +193,57 @@ export function Header() {
   );
 }
 
-function AccountLink({ isLoggedIn, children }: { isLoggedIn: boolean; children: ReactNode }) {
-  const className = "inline-flex size-9 items-center justify-center rounded-full border border-border bg-card text-xs font-medium text-foreground transition-all hover:border-accent hover:text-accent sm:size-auto sm:gap-2 sm:px-3.5 sm:py-2 lg:px-4 lg:py-2.5 lg:text-sm";
+function IconPill({
+  href,
+  label,
+  children,
+}: {
+  href: string;
+  label: string;
+  children: ReactNode;
+}) {
+  return (
+    <Link
+      to={href}
+      aria-label={label}
+      className="grid size-10 place-items-center rounded-full bg-surface text-foreground/80 transition-all hover:bg-surface-2 hover:text-foreground"
+    >
+      {children}
+    </Link>
+  );
+}
+
+function AccountIconPill({ isLoggedIn }: { isLoggedIn: boolean }) {
+  const cls =
+    "grid size-10 place-items-center rounded-full bg-surface text-foreground/80 transition-all hover:bg-surface-2 hover:text-foreground";
+  const icon = (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+      <circle cx="12" cy="7" r="4" />
+    </svg>
+  );
   if (isLoggedIn) {
     return (
-      <Link to="/mon-compte" aria-label="Mon compte" className={className}>
-        {children}
+      <Link to="/mon-compte" aria-label="Mon compte" className={cls}>
+        {icon}
       </Link>
     );
   }
   return (
-    <Link to="/auth" search={{ redirect: "/mon-compte" }} aria-label="Se connecter" className={className}>
-      {children}
+    <Link to="/auth" search={{ redirect: "/mon-compte" }} aria-label="Se connecter" className={cls}>
+      {icon}
     </Link>
   );
 }
 
 function Logo() {
   return (
-    <span className="relative grid size-11 place-items-center overflow-hidden rounded-full bg-white ring-1 ring-border lg:size-9">
+    <span className="relative grid size-10 place-items-center overflow-hidden rounded-full bg-white ring-1 ring-border/70">
       <img
         src={peptiniumLogo.url}
         alt="Peptinium Labs"
-        width={44}
-        height={44}
+        width={40}
+        height={40}
         draggable={false}
         className="size-full object-cover"
       />
