@@ -5,11 +5,12 @@ import { supabase } from "@/integrations/supabase/client";
 import peptiniumLogo from "@/assets/brand/peptinium-logo.png.asset.json";
 
 const nav = [
-  { to: "/produits", label: "Boutique" },
-  { to: "/a-propos", label: "À propos" },
-  { to: "/blog", label: "Journal" },
+  { to: "/produits", label: "Catalogue" },
   { to: "/etudes-scientifiques", label: "Études" },
-  { to: "/contact", label: "Contact" },
+  { to: "/blog", label: "Blog" },
+  { to: "/calculatrice", label: "Calculatrice" },
+  { to: "/tester-fioles", label: "Tester ses fioles" },
+  { to: "/a-propos", label: "Laboratoire" },
 ];
 
 export function Header() {
