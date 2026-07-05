@@ -140,6 +140,7 @@ function PanierPage() {
           items: cart.items.map((it) => ({
             slug: it.slug,
             name: `${it.name} ${it.dosage}`.trim(),
+            dosage: it.dosage,
             quantity: it.qty,
             unitPrice: it.price,
           })),
