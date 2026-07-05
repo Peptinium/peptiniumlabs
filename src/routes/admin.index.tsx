@@ -300,7 +300,7 @@ function CommandesPage() {
                           Statut de la commande
                         </label>
                         <div className="flex flex-wrap gap-2">
-                          {(["pending", "paid", "shipped", "cancelled"] as const).map((status) => (
+                          {(["pending", "paid", "shipped", "delivered", "cancelled"] as const).map((status) => (
                             <button
                               key={status}
                               disabled={o.status === status || updateMut.isPending}
