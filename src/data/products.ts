@@ -51,7 +51,7 @@ export const products: Product[] = [
     variants: [
       { dosage: "5 mg", price: 54.0, soldOut: true },
       { dosage: "10 mg", price: 80.0 },
-      { dosage: "20 mg", price: 149.0 },
+      { dosage: "20 mg", price: 140.0 },
     ],
     category: "GLP-1/GIP",
     featured: true,
