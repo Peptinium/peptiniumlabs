@@ -40,21 +40,22 @@ export function usePressEffect() {
     if (typeof window === "undefined") return;
 
     const onPointerDown = (e: PointerEvent) => {
-      const target = e.target as HTMLElement | null;
-      if (target && isPressable(target)) {
+      const target = findPressable(e.target as HTMLElement);
+      if (target) {
         target.classList.add(PRESS_CLASS);
       }
     };
 
     const onPointerUp = (e: PointerEvent) => {
-      const target = e.target as HTMLElement | null;
+      const target = findPressable(e.target as HTMLElement);
       if (target) clearPress(target);
     };
 
     const onPointerCancel = (e: PointerEvent) => {
-      const target = e.target as HTMLElement | null;
+      const target = findPressable(e.target as HTMLElement);
       if (target) clearPress(target);
     };
+
 
     document.addEventListener("pointerdown", onPointerDown, { passive: true });
     document.addEventListener("pointerup", onPointerUp, { passive: true });
