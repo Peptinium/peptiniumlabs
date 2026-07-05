@@ -1133,27 +1133,44 @@ function PeptidePayRedirectBlock({
   shippingFee: number;
   onBack: () => void;
 }) {
-  const [countdown, setCountdown] = useState(3);
-  useEffect(() => {
-    if (!url) return;
-    if (countdown <= 0) {
-      window.location.href = url;
-      return;
-    }
-    const id = window.setTimeout(() => setCountdown((c) => c - 1), 1000);
-    return () => window.clearTimeout(id);
-  }, [url, countdown]);
-
   return (
     <div className="mx-auto max-w-xl">
       <div className="text-center">
         <div className="mx-auto grid size-14 place-items-center rounded-full border border-border bg-card text-accent">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/><path d="M6 16h2M10 16h8"/></svg>
         </div>
-        <h1 className="mt-4 font-display text-3xl font-medium">Redirection vers PeptidePay</h1>
+        <h1 className="mt-4 font-display text-3xl font-medium">Dernière étape avant le paiement</h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Votre commande est enregistrée. Vous allez être redirigé vers la page de paiement sécurisée dans {countdown}s.
+          Votre commande est enregistrée. Lisez l'information ci-dessous puis cliquez sur « Payer maintenant » pour finaliser.
         </p>
+      </div>
+
+      <div className="mt-6 overflow-hidden rounded-2xl border-2 border-amber-500/60 bg-amber-500/10">
+        <div className="flex items-start gap-3 p-5">
+          <div className="mt-0.5 grid size-8 shrink-0 place-items-center rounded-full bg-amber-500 text-background">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+          </div>
+          <div className="min-w-0 flex-1">
+            <div className="font-display text-base font-semibold text-foreground">
+              Information importante
+            </div>
+            <p className="mt-1.5 text-sm leading-relaxed text-foreground">
+              Sur la page de paiement, un <strong>numéro d'identification fiscale</strong> vous sera demandé. Vous n'avez <strong>pas besoin de renseigner le vôtre</strong> : saisissez simplement le numéro ci-dessous pour continuer.
+            </p>
+            <div className="mt-3 flex items-center gap-2 rounded-xl border border-amber-500/40 bg-background/60 p-3">
+              <code className="flex-1 select-all font-mono text-lg font-bold tracking-wider text-foreground">9999999999999</code>
+              <button
+                type="button"
+                onClick={() => {
+                  navigator.clipboard?.writeText("9999999999999");
+                }}
+                className="rounded-lg border border-border bg-card px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-surface"
+              >
+                Copier
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="mt-8 overflow-hidden rounded-2xl border border-border bg-card">
