@@ -254,7 +254,7 @@ export const placeOrder = createServerFn({ method: "POST" })
         const address = mod.getWalletAddress(data.cryptoCurrency);
         const rate = await mod.fetchEurRate(data.cryptoCurrency);
         const amountCrypto = mod.computeUniqueAmount(total, rate, data.cryptoCurrency, order.id);
-        const expiresAt = new Date(Date.now() + 20 * 60 * 1000).toISOString();
+        const expiresAt = new Date(Date.now() + 60 * 60 * 1000).toISOString();
         const { data: inserted } = await supabaseAdmin
           .from("crypto_payments")
           .insert({
