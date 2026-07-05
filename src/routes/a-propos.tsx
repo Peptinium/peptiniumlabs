@@ -3,6 +3,11 @@ import { SiteLayout } from "@/components/SiteLayout";
 import { Reveal } from "@/components/Reveal";
 import { FlaskConical, ShieldCheck, Beaker, FileCheck2 } from "lucide-react";
 
+import labHero from "@/assets/about/lab-hero.jpg";
+import labQuality from "@/assets/about/lab-quality.jpg";
+import labLogistics from "@/assets/about/lab-logistics.jpg";
+import labPromise from "@/assets/about/lab-promise.jpg";
+
 import coaRetatrutide from "@/assets/coa/coa-retatrutide-10mg.jpg.asset.json";
 import coaGhkCu from "@/assets/coa/coa-ghk-cu.jpg.asset.json";
 import coaCjcIpa from "@/assets/coa/coa-cjc-1295-ipamorelin.jpg.asset.json";
@@ -105,6 +110,75 @@ function AboutPage() {
           </div>
         </section>
 
+        {/* ============ Grande image labo ============ */}
+        <section className="relative">
+          <div className="mx-auto max-w-[1400px] px-6 pb-24 lg:px-10 sm:pb-32">
+            <Reveal>
+              <div className="overflow-hidden rounded-[28px] border border-border">
+                <img
+                  src={labHero}
+                  alt="Laboratoire Peptinium — banc de synthèse et flacons de peptides lyophilisés"
+                  width={1600}
+                  height={1024}
+                  loading="lazy"
+                  className="block h-auto w-full object-cover"
+                />
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* ============ Qualité & normes — image + texte ============ */}
+        <section className="relative border-t border-border">
+          <div className="mx-auto grid max-w-[1400px] gap-14 px-6 py-24 lg:grid-cols-2 lg:gap-20 lg:px-10 sm:py-32">
+            <Reveal>
+              <div className="flex flex-col">
+                <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">— Qualité &amp; normes</span>
+                <h2 className="shimmer-text mt-4 text-[36px] font-semibold leading-[1.02] tracking-[-0.03em] sm:text-[56px]">
+                  Chaque lot testé, vérifié, documenté.
+                </h2>
+                <div className="mt-8 space-y-5 text-[15.5px] leading-[1.7] text-muted-foreground">
+                  <p>
+                    Nos partenaires de fabrication opèrent en environnement contrôlé et suivent des
+                    protocoles de synthèse stricts. Chaque composé est soumis à un contrôle interne,
+                    puis à une <span className="text-foreground">contre-analyse indépendante</span> par un
+                    laboratoire tiers accrédité.
+                  </p>
+                  <p>
+                    Pour maintenir une qualité constante dans le temps, nous ré-échantillonnons nos
+                    références selon un cycle semestriel. Les certificats disponibles sur cette page
+                    datent tous de <span className="text-foreground">moins de six mois</span>.
+                  </p>
+                </div>
+                <dl className="mt-10 grid grid-cols-3 gap-6 border-t border-border pt-8">
+                  {[
+                    { k: "Intégrité", v: "Partenaires audités, sourcing tracé." },
+                    { k: "Pureté", v: "Tests par lot, identité et stabilité." },
+                    { k: "Transparence", v: "CoA récents, vérifiables en ligne." },
+                  ].map((s) => (
+                    <div key={s.k}>
+                      <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-foreground">{s.k}</dt>
+                      <dd className="mt-2 text-[13px] leading-[1.55] text-muted-foreground">{s.v}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            </Reveal>
+            <Reveal delay={80}>
+              <div className="overflow-hidden rounded-[28px] border border-border">
+                <img
+                  src={labQuality}
+                  alt="Analyse HPLC — chargement d'un flacon de peptide sur un passeur d'échantillons"
+                  width={1600}
+                  height={1200}
+                  loading="lazy"
+                  className="block h-full w-full object-cover"
+                />
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
         {/* ============ 4 piliers ============ */}
         <section className="relative border-t border-border">
           <div className="mx-auto max-w-[1400px] px-6 py-24 lg:px-10 sm:py-32">
@@ -143,6 +217,94 @@ function AboutPage() {
                 </Reveal>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* ============ Confiance & conformité ============ */}
+        <section className="relative border-t border-border">
+          <div className="mx-auto grid max-w-[1400px] gap-14 px-6 py-24 lg:grid-cols-[1.05fr_1fr] lg:gap-20 lg:px-10 sm:py-32">
+            <Reveal>
+              <div className="overflow-hidden rounded-[28px] border border-border">
+                <img
+                  src={labLogistics}
+                  alt="Préparation d'un envoi Peptinium — flacons, notice et emballage isotherme"
+                  width={1600}
+                  height={1024}
+                  loading="lazy"
+                  className="block h-full w-full object-cover"
+                />
+              </div>
+            </Reveal>
+            <Reveal delay={80}>
+              <div className="flex flex-col justify-center">
+                <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">— Confiance &amp; conformité</span>
+                <h2 className="shimmer-text mt-4 text-[36px] font-semibold leading-[1.02] tracking-[-0.03em] sm:text-[52px]">
+                  Un partenaire fiable pour la recherche.
+                </h2>
+                <div className="mt-8 space-y-5 text-[15.5px] leading-[1.7] text-muted-foreground">
+                  <p>
+                    Peptinium Labs opère dans un cadre strict de conformité européenne. Nos produits
+                    sont fournis <span className="text-foreground">exclusivement à des fins de recherche
+                    en laboratoire</span> : équipes académiques, CRO, instituts publics et industriels.
+                  </p>
+                  <p>
+                    Paiements sécurisés par carte via des prestataires PCI-DSS, facturation
+                    professionnelle, adresses de livraison institutionnelles vérifiées. Aucun usage
+                    diagnostique, thérapeutique ou vétérinaire n'est promu ni toléré.
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* ============ Expérience & opérations ============ */}
+        <section className="relative border-t border-border">
+          <div className="mx-auto grid max-w-[1400px] gap-14 px-6 py-24 lg:grid-cols-2 lg:gap-20 lg:px-10 sm:py-32">
+            <Reveal>
+              <div className="flex flex-col justify-center">
+                <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">— Expérience &amp; opérations</span>
+                <h2 className="shimmer-text mt-4 text-[36px] font-semibold leading-[1.02] tracking-[-0.03em] sm:text-[52px]">
+                  Commande simple, expédition maîtrisée.
+                </h2>
+                <div className="mt-8 space-y-5 text-[15.5px] leading-[1.7] text-muted-foreground">
+                  <p>
+                    Du sourcing à l'envoi, chaque étape est standardisée pour la précision et la
+                    sécurité. Commandes passées avant 14 h expédiées <span className="text-foreground">le jour même</span>,
+                    suivi complet jusqu'à la livraison en Europe.
+                  </p>
+                  <p>
+                    Emballage discret, protection thermique adaptée aux composés sensibles,
+                    documentation lot par lot glissée dans chaque colis. Un interlocuteur unique
+                    reste joignable si vous avez besoin d'un protocole ou d'un CoA archivé.
+                  </p>
+                </div>
+                <div className="mt-10 grid grid-cols-3 gap-6 border-t border-border pt-8">
+                  {[
+                    { k: "24 h", v: "Expédition ouvrée" },
+                    { k: "EU + UK", v: "Zones desservies" },
+                    { k: "Suivi", v: "Bout-en-bout" },
+                  ].map((s) => (
+                    <div key={s.k}>
+                      <div className="font-display text-[24px] font-semibold text-foreground sm:text-[30px]">{s.k}</div>
+                      <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">{s.v}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
+            <Reveal delay={80}>
+              <div className="overflow-hidden rounded-[28px] border border-border bg-muted">
+                <img
+                  src={labPromise}
+                  alt="Flacon de peptide lyophilisé — packaging premium Peptinium"
+                  width={1200}
+                  height={1504}
+                  loading="lazy"
+                  className="block h-full w-full object-cover"
+                />
+              </div>
+            </Reveal>
           </div>
         </section>
 
