@@ -90,6 +90,31 @@
   0%, 100% { opacity: 0.5; transform: scale(1) }
   50% { opacity: 0.8; transform: scale(1.05) }
 }
+@keyframes vial-sheen {
+  0%   { transform: translateX(-120%) skewX(-18deg); opacity: 0 }
+  15%  { opacity: 1 }
+  70%  { opacity: 1 }
+  100% { transform: translateX(220%) skewX(-18deg); opacity: 0 }
+}
+.vial-sheen-mask {
+  -webkit-mask-image: var(--vial-mask);
+          mask-image: var(--vial-mask);
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+          mask-position: center;
+  -webkit-mask-size: contain;
+          mask-size: contain;
+}
+.vial-sheen-mask::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.75) 50%, transparent 60%);
+  mix-blend-mode: screen;
+  animation: vial-sheen 4.5s cubic-bezier(0.22,1,0.36,1) infinite;
+  pointer-events: none;
+}
 @keyframes ruo-shine {
   0% { transform: translateX(-120%) skewX(-18deg); opacity: 0; }
   12% { opacity: 1; }
