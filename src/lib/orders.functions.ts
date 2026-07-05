@@ -127,28 +127,36 @@ export const placeOrder = createServerFn({ method: "POST" })
       };
     });
 
-    // Server-side shipping fee (cannot be tampered by the client)
-    const shippingFee =
-      subtotal === 0 || subtotal >= FREE_SHIPPING_THRESHOLD_EUR ? 0 : SHIPPING_FEE_EUR;
-
-    // Server-side promo code validation
+    // Server-side promo code validation (fetch first — may unlock free shipping)
     let discount = 0;
     let appliedPromoCode: string | null = null;
+    let promoFreeShipping = false;
     if (data.promoCode && data.promoCode.trim().length > 0) {
       const code = data.promoCode.trim().toUpperCase();
       const { data: promo } = await supabaseAdmin
         .from("promo_codes")
-        .select("code,rate,active")
+        .select("code,rate,amount_off_eur,free_shipping,active")
         .eq("code", code)
         .eq("active", true)
         .maybeSingle();
       if (promo) {
-        discount = roundMoney(subtotal * Number(promo.rate));
+        const rateDiscount = roundMoney(subtotal * Number(promo.rate ?? 0));
+        const amountOff = roundMoney(Number(promo.amount_off_eur ?? 0));
+        discount = Math.min(subtotal, roundMoney(rateDiscount + amountOff));
         appliedPromoCode = promo.code;
+        promoFreeShipping = !!promo.free_shipping;
       }
     }
 
+    // Server-side shipping fee (cannot be tampered by the client)
+    const shippingFee = promoFreeShipping
+      ? 0
+      : subtotal === 0 || subtotal >= FREE_SHIPPING_THRESHOLD_EUR
+        ? 0
+        : SHIPPING_FEE_EUR;
+
     const total = roundMoney(Math.max(0, subtotal - discount + shippingFee));
+
     if (data.expectedTotal !== undefined && Math.abs(roundMoney(data.expectedTotal) - total) > 0.01) {
       throw new Error("Le montant du panier a changé. Actualisez le panier avant de payer.");
     }
