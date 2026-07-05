@@ -11,8 +11,8 @@ export type CartItem = {
 export const EAU_SLUG = "eau-bacteriostatique";
 export const EAU_PRICE = 9.90;
 export const EAU_DOSAGE = "10 mL";
-export const SHIPPING = 4.90;
-export const FREE_SHIPPING_THRESHOLD = 150;
+export const SHIPPING = 3.90;
+export const FREE_SHIPPING_THRESHOLD = 160;
 
 type CartCtx = {
   items: CartItem[];
