@@ -136,9 +136,22 @@ function ProductPage() {
 
   return (
     <SiteLayout>
-      <div className="border-b border-border bg-surface">
-        <div className="container-prose py-6">
-          <nav className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+      {/* Fil d'ariane + hero éditorial */}
+      <section className="relative overflow-hidden border-b border-border/60 bg-background">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(50% 40% at 88% 20%, color-mix(in oklab, var(--brand-violet) 8%, transparent) 0%, transparent 65%)",
+          }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -top-px left-0 h-px w-1/2 bg-gradient-to-r from-transparent via-[oklch(0.62_0.26_296)] to-transparent [animation:beam-sweep_7s_ease-in-out_infinite]"
+        />
+        <div className="container-prose relative px-5 py-6">
+          <nav className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
             <Link to="/" className="hover:text-foreground">Accueil</Link>
             <span className="mx-2 text-border">/</span>
             <Link to="/produits" className="hover:text-foreground">Catalogue</Link>
@@ -146,9 +159,10 @@ function ProductPage() {
             <span className="text-foreground">{product.name}</span>
           </nav>
         </div>
-      </div>
+      </section>
 
       <div className="container-prose py-12">
+
         <div className="grid gap-12 lg:grid-cols-[1.05fr_1fr]">
           {/* Visual gallery */}
           <Reveal>
