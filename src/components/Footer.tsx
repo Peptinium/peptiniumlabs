@@ -35,12 +35,12 @@ export function Footer() {
           </div>
 
           <FooterCol
-            title="Boutique"
+            title="Catalogue"
             links={[
               { to: "/", label: "Accueil" },
-              { to: "/produits", label: "Boutique" },
+              { to: "/produits", label: "Catalogue" },
               { to: "/a-propos", label: "À propos" },
-              { to: "/blog", label: "Journal" },
+              { to: "/blog", label: "Blog" },
               { to: "/contact", label: "Contact" },
             ]}
           />
