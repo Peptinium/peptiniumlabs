@@ -135,7 +135,7 @@ function PanierPage() {
         `[Méthode : ${methodLabel}]\n` +
         `[Certification RUO acceptée le ${researchAcceptedAt ?? new Date().toISOString()}]\n` +
         `[CGV acceptées le ${cgvAcceptedAt ?? new Date().toISOString()}]` +
-        (promo ? `\n[Code promo ${promo.code} appliqué : −${(promo.rate * 100).toFixed(0)} %]` : "");
+        (promo ? `\n[Code promo ${promo.code} appliqué${promo.amountOff > 0 ? ` : −${promo.amountOff.toFixed(2)} €` : promo.rate > 0 ? ` : −${(promo.rate * 100).toFixed(0)} %` : ""}${promo.freeShipping ? " + livraison offerte" : ""}]` : "");
       const res = await submitOrderFn({
         data: {
           shipping: {
