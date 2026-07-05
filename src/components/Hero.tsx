@@ -12,7 +12,7 @@ export function Hero() {
 
 function DesktopHero() {
   return (
-    <section className="desktop-experience relative overflow-hidden bg-[oklch(0.985_0.005_260)] text-[oklch(0.18_0.02_270)]">
+    <section className="desktop-experience relative flex min-h-[calc(100svh-4rem)] flex-col overflow-hidden bg-[oklch(0.985_0.005_260)] text-[oklch(0.18_0.02_270)]">
       {/* Ambient background */}
       <div
         aria-hidden
