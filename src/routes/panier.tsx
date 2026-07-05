@@ -288,6 +288,7 @@ function PanierPage() {
             cart={cart}
             subtotal={subtotal}
             shippingFee={shippingFee}
+            onBack={() => navigateStep("paiement")}
           />
 
         ) : step === "crypto_pay" ? (
@@ -300,6 +301,7 @@ function PanierPage() {
               shippingFee={shippingFee}
               total={total}
               onConfirmed={() => navigateStep("confirmation")}
+              onBack={() => navigateStep("paiement")}
             />
           ) : null
         ) : (
