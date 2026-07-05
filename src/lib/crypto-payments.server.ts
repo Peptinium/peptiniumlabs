@@ -7,11 +7,11 @@ export type CryptoCurrency = "BTC" | "USDC_POLYGON" | "LTC";
 
 export const CRYPTO_META: Record<
   CryptoCurrency,
-  { label: string; unit: string; decimals: number; network: string; coingeckoId: string; isStable: boolean }
+  { label: string; unit: string; decimals: number; network: string; coinbaseSymbol: string; coinpaprikaId: string; isStable: boolean }
 > = {
-  BTC: { label: "Bitcoin", unit: "BTC", decimals: 8, network: "Bitcoin", coingeckoId: "bitcoin", isStable: false },
-  USDC_POLYGON: { label: "USDC (Polygon)", unit: "USDC", decimals: 6, network: "Polygon (MATIC)", coingeckoId: "usd-coin", isStable: true },
-  LTC: { label: "Litecoin", unit: "LTC", decimals: 8, network: "Litecoin", coingeckoId: "litecoin", isStable: false },
+  BTC: { label: "Bitcoin", unit: "BTC", decimals: 8, network: "Bitcoin", coinbaseSymbol: "BTC", coinpaprikaId: "btc-bitcoin", isStable: false },
+  USDC_POLYGON: { label: "USDC (Polygon)", unit: "USDC", decimals: 6, network: "Polygon (MATIC)", coinbaseSymbol: "USDC", coinpaprikaId: "usdc-usd-coin", isStable: true },
+  LTC: { label: "Litecoin", unit: "LTC", decimals: 8, network: "Litecoin", coinbaseSymbol: "LTC", coinpaprikaId: "ltc-litecoin", isStable: false },
 };
 
 export function getWalletAddress(currency: CryptoCurrency): string {
@@ -25,16 +25,91 @@ export function getWalletAddress(currency: CryptoCurrency): string {
   return addr.trim();
 }
 
-/** Fetch EUR price for 1 unit of the crypto via CoinGecko (no API key). */
+const RATE_TIMEOUT_MS = 6500;
+
+async function fetchJson<T>(url: string): Promise<T> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), RATE_TIMEOUT_MS);
+  try {
+    const res = await fetch(url, {
+      headers: {
+        accept: "application/json",
+        "user-agent": "PeptiniumLabs/1.0",
+      },
+      signal: controller.signal,
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return (await res.json()) as T;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function fetchUsdToEurRate(): Promise<number> {
+  const providers: Array<() => Promise<number>> = [
+    async () => {
+      const json = await fetchJson<{ rates?: { EUR?: number } }>("https://api.frankfurter.app/latest?from=USD&to=EUR");
+      return Number(json.rates?.EUR);
+    },
+    async () => {
+      const json = await fetchJson<{ rates?: { EUR?: number } }>("https://open.er-api.com/v6/latest/USD");
+      return Number(json.rates?.EUR);
+    },
+  ];
+
+  for (const provider of providers) {
+    try {
+      const rate = await provider();
+      if (Number.isFinite(rate) && rate > 0) return rate;
+    } catch (e) {
+      console.error("[crypto-rate] USD/EUR provider failed", e);
+    }
+  }
+
+  // Last-resort fallback so checkout is not blocked if public FX APIs throttle temporarily.
+  return 0.92;
+}
+
+/** Fetch EUR price for 1 unit of the crypto with multiple public providers. */
 export async function fetchEurRate(currency: CryptoCurrency): Promise<number> {
-  const id = CRYPTO_META[currency].coingeckoId;
-  const url = `https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=eur`;
-  const res = await fetch(url, { headers: { accept: "application/json" } });
-  if (!res.ok) throw new Error(`CoinGecko error ${res.status}`);
-  const json = (await res.json()) as Record<string, { eur?: number }>;
-  const eur = json?.[id]?.eur;
-  if (!eur || eur <= 0) throw new Error(`CoinGecko returned no EUR rate for ${currency}`);
-  return eur;
+  const meta = CRYPTO_META[currency];
+
+  if (meta.isStable) {
+    return fetchUsdToEurRate();
+  }
+
+  const providers: Array<() => Promise<number>> = [
+    async () => {
+      const json = await fetchJson<{ data?: { rates?: { EUR?: string } } }>(
+        `https://api.coinbase.com/v2/exchange-rates?currency=${meta.coinbaseSymbol}`,
+      );
+      return Number(json.data?.rates?.EUR);
+    },
+    async () => {
+      const json = await fetchJson<{ quotes?: { EUR?: { price?: number } } }>(
+        `https://api.coinpaprika.com/v1/tickers/${meta.coinpaprikaId}?quotes=EUR`,
+      );
+      return Number(json.quotes?.EUR?.price);
+    },
+    async () => {
+      const usdToEur = await fetchUsdToEurRate();
+      const json = await fetchJson<{ data?: { rates?: { USD?: string } } }>(
+        `https://api.coinbase.com/v2/exchange-rates?currency=${meta.coinbaseSymbol}`,
+      );
+      return Number(json.data?.rates?.USD) * usdToEur;
+    },
+  ];
+
+  for (const provider of providers) {
+    try {
+      const eur = await provider();
+      if (Number.isFinite(eur) && eur > 0) return eur;
+    } catch (e) {
+      console.error(`[crypto-rate] ${currency} provider failed`, e);
+    }
+  }
+
+  throw new Error(`Taux crypto indisponible pour ${currency}. Réessayez dans quelques minutes.`);
 }
 
 /**
