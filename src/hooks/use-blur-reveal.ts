@@ -55,7 +55,7 @@ export function useBlurReveal() {
             }
           }
         },
-        { rootMargin: "0px 0px -8% 0px", threshold: 0.08 },
+        { rootMargin: "600px 0px 600px 0px", threshold: 0 },
       );
 
       // Slight delay so route content has mounted
