@@ -35,12 +35,12 @@ export function Footer() {
           </div>
 
           <FooterCol
-            title="Boutique"
+            title="Catalogue"
             links={[
               { to: "/", label: "Accueil" },
-              { to: "/produits", label: "Boutique" },
+              { to: "/produits", label: "Catalogue" },
               { to: "/a-propos", label: "À propos" },
-              { to: "/blog", label: "Journal" },
+              { to: "/blog", label: "Blog" },
               { to: "/contact", label: "Contact" },
             ]}
           />
@@ -69,13 +69,6 @@ export function Footer() {
             <div className="mt-8 inline-flex items-center gap-2 rounded-full border border-border/70 bg-background/60 px-3.5 py-2 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
               <span className="size-1.5 animate-pulse rounded-full bg-accent" />
               Réservé à la recherche
-            </div>
-
-            <div className="mt-6 flex flex-wrap items-center gap-3">
-              <QualityBadge label="Pureté 99%" sub="HPLC" />
-              <QualityBadge label="Made in EU" sub="UE" />
-              <QualityBadge label="3rd party" sub="Vérifié" />
-              <QualityBadge label="Analyse" sub="Avancée" />
             </div>
           </div>
         </div>
@@ -148,17 +141,3 @@ function FooterCol({
   );
 }
 
-function QualityBadge({ label, sub }: { label: string; sub: string }) {
-  return (
-    <div
-      className="grid size-14 place-items-center rounded-full text-center text-[8px] font-semibold leading-[1.1] text-background"
-      style={{ background: "var(--gradient-brand)" }}
-      title={`${label} — ${sub}`}
-    >
-      <div>
-        <div className="font-mono uppercase tracking-[0.08em]">{label.split(" ")[0]}</div>
-        <div className="font-mono text-[7px] opacity-80">{sub}</div>
-      </div>
-    </div>
-  );
-}
