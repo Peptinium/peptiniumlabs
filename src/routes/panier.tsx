@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { SiteLayout } from "@/components/SiteLayout";
@@ -22,6 +22,12 @@ import { QRCodeSVG } from "qrcode.react";
 type CryptoCurrency = "BTC" | "USDC_POLYGON" | "LTC";
 type CryptoPaymentIntent = Awaited<ReturnType<typeof createCryptoPayment>>;
 
+type Step = "livraison" | "paiement" | "virement" | "confirmation" | "peptidepay_redirect" | "crypto_pay";
+type PayMethod = "bank" | "card" | "crypto" | "peptidepay";
+type AppliedPromo = { code: string; rate: number };
+
+const validSteps: Step[] = ["livraison", "paiement", "virement", "confirmation", "peptidepay_redirect", "crypto_pay"];
+
 export const Route = createFileRoute("/panier")({
   head: () => ({
     meta: [
@@ -30,13 +36,12 @@ export const Route = createFileRoute("/panier")({
       { name: "robots", content: "noindex,nofollow" },
     ],
   }),
+  validateSearch: (search: Record<string, unknown>) => {
+    const step = typeof search.step === "string" && validSteps.includes(search.step as Step) ? (search.step as Step) : "livraison";
+    return { step };
+  },
   component: PanierPage,
 });
-
-type Step = "livraison" | "paiement" | "virement" | "confirmation" | "peptidepay_redirect" | "crypto_pay";
-type PayMethod = "bank" | "card" | "crypto" | "peptidepay";
-
-type AppliedPromo = { code: string; rate: number };
 
 
 function PanierPage() {
@@ -44,7 +49,12 @@ function PanierPage() {
   const submitOrderFn = useServerFn(placeOrder);
   const startPeptidePayFn = useServerFn(createPeptidePayCheckout);
   const startCryptoPaymentFn = useServerFn(createCryptoPayment);
-  const [step, setStep] = useState<Step>("livraison");
+  const search = useSearch({ from: "/panier" });
+  const navigate = useNavigate({ from: "/panier" });
+  const step = search.step;
+  const navigateStep = (next: Step, opts?: { replace?: boolean }) =>
+    navigate({ to: "/panier", search: { step: next }, replace: opts?.replace });
+
   const [shipping, setShipping] = useState({
     email: "",
     firstName: "",
@@ -160,7 +170,7 @@ function PanierPage() {
         if (paymentMethod === "peptidepay") {
           const checkout = await startPeptidePayFn({ data: { orderId } });
           setPeptidePayUrl(checkout.url);
-          setStep("peptidepay_redirect");
+          navigateStep("peptidepay_redirect");
           return;
         }
         // crypto
@@ -168,11 +178,11 @@ function PanierPage() {
           data: { orderId, currency: cryptoCurrency },
         });
         setCryptoIntent(intent);
-        setStep("crypto_pay");
+        navigateStep("crypto_pay");
         return;
       }
 
-      setStep("virement");
+      navigateStep("virement");
     } catch (e: any) {
       setSubmitError(e?.message ?? "Erreur lors de l'enregistrement de la commande");
     } finally {
@@ -204,7 +214,7 @@ function PanierPage() {
             <LivraisonForm
               value={shipping}
               onChange={setShipping}
-              onSubmit={() => setStep("paiement")}
+              onSubmit={() => navigateStep("paiement")}
             />
             <Recap
               cart={cart}
@@ -235,7 +245,7 @@ function PanierPage() {
           <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr]">
             <PaiementBlock
               shipping={shipping}
-              onBack={() => setStep("livraison")}
+              onBack={() => navigateStep("livraison")}
               onConfirm={handleConfirmPaiement}
               submitting={submitting}
               error={submitError}
@@ -267,7 +277,7 @@ function PanierPage() {
             cart={cart}
             subtotal={subtotal}
             shippingFee={shippingFee}
-            onSignaled={() => setStep("confirmation")}
+            onSignaled={() => navigateStep("confirmation")}
           />
 
         ) : step === "peptidepay_redirect" ? (
@@ -278,6 +288,7 @@ function PanierPage() {
             cart={cart}
             subtotal={subtotal}
             shippingFee={shippingFee}
+            onBack={() => navigateStep("paiement")}
           />
 
         ) : step === "crypto_pay" ? (
@@ -289,7 +300,8 @@ function PanierPage() {
               subtotal={subtotal}
               shippingFee={shippingFee}
               total={total}
-              onConfirmed={() => setStep("confirmation")}
+              onConfirmed={() => navigateStep("confirmation")}
+              onBack={() => navigateStep("paiement")}
             />
           ) : null
         ) : (
@@ -1103,6 +1115,7 @@ function PeptidePayRedirectBlock({
   cart,
   subtotal,
   shippingFee,
+  onBack,
 }: {
   url: string;
   orderRef: string;
@@ -1110,6 +1123,7 @@ function PeptidePayRedirectBlock({
   cart: ReturnType<typeof useCart>;
   subtotal: number;
   shippingFee: number;
+  onBack: () => void;
 }) {
   const [countdown, setCountdown] = useState(3);
   useEffect(() => {
@@ -1164,6 +1178,13 @@ function PeptidePayRedirectBlock({
               Secured by PeptidePay
             </a>
           </p>
+          <button
+            type="button"
+            onClick={onBack}
+            className="mt-3 w-full text-center text-xs text-muted-foreground hover:text-foreground"
+          >
+            ← Retour au choix du paiement
+          </button>
         </div>
       </div>
 
@@ -1371,6 +1392,7 @@ function CryptoPaymentBlock({
   shippingFee,
   total,
   onConfirmed,
+  onBack,
 }: {
   intent: CryptoPaymentIntent;
   orderRef: string;
@@ -1379,6 +1401,7 @@ function CryptoPaymentBlock({
   shippingFee: number;
   total: number;
   onConfirmed: () => void;
+  onBack: () => void;
 }) {
   const pollStatus = useServerFn(getCryptoPaymentStatus);
   const [current, setCurrent] = useState(intent);
@@ -1500,6 +1523,18 @@ function CryptoPaymentBlock({
           <Link to="/panier" className="inline-block rounded-xl border border-border bg-card px-6 py-3 text-sm font-semibold text-foreground hover:border-accent">
             Recommencer la commande
           </Link>
+        </div>
+      )}
+
+      {current.status !== "confirmed" && (
+        <div className="mt-4 text-center">
+          <button
+            type="button"
+            onClick={onBack}
+            className="text-xs text-muted-foreground hover:text-foreground"
+          >
+            ← Retour au choix du paiement
+          </button>
         </div>
       )}
 
