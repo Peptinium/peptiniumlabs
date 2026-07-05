@@ -248,6 +248,8 @@ function PanierPage() {
               setCgvAcceptedAt={setCgvAcceptedAt}
               paymentMethod={paymentMethod}
               setPaymentMethod={setPaymentMethod}
+              cryptoCurrency={cryptoCurrency}
+              setCryptoCurrency={setCryptoCurrency}
             />
 
             <Recap
