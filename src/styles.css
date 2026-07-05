@@ -63,8 +63,8 @@
   to { opacity: 1; transform: scale(1) }
 }
 @keyframes shimmer {
-  0%   { background-position: 0% 50% }
-  100% { background-position: -200% 50% }
+  0%   { background-position: 100% 50% }
+  100% { background-position: 0% 50% }
 }
 
 @keyframes pulse-ring {
@@ -346,18 +346,18 @@
   background-image: linear-gradient(
     100deg,
     oklch(0 0 0) 0%,
-    oklch(0 0 0) 35%,
-    var(--brand-cyan) 40%,
-    var(--brand-blue) 45%,
-    var(--brand-violet) 50%,
-    var(--brand-magenta) 55%,
-    var(--brand-cyan) 60%,
-    oklch(0 0 0) 65%,
+    oklch(0 0 0) 42%,
+    var(--brand-cyan) 46%,
+    var(--brand-blue) 49%,
+    var(--brand-violet) 51%,
+    var(--brand-magenta) 54%,
+    var(--brand-cyan) 56%,
+    oklch(0 0 0) 60%,
     oklch(0 0 0) 100%
   );
-  background-size: 240% 100%;
-  background-position: 140% 50%;
-  background-repeat: repeat-x;
+  background-size: 300% 100%;
+  background-position: 100% 50%;
+  background-repeat: no-repeat;
   background-clip: text;
   -webkit-background-clip: text;
   animation: shimmer 4s linear infinite both;
@@ -372,18 +372,18 @@
   background-image: linear-gradient(
     100deg,
     oklch(1 0 0) 0%,
-    oklch(1 0 0) 35%,
-    var(--brand-cyan) 40%,
-    var(--brand-blue) 45%,
-    var(--brand-violet) 50%,
-    var(--brand-magenta) 55%,
-    var(--brand-cyan) 60%,
-    oklch(1 0 0) 65%,
+    oklch(1 0 0) 42%,
+    var(--brand-cyan) 46%,
+    var(--brand-blue) 49%,
+    var(--brand-violet) 51%,
+    var(--brand-magenta) 54%,
+    var(--brand-cyan) 56%,
+    oklch(1 0 0) 60%,
     oklch(1 0 0) 100%
   );
-  background-size: 240% 100%;
-  background-position: 140% 50%;
-  background-repeat: repeat-x;
+  background-size: 300% 100%;
+  background-position: 100% 50%;
+  background-repeat: no-repeat;
   background-clip: text;
   -webkit-background-clip: text;
   animation: shimmer 4s linear infinite both;
