@@ -31,10 +31,10 @@ const Email = ({
 }: Props) => (
   <Html lang="fr">
     <Head />
-    <Preview>Nouvelle commande {orderNumber ?? ''} — {(totalEur ?? 0).toFixed(2)} €</Preview>
+    <Preview>Commande payée {orderNumber ?? ''} — {(totalEur ?? 0).toFixed(2)} €</Preview>
     <Body style={styles.main}>
       <BrandLayout>
-        <Text style={styles.h1}>Nouvelle commande à traiter</Text>
+        <Text style={styles.h1}>Commande payée à expédier</Text>
         <Text style={styles.text}>
           Référence :{' '}
           <strong style={{ color: brand.ink }}>{orderNumber ?? ''}</strong>
