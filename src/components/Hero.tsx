@@ -250,7 +250,7 @@ function MobileHero() {
 
 function VialShowcase() {
   return (
-    <div className="group relative mt-14 w-full max-w-[520px] sm:mt-16">
+    <div className="group relative mt-6 w-full max-w-[360px] sm:mt-8 lg:mt-4 lg:max-w-[300px]">
       {/* Outer soft halo — Peptinium brand linear sweep (matches CTA gradient) */}
       <div
         aria-hidden
