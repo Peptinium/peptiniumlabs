@@ -170,7 +170,7 @@ function PanierPage() {
         if (paymentMethod === "peptidepay") {
           const checkout = await startPeptidePayFn({ data: { orderId } });
           setPeptidePayUrl(checkout.url);
-          setStep("peptidepay_redirect");
+          navigateStep("peptidepay_redirect");
           return;
         }
         // crypto
@@ -178,11 +178,11 @@ function PanierPage() {
           data: { orderId, currency: cryptoCurrency },
         });
         setCryptoIntent(intent);
-        setStep("crypto_pay");
+        navigateStep("crypto_pay");
         return;
       }
 
-      setStep("virement");
+      navigateStep("virement");
     } catch (e: any) {
       setSubmitError(e?.message ?? "Erreur lors de l'enregistrement de la commande");
     } finally {
@@ -214,7 +214,7 @@ function PanierPage() {
             <LivraisonForm
               value={shipping}
               onChange={setShipping}
-              onSubmit={() => setStep("paiement")}
+              onSubmit={() => navigateStep("paiement")}
             />
             <Recap
               cart={cart}
@@ -245,7 +245,7 @@ function PanierPage() {
           <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr]">
             <PaiementBlock
               shipping={shipping}
-              onBack={() => setStep("livraison")}
+              onBack={() => navigateStep("livraison")}
               onConfirm={handleConfirmPaiement}
               submitting={submitting}
               error={submitError}
@@ -277,7 +277,7 @@ function PanierPage() {
             cart={cart}
             subtotal={subtotal}
             shippingFee={shippingFee}
-            onSignaled={() => setStep("confirmation")}
+            onSignaled={() => navigateStep("confirmation")}
           />
 
         ) : step === "peptidepay_redirect" ? (
@@ -299,7 +299,7 @@ function PanierPage() {
               subtotal={subtotal}
               shippingFee={shippingFee}
               total={total}
-              onConfirmed={() => setStep("confirmation")}
+              onConfirmed={() => navigateStep("confirmation")}
             />
           ) : null
         ) : (
