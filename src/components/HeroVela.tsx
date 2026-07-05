@@ -84,10 +84,10 @@ export function HeroVela() {
             className="pointer-events-none absolute inset-8 -z-10 rounded-full"
             style={{
               background:
-                "conic-gradient(from 180deg at 50% 50%, color-mix(in oklab, var(--brand-cyan) 30%, transparent) 0%, color-mix(in oklab, var(--brand-blue) 22%, transparent) 25%, color-mix(in oklab, var(--brand-violet) 14%, transparent) 55%, color-mix(in oklab, var(--brand-magenta) 24%, transparent) 78%, color-mix(in oklab, var(--brand-cyan) 30%, transparent) 100%)",
-              filter: "blur(70px)",
-              animation: "vial-glow 6s ease-in-out infinite",
+                "radial-gradient(closest-side, color-mix(in oklab, var(--brand-blue) 18%, transparent) 0%, transparent 75%)",
+              filter: "blur(60px)",
             }}
+
           />
 
           {/* Pen — behind, top-right, tilted */}
