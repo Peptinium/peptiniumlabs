@@ -92,12 +92,9 @@ function HomePage() {
 
   return (
     <SiteLayout>
-      <MobileHome featured={featured} rest={rest} />
-
-
-      <div className="desktop-experience">
       {/* ============ 1. IMMERSIVE HERO ============ */}
       <HeroVela />
+
 
       {/* ============ 2. BEST SELLERS — 4 cards + "Tout voir" pill ============ */}
       <section data-reveal-blur className="mx-auto max-w-[1400px] px-8 pt-24 sm:pt-32">
