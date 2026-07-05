@@ -477,6 +477,8 @@ function PaiementBlock({
   setCgvAcceptedAt,
   paymentMethod,
   setPaymentMethod,
+  cryptoCurrency,
+  setCryptoCurrency,
 }: {
   shipping: any;
   onBack: () => void;
@@ -489,6 +491,8 @@ function PaiementBlock({
   setCgvAcceptedAt: (v: string | null) => void;
   paymentMethod: PayMethod;
   setPaymentMethod: (v: PayMethod) => void;
+  cryptoCurrency: CryptoCurrency;
+  setCryptoCurrency: (v: CryptoCurrency) => void;
 }) {
   const acceptedResearch = !!researchAcceptedAt;
   const acceptedCgv = !!cgvAcceptedAt;
@@ -513,6 +517,23 @@ function PaiementBlock({
         <><strong className="text-foreground">Paiement instantané.</strong> Commande validée automatiquement après règlement.</>,
       ],
     },
+    {
+      id: "crypto",
+      title: "Crypto (Bitcoin, USDC, Litecoin)",
+      icon: (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"><path d="M11.767 19.089c4.924.868 6.14-6.025 1.216-6.894m-1.216 6.894L5.86 18.047m5.908 1.042-.347 1.97m1.563-8.864c4.924.869 6.14-6.025 1.215-6.893m-1.215 6.893L7.116 11.15m6.224-6.91-1.5 8.508m-3.776-.066-1.5 8.509m6.526-15.85L8.34 4.244m6.224 6.91L8.34 4.243m-.225 1.281L4 4.808"/></svg>
+      ),
+      lines: [
+        <>Paiement direct sur notre wallet, <strong className="text-foreground">sans intermédiaire</strong>.</>,
+        <>Validation automatique dès réception on-chain (1 à 10 min selon le réseau).</>,
+      ],
+    },
+  ];
+
+  const cryptoOptions: Array<{ id: CryptoCurrency; label: string; sub: string }> = [
+    { id: "BTC", label: "Bitcoin", sub: "BTC · réseau Bitcoin" },
+    { id: "USDC_POLYGON", label: "USDC", sub: "Polygon · stablecoin, frais très bas" },
+    { id: "LTC", label: "Litecoin", sub: "LTC · confirmation rapide" },
   ];
 
   return (
