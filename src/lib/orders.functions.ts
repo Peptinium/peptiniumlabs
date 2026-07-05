@@ -42,21 +42,25 @@ const placeOrderSchema = z.object({
   items: z.array(itemSchema).min(1).max(50),
   paymentMethod: z.enum(["bank", "card", "crypto", "peptidepay"]).default("bank"),
   promoCode: z.string().trim().max(40).optional().nullable(),
+  expectedTotal: z.number().nonnegative().optional(),
 });
 
 const SHIPPING_FEE_EUR = 6.0;
 const FREE_SHIPPING_THRESHOLD_EUR = 150;
 
 const normalizeDosage = (value: string) => value.toLowerCase().replace(/\s+/g, "").trim();
+const roundMoney = (value: number) => Math.round(value * 100) / 100;
 
-function findCatalogVariant(slug: string, dosage?: string, displayName?: string) {
+function findCatalogVariant(slug: string, dosage?: string, displayName?: string, unitPriceHint?: number) {
   const product = catalogProducts.find((p) => p.slug === slug);
   if (!product) return null;
   const normalizedDosage = dosage ? normalizeDosage(dosage) : "";
   const normalizedName = displayName ? normalizeDosage(displayName) : "";
+  const hintedUnit = Number(unitPriceHint);
   const variant =
     product.variants.find((v) => normalizedDosage && normalizeDosage(v.dosage) === normalizedDosage) ??
     product.variants.find((v) => normalizedName.includes(normalizeDosage(v.dosage))) ??
+    product.variants.find((v) => Number.isFinite(hintedUnit) && Math.abs(Number(v.price) - hintedUnit) < 0.01) ??
     (product.variants.length === 1 ? product.variants[0] : null);
   if (!variant) return null;
   return { product, variant };
@@ -90,7 +94,7 @@ export const placeOrder = createServerFn({ method: "POST" })
 
     const items = data.items.map((i) => {
       const p: any = bySlug.get(i.slug);
-      const catalog = findCatalogVariant(i.slug, i.dosage, i.name);
+      const catalog = findCatalogVariant(i.slug, i.dosage, i.name, i.unitPrice);
       if (!p || !p.active || !catalog) throw new Error(`Produit indisponible : ${i.slug}`);
 
       const variantRows = Array.isArray(p.product_variants) ? p.product_variants : [];
@@ -103,8 +107,8 @@ export const placeOrder = createServerFn({ method: "POST" })
       }
 
       const unit = Number(catalog.variant.price);
-      const line = unit * i.quantity;
-      subtotal += line;
+      const line = roundMoney(unit * i.quantity);
+      subtotal = roundMoney(subtotal + line);
       stockUpdates.push({
         slug: i.slug,
         productId: String(p.id),
@@ -138,12 +142,15 @@ export const placeOrder = createServerFn({ method: "POST" })
         .eq("active", true)
         .maybeSingle();
       if (promo) {
-        discount = Math.round(subtotal * Number(promo.rate) * 100) / 100;
+        discount = roundMoney(subtotal * Number(promo.rate));
         appliedPromoCode = promo.code;
       }
     }
 
-    const total = Math.max(0, subtotal - discount + shippingFee);
+    const total = roundMoney(Math.max(0, subtotal - discount + shippingFee));
+    if (data.expectedTotal !== undefined && Math.abs(roundMoney(data.expectedTotal) - total) > 0.01) {
+      throw new Error("Le montant du panier a changé. Actualisez le panier avant de payer.");
+    }
 
     const userId = await getOptionalUserId();
 
