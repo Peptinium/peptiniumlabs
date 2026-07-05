@@ -148,12 +148,16 @@ function HomePage() {
           <div className="mt-14 flex justify-center">
             <Link
               to="/produits"
-              className="group inline-flex items-center gap-3 rounded-full bg-foreground px-7 py-3.5 text-[14px] font-medium text-background transition-transform hover:scale-[1.02]"
+              className="group inline-flex items-center gap-3 rounded-full px-7 py-3.5 text-[14px] font-medium text-white shadow-[0_18px_44px_-18px_color-mix(in_oklab,var(--brand-violet)_70%,transparent)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-[0_24px_54px_-18px_color-mix(in_oklab,var(--brand-violet)_85%,transparent)]"
+              style={{
+                backgroundImage:
+                  "linear-gradient(120deg, oklch(0.70 0.18 210) 0%, oklch(0.58 0.28 290) 55%, oklch(0.68 0.27 345) 100%)",
+              }}
             >
               Voir plus de produits
               <span
                 aria-hidden
-                className="grid size-6 place-items-center rounded-full bg-background/15 transition-transform group-hover:translate-x-0.5"
+                className="grid size-6 place-items-center rounded-full bg-white/20 transition-transform group-hover:translate-x-0.5"
               >
                 →
               </span>
@@ -179,7 +183,11 @@ function HomePage() {
                 </p>
                 <Link
                   to="/produits"
-                  className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#0f1d3a] px-6 py-3 text-[14px] font-medium text-white transition-transform hover:scale-[1.02]"
+                  className="group mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 text-[14px] font-medium text-white shadow-[0_18px_44px_-18px_color-mix(in_oklab,var(--brand-violet)_70%,transparent)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(120deg, oklch(0.70 0.18 210) 0%, oklch(0.58 0.28 290) 55%, oklch(0.68 0.27 345) 100%)",
+                  }}
                 >
                   <span className="size-1.5 rounded-full bg-white/90" aria-hidden />
                   Découvrir
@@ -232,7 +240,7 @@ function HomePage() {
             <span className="inline-block rounded-full border border-white/20 bg-white/5 px-4 py-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.28em] text-white/90 backdrop-blur">
               À propos de Peptinium
             </span>
-            <h2 className="mt-8 max-w-4xl text-[44px] font-semibold leading-[1.0] tracking-[-0.035em] text-white sm:text-[80px] sm:leading-[0.96]">
+            <h2 className="mt-8 max-w-4xl shimmer-text-light text-[44px] font-semibold leading-[1.0] tracking-[-0.035em] sm:text-[80px] sm:leading-[0.96]">
               Plus que de la science.
             </h2>
             <div className="mt-10 h-px w-full bg-gradient-to-r from-white/30 via-white/10 to-transparent" />

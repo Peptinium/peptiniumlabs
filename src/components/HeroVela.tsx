@@ -42,7 +42,7 @@ export function HeroVela() {
             <br />
             européen
             <br />
-            <span className="brand-gradient-text">des peptides</span>
+            <span className="shimmer-text">des peptides</span>
           </h1>
 
           <p className="mt-7 max-w-md text-[16px] leading-[1.6] text-muted-foreground lg:text-[17px]">
