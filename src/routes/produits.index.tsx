@@ -1,9 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { ProductCard } from "@/components/ProductCard";
 import { Reveal } from "@/components/Reveal";
-import { formatPrice, minPrice, products } from "@/data/products";
+import { products } from "@/data/products";
 
 const SITE_URL = "https://peptinium.com";
 
