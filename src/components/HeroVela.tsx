@@ -11,7 +11,7 @@ import { useRevealBlur } from "@/hooks/useScrollBlur";
  * Kept Peptinium brand DA (cyan → violet → magenta) as accents only.
  */
 export function HeroVela() {
-  useScrollBlur();
+  useRevealBlur();
   return (
     <section className="relative overflow-hidden bg-background">
 
