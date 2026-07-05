@@ -54,7 +54,7 @@ function PanierPage() {
   const step = search.step;
   const navigateStep = (next: Step, opts?: { replace?: boolean }) =>
     navigate({ to: "/panier", search: { step: next }, replace: opts?.replace });
-  const [orderRef, setOrderRef] = useState<string>("");
+
   const [shipping, setShipping] = useState({
     email: "",
     firstName: "",
