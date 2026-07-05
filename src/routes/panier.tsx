@@ -146,6 +146,7 @@ function PanierPage() {
           })),
           paymentMethod,
           promoCode: promo?.code ?? null,
+          expectedTotal: total,
         },
       });
       setOrderRef(res.orderNumber);
