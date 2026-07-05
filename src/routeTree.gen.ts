@@ -43,6 +43,7 @@ import { Route as AuthenticatedMonCompteIndexRouteImport } from './routes/_authe
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as ApiPublicTrackRouteImport } from './routes/api/public/track'
 import { Route as ApiPublicPeptidepayWebhookRouteImport } from './routes/api/public/peptidepay-webhook'
+import { Route as ApiPublicCryptoWatcherRouteImport } from './routes/api/public/crypto-watcher'
 import { Route as AuthenticatedMonCompteProfilRouteImport } from './routes/_authenticated/mon-compte.profil'
 import { Route as AuthenticatedMonCompteContactRouteImport } from './routes/_authenticated/mon-compte.contact'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
@@ -223,6 +224,11 @@ const ApiPublicPeptidepayWebhookRoute =
     path: '/api/public/peptidepay-webhook',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicCryptoWatcherRoute = ApiPublicCryptoWatcherRouteImport.update({
+  id: '/api/public/crypto-watcher',
+  path: '/api/public/crypto-watcher',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedMonCompteProfilRoute =
   AuthenticatedMonCompteProfilRouteImport.update({
     id: '/profil',
@@ -301,6 +307,7 @@ export interface FileRoutesByFullPath {
   '/produits/': typeof ProduitsIndexRoute
   '/mon-compte/contact': typeof AuthenticatedMonCompteContactRoute
   '/mon-compte/profil': typeof AuthenticatedMonCompteProfilRoute
+  '/api/public/crypto-watcher': typeof ApiPublicCryptoWatcherRoute
   '/api/public/peptidepay-webhook': typeof ApiPublicPeptidepayWebhookRoute
   '/api/public/track': typeof ApiPublicTrackRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -342,6 +349,7 @@ export interface FileRoutesByTo {
   '/produits': typeof ProduitsIndexRoute
   '/mon-compte/contact': typeof AuthenticatedMonCompteContactRoute
   '/mon-compte/profil': typeof AuthenticatedMonCompteProfilRoute
+  '/api/public/crypto-watcher': typeof ApiPublicCryptoWatcherRoute
   '/api/public/peptidepay-webhook': typeof ApiPublicPeptidepayWebhookRoute
   '/api/public/track': typeof ApiPublicTrackRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -387,6 +395,7 @@ export interface FileRoutesById {
   '/produits/': typeof ProduitsIndexRoute
   '/_authenticated/mon-compte/contact': typeof AuthenticatedMonCompteContactRoute
   '/_authenticated/mon-compte/profil': typeof AuthenticatedMonCompteProfilRoute
+  '/api/public/crypto-watcher': typeof ApiPublicCryptoWatcherRoute
   '/api/public/peptidepay-webhook': typeof ApiPublicPeptidepayWebhookRoute
   '/api/public/track': typeof ApiPublicTrackRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -432,6 +441,7 @@ export interface FileRouteTypes {
     | '/produits/'
     | '/mon-compte/contact'
     | '/mon-compte/profil'
+    | '/api/public/crypto-watcher'
     | '/api/public/peptidepay-webhook'
     | '/api/public/track'
     | '/lovable/email/suppression'
@@ -473,6 +483,7 @@ export interface FileRouteTypes {
     | '/produits'
     | '/mon-compte/contact'
     | '/mon-compte/profil'
+    | '/api/public/crypto-watcher'
     | '/api/public/peptidepay-webhook'
     | '/api/public/track'
     | '/lovable/email/suppression'
@@ -517,6 +528,7 @@ export interface FileRouteTypes {
     | '/produits/'
     | '/_authenticated/mon-compte/contact'
     | '/_authenticated/mon-compte/profil'
+    | '/api/public/crypto-watcher'
     | '/api/public/peptidepay-webhook'
     | '/api/public/track'
     | '/lovable/email/suppression'
@@ -552,6 +564,7 @@ export interface RootRouteChildren {
   ProduitsSlugRoute: typeof ProduitsSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
   ProduitsIndexRoute: typeof ProduitsIndexRoute
+  ApiPublicCryptoWatcherRoute: typeof ApiPublicCryptoWatcherRoute
   ApiPublicPeptidepayWebhookRoute: typeof ApiPublicPeptidepayWebhookRoute
   ApiPublicTrackRoute: typeof ApiPublicTrackRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
@@ -803,6 +816,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicPeptidepayWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/crypto-watcher': {
+      id: '/api/public/crypto-watcher'
+      path: '/api/public/crypto-watcher'
+      fullPath: '/api/public/crypto-watcher'
+      preLoaderRoute: typeof ApiPublicCryptoWatcherRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/mon-compte/profil': {
       id: '/_authenticated/mon-compte/profil'
       path: '/profil'
@@ -944,6 +964,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProduitsSlugRoute: ProduitsSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
   ProduitsIndexRoute: ProduitsIndexRoute,
+  ApiPublicCryptoWatcherRoute: ApiPublicCryptoWatcherRoute,
   ApiPublicPeptidepayWebhookRoute: ApiPublicPeptidepayWebhookRoute,
   ApiPublicTrackRoute: ApiPublicTrackRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,

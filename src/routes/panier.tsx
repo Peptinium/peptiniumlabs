@@ -14,8 +14,13 @@ import {
 import { formatPrice } from "@/data/products";
 import { placeOrder, validatePromoCode } from "@/lib/orders.functions";
 import { createPeptidePayCheckout } from "@/lib/peptidepay.functions";
+import { createCryptoPayment, getCryptoPaymentStatus } from "@/lib/crypto-payments.functions";
 import { getMyProfile } from "@/lib/account.functions";
 import { supabase } from "@/integrations/supabase/client";
+import { QRCodeSVG } from "qrcode.react";
+
+type CryptoCurrency = "BTC" | "USDC_POLYGON" | "LTC";
+type CryptoPaymentIntent = Awaited<ReturnType<typeof createCryptoPayment>>;
 
 export const Route = createFileRoute("/panier")({
   head: () => ({
@@ -28,15 +33,17 @@ export const Route = createFileRoute("/panier")({
   component: PanierPage,
 });
 
-type Step = "livraison" | "paiement" | "virement" | "confirmation" | "peptidepay_redirect";
+type Step = "livraison" | "paiement" | "virement" | "confirmation" | "peptidepay_redirect" | "crypto_pay";
 type PayMethod = "bank" | "card" | "crypto" | "peptidepay";
 
 type AppliedPromo = { code: string; rate: number };
+
 
 function PanierPage() {
   const cart = useCart();
   const submitOrderFn = useServerFn(placeOrder);
   const startPeptidePayFn = useServerFn(createPeptidePayCheckout);
+  const startCryptoPaymentFn = useServerFn(createCryptoPayment);
   const [step, setStep] = useState<Step>("livraison");
   const [shipping, setShipping] = useState({
     email: "",
@@ -59,6 +66,8 @@ function PanierPage() {
   const [researchAcceptedAt, setResearchAcceptedAt] = useState<string | null>(null);
   const [cgvAcceptedAt, setCgvAcceptedAt] = useState<string | null>(null);
   const fetchProfile = useServerFn(getMyProfile);
+  const [cryptoCurrency, setCryptoCurrency] = useState<CryptoCurrency>("BTC");
+  const [cryptoIntent, setCryptoIntent] = useState<CryptoPaymentIntent | null>(null);
 
   // Prefill shipping from profile when user is authenticated
   useEffect(() => {
@@ -140,8 +149,8 @@ function PanierPage() {
       });
       setOrderRef(res.orderNumber);
 
-      if (paymentMethod === "peptidepay") {
-        // Need order ID, not order number. Retrieve it from the DB using order_number.
+      if (paymentMethod === "peptidepay" || paymentMethod === "crypto") {
+        // Need order ID, not order number.
         const { supabase } = await import("@/integrations/supabase/client");
         const { data: orderRow } = await supabase
           .from("orders")
@@ -149,11 +158,20 @@ function PanierPage() {
           .eq("order_number", res.orderNumber)
           .maybeSingle();
         if (!orderRow?.id) {
-          throw new Error("Commande créée mais introuvable pour redirection PeptidePay.");
+          throw new Error("Commande créée mais introuvable.");
         }
-        const checkout = await startPeptidePayFn({ data: { orderId: orderRow.id } });
-        setPeptidePayUrl(checkout.url);
-        setStep("peptidepay_redirect");
+        if (paymentMethod === "peptidepay") {
+          const checkout = await startPeptidePayFn({ data: { orderId: orderRow.id } });
+          setPeptidePayUrl(checkout.url);
+          setStep("peptidepay_redirect");
+          return;
+        }
+        // crypto
+        const intent = await startCryptoPaymentFn({
+          data: { orderId: orderRow.id, currency: cryptoCurrency },
+        });
+        setCryptoIntent(intent);
+        setStep("crypto_pay");
         return;
       }
 
@@ -230,6 +248,8 @@ function PanierPage() {
               setCgvAcceptedAt={setCgvAcceptedAt}
               paymentMethod={paymentMethod}
               setPaymentMethod={setPaymentMethod}
+              cryptoCurrency={cryptoCurrency}
+              setCryptoCurrency={setCryptoCurrency}
             />
 
             <Recap
@@ -263,6 +283,18 @@ function PanierPage() {
             shippingFee={shippingFee}
           />
 
+        ) : step === "crypto_pay" ? (
+          cryptoIntent ? (
+            <CryptoPaymentBlock
+              intent={cryptoIntent}
+              orderRef={orderRef}
+              cart={cart}
+              subtotal={subtotal}
+              shippingFee={shippingFee}
+              total={total}
+              onConfirmed={() => setStep("confirmation")}
+            />
+          ) : null
         ) : (
           <ConfirmationBlock
             total={total}
@@ -457,6 +489,8 @@ function PaiementBlock({
   setCgvAcceptedAt,
   paymentMethod,
   setPaymentMethod,
+  cryptoCurrency,
+  setCryptoCurrency,
 }: {
   shipping: any;
   onBack: () => void;
@@ -469,6 +503,8 @@ function PaiementBlock({
   setCgvAcceptedAt: (v: string | null) => void;
   paymentMethod: PayMethod;
   setPaymentMethod: (v: PayMethod) => void;
+  cryptoCurrency: CryptoCurrency;
+  setCryptoCurrency: (v: CryptoCurrency) => void;
 }) {
   const acceptedResearch = !!researchAcceptedAt;
   const acceptedCgv = !!cgvAcceptedAt;
@@ -493,6 +529,23 @@ function PaiementBlock({
         <><strong className="text-foreground">Paiement instantané.</strong> Commande validée automatiquement après règlement.</>,
       ],
     },
+    {
+      id: "crypto",
+      title: "Crypto (Bitcoin, USDC, Litecoin)",
+      icon: (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"><path d="M11.767 19.089c4.924.868 6.14-6.025 1.216-6.894m-1.216 6.894L5.86 18.047m5.908 1.042-.347 1.97m1.563-8.864c4.924.869 6.14-6.025 1.215-6.893m-1.215 6.893L7.116 11.15m6.224-6.91-1.5 8.508m-3.776-.066-1.5 8.509m6.526-15.85L8.34 4.244m6.224 6.91L8.34 4.243m-.225 1.281L4 4.808"/></svg>
+      ),
+      lines: [
+        <>Paiement direct sur notre wallet, <strong className="text-foreground">sans intermédiaire</strong>.</>,
+        <>Validation automatique dès réception on-chain (1 à 10 min selon le réseau).</>,
+      ],
+    },
+  ];
+
+  const cryptoOptions: Array<{ id: CryptoCurrency; label: string; sub: string }> = [
+    { id: "BTC", label: "Bitcoin", sub: "BTC · réseau Bitcoin" },
+    { id: "USDC_POLYGON", label: "USDC", sub: "Polygon · stablecoin, frais très bas" },
+    { id: "LTC", label: "Litecoin", sub: "LTC · confirmation rapide" },
   ];
 
   return (
@@ -539,6 +592,34 @@ function PaiementBlock({
                     <div key={i}>{l}</div>
                   ))}
                 </div>
+                {active && m.id === "crypto" && (
+                  <div className="mt-4 space-y-2 pl-8">
+                    <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">
+                      Choisir la crypto
+                    </div>
+                    <div className="grid gap-2 sm:grid-cols-3">
+                      {cryptoOptions.map((c) => {
+                        const on = cryptoCurrency === c.id;
+                        return (
+                          <button
+                            key={c.id}
+                            type="button"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setCryptoCurrency(c.id);
+                            }}
+                            className={`rounded-xl border p-3 text-left transition-colors ${
+                              on ? "border-accent bg-accent/10" : "border-border bg-background hover:border-accent/50"
+                            }`}
+                          >
+                            <div className="font-display text-sm font-semibold text-foreground">{c.label}</div>
+                            <div className="mt-0.5 text-[11px] text-muted-foreground">{c.sub}</div>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
                 <input
                   type="radio"
                   name="method"
@@ -1280,6 +1361,152 @@ function ConfirmationBlock({
           Retour à l'accueil →
         </Link>
       </div>
+    </div>
+  );
+}
+
+// ─────────────────────────── CRYPTO DIRECT PAYMENT ───────────────────────────
+function CryptoPaymentBlock({
+  intent,
+  orderRef,
+  cart,
+  subtotal,
+  shippingFee,
+  total,
+  onConfirmed,
+}: {
+  intent: CryptoPaymentIntent;
+  orderRef: string;
+  cart: ReturnType<typeof useCart>;
+  subtotal: number;
+  shippingFee: number;
+  total: number;
+  onConfirmed: () => void;
+}) {
+  const pollStatus = useServerFn(getCryptoPaymentStatus);
+  const [current, setCurrent] = useState(intent);
+  const [now, setNow] = useState(() => Date.now());
+
+  // Poll every 8s while the payment is not final.
+  useEffect(() => {
+    let cancelled = false;
+    const done = current.status === "confirmed" || current.status === "expired" || current.status === "failed";
+    if (done) return;
+    const id = window.setInterval(async () => {
+      try {
+        const res = await pollStatus({ data: { orderId: current.orderId } });
+        if (cancelled || !res) return;
+        setCurrent(res);
+        if (res.status === "confirmed") {
+          window.setTimeout(onConfirmed, 2500);
+        }
+      } catch {
+        /* ignore */
+      }
+    }, 8000);
+    return () => {
+      cancelled = true;
+      window.clearInterval(id);
+    };
+  }, [current.status, current.orderId, pollStatus, onConfirmed]);
+
+  // Countdown tick.
+  useEffect(() => {
+    const id = window.setInterval(() => setNow(Date.now()), 1000);
+    return () => window.clearInterval(id);
+  }, []);
+
+  const expiresMs = new Date(current.expiresAt).getTime();
+  const remaining = Math.max(0, Math.floor((expiresMs - now) / 1000));
+  const mm = String(Math.floor(remaining / 60)).padStart(2, "0");
+  const ss = String(remaining % 60).padStart(2, "0");
+
+  const statusPill = (() => {
+    switch (current.status) {
+      case "pending":
+        return { text: "En attente du paiement", cls: "border-border bg-surface text-muted-foreground", dot: "bg-muted-foreground animate-pulse" };
+      case "detected":
+        return { text: "Transaction détectée, confirmation en cours…", cls: "border-accent/40 bg-accent/10 text-foreground", dot: "bg-accent animate-pulse" };
+      case "confirmed":
+        return { text: "Paiement confirmé ✓", cls: "border-success/50 bg-success/10 text-success", dot: "bg-success" };
+      case "expired":
+        return { text: "Délai expiré — recommencez la commande", cls: "border-destructive/50 bg-destructive/10 text-destructive", dot: "bg-destructive" };
+      case "failed":
+        return { text: "Erreur de paiement", cls: "border-destructive/50 bg-destructive/10 text-destructive", dot: "bg-destructive" };
+    }
+  })();
+
+  return (
+    <div className="mx-auto max-w-xl">
+      <div className="text-center">
+        <div className="mx-auto grid size-14 place-items-center rounded-full border border-border bg-card text-accent">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
+            <path d="M11.767 19.089c4.924.868 6.14-6.025 1.216-6.894m-1.216 6.894L5.86 18.047m5.908 1.042-.347 1.97m1.563-8.864c4.924.869 6.14-6.025 1.215-6.893m-1.215 6.893L7.116 11.15m6.224-6.91-1.5 8.508m-3.776-.066-1.5 8.509m6.526-15.85L8.34 4.244m6.224 6.91L8.34 4.243m-.225 1.281L4 4.808" />
+          </svg>
+        </div>
+        <h1 className="mt-4 font-display text-3xl font-medium">Paiement {current.label}</h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Envoyez le <strong className="text-foreground">montant exact</strong> à l'adresse ci-dessous depuis votre wallet.
+        </p>
+      </div>
+
+      <div className={`mt-6 flex items-center justify-center gap-2 rounded-full border px-4 py-2 text-xs font-medium ${statusPill.cls}`}>
+        <span className={`inline-block size-2 rounded-full ${statusPill.dot}`} />
+        {statusPill.text}
+      </div>
+
+      {current.status !== "expired" && current.status !== "confirmed" && (
+        <div className="mt-3 text-center font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+          Taux garanti pendant {mm}:{ss}
+        </div>
+      )}
+
+      <div className="mt-6 overflow-hidden rounded-2xl border border-border bg-card">
+        <div className="flex justify-center border-b border-border bg-white p-6">
+          <QRCodeSVG value={current.paymentUri} size={200} level="M" includeMargin={false} />
+        </div>
+        <CopyRow
+          label={`Montant exact à envoyer (${current.unit})`}
+          value={current.amountCryptoFormatted}
+          mono
+          highlight
+        />
+        <CopyRow label={`Adresse ${current.network}`} value={current.walletAddress} mono />
+        <div className="grid grid-cols-2 gap-4 border-b border-border p-5 text-sm">
+          <div>
+            <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">Équivalent EUR</div>
+            <div className="mt-1 font-display text-base font-semibold">
+              {formatPrice(current.amountEur).replace(" €", " EUR")}
+            </div>
+          </div>
+          <div>
+            <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">Réseau</div>
+            <div className="mt-1 font-display text-base font-medium">{current.network}</div>
+          </div>
+        </div>
+        <div className="space-y-2 bg-surface p-5 text-xs text-muted-foreground">
+          <p>
+            <strong className="text-foreground">Envoyez uniquement {current.unit}</strong> sur le réseau <strong className="text-foreground">{current.network}</strong>.
+            Un envoi sur un autre réseau serait perdu.
+          </p>
+          <p>
+            Le montant doit correspondre <strong className="text-foreground">exactement</strong> (à 0,5% près). Les derniers chiffres identifient votre commande.
+          </p>
+          <p>
+            La commande est validée automatiquement après confirmation on-chain (généralement 1 à 10 min).
+          </p>
+        </div>
+      </div>
+
+      {current.status === "expired" && (
+        <div className="mt-6 text-center">
+          <Link to="/panier" className="inline-block rounded-xl border border-border bg-card px-6 py-3 text-sm font-semibold text-foreground hover:border-accent">
+            Recommencer la commande
+          </Link>
+        </div>
+      )}
+
+      <OrderSummary orderRef={orderRef} cart={cart} subtotal={subtotal} shippingFee={shippingFee} total={total} />
     </div>
   );
 }
