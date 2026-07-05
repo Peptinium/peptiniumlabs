@@ -15,20 +15,16 @@ export function HeroVela() {
   return (
     <section className="relative overflow-hidden bg-background">
 
-      {/* Ambient brand glow */}
+      {/* Ambient brand glow — subtil, crédibilité médicale */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(60% 50% at 80% 30%, color-mix(in oklab, var(--brand-violet) 10%, transparent) 0%, transparent 65%), radial-gradient(45% 45% at 15% 80%, color-mix(in oklab, var(--brand-cyan) 8%, transparent) 0%, transparent 70%)",
+            "radial-gradient(55% 45% at 82% 25%, color-mix(in oklab, var(--brand-blue) 5%, transparent) 0%, transparent 70%)",
         }}
       />
-      {/* Beam sweep */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-px left-0 h-px w-1/2 bg-gradient-to-r from-transparent via-[oklch(0.62_0.26_296)] to-transparent [animation:beam-sweep_7s_ease-in-out_infinite]"
-      />
+
 
       <div className="container-prose relative grid gap-10 px-5 pt-16 pb-20 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-6 lg:pt-28 lg:pb-32">
         {/* LEFT — copy */}
@@ -37,13 +33,14 @@ export function HeroVela() {
             La plus haute qualité
           </span>
 
-          <h1 className="mt-6 pb-2 text-[54px] font-semibold leading-[1.05] tracking-[-0.03em] text-transparent sm:text-[76px] lg:text-[104px] lg:leading-[1.02] shimmer-gradient">
+          <h1 className="mt-6 pb-2 text-[54px] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground sm:text-[76px] lg:text-[104px] lg:leading-[1.02]">
             Le leader
             <br />
             européen
             <br />
             des peptides
           </h1>
+
 
           <p className="mt-7 max-w-md text-[16px] leading-[1.6] text-muted-foreground lg:text-[17px]">
             Découvrez notre gamme de peptides rigoureusement testés, fabriqués
@@ -54,18 +51,15 @@ export function HeroVela() {
           <div className="mt-9 flex flex-wrap items-center gap-3">
             <Link
               to="/produits"
-              className="group inline-flex items-center gap-3 rounded-full px-7 py-4 font-sans text-[14px] font-medium text-white shadow-[0_18px_44px_-18px_color-mix(in_oklab,var(--brand-violet)_70%,transparent)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-[0_24px_54px_-18px_color-mix(in_oklab,var(--brand-violet)_85%,transparent)]"
-              style={{
-                backgroundImage:
-                  "linear-gradient(120deg, oklch(0.70 0.18 210) 0%, oklch(0.58 0.28 290) 55%, oklch(0.68 0.27 345) 100%)",
-              }}
+              className="group inline-flex items-center gap-3 rounded-full bg-foreground px-7 py-4 font-sans text-[14px] font-medium text-background shadow-[0_18px_44px_-18px_color-mix(in_oklab,var(--foreground)_60%,transparent)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:bg-foreground/90"
             >
               Catalogue
               <span
                 aria-hidden
-                className="grid size-7 place-items-center rounded-full bg-white/20 transition-transform duration-500 group-hover:translate-x-0.5"
+                className="grid size-7 place-items-center rounded-full bg-background/15 transition-transform duration-500 group-hover:translate-x-0.5"
               >
                 <ArrowRight className="size-3.5" strokeWidth={2.2} />
+
               </span>
             </Link>
 
@@ -90,10 +84,10 @@ export function HeroVela() {
             className="pointer-events-none absolute inset-8 -z-10 rounded-full"
             style={{
               background:
-                "conic-gradient(from 180deg at 50% 50%, color-mix(in oklab, var(--brand-cyan) 30%, transparent) 0%, color-mix(in oklab, var(--brand-blue) 22%, transparent) 25%, color-mix(in oklab, var(--brand-violet) 14%, transparent) 55%, color-mix(in oklab, var(--brand-magenta) 24%, transparent) 78%, color-mix(in oklab, var(--brand-cyan) 30%, transparent) 100%)",
-              filter: "blur(70px)",
-              animation: "vial-glow 6s ease-in-out infinite",
+                "radial-gradient(closest-side, color-mix(in oklab, var(--brand-blue) 18%, transparent) 0%, transparent 75%)",
+              filter: "blur(60px)",
             }}
+
           />
 
           {/* Pen — behind, top-right, tilted */}
