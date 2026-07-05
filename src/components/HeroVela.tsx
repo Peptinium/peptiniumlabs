@@ -99,7 +99,7 @@ export function HeroVela() {
             alt=""
             aria-hidden
             draggable={false}
-            className="absolute right-2 top-4 h-[78%] w-auto rotate-[24deg] object-contain drop-shadow-[0_24px_32px_color-mix(in_oklab,var(--brand-blue)_18%,transparent)] [animation:float-slow_9s_ease-in-out_infinite] lg:right-6 lg:top-2"
+            className="absolute right-2 top-4 h-[78%] w-auto rotate-[24deg] object-contain drop-shadow-[0_24px_32px_color-mix(in_oklab,var(--brand-blue)_18%,transparent)] [animation:float_9s_ease-in-out_infinite] lg:right-6 lg:top-2"
           />
 
           {/* Vial — main, centered */}

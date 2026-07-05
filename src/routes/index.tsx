@@ -3,7 +3,7 @@ import { SiteLayout } from "@/components/SiteLayout";
 import { ProductCard, ProductVisual } from "@/components/ProductCard";
 import { RuoBadge } from "@/components/RuoBadge";
 import { Reveal } from "@/components/Reveal";
-import { Hero } from "@/components/Hero";
+import { HeroVela } from "@/components/HeroVela";
 import { products, formatPrice } from "@/data/products";
 import { ShieldCheck, Fingerprint, LifeBuoy } from "lucide-react";
 import labBg from "@/assets/lab-bg-ruo.jpg";
@@ -89,8 +89,8 @@ function HomePage() {
       <MobileHome featured={featured} rest={rest} />
 
       <div className="desktop-experience">
-      {/* ============ IMMERSIVE HERO ============ */}
-      <Hero />
+      {/* ============ IMMERSIVE HERO — Vela-inspired editorial ============ */}
+      <HeroVela />
 
       {/* ============ QUIET TRUST ROW ============ */}
       <section className="border-b border-border/60">
@@ -310,7 +310,7 @@ function MobileHome({ featured, rest }: { featured: typeof products[number]; res
 
   return (
     <div className="mobile-experience">
-      <Hero />
+      <HeroVela />
 
 
       <section className="px-5 py-12">
