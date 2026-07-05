@@ -114,8 +114,6 @@ export function HeroVela() {
         </div>
       </div>
 
-      {/* Lab tests strip */}
-      <LabTestsStrip />
     </section>
   );
 }
