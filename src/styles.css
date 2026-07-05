@@ -355,6 +355,7 @@
 
 @utility shimmer-text-light {
   position: relative;
+  display: inline-block;
   color: oklch(1 0 0);
   -webkit-text-fill-color: currentColor;
   background: none;
