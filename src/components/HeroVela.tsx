@@ -15,20 +15,16 @@ export function HeroVela() {
   return (
     <section className="relative overflow-hidden bg-background">
 
-      {/* Ambient brand glow */}
+      {/* Ambient brand glow — subtil, crédibilité médicale */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(60% 50% at 80% 30%, color-mix(in oklab, var(--brand-violet) 10%, transparent) 0%, transparent 65%), radial-gradient(45% 45% at 15% 80%, color-mix(in oklab, var(--brand-cyan) 8%, transparent) 0%, transparent 70%)",
+            "radial-gradient(55% 45% at 82% 25%, color-mix(in oklab, var(--brand-blue) 5%, transparent) 0%, transparent 70%)",
         }}
       />
-      {/* Beam sweep */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-px left-0 h-px w-1/2 bg-gradient-to-r from-transparent via-[oklch(0.62_0.26_296)] to-transparent [animation:beam-sweep_7s_ease-in-out_infinite]"
-      />
+
 
       <div className="container-prose relative grid gap-10 px-5 pt-16 pb-20 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-6 lg:pt-28 lg:pb-32">
         {/* LEFT — copy */}
