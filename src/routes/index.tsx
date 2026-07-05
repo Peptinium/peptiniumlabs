@@ -149,14 +149,15 @@ function HomePage() {
                   aria-hidden
                 />
                 <div className="space-y-3">
-                  <h3 className="font-display text-2xl font-normal tracking-tight text-foreground">{p.t}</h3>
-                  <p className="text-[15px] leading-relaxed text-muted-foreground">{p.d}</p>
+                  <h3 className="text-[26px] font-semibold leading-[1.1] tracking-[-0.02em] text-foreground">{p.t}</h3>
+                  <p className="text-[15px] leading-[1.65] text-muted-foreground">{p.d}</p>
                 </div>
               </div>
             </Reveal>
           ))}
         </div>
       </section>
+
 
       {/* ============ CATALOG — AIRY ============ */}
       <section data-reveal-blur className="mx-auto max-w-7xl px-8 pb-32 sm:pb-40">
