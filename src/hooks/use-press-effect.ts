@@ -7,17 +7,25 @@ function isPressable(el: HTMLElement): boolean {
   if (el.tagName === "BUTTON") return true;
   // Explicit button roles
   if (el.getAttribute("role") === "button") return true;
-  // Link-based CTAs that look like buttons (inline-flex + rounded + padding)
+  // Link-based CTAs that look like buttons (inline-flex + rounded)
   if (el.tagName === "A") {
     const cls = el.className;
     if (typeof cls === "string") {
       const hasInlineFlex = /\binline-flex\b/.test(cls);
       const hasRounded = /\brounded(-\w+)?\b/.test(cls);
-      const hasPadding = /\b(p[xt]?-[\w.]+|p-[\w.]+)\b/.test(cls);
-      if (hasInlineFlex && hasRounded && hasPadding) return true;
+      if (hasInlineFlex && hasRounded) return true;
     }
   }
   return false;
+}
+
+function findPressable(el: HTMLElement): HTMLElement | null {
+  let current: HTMLElement | null = el;
+  while (current) {
+    if (isPressable(current)) return current;
+    current = current.parentElement;
+  }
+  return null;
 }
 
 function clearPress(el: HTMLElement) {
@@ -25,6 +33,7 @@ function clearPress(el: HTMLElement) {
     el.classList.remove(PRESS_CLASS);
   }
 }
+
 
 export function usePressEffect() {
   useEffect(() => {
