@@ -230,10 +230,11 @@ function HomePage() {
         />
         <div className="relative mx-auto max-w-[1400px] px-8 py-24 sm:py-32">
           <Reveal>
-            <div className="flex flex-col gap-8">
-              <span className="inline-block self-start rounded-full border border-black/15 bg-black/5 px-4 py-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.28em] text-black/80 backdrop-blur">
-                À propos de Peptinium
+            <div className="flex flex-col gap-6">
+              <span className="block text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
+                — À propos de Peptinium
               </span>
+
               <h2 className="max-w-4xl shimmer-text text-[44px] font-semibold leading-[1.05] tracking-[-0.035em] sm:text-[80px] sm:leading-[1.0]" data-shimmer="Plus que de la science.">
                 Plus que de la science.
               </h2>
