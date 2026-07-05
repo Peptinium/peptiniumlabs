@@ -38,10 +38,16 @@ type PayMethod = "bank" | "card" | "crypto" | "peptidepay";
 
 type AppliedPromo = { code: string; rate: number };
 
+type Step = "livraison" | "paiement" | "virement" | "confirmation" | "peptidepay_redirect" | "crypto_pay";
+type PayMethod = "bank" | "card" | "crypto" | "peptidepay";
+
+type AppliedPromo = { code: string; rate: number };
+
 function PanierPage() {
   const cart = useCart();
   const submitOrderFn = useServerFn(placeOrder);
   const startPeptidePayFn = useServerFn(createPeptidePayCheckout);
+  const startCryptoPaymentFn = useServerFn(createCryptoPayment);
   const [step, setStep] = useState<Step>("livraison");
   const [shipping, setShipping] = useState({
     email: "",
