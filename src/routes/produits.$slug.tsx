@@ -259,7 +259,7 @@ function ProductPage() {
           <Reveal delay={100}>
             <div>
               <RuoBadge />
-              <div className="mt-5 brand-gradient-text font-mono text-[10px] font-semibold uppercase tracking-[0.28em]">
+              <div className="mt-5 text-muted-foreground font-mono text-[10px] font-semibold uppercase tracking-[0.28em]">
                 {product.category}
               </div>
               <h1 className="mt-3 text-[44px] font-semibold leading-[0.98] tracking-[-0.03em] text-foreground sm:text-[60px]">

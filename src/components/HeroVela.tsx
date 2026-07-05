@@ -3,7 +3,6 @@ import { ArrowRight } from "lucide-react";
 import vialAsset from "@/assets/vial/RT_AVANT_TRANSPARENT.png.asset.json";
 import penAsset from "@/assets/hero/peptinium-pen.png.asset.json";
 import pillAsset from "@/assets/hero/peptinium-pill.png.asset.json";
-import avatarsAsset from "@/assets/hero/lab-avatars.webp.asset.json";
 import { useRevealBlur } from "@/hooks/useScrollBlur";
 
 /**
@@ -34,7 +33,7 @@ export function HeroVela() {
       <div className="container-prose relative grid gap-10 px-5 pt-16 pb-20 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-6 lg:pt-28 lg:pb-32">
         {/* LEFT — copy */}
         <div className="relative z-10 flex flex-col text-left">
-          <span className="brand-gradient-text font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
+          <span className="text-muted-foreground font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
             La plus haute qualité
           </span>
 
@@ -142,17 +141,6 @@ function LabTestsStrip() {
   return (
     <div className="relative border-t border-border/60 bg-surface/40 backdrop-blur-sm">
       <div className="container-prose flex flex-wrap items-center gap-x-12 gap-y-7 px-5 py-8">
-        <div className="flex items-center gap-4">
-          <img
-            src={avatarsAsset.url}
-            alt="Scientifiques et médecins experts"
-            className="h-11 w-auto shrink-0 select-none"
-            draggable={false}
-          />
-          <span className="font-sans text-[15px] font-medium text-foreground">
-            Tests de laboratoire avancés
-          </span>
-        </div>
 
         <div className="flex flex-1 flex-wrap items-center gap-x-10 gap-y-5">
           {tests.map(({ k, v, Icon }) => (
