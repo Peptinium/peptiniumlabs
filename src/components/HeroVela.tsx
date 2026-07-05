@@ -101,12 +101,12 @@ export function HeroVela() {
             }}
           />
 
-          <div className="group relative z-10 h-full w-auto cursor-pointer [animation:float_6s_ease-in-out_infinite] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform hover:scale-110 [transform:translateZ(0)]">
+          <div className="group relative z-10 h-full w-auto cursor-pointer [animation:float_6s_ease-in-out_infinite] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] [will-change:transform] [backface-visibility:hidden] hover:scale-110">
             <img
               src={vialAsset}
               alt="Flacon Peptinium — peptide de recherche pureté ≥ 99 %"
               draggable={false}
-              className="relative h-full w-auto object-contain drop-shadow-[0_36px_50px_color-mix(in_oklab,var(--brand-violet)_35%,transparent)] [transform:translateZ(0)] backface-hidden"
+              className="relative h-full w-auto object-contain drop-shadow-[0_36px_50px_color-mix(in_oklab,var(--brand-violet)_35%,transparent)] [transform:translateZ(0)] [backface-visibility:hidden]"
             />
             {/* Reflet de verre — balayage lumineux qui traverse le flacon */}
             <span
