@@ -183,7 +183,11 @@ function HomePage() {
                 </p>
                 <Link
                   to="/produits"
-                  className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#0f1d3a] px-6 py-3 text-[14px] font-medium text-white transition-transform hover:scale-[1.02]"
+                  className="group mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 text-[14px] font-medium text-white shadow-[0_18px_44px_-18px_color-mix(in_oklab,var(--brand-violet)_70%,transparent)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(120deg, oklch(0.70 0.18 210) 0%, oklch(0.58 0.28 290) 55%, oklch(0.68 0.27 345) 100%)",
+                  }}
                 >
                   <span className="size-1.5 rounded-full bg-white/90" aria-hidden />
                   Découvrir
