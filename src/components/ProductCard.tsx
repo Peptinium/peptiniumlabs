@@ -38,6 +38,8 @@ export function ProductCard({ product }: { product: Product }) {
   const hasMultiple = product.variants.length > 1;
   const price = minPrice(product);
   const allSoldOut = product.variants.every((v) => v.soldOut);
+  const anyLowStock = !allSoldOut && product.variants.some((v) => v.lowStock);
+
 
   return (
     <Link
