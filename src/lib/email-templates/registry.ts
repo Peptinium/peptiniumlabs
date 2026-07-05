@@ -8,6 +8,7 @@ import { template as orderPending } from './order-pending'
 import { template as adminNewOrder } from './admin-new-order'
 import { template as orderPaid } from './order-paid'
 import { template as adminNewTicket } from './admin-new-ticket'
+import { template as paymentReminder } from './payment-reminder'
 
 export interface TemplateEntry {
   component: ComponentType<any>
