@@ -66,6 +66,8 @@ function PanierPage() {
   const [researchAcceptedAt, setResearchAcceptedAt] = useState<string | null>(null);
   const [cgvAcceptedAt, setCgvAcceptedAt] = useState<string | null>(null);
   const fetchProfile = useServerFn(getMyProfile);
+  const [cryptoCurrency, setCryptoCurrency] = useState<CryptoCurrency>("BTC");
+  const [cryptoIntent, setCryptoIntent] = useState<CryptoPaymentIntent | null>(null);
 
   // Prefill shipping from profile when user is authenticated
   useEffect(() => {
