@@ -212,6 +212,9 @@ export const reconcilePeptidePayOrder = createServerFn({ method: "POST" })
     }
 
     return { ok: true, alreadyPaid: false, ppStatus: "paid" as const, reconciled: true };
+  });
+
+
 
 
 // ─────────── Lien de paiement CB (différé) ───────────
