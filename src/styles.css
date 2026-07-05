@@ -381,6 +381,8 @@
   backface-visibility: hidden;
   transform: translateZ(0);
   will-change: background-position;
+}
+
 
 @utility glass-card {
   background: color-mix(in oklab, var(--card) 92%, transparent);
