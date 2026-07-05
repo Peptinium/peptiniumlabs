@@ -1,4 +1,4 @@
-export type Variant = { dosage: string; price: number; soldOut?: boolean };
+export type Variant = { dosage: string; price: number; soldOut?: boolean; lowStock?: boolean };
 
 export type Product = {
   slug: string;
