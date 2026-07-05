@@ -262,7 +262,21 @@
 }
 
 @utility font-display { font-family: var(--font-display); }
+@utility font-serif { font-family: var(--font-serif); font-feature-settings: "ss01", "ss02"; }
 @utility font-mono { font-family: var(--font-mono); }
+
+/* Scroll-driven blur for hero on scroll (Vela-style). Progressive enhancement: only in browsers that support scroll-timeline. */
+@supports (animation-timeline: scroll()) {
+  .scroll-blur {
+    animation: hero-scroll-blur linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 480px;
+  }
+}
+@keyframes hero-scroll-blur {
+  0%   { filter: blur(0px);   opacity: 1; transform: translateY(0) scale(1); }
+  100% { filter: blur(14px);  opacity: 0.35; transform: translateY(-40px) scale(0.98); }
+}
 
 @utility grid-bg {
   background-image:
