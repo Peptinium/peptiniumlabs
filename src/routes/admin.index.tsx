@@ -74,7 +74,7 @@ function CommandesPage() {
   });
 
   const updateMut = useMutation({
-    mutationFn: ({ id, status }: { id: string; status: "pending" | "paid" | "shipped" | "cancelled" }) =>
+    mutationFn: ({ id, status }: { id: string; status: "pending" | "paid" | "shipped" | "delivered" | "cancelled" }) =>
       updateFn({ data: { id, status } }),
     onSuccess: () => {
       toast.success("Statut mis à jour");
