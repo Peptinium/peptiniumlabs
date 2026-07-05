@@ -366,8 +366,8 @@
   isolation: isolate;
 }
 
-.shimmer-text[data-shimmer]::after,
-.shimmer-text-light[data-shimmer]::after {
+.shimmer-text.shimmer-active[data-shimmer]::after,
+.shimmer-text-light.shimmer-active[data-shimmer]::after {
     position: absolute;
     inset: 0;
     display: block;
@@ -443,7 +443,7 @@
   background-repeat: no-repeat;
   background-clip: text;
   -webkit-background-clip: text;
-  animation: shimmer 6s linear infinite both;
+  animation: none;
   backface-visibility: hidden;
   transform: translateZ(0);
   will-change: background-position;

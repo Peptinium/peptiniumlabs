@@ -38,7 +38,7 @@ export function HeroVela() {
           </span>
 
           <h1
-            className="shimmer-text mt-6 pb-2 text-[54px] font-semibold leading-[1.05] tracking-[-0.03em] sm:text-[76px] lg:text-[104px] lg:leading-[1.02]"
+            className="shimmer-text shimmer-active mt-6 pb-2 text-[54px] font-semibold leading-[1.05] tracking-[-0.03em] sm:text-[76px] lg:text-[104px] lg:leading-[1.02]"
             data-shimmer={"Le leader\neuropéen\ndes peptides"}
           >
             Le leader
