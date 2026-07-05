@@ -1115,6 +1115,7 @@ function PeptidePayRedirectBlock({
   cart,
   subtotal,
   shippingFee,
+  onBack,
 }: {
   url: string;
   orderRef: string;
@@ -1122,6 +1123,7 @@ function PeptidePayRedirectBlock({
   cart: ReturnType<typeof useCart>;
   subtotal: number;
   shippingFee: number;
+  onBack: () => void;
 }) {
   const [countdown, setCountdown] = useState(3);
   useEffect(() => {
