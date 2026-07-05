@@ -200,18 +200,17 @@
   }
 }
 
-@layer utilities {
-  .press-active {
-    transform: scale(0.97) !important;
-    transition-duration: 150ms !important;
-  }
-  .press-active,
-  .press-active * {
-    background-color: var(--color-success) !important;
-    color: var(--color-success-foreground) !important;
-    background-image: none !important;
-  }
+.press-active {
+  transition-duration: 150ms !important;
+  transform: scale(0.97) !important;
 }
+.press-active,
+.press-active * {
+  background-color: var(--color-success) !important;
+  color: var(--color-success-foreground) !important;
+  background-image: none !important;
+}
+
 
 
 
