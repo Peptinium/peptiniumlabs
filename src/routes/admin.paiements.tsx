@@ -247,21 +247,26 @@ function OrderActionCard({
   pendingCrypto,
   pendingValidate,
   pendingShip,
+  pendingReconcile,
   onSendLink,
   onSendCrypto,
   onValidate,
   onShip,
+  onReconcile,
 }: {
   order: Order;
   pendingLink: boolean;
   pendingCrypto: boolean;
   pendingValidate: boolean;
   pendingShip: boolean;
+  pendingReconcile: boolean;
   onSendLink: (paymentLink: string) => void;
   onSendCrypto: (address: string) => void;
   onValidate: (amount: number, reference: string, note: string) => void;
   onShip: (carrier: string, trackingNumber: string) => void;
+  onReconcile: () => void;
 }) {
+
   const method = (order.payment_method ?? "bank") as keyof typeof METHOD_META;
   const meta = METHOD_META[method] ?? METHOD_META.bank;
   const MethodIcon = meta.icon;
