@@ -15,7 +15,7 @@ const getSchema = z.object({
 /**
  * Create (or refresh) a crypto payment intent for an order.
  * - Reads the order total from DB (client cannot tamper).
- * - Fetches live EUR→crypto rate from CoinGecko.
+ * - Fetches live EUR→crypto rate from redundant public rate providers.
  * - Computes a unique amount so we can identify the tx on-chain.
  * - Locks the amount for 20 minutes.
  */
