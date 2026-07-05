@@ -49,7 +49,12 @@ function PanierPage() {
   const submitOrderFn = useServerFn(placeOrder);
   const startPeptidePayFn = useServerFn(createPeptidePayCheckout);
   const startCryptoPaymentFn = useServerFn(createCryptoPayment);
-  const [step, setStep] = useState<Step>("livraison");
+  const search = useSearch({ from: "/panier" });
+  const navigate = useNavigate({ from: "/panier" });
+  const step = search.step;
+  const navigateStep = (next: Step, opts?: { replace?: boolean }) =>
+    navigate({ to: "/panier", search: { step: next }, replace: opts?.replace });
+  const [orderRef, setOrderRef] = useState<string>("");
   const [shipping, setShipping] = useState({
     email: "",
     firstName: "",
