@@ -63,7 +63,7 @@
   to { opacity: 1; transform: scale(1) }
 }
 @keyframes shimmer {
-  0%   { background-position: 0% 50% }
+  0%   { background-position: 200% 50% }
   100% { background-position: -200% 50% }
 }
 
@@ -344,18 +344,17 @@
   color: transparent;
   -webkit-text-fill-color: transparent;
   background-image: linear-gradient(
-    100deg,
-    oklch(0 0 0) 0%,
-    oklch(0 0 0) 35%,
-    var(--brand-cyan) 40%,
-    var(--brand-blue) 45%,
-    var(--brand-violet) 50%,
-    var(--brand-magenta) 55%,
-    var(--brand-cyan) 60%,
-    oklch(0 0 0) 65%,
-    oklch(0 0 0) 100%
+    110deg,
+    var(--foreground) 0%,
+    var(--foreground) 30%,
+    var(--brand-cyan) 42%,
+    var(--brand-blue) 48%,
+    var(--brand-violet) 54%,
+    var(--brand-magenta) 60%,
+    var(--foreground) 72%,
+    var(--foreground) 100%
   );
-  background-size: 300% 100%;
+  background-size: 220% 100%;
   background-position: 0% 50%;
   background-repeat: no-repeat;
   background-clip: text;
@@ -367,21 +366,20 @@
 }
 
 @utility shimmer-text-light {
-  color: oklch(1 0 0);
+  color: transparent;
   -webkit-text-fill-color: transparent;
   background-image: linear-gradient(
-    100deg,
+    110deg,
     oklch(1 0 0) 0%,
-    oklch(1 0 0) 35%,
-    var(--brand-cyan) 40%,
-    var(--brand-blue) 45%,
-    var(--brand-violet) 50%,
-    var(--brand-magenta) 55%,
-    var(--brand-cyan) 60%,
-    oklch(1 0 0) 65%,
+    oklch(1 0 0) 30%,
+    var(--brand-cyan) 42%,
+    var(--brand-blue) 48%,
+    var(--brand-violet) 54%,
+    var(--brand-magenta) 60%,
+    oklch(1 0 0) 72%,
     oklch(1 0 0) 100%
   );
-  background-size: 300% 100%;
+  background-size: 220% 100%;
   background-position: 0% 50%;
   background-repeat: no-repeat;
   background-clip: text;
