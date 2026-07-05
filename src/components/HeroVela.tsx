@@ -130,27 +130,27 @@ function LabTestsStrip() {
   ];
   return (
     <div className="relative border-t border-border/60 bg-surface/40 backdrop-blur-sm">
-      <div className="container-prose flex flex-wrap items-center gap-x-12 gap-y-7 px-5 py-8">
-
-        <div className="flex flex-1 flex-wrap items-center gap-x-10 gap-y-5">
+      <div className="container-prose px-5 py-8">
+        <ul className="grid grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-3 lg:grid-cols-5">
           {tests.map(({ k, v, Icon }) => (
-            <div key={k} className="flex items-center gap-3">
-              <Icon className="h-10 w-auto shrink-0 text-foreground/25" />
-              <div className="leading-tight">
-                <div className="font-sans text-[15px] font-semibold text-foreground">
+            <li key={k} className="flex min-w-0 items-center gap-3">
+              <Icon className="h-9 w-9 shrink-0 text-foreground/25" />
+              <div className="min-w-0 leading-tight">
+                <div className="truncate font-sans text-[14px] font-semibold text-foreground sm:text-[15px]">
                   {k}
                 </div>
-                <div className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                <div className="mt-0.5 truncate font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
                   {v}
                 </div>
               </div>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </div>
   );
 }
+
 
 /* ── Lab icons (fournis par la marque) ─────────────────────── */
 type IconProps = { className?: string };
