@@ -193,12 +193,15 @@ function HomePage() {
       <section data-reveal-blur className="mx-auto max-w-6xl px-8 pb-32 sm:pb-40">
         <Reveal>
           <div className="mb-20 text-center">
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Le protocole</span>
-            <h2 className="mx-auto mt-6 max-w-3xl font-display text-4xl font-light leading-[1.05] tracking-tighter sm:text-6xl">
-              <span className="shimmer-text">Une exigence, lot après lot.</span>
+            <span className="brand-gradient-text font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
+              Le protocole
+            </span>
+            <h2 className="mx-auto mt-6 max-w-3xl text-[40px] font-semibold leading-[1.0] tracking-[-0.03em] text-foreground sm:text-[72px] sm:leading-[0.96]">
+              Une exigence, <span className="brand-gradient-text italic">lot après lot</span>.
             </h2>
           </div>
         </Reveal>
+
 
         <div className="space-y-24 sm:space-y-32">
           {[
