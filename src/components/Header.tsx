@@ -87,7 +87,7 @@ export function Header() {
         <Link to="/" className="group flex items-center gap-2.5">
           <Logo />
           <span className="font-display text-[17px] font-medium tracking-[-0.01em] text-foreground">
-            <span className="brand-gradient-text font-semibold">Peptinium</span>
+            <span className="logo-gradient-text font-semibold">Peptinium</span>
             <span className="ml-1 text-muted-foreground/85">Labs</span>
           </span>
         </Link>
