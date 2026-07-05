@@ -76,12 +76,8 @@ function AboutPage() {
             </Reveal>
 
             <Reveal delay={80}>
-              <h1 className="mt-10 max-w-5xl text-[52px] font-semibold leading-[0.98] tracking-[-0.035em] text-white sm:text-[104px] sm:leading-[0.94]">
-                La science,{" "}
-                <span className="italic font-serif font-light" style={{ background: "linear-gradient(120deg, var(--brand-cyan), var(--brand-violet), var(--brand-magenta))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                  sans compromis
-                </span>
-                .
+              <h1 className="shimmer-text-light mt-10 max-w-5xl text-[52px] font-semibold leading-[0.98] tracking-[-0.035em] sm:text-[104px] sm:leading-[0.94]">
+                La science, sans compromis.
               </h1>
             </Reveal>
 
