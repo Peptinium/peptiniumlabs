@@ -63,10 +63,10 @@
   to { opacity: 1; transform: scale(1) }
 }
 @keyframes shimmer {
-  0%   { background-position: 200% 50% }
-  55%  { background-position: -100% 50% }
-  100% { background-position: -100% 50% }
+  0%   { background-position: 0% 50% }
+  100% { background-position: -200% 50% }
 }
+
 @keyframes pulse-ring {
   0% { transform: scale(0.85); opacity: 0.7 }
   80%, 100% { transform: scale(2.2); opacity: 0 }
@@ -341,54 +341,49 @@
 }
 
 @utility shimmer-text {
-  background-color: var(--ink);
+  color: transparent;
   -webkit-text-fill-color: transparent;
   background-image: linear-gradient(
-    105deg,
-    transparent 0%,
-    transparent 35%,
-    var(--brand-cyan) 44%,
-    var(--brand-blue) 50%,
-    var(--brand-violet) 56%,
-    var(--brand-magenta) 62%,
-    transparent 72%,
-    transparent 100%
+    100deg,
+    var(--brand-cyan) 0%,
+    var(--brand-blue) 25%,
+    var(--brand-violet) 50%,
+    var(--brand-magenta) 75%,
+    var(--brand-cyan) 100%
   );
-  background-size: 250% 100%;
-  background-position: 175% 50%;
+  background-size: 200% 100%;
+  background-position: 0% 50%;
   background-repeat: no-repeat;
   background-clip: text;
   -webkit-background-clip: text;
-  animation: shimmer 9s cubic-bezier(0.45, 0, 0.55, 1) infinite both;
+  animation: shimmer 8s linear infinite both;
   backface-visibility: hidden;
   transform: translateZ(0);
   will-change: background-position;
 }
 
 @utility shimmer-text-light {
-  background-color: oklch(0.99 0 0);
+  color: transparent;
   -webkit-text-fill-color: transparent;
   background-image: linear-gradient(
-    105deg,
-    transparent 0%,
-    transparent 35%,
-    var(--brand-cyan) 44%,
-    var(--brand-blue) 50%,
-    var(--brand-violet) 56%,
-    var(--brand-magenta) 62%,
-    transparent 72%,
-    transparent 100%
+    100deg,
+    var(--brand-cyan) 0%,
+    var(--brand-blue) 25%,
+    var(--brand-violet) 50%,
+    var(--brand-magenta) 75%,
+    var(--brand-cyan) 100%
   );
-  background-size: 250% 100%;
-  background-position: 175% 50%;
+  background-size: 200% 100%;
+  background-position: 0% 50%;
   background-repeat: no-repeat;
   background-clip: text;
   -webkit-background-clip: text;
-  animation: shimmer 9s cubic-bezier(0.45, 0, 0.55, 1) infinite both;
+  animation: shimmer 8s linear infinite both;
   backface-visibility: hidden;
   transform: translateZ(0);
   will-change: background-position;
 }
+
 
 
 @keyframes page-enter-blur {
