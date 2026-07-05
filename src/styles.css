@@ -43,7 +43,7 @@
   --animate-fade-in: fade-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-fade-up: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-scale-in: scale-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
-  --animate-shimmer: shimmer 2.4s linear infinite;
+  --animate-shimmer: shimmer 4s linear infinite;
   --animate-pulse-ring: pulse-ring 2.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   --animate-marquee: marquee 38s linear infinite;
   --animate-grid: grid-drift 24s linear infinite;
@@ -353,10 +353,10 @@
   );
   background-size: 200% 100%;
   background-position: 0% 50%;
-  background-repeat: repeat;
+  background-repeat: no-repeat;
   background-clip: text;
   -webkit-background-clip: text;
-  animation: shimmer 8s linear infinite both;
+  animation: shimmer 4s linear infinite both;
   backface-visibility: hidden;
   transform: translateZ(0);
   will-change: background-position;
@@ -375,10 +375,10 @@
   );
   background-size: 200% 100%;
   background-position: 0% 50%;
-  background-repeat: repeat;
+  background-repeat: no-repeat;
   background-clip: text;
   -webkit-background-clip: text;
-  animation: shimmer 8s linear infinite both;
+  animation: shimmer 4s linear infinite both;
   backface-visibility: hidden;
   transform: translateZ(0);
   will-change: background-position;
