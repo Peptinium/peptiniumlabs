@@ -30,7 +30,7 @@ function DesktopHero() {
         className="pointer-events-none absolute -top-px left-0 h-px w-1/2 bg-gradient-to-r from-transparent via-[oklch(0.62_0.26_296)] to-transparent [animation:beam-sweep_7s_ease-in-out_infinite]"
       />
 
-      <div className="container-prose relative flex flex-1 flex-col items-center px-5 pt-20 pb-8 text-center lg:pt-14 lg:pb-4">
+      <div className="container-prose relative flex flex-1 flex-col items-center px-5 pt-20 pb-8 text-center lg:pt-32 lg:pb-6">
         {/* Pill removed */}
 
         {/* Title */}
