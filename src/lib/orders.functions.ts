@@ -317,30 +317,8 @@ export const placeOrder = createServerFn({ method: "POST" })
       console.error("order-pending email failed", e);
     }
 
-    // Admin notification
-    try {
-      const { enqueueAppEmail } = await import("./email/enqueue.server");
-      await enqueueAppEmail({
-        templateName: "admin-new-order",
-        recipientEmail: "peptinium@gmail.com",
-        idempotencyKey: `admin-new-${order.id}`,
-        templateData: {
-          orderNumber: order.order_number,
-          customerName: `${data.shipping.firstName} ${data.shipping.lastName}`.trim(),
-          email: data.shipping.email,
-          totalEur: Number(order.total_eur),
-          paymentMethod: data.paymentMethod,
-          adminUrl: "https://peptinium.com/admin",
-          items: items.map((i) => ({
-            name: i.product_name,
-            quantity: i.quantity,
-            price_eur: Number(i.unit_price_eur),
-          })),
-        },
-      });
-    } catch (e) {
-      console.error("admin-new-order email failed", e);
-    }
+    // Admin notification is sent from the payment webhook / crypto watcher
+    // when the payment is confirmed — not at order creation.
 
     return {
       orderId: order.id as string,
