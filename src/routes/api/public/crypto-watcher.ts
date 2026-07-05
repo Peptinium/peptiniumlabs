@@ -29,12 +29,14 @@ export const Route = createFileRoute("/api/public/crypto-watcher")({
           .eq("status", "pending")
           .lt("expires_at", nowIso);
 
-        // 2. Fetch active payments (pending or detected but not yet confirmed).
+        // 2. Fetch active payments. Once a tx is DETECTED we keep scanning it
+        //    until it's fully confirmed, even past expires_at — otherwise a slow
+        //    Bitcoin block would leave the customer paid without validation.
         const { data: active } = await supabaseAdmin
           .from("crypto_payments")
-          .select("id, order_id, currency, wallet_address, amount_crypto, status, tx_hash")
+          .select("id, order_id, currency, wallet_address, amount_crypto, status, tx_hash, expires_at")
           .in("status", ["pending", "detected"])
-          .gte("expires_at", nowIso);
+          .or(`status.eq.detected,expires_at.gte.${nowIso}`);
 
         if (!active || active.length === 0) {
           return Response.json({ ok: true, scanned: 0, updated: 0 });
