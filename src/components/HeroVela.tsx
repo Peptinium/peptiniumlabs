@@ -101,12 +101,35 @@ export function HeroVela() {
             }}
           />
 
-          <img
-            src={vialAsset}
-            alt="Flacon Peptinium — peptide de recherche pureté ≥ 99 %"
-            draggable={false}
-            className="relative z-10 h-full w-auto object-contain drop-shadow-[0_36px_50px_color-mix(in_oklab,var(--brand-violet)_35%,transparent)] [animation:float_6s_ease-in-out_infinite]"
-          />
+          <div className="relative z-10 h-full w-auto [animation:float_6s_ease-in-out_infinite]">
+            <img
+              src={vialAsset}
+              alt="Flacon Peptinium — peptide de recherche pureté ≥ 99 %"
+              draggable={false}
+              className="relative h-full w-auto object-contain drop-shadow-[0_36px_50px_color-mix(in_oklab,var(--brand-violet)_35%,transparent)]"
+            />
+            {/* Reflet de verre — balayage lumineux qui traverse le flacon */}
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-0"
+              style={{
+                WebkitMaskImage: `url(${vialAsset})`,
+                maskImage: `url(${vialAsset})`,
+                WebkitMaskRepeat: "no-repeat",
+                maskRepeat: "no-repeat",
+                WebkitMaskSize: "contain",
+                maskSize: "contain",
+                WebkitMaskPosition: "center",
+                maskPosition: "center",
+                backgroundImage:
+                  "linear-gradient(115deg, transparent 38%, rgba(255,255,255,0.0) 44%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0.0) 56%, transparent 62%)",
+                backgroundSize: "260% 100%",
+                backgroundRepeat: "no-repeat",
+                mixBlendMode: "screen",
+                animation: "vialShine 3.6s ease-in-out 0s infinite",
+              }}
+            />
+          </div>
         </div>
 
         <div className="mt-10 font-mono text-[10px] uppercase tracking-[0.28em] text-accent">

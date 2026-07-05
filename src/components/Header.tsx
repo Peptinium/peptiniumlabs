@@ -1,15 +1,16 @@
 import { Link } from "@tanstack/react-router";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState } from "react";
 import { useCart } from "@/lib/cart";
 import { supabase } from "@/integrations/supabase/client";
 import peptiniumLogo from "@/assets/brand/peptinium-logo.png.asset.json";
 
 const nav = [
-  { to: "/produits", label: "Boutique" },
-  { to: "/a-propos", label: "À propos" },
-  { to: "/blog", label: "Journal" },
+  { to: "/produits", label: "Catalogue" },
   { to: "/etudes-scientifiques", label: "Études" },
-  { to: "/contact", label: "Contact" },
+  { to: "/blog", label: "Blog" },
+  { to: "/calculatrice", label: "Calculatrice" },
+  { to: "/tester-fioles", label: "Tester ses fioles" },
+  { to: "/a-propos", label: "Laboratoire" },
 ];
 
 export function Header() {
@@ -108,38 +109,33 @@ export function Header() {
         </nav>
 
         {/* Right — round icon buttons (Vela style) */}
-        <div className="flex items-center gap-1.5 lg:gap-2">
+        <div className="flex items-center gap-2">
           {isAdmin && (
             <Link
               to="/admin"
               aria-label="Espace admin"
-              className="hidden size-10 items-center justify-center rounded-full bg-accent/10 text-accent transition-all hover:bg-accent/20 sm:inline-flex"
-              title="Espace admin"
+              className="hidden h-10 items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-4 text-[13px] font-medium text-accent transition-all hover:bg-accent/20 sm:inline-flex"
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M12 2l9 4.5v6c0 5-3.5 8.5-9 9.5-5.5-1-9-4.5-9-9.5v-6L12 2z" />
               </svg>
+              Admin
             </Link>
           )}
-          <IconPill href="/produits" label="Rechercher">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="11" cy="11" r="7" />
-              <path d="M20 20l-3.5-3.5" />
-            </svg>
-          </IconPill>
-          <AccountIconPill isLoggedIn={isLoggedIn} />
+          <AccountPill isLoggedIn={isLoggedIn} />
           <Link
             to="/panier"
             aria-label="Panier"
-            className="group relative grid size-10 place-items-center rounded-full bg-surface text-foreground transition-all hover:bg-surface-2"
+            className="group relative inline-flex h-10 items-center gap-2 rounded-full border border-border bg-background px-4 text-[13px] font-medium text-foreground transition-all hover:bg-surface"
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
               <path d="M6 7h13l-1.5 9a2 2 0 0 1-2 1.7H9a2 2 0 0 1-2-1.7L5 4H2" />
               <circle cx="10" cy="21" r="1.3" />
               <circle cx="17" cy="21" r="1.3" />
             </svg>
+            Panier
             {count > 0 && (
-              <span className="absolute -right-1 -top-1 grid min-w-[18px] place-items-center rounded-full bg-foreground px-1 py-0.5 font-mono text-[10px] font-semibold text-background">
+              <span className="grid min-w-[20px] place-items-center rounded-full bg-foreground px-1.5 py-0.5 font-mono text-[10px] font-semibold text-background">
                 {count}
               </span>
             )}
@@ -193,31 +189,12 @@ export function Header() {
   );
 }
 
-function IconPill({
-  href,
-  label,
-  children,
-}: {
-  href: string;
-  label: string;
-  children: ReactNode;
-}) {
-  return (
-    <Link
-      to={href}
-      aria-label={label}
-      className="grid size-10 place-items-center rounded-full bg-surface text-foreground/80 transition-all hover:bg-surface-2 hover:text-foreground"
-    >
-      {children}
-    </Link>
-  );
-}
 
-function AccountIconPill({ isLoggedIn }: { isLoggedIn: boolean }) {
+function AccountPill({ isLoggedIn }: { isLoggedIn: boolean }) {
   const cls =
-    "grid size-10 place-items-center rounded-full bg-surface text-foreground/80 transition-all hover:bg-surface-2 hover:text-foreground";
+    "inline-flex h-10 items-center gap-2 rounded-full border border-border bg-background px-4 text-[13px] font-medium text-foreground transition-all hover:bg-surface";
   const icon = (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
       <circle cx="12" cy="7" r="4" />
     </svg>
@@ -226,12 +203,14 @@ function AccountIconPill({ isLoggedIn }: { isLoggedIn: boolean }) {
     return (
       <Link to="/mon-compte" aria-label="Mon compte" className={cls}>
         {icon}
+        Compte
       </Link>
     );
   }
   return (
     <Link to="/auth" search={{ redirect: "/mon-compte" }} aria-label="Se connecter" className={cls}>
       {icon}
+      Compte
     </Link>
   );
 }
