@@ -17,7 +17,7 @@ import { Button } from "@/components/ui/button";
 import { deleteOrder, listOrders, updateOrderStatus } from "@/lib/orders.functions";
 import {
   generateInvoice,
-  sendBrandedEmailTests,
+  
   sendCryptoPayment,
   sendPaymentLink,
   sendShippingNotification,
