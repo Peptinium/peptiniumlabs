@@ -1526,6 +1526,18 @@ function CryptoPaymentBlock({
         </div>
       )}
 
+      {current.status !== "confirmed" && (
+        <div className="mt-4 text-center">
+          <button
+            type="button"
+            onClick={onBack}
+            className="text-xs text-muted-foreground hover:text-foreground"
+          >
+            ← Retour au choix du paiement
+          </button>
+        </div>
+      )}
+
       <OrderSummary orderRef={orderRef} cart={cart} subtotal={subtotal} shippingFee={shippingFee} total={total} />
     </div>
   );
