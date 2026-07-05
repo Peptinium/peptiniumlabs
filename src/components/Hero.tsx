@@ -292,7 +292,7 @@ function VialShowcase() {
         }}
       />
       {/* Image */}
-      <div className="relative mx-auto aspect-[2/3] w-full max-w-[420px] overflow-visible">
+      <div className="relative mx-auto aspect-[2/3] w-full max-w-[300px] overflow-visible lg:max-w-[260px]">
         <img
           src={avantAsset.url}
           alt="Flacon Peptinium Retatrutide — pureté 99%"
