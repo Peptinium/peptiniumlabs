@@ -200,7 +200,7 @@
   }
 }
 
-@layer base {
+@layer utilities {
   .press-active {
     transform: scale(0.97) !important;
     transition-duration: 150ms !important;
@@ -212,6 +212,7 @@
     background-image: none !important;
   }
 }
+
 
 
 
