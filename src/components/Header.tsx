@@ -209,11 +209,11 @@ function IconPill({
   );
 }
 
-function AccountIconPill({ isLoggedIn }: { isLoggedIn: boolean }) {
+function AccountPill({ isLoggedIn }: { isLoggedIn: boolean }) {
   const cls =
-    "grid size-10 place-items-center rounded-full bg-surface text-foreground/80 transition-all hover:bg-surface-2 hover:text-foreground";
+    "inline-flex h-10 items-center gap-2 rounded-full border border-border bg-background px-4 text-[13px] font-medium text-foreground transition-all hover:bg-surface";
   const icon = (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
       <circle cx="12" cy="7" r="4" />
     </svg>
@@ -222,12 +222,14 @@ function AccountIconPill({ isLoggedIn }: { isLoggedIn: boolean }) {
     return (
       <Link to="/mon-compte" aria-label="Mon compte" className={cls}>
         {icon}
+        Compte
       </Link>
     );
   }
   return (
     <Link to="/auth" search={{ redirect: "/mon-compte" }} aria-label="Se connecter" className={cls}>
       {icon}
+      Compte
     </Link>
   );
 }
