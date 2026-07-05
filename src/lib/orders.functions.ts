@@ -46,7 +46,7 @@ const placeOrderSchema = z.object({
   expectedTotal: z.number().nonnegative().optional(),
 });
 
-const SHIPPING_FEE_EUR = 6.0;
+const SHIPPING_FEE_EUR = 4.90;
 const FREE_SHIPPING_THRESHOLD_EUR = 150;
 
 const normalizeDosage = (value: string) => value.toLowerCase().replace(/\s+/g, "").trim();
