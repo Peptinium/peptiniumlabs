@@ -24,7 +24,7 @@ type CryptoPaymentIntent = Awaited<ReturnType<typeof createCryptoPayment>>;
 
 type Step = "livraison" | "paiement" | "virement" | "confirmation" | "peptidepay_redirect" | "crypto_pay";
 type PayMethod = "bank" | "card" | "crypto" | "peptidepay";
-type AppliedPromo = { code: string; rate: number };
+type AppliedPromo = { code: string; rate: number; amountOff: number; freeShipping: boolean };
 
 const validSteps: Step[] = ["livraison", "paiement", "virement", "confirmation", "peptidepay_redirect", "crypto_pay"];
 
