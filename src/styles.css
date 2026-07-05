@@ -163,15 +163,13 @@
   --ring: oklch(0.70 0.20 296);
 }
 
+/* Legacy utilities kept as no-op solids — brand color sweeps only, no gradients. */
 @utility brand-gradient-text {
-  background: var(--gradient-brand);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+  color: inherit;
 }
 @utility brand-gradient-bg {
-  background: var(--gradient-cta);
+  background: var(--foreground);
+  color: var(--background);
 }
 
 @layer base {
