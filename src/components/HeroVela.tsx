@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
-import vialAsset from "@/assets/vial/RT_AVANT_TRANSPARENT.png.asset.json";
-import penAsset from "@/assets/hero/peptinium-pen.png.asset.json";
+import vialAsset from "@/assets/products/Reta_10mg.png.asset.json";
+
 
 import { useRevealBlur } from "@/hooks/useScrollBlur";
 
