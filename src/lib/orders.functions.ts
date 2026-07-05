@@ -405,7 +405,7 @@ export const updateOrderStatus = createServerFn({ method: "POST" })
     z
       .object({
         id: z.string().uuid(),
-        status: z.enum(["pending", "paid", "shipped", "cancelled"]),
+        status: z.enum(["pending", "paid", "shipped", "delivered", "cancelled"]),
       })
       .parse(d),
   )
