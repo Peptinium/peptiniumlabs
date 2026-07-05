@@ -21,6 +21,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { CartProvider } from "../lib/cart";
 import { Toaster } from "../components/ui/sonner";
 import { usePressEffect } from "../hooks/use-press-effect";
+import { useBlurReveal } from "../hooks/use-blur-reveal";
 
 
 function NotFoundComponent() {
@@ -147,6 +148,7 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   usePressEffect();
+  useBlurReveal();
   return (
     <QueryClientProvider client={queryClient}>
       <CartProvider>
