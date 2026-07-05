@@ -33,7 +33,7 @@ export function HeroVela() {
       <div className="container-prose relative grid gap-10 px-5 pt-16 pb-20 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-6 lg:pt-28 lg:pb-32">
         {/* LEFT — copy */}
         <div className="relative z-10 flex flex-col text-left">
-          <span className="text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
+          <span className="block text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
             La plus haute qualité
           </span>
 

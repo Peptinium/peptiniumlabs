@@ -30,7 +30,7 @@ function ContactPage() {
       <section className="relative overflow-hidden bg-background">
         <div className="container-prose relative px-5 pt-24 pb-14 lg:pt-32 lg:pb-20">
           <Reveal>
-            <span className="text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
+            <span className="block text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
               — Nous contacter
             </span>
           </Reveal>
