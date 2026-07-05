@@ -102,6 +102,19 @@ function PaiementsPage() {
     onError: (e: Error) => toast.error(e.message || "Envoi impossible"),
   });
 
+  const reconcileFn = useServerFn(reconcilePeptidePayOrder);
+  const reconcileMut = useMutation({
+    mutationFn: (orderId: string) => reconcileFn({ data: { orderId } }),
+    onSuccess: (res: any) => {
+      if (res?.reconciled) toast.success("Paiement synchronisé ✅ Commande passée en payée.");
+      else if (res?.alreadyPaid) toast.info("Déjà payée.");
+      else toast.info(`PeptidePay: ${res?.ppStatus ?? "pending"} · pas encore de règlement.`);
+      invalidateAll();
+    },
+    onError: (e: Error) => toast.error(e.message || "Vérification impossible"),
+  });
+
+
   const orders: Order[] = ordersQ.data?.orders ?? [];
   const actionable = orders.filter(
     (o) => o.status === "pending" || o.status === "payment_link_sent" || o.status === "paid",
