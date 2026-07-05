@@ -288,17 +288,9 @@ export const placeOrder = createServerFn({ method: "POST" })
       }
     }
 
-    try {
-      const { broadcastToAdmins } = await import("./push.server");
-      await broadcastToAdmins({
-        title: "Nouvelle commande",
-        body: `${order.order_number} · ${Number(order.total_eur).toFixed(2)} €`,
-        url: "/admin",
-        tag: `order-${order.id}`,
-      });
-    } catch (e) {
-      console.error("admin push failed", e);
-    }
+    // NOTE: Admin push + admin email are intentionally NOT sent here.
+    // They fire from the payment webhooks (PeptidePay / crypto watcher) once
+    // the payment is actually received — see src/lib/order-notify.server.ts.
 
     // Customer "order received" — includes the payment link / crypto details when available
     try {
