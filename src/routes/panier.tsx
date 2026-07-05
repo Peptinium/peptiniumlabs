@@ -1331,7 +1331,7 @@ function ConfirmationBlock({
           {snap.items.map((it) => (
             <div key={itemKey(it.slug, it.dosage)} className="flex justify-between text-muted-foreground">
               <span>
-                <span className="text-foreground">{it.slug === EAU_SLUG ? "Solvant (Eau bactériostatique)" : it.name}</span> <span className="font-mono text-xs">×{it.qty}</span>
+                <span className="text-foreground">{it.slug === EAU_SLUG ? `Solvant (Eau bactériostatique) ${it.dosage}` : `${it.name} ${it.dosage}`}</span> <span className="font-mono text-xs">×{it.qty}</span>
               </span>
               <span className="text-foreground">{formatPrice(it.price * it.qty).replace(" €", " EUR")}</span>
             </div>
