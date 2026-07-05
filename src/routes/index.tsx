@@ -370,11 +370,16 @@ function HomePage() {
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
                   to="/contact"
-                  className="group inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-[13px] font-medium text-background transition-transform hover:scale-[1.02]"
+                  className="group inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px] font-medium text-white shadow-[0_18px_44px_-18px_color-mix(in_oklab,var(--brand-violet)_70%,transparent)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-[0_24px_54px_-18px_color-mix(in_oklab,var(--brand-violet)_85%,transparent)]"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(120deg, oklch(0.70 0.18 210) 0%, oklch(0.58 0.28 290) 55%, oklch(0.68 0.27 345) 100%)",
+                  }}
                 >
                   Nous contacter
-                  <span aria-hidden className="grid size-5 place-items-center rounded-full bg-background/15">→</span>
+                  <span aria-hidden className="grid size-5 place-items-center rounded-full bg-white/20">→</span>
                 </Link>
+
                 <Link
                   to="/support"
                   className="inline-flex items-center gap-2 rounded-full border border-border/70 px-5 py-2.5 text-[13px] font-medium text-foreground transition-colors hover:border-foreground"
