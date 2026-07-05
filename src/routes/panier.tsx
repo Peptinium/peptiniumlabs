@@ -111,8 +111,11 @@ function PanierPage() {
   const isEmpty = cart.items.length === 0 || cart.count === 0;
 
   const subtotal = Number.isFinite(cart.subtotal) ? cart.subtotal : 0;
-  const shippingFee = subtotal === 0 || subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING;
-  const discount = promo ? Math.round(subtotal * promo.rate * 100) / 100 : 0;
+  const rawShipping = subtotal === 0 || subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING;
+  const shippingFee = promo?.freeShipping ? 0 : rawShipping;
+  const rateDiscount = promo ? Math.round(subtotal * promo.rate * 100) / 100 : 0;
+  const amountOffDiscount = promo ? promo.amountOff : 0;
+  const discount = Math.min(subtotal, Math.round((rateDiscount + amountOffDiscount) * 100) / 100);
   const total = Math.max(0, subtotal - discount + shippingFee);
 
   const handleConfirmPaiement = async () => {
