@@ -13,7 +13,7 @@ import { useRevealBlur } from "@/hooks/useScrollBlur";
 export function HeroVela() {
   useRevealBlur();
   return (
-    <section className="relative overflow-hidden bg-background">
+    <section data-reveal-blur className="relative overflow-hidden bg-background">
       {/* Ambient brand halo — cyan → violet → magenta, centré */}
       <div
         aria-hidden
