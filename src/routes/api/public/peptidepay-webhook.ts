@@ -114,6 +114,14 @@ export const Route = createFileRoute("/api/public/peptidepay-webhook")({
           console.error("[peptidepay-webhook] payments insert failed", e);
         }
 
+        // Notify admins now that the payment is actually confirmed.
+        try {
+          const { notifyAdminsOrderPaid } = await import("@/lib/order-notify.server");
+          await notifyAdminsOrderPaid(orderId);
+        } catch (e) {
+          console.error("[peptidepay-webhook] notify failed", e);
+        }
+
         return new Response("ok", { status: 200 });
       },
     },
