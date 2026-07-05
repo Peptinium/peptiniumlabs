@@ -99,9 +99,11 @@ function HomePage() {
       <section data-reveal-blur className="mx-auto max-w-6xl px-8 py-32 sm:py-40">
         <Reveal>
           <div className="flex flex-col items-center text-center">
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Produit phare</span>
-            <h2 className="mt-6 max-w-3xl font-display text-5xl font-light leading-[1.05] tracking-tighter sm:text-7xl">
-              <span className="shimmer-text">Sculpté pour la recherche.</span>
+            <span className="brand-gradient-text font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
+              Produit phare
+            </span>
+            <h2 className="mt-6 max-w-3xl text-[44px] font-semibold leading-[1.0] tracking-[-0.03em] text-foreground sm:text-[72px] sm:leading-[0.98]">
+              Sculpté pour la <span className="brand-gradient-text">recherche</span>.
             </h2>
           </div>
         </Reveal>
@@ -111,12 +113,13 @@ function HomePage() {
           </div>
         </Reveal>
         <Reveal delay={140}>
-          <p className="mx-auto mt-14 max-w-xl text-center text-lg font-light leading-relaxed text-muted-foreground">
+          <p className="mx-auto mt-14 max-w-xl text-center text-[17px] leading-[1.6] text-muted-foreground">
             Pureté HPLC vérifiée, conditionnement stérile, traçabilité complète.
             L'exigence du laboratoire, sans compromis.
           </p>
         </Reveal>
       </section>
+
 
       {/* ============ AIRY PILLARS ============ */}
       <section data-reveal-blur className="mx-auto max-w-7xl px-8 pb-32 sm:pb-40">
@@ -146,8 +149,8 @@ function HomePage() {
                   aria-hidden
                 />
                 <div className="space-y-3">
-                  <h3 className="font-display text-2xl font-normal tracking-tight text-foreground">{p.t}</h3>
-                  <p className="text-[15px] leading-relaxed text-muted-foreground">{p.d}</p>
+                  <h3 className="text-[26px] font-semibold leading-[1.1] tracking-[-0.02em] text-foreground">{p.t}</h3>
+                  <p className="text-[15px] leading-[1.65] text-muted-foreground">{p.d}</p>
                 </div>
               </div>
             </Reveal>
@@ -155,24 +158,28 @@ function HomePage() {
         </div>
       </section>
 
+
       {/* ============ CATALOG — AIRY ============ */}
       <section data-reveal-blur className="mx-auto max-w-7xl px-8 pb-32 sm:pb-40">
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">La collection</span>
-              <h2 className="mt-4 font-display text-4xl font-light leading-[1.05] tracking-tighter sm:text-5xl">
-                <span className="shimmer-text">Réactifs sélectionnés pour la recherche.</span>
+              <span className="brand-gradient-text font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
+                La collection
+              </span>
+              <h2 className="mt-5 max-w-3xl text-[40px] font-semibold leading-[1.0] tracking-[-0.03em] text-foreground sm:text-[60px] sm:leading-[0.98]">
+                Réactifs sélectionnés pour la <span className="brand-gradient-text">recherche</span>.
               </h2>
             </div>
             <Link
               to="/produits"
-              className="inline-flex items-center gap-2 font-display text-sm font-medium text-foreground transition-colors hover:text-accent"
+              className="inline-flex items-center gap-2 text-[14px] font-medium text-foreground transition-colors hover:text-accent"
             >
               Tout voir <span aria-hidden>→</span>
             </Link>
           </div>
         </Reveal>
+
         <div className="mt-16 grid grid-cols-2 gap-6 lg:grid-cols-3">
           {rest.map((p, i) => (
             <Reveal key={p.slug} delay={i * 60}>
@@ -186,12 +193,15 @@ function HomePage() {
       <section data-reveal-blur className="mx-auto max-w-6xl px-8 pb-32 sm:pb-40">
         <Reveal>
           <div className="mb-20 text-center">
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Le protocole</span>
-            <h2 className="mx-auto mt-6 max-w-3xl font-display text-4xl font-light leading-[1.05] tracking-tighter sm:text-6xl">
-              <span className="shimmer-text">Une exigence, lot après lot.</span>
+            <span className="brand-gradient-text font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
+              Le protocole
+            </span>
+            <h2 className="mx-auto mt-6 max-w-3xl text-[40px] font-semibold leading-[1.0] tracking-[-0.03em] text-foreground sm:text-[72px] sm:leading-[0.96]">
+              Une exigence, <span className="brand-gradient-text italic">lot après lot</span>.
             </h2>
           </div>
         </Reveal>
+
 
         <div className="space-y-24 sm:space-y-32">
           {[
@@ -230,13 +240,14 @@ function HomePage() {
                   </span>
                 </div>
                 <div className="max-w-xl pt-4 sm:pt-8">
-                  <h3 className="font-display text-3xl font-light tracking-tight text-foreground sm:text-4xl">
+                  <h3 className="text-[28px] font-semibold leading-[1.05] tracking-[-0.02em] text-foreground sm:text-[40px]">
                     {step.t}
                   </h3>
-                  <p className="mt-5 text-lg font-light leading-relaxed text-muted-foreground">
+                  <p className="mt-5 text-[17px] leading-[1.6] text-muted-foreground">
                     {step.d}
                   </p>
                 </div>
+
               </div>
             </Reveal>
           ))}
@@ -248,21 +259,29 @@ function HomePage() {
       <section data-reveal-blur className="mx-auto max-w-4xl px-8 pb-32 sm:pb-40">
         <Reveal>
           <div className="flex flex-col items-center text-center">
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Prêt à commander</span>
-            <h2 className="mt-6 font-display text-5xl font-light leading-[1.05] tracking-tighter sm:text-6xl">
-              <span className="shimmer-text">La sérénité du laboratoire, à portée de commande.</span>
+            <span className="brand-gradient-text font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
+              Prêt à commander
+            </span>
+            <h2 className="mt-6 text-[44px] font-semibold leading-[1.0] tracking-[-0.03em] text-foreground sm:text-[68px] sm:leading-[0.96]">
+              La sérénité du laboratoire,<br />
+              <span className="brand-gradient-text italic">à portée de commande</span>.
             </h2>
-            <p className="mt-6 max-w-lg text-lg font-light leading-relaxed text-muted-foreground">
+            <p className="mt-7 max-w-lg text-[17px] leading-[1.6] text-muted-foreground">
               Traçabilité complète, expédition sous 24 h, support français.
             </p>
             <Link
               to="/produits"
-              className="mt-10 inline-flex items-center gap-2 rounded-full bg-foreground px-8 py-4 font-display text-sm font-medium text-background transition-transform hover:-translate-y-0.5"
+              className="group mt-10 inline-flex items-center gap-3 rounded-full px-8 py-4 text-[14px] font-medium text-white shadow-[0_18px_44px_-18px_color-mix(in_oklab,var(--brand-violet)_70%,transparent)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5"
+              style={{
+                backgroundImage:
+                  "linear-gradient(120deg, oklch(0.70 0.18 210) 0%, oklch(0.58 0.28 290) 55%, oklch(0.68 0.27 345) 100%)",
+              }}
             >
               Voir le catalogue
-              <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
+              <span aria-hidden className="grid size-7 place-items-center rounded-full bg-white/20 transition-transform duration-500 group-hover:translate-x-0.5">→</span>
             </Link>
           </div>
+
         </Reveal>
       </section>
 
