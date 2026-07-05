@@ -313,7 +313,33 @@ function OrderActionCard({
         <div className="text-right font-semibold">{Number(order.total_eur).toFixed(2)} €</div>
       </div>
 
+      {/* ───── Réconciliation PeptidePay ───── */}
+      {order.status === "pending" && order.payment_method === "peptidepay" && (
+        <div className="rounded-lg border border-indigo-400/30 bg-background p-3 space-y-2">
+          <div className="text-xs font-semibold flex items-center gap-1.5">
+            <RefreshCw className="size-3.5 text-indigo-400" />
+            Paiement PeptidePay en attente
+          </div>
+          <div className="text-[11px] text-muted-foreground">
+            Le webhook n'est pas encore arrivé. Force la vérification directe auprès de PeptidePay :
+            si leur session est marquée « paid », la commande passera automatiquement en payée.
+          </div>
+          <Button
+            type="button"
+            size="sm"
+            variant="outline"
+            className="w-full"
+            disabled={pendingReconcile}
+            onClick={onReconcile}
+          >
+            <RefreshCw className={`mr-2 size-3.5 ${pendingReconcile ? "animate-spin" : ""}`} />
+            {pendingReconcile ? "Vérification…" : "Vérifier chez PeptidePay"}
+          </Button>
+        </div>
+      )}
+
       {/* ───── Étape 1 : envoyer lien / adresse selon méthode (si encore pending) ───── */}
+
       {order.status === "pending" && method === "card" && (
         <div className="rounded-lg border border-violet-400/30 bg-background p-3 space-y-2">
           <div className="text-xs font-semibold flex items-center gap-1.5">
