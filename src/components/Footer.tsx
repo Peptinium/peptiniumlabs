@@ -61,7 +61,7 @@ export function Footer() {
               Adresse
             </div>
             <address className="mt-5 not-italic text-[14px] leading-[1.7] text-muted-foreground">
-              Peptinium Labs
+              <span className="brand-gradient-text font-semibold">Peptinium Labs</span>
               <br />
               France · Europe
             </address>
