@@ -22,6 +22,12 @@ import { QRCodeSVG } from "qrcode.react";
 type CryptoCurrency = "BTC" | "USDC_POLYGON" | "LTC";
 type CryptoPaymentIntent = Awaited<ReturnType<typeof createCryptoPayment>>;
 
+type Step = "livraison" | "paiement" | "virement" | "confirmation" | "peptidepay_redirect" | "crypto_pay";
+type PayMethod = "bank" | "card" | "crypto" | "peptidepay";
+type AppliedPromo = { code: string; rate: number };
+
+const validSteps: Step[] = ["livraison", "paiement", "virement", "confirmation", "peptidepay_redirect", "crypto_pay"];
+
 export const Route = createFileRoute("/panier")({
   head: () => ({
     meta: [
@@ -30,13 +36,12 @@ export const Route = createFileRoute("/panier")({
       { name: "robots", content: "noindex,nofollow" },
     ],
   }),
+  validateSearch: (search: Record<string, unknown>) => {
+    const step = typeof search.step === "string" && validSteps.includes(search.step as Step) ? (search.step as Step) : "livraison";
+    return { step };
+  },
   component: PanierPage,
 });
-
-type Step = "livraison" | "paiement" | "virement" | "confirmation" | "peptidepay_redirect" | "crypto_pay";
-type PayMethod = "bank" | "card" | "crypto" | "peptidepay";
-
-type AppliedPromo = { code: string; rate: number };
 
 
 function PanierPage() {
