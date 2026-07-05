@@ -31,10 +31,10 @@ const Email = ({
 }: Props) => (
   <Html lang="fr">
     <Head />
-    <Preview>Nouvelle commande {orderNumber ?? ''} — {(totalEur ?? 0).toFixed(2)} €</Preview>
+    <Preview>Commande payée {orderNumber ?? ''} — {(totalEur ?? 0).toFixed(2)} €</Preview>
     <Body style={styles.main}>
       <BrandLayout>
-        <Text style={styles.h1}>Nouvelle commande à traiter</Text>
+        <Text style={styles.h1}>Commande payée à expédier</Text>
         <Text style={styles.text}>
           Référence :{' '}
           <strong style={{ color: brand.ink }}>{orderNumber ?? ''}</strong>
@@ -77,7 +77,7 @@ const Email = ({
 export const template = {
   component: Email,
   subject: (d: Record<string, any>) =>
-    `🛒 Nouvelle commande ${d.orderNumber ?? ''} — ${Number(d.totalEur ?? 0).toFixed(2)} €`,
+    `✅ Commande payée ${d.orderNumber ?? ''} — ${Number(d.totalEur ?? 0).toFixed(2)} €`,
   displayName: 'Notification admin — nouvelle commande',
   previewData: {
     orderNumber: 'CMD-2026-0001',

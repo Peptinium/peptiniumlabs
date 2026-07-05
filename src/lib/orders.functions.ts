@@ -288,17 +288,9 @@ export const placeOrder = createServerFn({ method: "POST" })
       }
     }
 
-    try {
-      const { broadcastToAdmins } = await import("./push.server");
-      await broadcastToAdmins({
-        title: "Nouvelle commande",
-        body: `${order.order_number} · ${Number(order.total_eur).toFixed(2)} €`,
-        url: "/admin",
-        tag: `order-${order.id}`,
-      });
-    } catch (e) {
-      console.error("admin push failed", e);
-    }
+    // NOTE: Admin push + admin email are intentionally NOT sent here.
+    // They fire from the payment webhooks (PeptidePay / crypto watcher) once
+    // the payment is actually received — see src/lib/order-notify.server.ts.
 
     // Customer "order received" — includes the payment link / crypto details when available
     try {
@@ -325,30 +317,8 @@ export const placeOrder = createServerFn({ method: "POST" })
       console.error("order-pending email failed", e);
     }
 
-    // Admin notification
-    try {
-      const { enqueueAppEmail } = await import("./email/enqueue.server");
-      await enqueueAppEmail({
-        templateName: "admin-new-order",
-        recipientEmail: "peptinium@gmail.com",
-        idempotencyKey: `admin-new-${order.id}`,
-        templateData: {
-          orderNumber: order.order_number,
-          customerName: `${data.shipping.firstName} ${data.shipping.lastName}`.trim(),
-          email: data.shipping.email,
-          totalEur: Number(order.total_eur),
-          paymentMethod: data.paymentMethod,
-          adminUrl: "https://peptinium.com/admin",
-          items: items.map((i) => ({
-            name: i.product_name,
-            quantity: i.quantity,
-            price_eur: Number(i.unit_price_eur),
-          })),
-        },
-      });
-    } catch (e) {
-      console.error("admin-new-order email failed", e);
-    }
+    // Admin notification is sent from the payment webhook / crypto watcher
+    // when the payment is confirmed — not at order creation.
 
     return {
       orderId: order.id as string,
