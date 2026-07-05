@@ -92,7 +92,7 @@ export const Route = createFileRoute("/cgv")({
           <section>
             <h2 className="text-base font-semibold text-foreground">Article 7 – Garantie et responsabilité</h2>
             <p>
-              Les produits sont vendus en l'état, sans aucune garantie d'usage particulier. Le vendeur ne pourra en aucun cas être tenu responsable de l'utilisation qui sera faite des produits par le client.
+              Les produits sont vendus en l'état, sans aucune garantie d'usage spécifique. Le vendeur ne pourra en aucun cas être tenu responsable de l'utilisation qui sera faite des produits par le client.
             </p>
             <p className="mt-2">
               Le client assume l'entière responsabilité de l'usage qu'il fait des produits, y compris en cas de mauvaise utilisation, d'erreur de manipulation ou d'usage non conforme à leur destination (recherche in vitro).
