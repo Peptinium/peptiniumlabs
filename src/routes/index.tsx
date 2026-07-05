@@ -418,7 +418,7 @@ function HomePage() {
             <span className="brand-gradient-text font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
               Prêt à commander
             </span>
-            <h2 className="mt-6 text-[44px] font-semibold leading-[1.0] tracking-[-0.03em] text-foreground sm:text-[68px] sm:leading-[0.96]">
+            <h2 className="shimmer-text mt-6 text-[44px] font-semibold leading-[1.0] tracking-[-0.03em] sm:text-[68px] sm:leading-[0.96]">
               La sérénité du laboratoire,<br />
               à portée de commande.
             </h2>
