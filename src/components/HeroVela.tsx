@@ -51,18 +51,15 @@ export function HeroVela() {
           <div className="mt-9 flex flex-wrap items-center gap-3">
             <Link
               to="/produits"
-              className="group inline-flex items-center gap-3 rounded-full px-7 py-4 font-sans text-[14px] font-medium text-white shadow-[0_18px_44px_-18px_color-mix(in_oklab,var(--brand-violet)_70%,transparent)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-[0_24px_54px_-18px_color-mix(in_oklab,var(--brand-violet)_85%,transparent)]"
-              style={{
-                backgroundImage:
-                  "linear-gradient(120deg, oklch(0.70 0.18 210) 0%, oklch(0.58 0.28 290) 55%, oklch(0.68 0.27 345) 100%)",
-              }}
+              className="group inline-flex items-center gap-3 rounded-full bg-foreground px-7 py-4 font-sans text-[14px] font-medium text-background shadow-[0_18px_44px_-18px_color-mix(in_oklab,var(--foreground)_60%,transparent)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:bg-foreground/90"
             >
               Catalogue
               <span
                 aria-hidden
-                className="grid size-7 place-items-center rounded-full bg-white/20 transition-transform duration-500 group-hover:translate-x-0.5"
+                className="grid size-7 place-items-center rounded-full bg-background/15 transition-transform duration-500 group-hover:translate-x-0.5"
               >
                 <ArrowRight className="size-3.5" strokeWidth={2.2} />
+
               </span>
             </Link>
 
