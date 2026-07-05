@@ -217,20 +217,12 @@ function HomePage() {
         </Reveal>
       </section>
 
-      {/* ============ 5. PLUS QUE LA SCIENCE — dark gradient full-bleed ============ */}
+      {/* ============ 5. PLUS QUE LA SCIENCE — clean background ============ */}
       <section
         data-reveal-blur
         className="relative mt-24 overflow-hidden sm:mt-32"
         style={{ background: "#f7f5f0" }}
       >
-        <div
-          className="pointer-events-none absolute inset-0"
-          aria-hidden
-          style={{
-            background:
-              "radial-gradient(60% 55% at 82% 12%, color-mix(in oklab, var(--brand-magenta) 10%, transparent) 0%, transparent 70%), radial-gradient(55% 60% at 8% 90%, color-mix(in oklab, var(--brand-cyan) 10%, transparent) 0%, transparent 70%)",
-          }}
-        />
         <div
           className="pointer-events-none absolute inset-x-0 top-0 h-px"
           aria-hidden
@@ -238,16 +230,18 @@ function HomePage() {
         />
         <div className="relative mx-auto max-w-[1400px] px-8 py-24 sm:py-32">
           <Reveal>
-            <span className="inline-block rounded-full border border-black/15 bg-black/5 px-4 py-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.28em] text-black/80 backdrop-blur">
-              À propos de Peptinium
-            </span>
-            <h2 className="mt-8 max-w-4xl shimmer-text text-[44px] font-semibold leading-[1.0] tracking-[-0.035em] sm:text-[80px] sm:leading-[0.96]" data-shimmer="Plus que de la science.">
-              Plus que de la science.
-            </h2>
+            <div className="flex flex-col gap-8">
+              <span className="inline-block self-start rounded-full border border-black/15 bg-black/5 px-4 py-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.28em] text-black/80 backdrop-blur">
+                À propos de Peptinium
+              </span>
+              <h2 className="max-w-4xl shimmer-text text-[44px] font-semibold leading-[1.05] tracking-[-0.035em] sm:text-[80px] sm:leading-[1.0]" data-shimmer="Plus que de la science.">
+                Plus que de la science.
+              </h2>
+            </div>
             <div className="mt-10 h-px w-full bg-gradient-to-r from-black/30 via-black/10 to-transparent" />
           </Reveal>
 
-          <div className="mt-16 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-5 lg:gap-10">
+          <div className="mt-16 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-10">
             {[
               {
                 Icon: ShieldCheck,
@@ -269,11 +263,6 @@ function HomePage() {
                 t: "Traçabilité complète, lot après lot",
                 d: "Numéro de lot unique, CoA Janoshik indépendant, documentation auditable en ligne pour chaque flacon expédié.",
               },
-              {
-                Icon: FileCheck2,
-                t: "Support recherche par des experts",
-                d: "MSDS, protocoles de reconstitution, calcul de dilution. Un interlocuteur qui parle votre langage scientifique.",
-              },
             ].map((f, i) => (
               <Reveal key={f.t} delay={i * 80}>
                 <div className="flex flex-col gap-6">
@@ -290,6 +279,7 @@ function HomePage() {
           </div>
         </div>
       </section>
+
 
 
       {/* ============ 6. PROTOCOLE 01/02/03 — kept from previous version (better than Vela) ============ */}
