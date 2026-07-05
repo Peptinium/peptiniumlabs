@@ -34,7 +34,7 @@ function DesktopHero() {
         {/* Pill removed */}
 
         {/* Title */}
-        <h1 className="mt-5 font-display text-[40px] font-semibold leading-[1.02] tracking-[-0.035em] text-balance text-[oklch(0.15_0.02_270)] sm:text-[60px] lg:mt-8 lg:text-[92px] lg:leading-[0.95]">
+        <h1 className="mt-5 font-display text-[40px] font-semibold leading-[1.02] tracking-[-0.035em] text-balance text-[oklch(0.15_0.02_270)] sm:text-[54px] lg:mt-2 lg:text-[64px] lg:leading-[0.98]">
           <span className="shimmer-text block">L'Avenir de la</span>
           <span className="shimmer-text block">Précision Moléculaire.</span>
         </h1>
