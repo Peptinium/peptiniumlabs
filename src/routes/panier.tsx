@@ -809,9 +809,9 @@ function Recap({
       {open && (
         <div className="space-y-3">
           {cart.items
-            // Hide water row only when at least one peptide is in the cart —
-            // in that case water is managed by the dedicated "Solvant" panel below.
-            .filter((it) => !(it.slug === EAU_SLUG && cart.peptideCount > 0))
+            // In edit mode, hide water when peptides are present (managed by SolventLine).
+            // In read-only recap (checkout), always show it so amounts match the subtotal.
+            .filter((it) => !(editable && it.slug === EAU_SLUG && cart.peptideCount > 0))
             .map((it) => (
               <CartLine key={itemKey(it.slug, it.dosage)} item={it} editable={editable} />
             ))}
