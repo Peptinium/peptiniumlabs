@@ -6,7 +6,7 @@ import { Reveal } from "@/components/Reveal";
 import { HeroVela } from "@/components/HeroVela";
 import { products, formatPrice } from "@/data/products";
 import { ShieldCheck, Fingerprint, Truck, FlaskConical, Plus } from "lucide-react";
-import labBg from "@/assets/lab-bg-ruo.jpg";
+
 import promoBacWater from "@/assets/promo-bacwater.png";
 
 
@@ -92,12 +92,9 @@ function HomePage() {
 
   return (
     <SiteLayout>
-      <MobileHome featured={featured} rest={rest} />
-
-
-      <div className="desktop-experience">
       {/* ============ 1. IMMERSIVE HERO ============ */}
       <HeroVela />
+
 
       {/* ============ 2. BEST SELLERS — 4 cards + "Tout voir" pill ============ */}
       <section data-reveal-blur className="mx-auto max-w-[1400px] px-8 pt-24 sm:pt-32">
@@ -467,8 +464,8 @@ function HomePage() {
           </Reveal>
         </div>
       </section>
-      </div>
     </SiteLayout>
+
   );
 }
 
@@ -494,151 +491,6 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 }
 
 
-function MobileHome({ featured, rest }: { featured: typeof products[number]; rest: typeof products }) {
-  const mobileProducts = [featured, ...rest].slice(0, 5);
-
-  return (
-    <div className="mobile-experience">
-      <HeroVela />
-
-
-      <section className="px-5 py-12">
-        <div className="font-mono text-[12px] uppercase tracking-[0.16em] text-accent">
-          — Sélection laboratoire
-        </div>
-        <h2 className="mt-3 max-w-[620px] font-display text-[32px] font-semibold leading-[1.05] tracking-tight text-foreground">
-          Réactifs haute pureté prêts pour vos protocoles.
-        </h2>
-        <div className="mt-7 grid gap-4">
-          {mobileProducts.map((product) => (
-            <MobileProductCard key={product.slug} product={product} />
-          ))}
-        </div>
-        <Link
-          to="/produits"
-          className="mt-6 inline-flex min-h-14 w-full items-center justify-center rounded-full brand-gradient-bg px-6 py-4 font-mono text-[13px] font-semibold uppercase tracking-[0.14em] text-white shadow-[0_18px_44px_-18px_oklch(0.55_0.22_296/0.58)]"
-        >
-          Voir tout le catalogue →
-        </Link>
-      </section>
-
-      <section className="border-y border-border bg-surface px-5 py-12">
-        <div className="font-mono text-[12px] uppercase tracking-[0.16em] text-accent">
-          — Pourquoi Peptinium
-        </div>
-        <h2 className="mt-3 font-display text-[30px] font-semibold leading-[1.08] tracking-tight text-foreground">
-          Une exigence de laboratoire, pensée pour le chercheur.
-        </h2>
-        <div className="mt-7 space-y-3">
-          {[
-            ["01", "Pureté documentée", "CoA Janoshik indépendant par lot : HPLC en phase inverse et spectrométrie de masse."],
-            ["02", "Traçabilité totale", "Numéro de lot, documentation auditable et CoA disponible pour chaque flacon."],
-            ["03", "Support recherche", "MSDS, protocoles labo et conseils de reconstitution sur demande."],
-          ].map(([n, title, body]) => (
-            <div key={n} className="rounded-xl border border-border bg-card p-5 shadow-sm">
-              <div className="font-mono text-[11px] uppercase tracking-[0.16em] text-accent">— {n}</div>
-              <h3 className="mt-3 font-display text-[22px] font-semibold tracking-tight text-foreground">
-                {title}
-              </h3>
-              <p className="mt-2 text-[15px] leading-[1.55] text-muted-foreground">{body}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="px-5 py-12">
-        <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-[0_24px_58px_-32px_oklch(0.55_0.06_250/0.24)]">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 opacity-90"
-            style={{
-              background:
-                "radial-gradient(90% 80% at 100% 0%, color-mix(in oklab, var(--brand-violet) 16%, transparent) 0%, transparent 60%), radial-gradient(90% 80% at 0% 100%, color-mix(in oklab, var(--brand-cyan) 14%, transparent) 0%, transparent 65%)",
-            }}
-          />
-          <div className="relative">
-            <div className="font-mono text-[12px] uppercase tracking-[0.16em] text-accent">
-              — Prêt à commander
-            </div>
-             <h2 className="mt-3 font-display text-[28px] font-semibold leading-[1.08] tracking-tight text-foreground">
-              Passez commande avec la sérénité du labo.
-            </h2>
-            <p className="mt-4 text-[16px] leading-[1.55] text-muted-foreground">
-              Certificat d'Analyse, traçabilité complète et expédition rapide.
-            </p>
-            <Link
-              to="/produits"
-              className="mt-6 inline-flex min-h-14 w-full items-center justify-center rounded-full brand-gradient-bg px-6 py-4 font-mono text-[13px] font-semibold uppercase tracking-[0.14em] text-white"
-            >
-              Explorer les peptides →
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="border-t border-border bg-surface px-5 py-10">
-        <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-foreground/80">
-          <span className="size-2 rounded-full bg-accent" />
-          Research Use Only
-        </div>
-        <h2 className="mt-5 font-display text-[26px] font-semibold leading-[1.1] tracking-tight text-foreground">
-          Avis réglementaire RUO
-        </h2>
-        <p className="mt-4 text-[15px] leading-[1.65] text-muted-foreground">
-          Les produits Peptinium Labs sont des réactifs chimiques destinés exclusivement à la recherche scientifique in vitro en laboratoire contrôlé.
-        </p>
-      </section>
-    </div>
-  );
-}
-
-function MobileProductCard({ product }: { product: typeof products[number] }) {
-  const hasMultiple = product.variants.length > 1;
-  const price = Math.min(...product.variants.map((v) => v.price));
-
-  return (
-    <Link
-      to="/produits/$slug"
-      params={{ slug: product.slug }}
-      className="grid grid-cols-[112px_minmax(0,1fr)] gap-3 rounded-xl border border-border bg-card p-3 shadow-sm"
-    >
-      <div className="relative aspect-[2/3] overflow-hidden rounded-xl border border-border bg-surface">
-        <ProductVisual
-          product={product}
-          dosage={product.variants[0]?.dosage}
-          alt={`Flacon ${product.name} — Research Use Only`}
-          className="size-full"
-          imageClassName="size-full object-cover"
-          loading="lazy"
-        />
-      </div>
-      <div className="flex min-w-0 flex-col py-1">
-        <div className="font-mono text-[12px] uppercase tracking-[0.14em] text-accent">
-          {product.category}
-        </div>
-        <h3 className="mt-1 font-display text-[19px] font-semibold leading-[1.15] tracking-tight text-foreground">
-          {product.name}
-        </h3>
-        <div className="mt-2 font-mono text-[12px] uppercase tracking-[0.12em] text-muted-foreground">
-          {hasMultiple ? product.variants.map((v) => v.dosage).join(" · ") : product.variants[0].dosage}
-        </div>
-        <div className="mt-auto flex items-end justify-between gap-3 pt-4">
-          <div>
-            <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
-              Dès
-            </div>
-            <div className="font-display text-[22px] font-semibold leading-none text-foreground">
-              {formatPrice(price)}
-            </div>
-          </div>
-          <span className="shrink-0 font-mono text-[12px] uppercase tracking-[0.12em] text-accent">
-            Fiche →
-          </span>
-        </div>
-      </div>
-    </Link>
-  );
-}
 
 const specsMarquee = [
   "Retatrutide 10 mg",
