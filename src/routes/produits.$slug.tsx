@@ -259,18 +259,19 @@ function ProductPage() {
           <Reveal delay={100}>
             <div>
               <RuoBadge />
-              <div className="mt-4 font-mono text-[10px] uppercase tracking-[0.2em] text-accent">
-                — {product.category}
+              <div className="mt-5 brand-gradient-text font-mono text-[10px] font-semibold uppercase tracking-[0.28em]">
+                {product.category}
               </div>
-              <h1 className="mt-2 font-display text-4xl font-medium tracking-[-0.03em] sm:text-5xl">
+              <h1 className="mt-3 text-[44px] font-semibold leading-[0.98] tracking-[-0.03em] text-foreground sm:text-[60px]">
                 {product.name}
               </h1>
-              <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+              <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
                 Composé de recherche lyophilisé{product.cas ? ` · CAS ${product.cas}` : ""}
               </p>
-              <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">
+              <p className="mt-5 text-[16px] leading-[1.6] text-muted-foreground">
                 {product.shortDescription}
               </p>
+
 
               {/* Variant selector — large pills */}
               <div className="mt-8">
