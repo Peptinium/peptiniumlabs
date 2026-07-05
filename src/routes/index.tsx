@@ -240,13 +240,14 @@ function HomePage() {
                   </span>
                 </div>
                 <div className="max-w-xl pt-4 sm:pt-8">
-                  <h3 className="font-display text-3xl font-light tracking-tight text-foreground sm:text-4xl">
+                  <h3 className="text-[28px] font-semibold leading-[1.05] tracking-[-0.02em] text-foreground sm:text-[40px]">
                     {step.t}
                   </h3>
-                  <p className="mt-5 text-lg font-light leading-relaxed text-muted-foreground">
+                  <p className="mt-5 text-[17px] leading-[1.6] text-muted-foreground">
                     {step.d}
                   </p>
                 </div>
+
               </div>
             </Reveal>
           ))}
