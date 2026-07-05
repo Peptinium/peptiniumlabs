@@ -1,69 +1,52 @@
+# Système de paiement crypto direct (sans plateforme tierce)
 
-# Plan — Flacon "3D" par turntable 4 vues + refonte Home
+## Principe
 
-Tu m'as fourni 4 vues du flacon Retatrutide (avant, gauche, arrière, droite). Je peux effectivement créer un **effet 3D convaincant** sans modèle GLB, en utilisant une technique éprouvée (Apple, sites e-commerce premium) : **image turntable interactif avec cross-fade angulaire**. Résultat : on peut faire pivoter le flacon à 360° à la souris, avec un rendu très fluide.
+Le client paie directement sur **tes adresses de wallet**. Aucun intermédiaire, 0% de frais plateforme. On détecte automatiquement la transaction entrante grâce aux APIs blockchain publiques (gratuites) et on valide la commande.
 
-## 1. Effet 3D turntable (Hero)
+## Cryptos supportées
 
-**Principe**
-- Les 4 images (0°, 90°, 180°, 270°) sont mappées sur un cercle de rotation.
-- L'angle courant est calculé depuis le drag horizontal de la souris/tactile.
-- On affiche les 2 images adjacentes empilées avec un cross-fade proportionnel à la position entre les 2 angles → transitions fluides, illusion de rotation continue.
-- Auto-rotation lente (≈ 20 s / tour) quand l'utilisateur n'interagit pas ; pause au hover/drag ; reprise après ~2 s d'inactivité.
-- Halo lumineux animé (cyan → bleu → violet) derrière le flacon, souffle doux qui pulse.
-- Reflet/ombre douce projetée dessous.
-- Curseur `grab` / `grabbing` pour signaler l'interactivité.
-- Support tactile (mobile) : swipe horizontal = rotation.
+| Crypto | Réseau | API de vérification |
+|---|---|---|
+| **BTC** | Bitcoin | mempool.space (gratuit, no key) |
+| **USDC** | Polygon | PolygonScan (gratuit, no key) |
+| **LTC** | Litecoin | SoChain / BlockCypher (gratuit) |
 
-**Limitation honnête** : 4 vues = illusion 360° convaincante mais on ne voit pas les angles intermédiaires réels (les vues à 45°, 135°, etc. sont interpolées par fondu). Pour un vrai lisse parfait à 360°, il faudrait 24–36 vues ou un modèle GLB. Si tu veux monter en gamme plus tard, on pourra remplacer par un GLB sans changer l'interface.
+## Fonctionnement (flow client)
 
-**Assets**
-- Upload des 4 PNG via `lovable-assets` (CDN), pointeurs `.asset.json` dans `src/assets/vial/`.
-- Preload des 4 images au montage pour éviter tout flash.
+1. Client choisit "Crypto" au checkout, puis sélectionne BTC / USDC / LTC
+2. On récupère le taux EUR→crypto en temps réel via **CoinGecko** (API gratuite, no key)
+3. On génère un **montant unique** (ex: 0.00234517 BTC au lieu de 0.002345) — les derniers chiffres servent d'identifiant pour matcher la transaction à la commande, même si plusieurs clients paient en même temps
+4. On affiche : adresse wallet + montant exact + QR code + compte à rebours 20 min (fenêtre où le taux est garanti)
+5. Client paie depuis son propre wallet (Metamask, Ledger, Binance, etc.)
+6. Un cron backend scanne les transactions entrantes toutes les 60s, matche le montant unique, marque la commande comme payée et déclenche l'email de confirmation
+7. Si non payé après 20 min → commande annulée, stock relâché
 
-## 2. Hero refondu
+## Ce que je vais construire
 
-- **Titre** : `Peptinium` en très grande typo Sora, avec **effet balai lumineux** (shimmer gradient cyan→bleu→violet→magenta qui balaye) — l'effet qu'on avait avant, réintégré.
-- **Sous-titre FR** : « Peptides de recherche haute pureté » (modifiable).
-- Micro-labels : « Pureté ≥ 99% · Lab-tested · Research Use Only ».
-- 2 CTA : « Explorer le catalogue » + « Voir les COA ».
-- Flacon turntable à droite (desktop) / sous le texte (mobile).
-- Indice visuel discret « Faites glisser pour tourner » qui disparaît à la 1re interaction.
+### Backend
+- Table `crypto_payments` (order_id, currency, wallet_address, amount_crypto, amount_eur, unique_amount, expires_at, tx_hash, status)
+- Server function `createCryptoPayment` : calcule le montant unique, stocke, retourne les infos au client
+- Route publique `/api/public/crypto-watcher` : cron qui scanne les 3 blockchains, match les paiements, met à jour les commandes
+- Cron pg_cron toutes les 60 secondes qui appelle le watcher
 
-## 3. Restructuration de la Home
+### Frontend
+- Option "Crypto (BTC / USDC / LTC)" dans le sélecteur de paiement
+- Écran de paiement crypto avec QR code, adresse copiable, montant exact copiable, timer, statut live
+- Page auto-refresh qui bascule sur "Paiement confirmé ✓" dès détection
 
-```text
-1. Header (sticky, glass)
-2. Hero              → titre FR shimmer + flacon turntable interactif
-3. Trust bar         → RUO · COA · Expédition rapide · Paiement sécurisé
-4. Produits phares   → grille 3-4 ProductCard
-5. Pourquoi Peptinium → 3 piliers (Pureté 99% · Traçabilité · Support)
-6. Process qualité    → Timeline (Synthèse → HPLC → COA → Expédition)
-7. Témoignages       → 3 cartes chercheurs + rating
-8. FAQ concise       → 5-6 accordéons
-9. CTA final         → bandeau gradient
-10. RUO Banner + Footer
-```
+### Secrets à ajouter (par toi)
+- `WALLET_BTC` — ton adresse Bitcoin
+- `WALLET_USDC_POLYGON` — ton adresse Polygon (0x...)
+- `WALLET_LTC` — ton adresse Litecoin
 
-Espace généreux, animations d'apparition au scroll (IntersectionObserver + `fade-in`), micro-interactions Apple-like sur hover.
+## Points d'attention
 
-## 4. Cohérence DA
+- **Confirmations** : je valide dès 1 confirmation pour USDC (rapide, ~5s) et LTC (~2min), et 1 confirmation pour BTC aussi (~10min). Tu peux passer à 2-3 confirmations plus tard si tu veux plus de sécurité contre double-spend, au prix d'une attente plus longue pour le client.
+- **Volatilité BTC/LTC** : le taux est figé 20 min. Si le cours bouge fortement pendant que le client paie, tu absorbes l'écart. USDC est stable (1 USDC = 1 USD) donc pas de risque.
+- **Pas de remboursement automatique possible** : si un client envoie le mauvais montant ou après expiration, il faut rembourser manuellement depuis ton wallet. Je logge tout pour que ce soit traçable dans l'admin.
+- **Anonymat préservé** : aucune KYC, aucune donnée envoyée à un tiers, les seuls "témoins" sont les APIs blockchain publiques (mempool.space etc.) qui ne voient qu'une adresse wallet → une transaction, aucune info client.
 
-Palette conservée (cyan/bleu/violet/magenta du logo), thème clair, Sora + Inter. Aucune couleur hors DA.
+## Prêt à démarrer ?
 
-## Détails techniques
-
-- Nouveaux fichiers :
-  - `src/assets/vial/RT_AVANT.png.asset.json` + 3 autres (upload CDN).
-  - `src/components/VialTurntable.tsx` — composant turntable drag + autorotate.
-  - `src/components/Hero.tsx` — refonte (remplace l'actuel).
-  - `src/components/home/TrustBar.tsx`, `Pillars.tsx`, `QualityProcess.tsx`, `Testimonials.tsx`, `HomeFAQ.tsx`, `FinalCTA.tsx`.
-- Modifs :
-  - `src/routes/index.tsx` : nouvelle structure de sections.
-  - `src/styles.css` : classe `shimmer-text` réactivée avec keyframe.
-- **Aucune dépendance npm ajoutée** (pas de Three.js) → build léger, zéro impact perf.
-- Non touchés : Header, Footer, catalogue, pages produits, blog, calculatrice, tester-fioles.
-
-## Prochaine étape
-
-Si tu approuves, j'implémente tout en un passage. Si tu veux le vrai 3D GLB plus tard, on pourra faire l'upgrade en gardant la même UX.
+Dis-moi "go" et je commence par créer la table + la structure. Je te demanderai les 3 adresses wallet via un formulaire sécurisé au moment où j'en aurai besoin (pas maintenant, tu peux les préparer tranquille).
