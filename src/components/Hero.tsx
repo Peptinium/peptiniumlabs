@@ -214,6 +214,11 @@ function MobileHero() {
             draggable={false}
             className="mx-auto h-full w-auto object-contain drop-shadow-[0_28px_42px_color-mix(in_oklab,var(--brand-violet)_30%,transparent)] [animation:float_6s_ease-in-out_infinite]"
           />
+          <div
+            aria-hidden
+            className="vial-sheen-mask pointer-events-none absolute inset-0"
+            style={{ ["--vial-mask" as any]: `url(${avantAsset.url})` }}
+          />
         </div>
 
         {/* Inline hero stats */}
