@@ -71,7 +71,9 @@ export const placeOrder = createServerFn({ method: "POST" })
       subtotal += line;
       return {
         product_slug: i.slug,
-        product_name: p.name,
+        // Prefer the client-sent display name (includes dosage, e.g. "Retatrutide 10 MG").
+        // Falls back to the DB product name if the client omitted it.
+        product_name: (i.name && i.name.trim().length > 0) ? i.name.trim() : p.name,
         quantity: i.quantity,
         unit_price_eur: unit,
         line_total_eur: line,
