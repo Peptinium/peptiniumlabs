@@ -183,14 +183,13 @@ function AboutPage() {
         <section className="relative border-t border-border">
           <div className="mx-auto max-w-[1400px] px-6 py-24 lg:px-10 sm:py-32">
             <Reveal>
-              <div className="flex flex-wrap items-end justify-between gap-6">
-                <div>
-                  <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">— Notre méthode</span>
-                  <h2 className="shimmer-text mt-4 max-w-3xl text-[36px] font-semibold leading-[1.0] tracking-[-0.03em] sm:text-[56px]" data-shimmer="Quatre piliers, zéro raccourci.">
-                    Quatre piliers, zéro raccourci.
-                  </h2>
-                </div>
+              <div className="flex flex-col gap-4">
+                <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">— Notre méthode</span>
+                <h2 className="shimmer-text max-w-3xl text-[36px] font-semibold leading-[1.05] tracking-[-0.03em] sm:text-[56px] sm:leading-[1.02]" data-shimmer="Quatre piliers, zéro raccourci.">
+                  Quatre piliers, zéro raccourci.
+                </h2>
               </div>
+
             </Reveal>
 
             <div className="mt-16 grid gap-px overflow-hidden rounded-2xl bg-muted md:grid-cols-2">
