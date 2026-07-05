@@ -212,18 +212,20 @@ function HomePage() {
       <section
         data-reveal-blur
         className="relative mt-24 overflow-hidden sm:mt-32"
-        style={{
-          background:
-            "linear-gradient(135deg, oklch(0.28 0.14 265) 0%, oklch(0.22 0.16 285) 55%, oklch(0.24 0.15 305) 100%)",
-        }}
+        style={{ background: "#07060c" }}
       >
         <div
-          className="pointer-events-none absolute inset-0 opacity-40"
+          className="pointer-events-none absolute inset-0"
           aria-hidden
           style={{
             background:
-              "radial-gradient(ellipse at 80% 20%, color-mix(in oklab, var(--brand-magenta) 30%, transparent) 0%, transparent 55%), radial-gradient(ellipse at 10% 90%, color-mix(in oklab, var(--brand-cyan) 30%, transparent) 0%, transparent 55%)",
+              "radial-gradient(60% 55% at 82% 12%, color-mix(in oklab, var(--brand-magenta) 32%, transparent) 0%, transparent 70%), radial-gradient(55% 60% at 8% 90%, color-mix(in oklab, var(--brand-cyan) 30%, transparent) 0%, transparent 70%), radial-gradient(70% 50% at 50% 50%, color-mix(in oklab, var(--brand-violet) 18%, transparent) 0%, transparent 75%)",
           }}
+        />
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 h-px"
+          aria-hidden
+          style={{ background: "linear-gradient(90deg, transparent, color-mix(in oklab, var(--brand-violet) 60%, transparent), transparent)" }}
         />
         <div className="relative mx-auto max-w-[1400px] px-8 py-24 sm:py-32">
           <Reveal>
