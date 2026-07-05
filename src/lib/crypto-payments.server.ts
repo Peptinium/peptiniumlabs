@@ -10,7 +10,7 @@ export const CRYPTO_META: Record<
   { label: string; unit: string; decimals: number; network: string; coinbaseSymbol: string; coinpaprikaId: string; isStable: boolean }
 > = {
   BTC: { label: "Bitcoin", unit: "BTC", decimals: 8, network: "Bitcoin", coinbaseSymbol: "BTC", coinpaprikaId: "btc-bitcoin", isStable: false },
-  USDC_POLYGON: { label: "USDC (Polygon)", unit: "USDC", decimals: 6, network: "Polygon (MATIC)", coinbaseSymbol: "USDC", coinpaprikaId: "usdc-usd-coin", isStable: true },
+  USDC_POLYGON: { label: "USDC (Polygon)", unit: "USDC", decimals: 6, network: "Polygon", coinbaseSymbol: "USDC", coinpaprikaId: "usdc-usd-coin", isStable: true },
   LTC: { label: "Litecoin", unit: "LTC", decimals: 8, network: "Litecoin", coinbaseSymbol: "LTC", coinpaprikaId: "ltc-litecoin", isStable: false },
 };
 
