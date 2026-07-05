@@ -44,7 +44,7 @@ function StudiesPage() {
 
   return (
     <SiteLayout>
-      <div style={{ background: "#07060c" }} className="text-white">
+      <div className="bg-background text-foreground">
         {/* ============ HERO ============ */}
         <section className="relative overflow-hidden">
           <div className="pointer-events-none absolute inset-0" aria-hidden style={{ background: SWEEPS }} />
@@ -52,31 +52,31 @@ function StudiesPage() {
 
           <div className="relative mx-auto max-w-[1400px] px-6 pt-28 pb-20 lg:px-10 sm:pt-36 sm:pb-28">
             <Reveal>
-              <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.28em] text-white/70">
-                <span className="inline-block size-1.5 rounded-full bg-white/90" />
+              <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">
+                <span className="inline-block size-1.5 rounded-full bg-muted" />
                 Bibliographie · PubMed · PMC · JAMA
               </div>
             </Reveal>
             <Reveal delay={80}>
-              <h1 className="shimmer-text-light mt-10 max-w-5xl text-[52px] font-semibold leading-[0.98] tracking-[-0.035em] sm:text-[104px] sm:leading-[0.94]">
+              <h1 className="shimmer-text mt-10 max-w-5xl text-[52px] font-semibold leading-[0.98] tracking-[-0.035em] sm:text-[104px] sm:leading-[0.94]">
                 Études de référence par molécule.
               </h1>
             </Reveal>
             <Reveal delay={160}>
               <div className="mt-14 grid gap-10 md:grid-cols-[1.4fr_1fr] md:gap-16">
-                <p className="text-[18px] leading-[1.55] text-white/80 sm:text-[22px]">
+                <p className="text-[18px] leading-[1.55] text-muted-foreground sm:text-[22px]">
                   Chaque réactif du catalogue est documenté par une sélection de publications
                   indexées sur PubMed / PMC ou éditées par les grandes revues internationales.
-                  Fournies à titre <span className="text-white">documentaire exclusivement</span>.
+                  Fournies à titre <span className="text-foreground">documentaire exclusivement</span>.
                 </p>
-                <div className="grid grid-cols-2 gap-6 self-end border-t border-white/15 pt-6">
+                <div className="grid grid-cols-2 gap-6 self-end border-t border-border pt-6">
                   <div>
-                    <div className="font-display text-[28px] font-semibold text-white sm:text-[36px]">{sorted.length}</div>
-                    <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.22em] text-white/60">Molécules documentées</div>
+                    <div className="font-display text-[28px] font-semibold text-foreground sm:text-[36px]">{sorted.length}</div>
+                    <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">Molécules documentées</div>
                   </div>
                   <div>
-                    <div className="font-display text-[28px] font-semibold text-white sm:text-[36px]">{totalRefs}</div>
-                    <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.22em] text-white/60">Références indexées</div>
+                    <div className="font-display text-[28px] font-semibold text-foreground sm:text-[36px]">{totalRefs}</div>
+                    <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">Références indexées</div>
                   </div>
                 </div>
               </div>
@@ -85,24 +85,24 @@ function StudiesPage() {
         </section>
 
         {/* ============ Liste éditoriale ============ */}
-        <section className="relative border-t border-white/10">
+        <section className="relative border-t border-border">
           <div className="mx-auto max-w-[1400px] px-6 py-20 lg:px-10 sm:py-28">
             <div className="space-y-20 sm:space-y-28">
               {sorted.map((p, idx) => (
                 <Reveal key={p.slug} delay={idx * 30}>
-                  <article className="grid gap-10 border-t border-white/10 pt-14 md:grid-cols-[280px_1fr] md:gap-16 sm:pt-20">
+                  <article className="grid gap-10 border-t border-border pt-14 md:grid-cols-[280px_1fr] md:gap-16 sm:pt-20">
                     {/* Left column: numéro + fiole */}
                     <div className="flex flex-col gap-6">
                       <div className="flex items-baseline gap-4">
-                        <span className="font-display text-[64px] font-extralight leading-none text-white/25 sm:text-[80px]">
+                        <span className="font-display text-[64px] font-extralight leading-none text-muted-foreground sm:text-[80px]">
                           {String(idx + 1).padStart(2, "0")}
                         </span>
                         <div>
-                          <div className="font-mono text-[9px] uppercase tracking-[0.24em] text-white/50">{p.category}</div>
-                          <div className="mt-1 font-mono text-[10px] text-white/70">Pureté {p.purity}</div>
+                          <div className="font-mono text-[9px] uppercase tracking-[0.24em] text-muted-foreground">{p.category}</div>
+                          <div className="mt-1 font-mono text-[10px] text-muted-foreground">Pureté {p.purity}</div>
                         </div>
                       </div>
-                      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03]">
+                      <div className="relative overflow-hidden rounded-2xl border border-border bg-card">
                         <div className="pointer-events-none absolute inset-0" aria-hidden style={{ background: "radial-gradient(60% 60% at 50% 40%, color-mix(in oklab, var(--brand-violet) 22%, transparent), transparent 70%)" }} />
                         <ProductVisual
                           product={p}
@@ -115,27 +115,27 @@ function StudiesPage() {
                       <Link
                         to="/produits/$slug"
                         params={{ slug: p.slug }}
-                        className="group inline-flex items-center justify-between gap-2 rounded-full border border-white/15 px-5 py-2.5 text-[13px] font-medium text-white transition-colors hover:border-white/60"
+                        className="group inline-flex items-center justify-between gap-2 rounded-full border border-border px-5 py-2.5 text-[13px] font-medium text-foreground transition-colors hover:border-white/60"
                       >
                         Voir la fiche
-                        <span className="grid size-6 place-items-center rounded-full bg-white/10 text-white transition-transform group-hover:translate-x-0.5">→</span>
+                        <span className="grid size-6 place-items-center rounded-full bg-muted text-foreground transition-transform group-hover:translate-x-0.5">→</span>
                       </Link>
                     </div>
 
                     {/* Right column: titre + refs */}
                     <div className="min-w-0">
-                      <h2 className="text-[36px] font-semibold leading-[0.98] tracking-[-0.025em] text-white sm:text-[56px]">
+                      <h2 className="text-[36px] font-semibold leading-[0.98] tracking-[-0.025em] text-foreground sm:text-[56px]">
                         {p.name}
                       </h2>
 
-                      <ul className="mt-10 divide-y divide-white/10 border-y border-white/10">
+                      <ul className="mt-10 divide-y divide-border border-y border-border">
                         {p.references.map((r, i) => (
                           <li key={r.url} className="group flex flex-wrap items-center justify-between gap-6 py-5">
                             <div className="min-w-0 flex-1">
-                              <div className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/50">
+                              <div className="font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
                                 Réf. {String(i + 1).padStart(2, "0")} · {r.source}
                               </div>
-                              <div className="mt-2 truncate font-display text-[18px] font-medium text-white sm:text-[22px]">
+                              <div className="mt-2 truncate font-display text-[18px] font-medium text-foreground sm:text-[22px]">
                                 {r.id}
                               </div>
                             </div>
@@ -143,7 +143,7 @@ function StudiesPage() {
                               href={r.url}
                               target="_blank"
                               rel="noreferrer"
-                              className="shrink-0 inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-white transition-colors hover:border-white/60"
+                              className="shrink-0 inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground transition-colors hover:border-white/60"
                             >
                               Consulter sur {r.source}
                               <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden>
@@ -155,7 +155,7 @@ function StudiesPage() {
                       </ul>
 
                       {p.slug === "klow" && (
-                        <p className="mt-6 rounded-xl border border-white/10 bg-white/[0.03] px-5 py-4 text-[12.5px] italic leading-relaxed text-white/60">
+                        <p className="mt-6 rounded-xl border border-border bg-card px-5 py-4 text-[12.5px] italic leading-relaxed text-muted-foreground">
                           KLOW est une co-formulation de GHK-Cu + BPC-157 + TB-500 + KPV.
                           Les références correspondent aux études individuelles des composants actifs
                           (cicatrisation, anti-inflammation, remodelage matriciel).
@@ -167,9 +167,9 @@ function StudiesPage() {
               ))}
             </div>
 
-            <div className="mt-24 rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-8 text-center backdrop-blur-sm sm:px-10 sm:py-10">
-              <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-white/60">Sources</div>
-              <p className="mx-auto mt-3 max-w-2xl text-[13.5px] leading-[1.65] text-white/70">
+            <div className="mt-24 rounded-2xl border border-border bg-card px-6 py-8 text-center backdrop-blur-sm sm:px-10 sm:py-10">
+              <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">Sources</div>
+              <p className="mx-auto mt-3 max-w-2xl text-[13.5px] leading-[1.65] text-muted-foreground">
                 NIH · National Library of Medicine · PubMed · PubMed Central (PMC) · JAMA Network.
                 Liens directs vérifiés vers les publications originales.
               </p>

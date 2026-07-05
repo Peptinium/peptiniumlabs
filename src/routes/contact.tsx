@@ -1,17 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowRight, Mail, Clock, ShieldCheck } from "lucide-react";
+import { ArrowRight, Mail, Clock, MapPin } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
-import { RuoBadge } from "@/components/RuoBadge";
+import { Reveal } from "@/components/Reveal";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact laboratoire — Peptinium Labs" },
+      { title: "Contact — Peptinium Labs" },
       {
         name: "description",
         content:
-          "Contactez l'équipe Peptinium Labs pour un devis recherche, une documentation technique ou une demande de Certificat d'Analyse (CoA).",
+          "Une question, un devis, un suivi de commande ? Notre équipe répond sous un jour ouvré.",
       },
       { property: "og:url", content: "/contact" },
     ],
@@ -22,188 +22,172 @@ export const Route = createFileRoute("/contact")({
 
 function ContactPage() {
   const [sent, setSent] = useState(false);
+  const [form, setForm] = useState({ name: "", phone: "", email: "", message: "" });
 
   return (
     <SiteLayout>
-      {/* HERO éditorial */}
+      {/* ============ HERO ============ */}
       <section className="relative overflow-hidden bg-background">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(55% 45% at 85% 20%, color-mix(in oklab, var(--brand-violet) 10%, transparent) 0%, transparent 65%), radial-gradient(40% 40% at 10% 90%, color-mix(in oklab, var(--brand-cyan) 8%, transparent) 0%, transparent 70%)",
-          }}
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -top-px left-0 h-px w-1/2 bg-gradient-to-r from-transparent via-[oklch(0.62_0.26_296)] to-transparent [animation:beam-sweep_7s_ease-in-out_infinite]"
-        />
-
-        <div className="container-prose relative px-5 pt-20 pb-14 lg:pt-32 lg:pb-20">
-          <span className="text-muted-foreground font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
-            Nous écrire
-          </span>
-          <h1 className="mt-6 max-w-[14ch] text-[54px] font-semibold leading-[0.98] tracking-[-0.03em] text-foreground sm:text-[76px] lg:text-[104px] lg:leading-[0.94]">
-            Parlons de votre{" "}
-            <span className="brand-gradient-text">recherche</span>.
-          </h1>
-          <p className="mt-8 max-w-xl text-[17px] leading-[1.6] text-muted-foreground">
-            Devis catalogue, Certificats d'Analyse, MSDS, packs sur mesure —
-            notre équipe répond sous 24 h ouvrées aux laboratoires, CRO et
-            institutions de recherche.
-          </p>
-        </div>
-      </section>
-
-      {/* Trio de valeurs */}
-      <section data-reveal-blur className="border-y border-border/60">
-        <div className="container-prose grid gap-10 px-5 py-14 sm:grid-cols-3">
-          {[
-            { icon: Mail, k: "Email", v: "contact@peptinium.com", s: "Réponse < 24 h" },
-            { icon: Clock, k: "Horaires", v: "Lun – Ven", s: "9h00 – 18h00 CET" },
-            { icon: ShieldCheck, k: "Cadre", v: "RUO uniquement", s: "Recherche en laboratoire" },
-          ].map(({ icon: Icon, k, v, s }) => (
-            <div key={k} className="flex flex-col">
-              <Icon className="size-5 text-foreground/70" strokeWidth={1.4} />
-              <div className="mt-4 font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
-                {k}
-              </div>
-              <div className="mt-2 text-[22px] font-semibold tracking-tight text-foreground">
-                {v}
-              </div>
-              <div className="mt-1 text-sm text-muted-foreground">{s}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Formulaire */}
-      <section data-reveal-blur className="container-prose grid gap-14 px-5 py-20 lg:grid-cols-[0.9fr_1.3fr] lg:py-28">
-        <div className="lg:pt-4">
-          <RuoBadge />
-          <h2 className="mt-6 text-[36px] font-semibold leading-[1.02] tracking-[-0.02em] text-foreground sm:text-[44px]">
-            Une demande précise mérite une réponse précise.
-          </h2>
-          <p className="mt-5 max-w-md text-[15px] leading-[1.65] text-muted-foreground">
-            Décrivez le protocole, les molécules et les quantités visées.
-            Un ingénieur d'application vous recontacte avec un devis, les CoA
-            associés et les délais d'expédition.
-          </p>
-
-          <div className="mt-10 rounded-2xl border border-warning/30 bg-warning/[0.04] p-5">
-            <div className="font-mono text-[10px] uppercase tracking-[0.24em] text-warning">
-              Avis RUO
-            </div>
-            <p className="mt-2 text-[13px] leading-relaxed text-foreground/80">
-              Les commandes ne sont acceptées qu'auprès d'entités de
-              recherche. Aucune demande à finalité humaine, vétérinaire ou
-              thérapeutique n'est traitée.
+        <div className="container-prose relative px-5 pt-24 pb-14 lg:pt-32 lg:pb-20">
+          <Reveal>
+            <span className="text-muted-foreground font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
+              — Nous contacter
+            </span>
+          </Reveal>
+          <Reveal delay={80}>
+            <h1 className="mt-6 max-w-[16ch] text-[52px] font-semibold leading-[0.98] tracking-[-0.03em] text-foreground sm:text-[76px] lg:text-[96px] lg:leading-[0.94]">
+              On est là, <span className="italic font-light">simplement</span>.
+            </h1>
+          </Reveal>
+          <Reveal delay={160}>
+            <p className="mt-8 max-w-xl text-[17px] leading-[1.6] text-muted-foreground">
+              Une question sur une commande, un produit, un délai&nbsp;? Écrivez-nous —
+              une vraie personne vous répond sous un jour ouvré.
             </p>
-          </div>
+          </Reveal>
         </div>
+      </section>
 
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            setSent(true);
-          }}
-          className="relative overflow-hidden rounded-3xl border border-border bg-card p-7 sm:p-9"
-        >
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -top-px left-0 h-px w-1/2 bg-gradient-to-r from-transparent via-[oklch(0.62_0.26_296)] to-transparent [animation:beam-sweep_7s_ease-in-out_infinite]"
-          />
-          {sent ? (
-            <div className="py-14 text-center">
-              <div className="mx-auto grid size-14 place-items-center rounded-full bg-medical/10 text-medical">
-                ✓
-              </div>
-              <h3 className="mt-6 text-2xl font-semibold tracking-tight">
-                Demande transmise
-              </h3>
-              <p className="mt-3 text-sm text-muted-foreground">
-                Notre équipe vous répondra sous 24 h ouvrées.
-              </p>
-            </div>
-          ) : (
-            <>
-              <div className="grid gap-5 sm:grid-cols-2">
-                <Field label="Nom du chercheur" />
-                <Field label="Laboratoire / Institution" />
-                <Field label="Email professionnel" type="email" />
-                <Field label="Téléphone" />
-              </div>
-
-              <label className="mt-5 block">
-                <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-                  Nature de la demande
+      {/* ============ Contenu ============ */}
+      <section className="container-prose grid gap-14 px-5 pb-24 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20 lg:pb-32">
+        {/* Colonne infos */}
+        <Reveal>
+          <div className="flex flex-col gap-10">
+            {[
+              { Icon: Mail, k: "Email", v: "contact@peptinium.com", s: "Réponse sous 24 h" },
+              { Icon: Clock, k: "Horaires", v: "Lun – Ven", s: "9h – 18h CET" },
+              { Icon: MapPin, k: "Expédition", v: "Depuis l'Europe", s: "Suivi fourni" },
+            ].map(({ Icon, k, v, s }) => (
+              <div key={k} className="flex items-start gap-4 border-t border-border pt-6 first:border-t-0 first:pt-0">
+                <Icon className="mt-1 size-5 shrink-0 text-foreground/70" strokeWidth={1.4} />
+                <div className="min-w-0">
+                  <div className="font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+                    {k}
+                  </div>
+                  <div className="mt-1.5 text-[19px] font-medium tracking-tight text-foreground">
+                    {v}
+                  </div>
+                  <div className="mt-0.5 text-sm text-muted-foreground">{s}</div>
                 </div>
-                <select className="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground focus:border-foreground/60 focus:outline-none">
-                  <option>Devis catalogue</option>
-                  <option>Demande de CoA / MSDS</option>
-                  <option>Pack recherche sur mesure</option>
-                  <option>Documentation technique</option>
-                </select>
-              </label>
+              </div>
+            ))}
+          </div>
+        </Reveal>
 
-              <label className="mt-5 block">
-                <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-                  Détail du protocole / produits
+        {/* Formulaire — style Vela */}
+        <Reveal delay={80}>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              setSent(true);
+            }}
+            className="rounded-3xl border border-border bg-card p-7 sm:p-10"
+          >
+            {sent ? (
+              <div className="py-16 text-center">
+                <div className="mx-auto grid size-14 place-items-center rounded-full bg-foreground text-background">
+                  ✓
                 </div>
-                <textarea
-                  rows={5}
-                  className="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground focus:border-foreground/60 focus:outline-none"
-                  placeholder="Référence(s) du catalogue, quantités, type de recherche in vitro..."
-                />
-              </label>
+                <h3 className="mt-6 text-2xl font-semibold tracking-tight text-foreground">
+                  Message envoyé
+                </h3>
+                <p className="mt-3 text-sm text-muted-foreground">
+                  Merci — nous revenons vers vous très vite.
+                </p>
+              </div>
+            ) : (
+              <>
+                <div className="grid gap-8 sm:grid-cols-2">
+                  <VelaField label="Nom" required value={form.name} onChange={(v) => setForm({ ...form, name: v })} />
+                  <VelaField label="Téléphone" optional value={form.phone} onChange={(v) => setForm({ ...form, phone: v })} />
+                </div>
 
-              <label className="mt-5 flex items-start gap-3 text-xs leading-relaxed text-muted-foreground">
-                <input type="checkbox" required className="mt-1" />
-                <span>
-                  Je certifie représenter une entité de recherche et utiliser
-                  les produits commandés{" "}
-                  <strong className="text-foreground">
-                    exclusivement pour la recherche scientifique en laboratoire (RUO)
-                  </strong>
-                  .
-                </span>
-              </label>
+                <div className="mt-8">
+                  <VelaField label="E-mail" type="email" required value={form.email} onChange={(v) => setForm({ ...form, email: v })} />
+                </div>
 
-              <button
-                type="submit"
-                className="group mt-7 inline-flex items-center gap-3 rounded-full px-7 py-4 font-sans text-[14px] font-medium text-white shadow-[0_18px_44px_-18px_color-mix(in_oklab,var(--brand-violet)_70%,transparent)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-[0_24px_54px_-18px_color-mix(in_oklab,var(--brand-violet)_85%,transparent)]"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(120deg, oklch(0.70 0.18 210) 0%, oklch(0.58 0.28 290) 55%, oklch(0.68 0.27 345) 100%)",
-                }}
-              >
-                Envoyer la demande
-                <span
-                  aria-hidden
-                  className="grid size-7 place-items-center rounded-full bg-white/20 transition-transform duration-500 group-hover:translate-x-0.5"
-                >
-                  <ArrowRight className="size-3.5" strokeWidth={2.2} />
-                </span>
-              </button>
-            </>
-          )}
-        </form>
+                <div className="mt-8">
+                  <VelaField
+                    label="Message"
+                    required
+                    textarea
+                    placeholder="Comment pouvons-nous vous aider ?"
+                    value={form.message}
+                    onChange={(v) => setForm({ ...form, message: v })}
+                  />
+                </div>
+
+                <div className="mt-10 flex flex-wrap items-center justify-between gap-6 border-t border-border pt-6">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+                    Nous répondons sous un jour ouvré
+                  </span>
+                  <button
+                    type="submit"
+                    className="group inline-flex items-center gap-3 rounded-full bg-foreground px-6 py-3 font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-background transition-transform hover:-translate-y-0.5"
+                  >
+                    Envoyer le message
+                    <span className="grid size-6 place-items-center rounded-full bg-background/15 transition-transform group-hover:translate-x-0.5">
+                      <ArrowRight className="size-3" strokeWidth={2.2} />
+                    </span>
+                  </button>
+                </div>
+              </>
+            )}
+          </form>
+        </Reveal>
       </section>
     </SiteLayout>
   );
 }
 
-function Field({ label, type = "text" }: { label: string; type?: string }) {
+function VelaField({
+  label,
+  type = "text",
+  required,
+  optional,
+  textarea,
+  placeholder,
+  value,
+  onChange,
+}: {
+  label: string;
+  type?: string;
+  required?: boolean;
+  optional?: boolean;
+  textarea?: boolean;
+  placeholder?: string;
+  value: string;
+  onChange: (v: string) => void;
+}) {
   return (
     <label className="block">
-      <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-        {label}
+      <div className="flex items-baseline justify-between">
+        <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-foreground/80">
+          {label}
+        </span>
+        <span className="font-mono text-[9px] uppercase tracking-[0.24em] text-muted-foreground/70">
+          {required ? "Obligatoire" : optional ? "Facultatif" : ""}
+        </span>
       </div>
-      <input
-        type={type}
-        className="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground focus:border-foreground/60 focus:outline-none"
-      />
+      {textarea ? (
+        <textarea
+          required={required}
+          rows={5}
+          placeholder={placeholder}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className="mt-3 w-full resize-y border-0 border-b border-border bg-transparent px-0 py-2 text-[15px] text-foreground placeholder:text-muted-foreground/60 focus:border-foreground focus:outline-none focus:ring-0"
+        />
+      ) : (
+        <input
+          type={type}
+          required={required}
+          placeholder={placeholder}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className="mt-3 w-full border-0 border-b border-border bg-transparent px-0 py-2 text-[15px] text-foreground placeholder:text-muted-foreground/60 focus:border-foreground focus:outline-none focus:ring-0"
+        />
+      )}
     </label>
   );
 }

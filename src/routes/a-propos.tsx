@@ -60,7 +60,7 @@ const SWEEPS =
 function AboutPage() {
   return (
     <SiteLayout>
-      <div style={{ background: "#07060c" }} className="text-white">
+      <div className="bg-background text-foreground">
         {/* ============ HERO magazine ============ */}
         <section className="relative overflow-hidden">
           <div className="pointer-events-none absolute inset-0" aria-hidden style={{ background: SWEEPS }} />
@@ -68,35 +68,35 @@ function AboutPage() {
 
           <div className="relative mx-auto max-w-[1400px] px-6 pt-28 pb-24 lg:px-10 sm:pt-36 sm:pb-32">
             <Reveal>
-              <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.28em] text-white/70">
-                <span className="inline-block size-1.5 rounded-full bg-white/90" />
+              <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">
+                <span className="inline-block size-1.5 rounded-full bg-muted" />
                 Peptinium Labs · Édition n°01
                 <span className="hidden sm:inline">— Sunday, July 5, 2026</span>
               </div>
             </Reveal>
 
             <Reveal delay={80}>
-              <h1 className="shimmer-text-light mt-10 max-w-5xl text-[52px] font-semibold leading-[0.98] tracking-[-0.035em] sm:text-[104px] sm:leading-[0.94]">
+              <h1 className="shimmer-text mt-10 max-w-5xl text-[52px] font-semibold leading-[0.98] tracking-[-0.035em] sm:text-[104px] sm:leading-[0.94]">
                 La science, sans compromis.
               </h1>
             </Reveal>
 
             <Reveal delay={160}>
               <div className="mt-14 grid gap-10 md:grid-cols-[1.4fr_1fr] md:gap-16">
-                <p className="text-[18px] leading-[1.55] text-white/80 sm:text-[22px]">
+                <p className="text-[18px] leading-[1.55] text-muted-foreground sm:text-[22px]">
                   Peptinium Labs fournit des peptides synthétiques de qualité recherche à des
                   équipes académiques, des CRO et des instituts publics. Notre engagement tient
-                  en une phrase : <span className="text-white">chaque flacon est traçable, vérifié, auditable</span>.
+                  en une phrase : <span className="text-foreground">chaque flacon est traçable, vérifié, auditable</span>.
                 </p>
-                <div className="grid grid-cols-3 gap-6 self-end border-t border-white/15 pt-6">
+                <div className="grid grid-cols-3 gap-6 self-end border-t border-border pt-6">
                   {[
                     { k: "≥ 99 %", l: "Pureté HPLC" },
                     { k: "100 %", l: "Lots tracés" },
                     { k: "24 h", l: "Expédition" },
                   ].map((s) => (
                     <div key={s.l}>
-                      <div className="font-display text-[28px] font-semibold text-white sm:text-[36px]">{s.k}</div>
-                      <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.22em] text-white/60">{s.l}</div>
+                      <div className="font-display text-[28px] font-semibold text-foreground sm:text-[36px]">{s.k}</div>
+                      <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">{s.l}</div>
                     </div>
                   ))}
                 </div>
@@ -106,20 +106,20 @@ function AboutPage() {
         </section>
 
         {/* ============ 4 piliers ============ */}
-        <section className="relative border-t border-white/10">
+        <section className="relative border-t border-border">
           <div className="mx-auto max-w-[1400px] px-6 py-24 lg:px-10 sm:py-32">
             <Reveal>
               <div className="flex flex-wrap items-end justify-between gap-6">
                 <div>
-                  <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-white/60">— Notre méthode</span>
-                  <h2 className="shimmer-text-light mt-4 max-w-3xl text-[36px] font-semibold leading-[1.0] tracking-[-0.03em] sm:text-[56px]">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">— Notre méthode</span>
+                  <h2 className="shimmer-text mt-4 max-w-3xl text-[36px] font-semibold leading-[1.0] tracking-[-0.03em] sm:text-[56px]">
                     Quatre piliers, zéro raccourci.
                   </h2>
                 </div>
               </div>
             </Reveal>
 
-            <div className="mt-16 grid gap-px overflow-hidden rounded-2xl bg-white/10 md:grid-cols-2">
+            <div className="mt-16 grid gap-px overflow-hidden rounded-2xl bg-muted md:grid-cols-2">
               {[
                 { Icon: FlaskConical, n: "01", t: "Synthèse SPPS Fmoc auditée", d: "Partenaires GMP-friendly sélectionnés sur audit qualité annuel. Synthèse en phase solide, purification par HPLC préparative." },
                 { Icon: ShieldCheck, n: "02", t: "CoA Janoshik indépendant", d: "Chaque lot analysé par HPLC en phase inverse et spectrométrie de masse. Certificat consultable en ligne, clé de vérification publique." },
@@ -127,13 +127,13 @@ function AboutPage() {
                 { Icon: FileCheck2, n: "04", t: "Engagement RUO strict", d: "Vente réservée aux chercheurs, laboratoires, CRO et institutions. Aucun usage vétérinaire, diagnostique ou thérapeutique promu." },
               ].map((p) => (
                 <Reveal key={p.n}>
-                  <div className="group relative flex flex-col gap-6 p-10 sm:p-12" style={{ background: "#07060c" }}>
+                  <div className="group relative flex flex-col gap-6 p-10 sm:p-12" style={{ background: "var(--card)" }}>
                     <div className="flex items-center justify-between">
-                      <p.Icon className="size-6 text-white/85" strokeWidth={1.4} />
-                      <span className="font-mono text-[11px] uppercase tracking-[0.28em] text-white/40">{p.n}</span>
+                      <p.Icon className="size-6 text-muted-foreground" strokeWidth={1.4} />
+                      <span className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground">{p.n}</span>
                     </div>
-                    <h3 className="text-[24px] font-semibold leading-[1.15] tracking-[-0.015em] text-white sm:text-[28px]">{p.t}</h3>
-                    <p className="max-w-lg text-[14.5px] leading-[1.65] text-white/65">{p.d}</p>
+                    <h3 className="text-[24px] font-semibold leading-[1.15] tracking-[-0.015em] text-foreground sm:text-[28px]">{p.t}</h3>
+                    <p className="max-w-lg text-[14.5px] leading-[1.65] text-muted-foreground">{p.d}</p>
                     <div
                       aria-hidden
                       className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
@@ -147,27 +147,27 @@ function AboutPage() {
         </section>
 
         {/* ============ Janoshik — grand feature ============ */}
-        <section className="relative overflow-hidden border-t border-white/10">
+        <section className="relative overflow-hidden border-t border-border">
           <div className="pointer-events-none absolute inset-0" aria-hidden style={{ background: "radial-gradient(45% 40% at 15% 20%, color-mix(in oklab, var(--brand-cyan) 22%, transparent) 0%, transparent 70%), radial-gradient(50% 45% at 90% 90%, color-mix(in oklab, var(--brand-magenta) 22%, transparent) 0%, transparent 70%)" }} />
 
           <div className="relative mx-auto max-w-[1400px] px-6 py-24 lg:px-10 sm:py-32">
             <Reveal>
               <div className="grid gap-10 md:grid-cols-[1fr_1.4fr] md:gap-16">
                 <div>
-                  <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-white/60">— Preuves</span>
-                  <h2 className="shimmer-text-light mt-4 text-[40px] font-semibold leading-[0.98] tracking-[-0.03em] sm:text-[64px]">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">— Preuves</span>
+                  <h2 className="shimmer-text mt-4 text-[40px] font-semibold leading-[0.98] tracking-[-0.03em] sm:text-[64px]">
                     Vérifié par Janoshik Analytical.
                   </h2>
                 </div>
-                <div className="space-y-4 text-[15.5px] leading-[1.7] text-white/75">
+                <div className="space-y-4 text-[15.5px] leading-[1.7] text-muted-foreground">
                   <p>
-                    <strong className="text-white">Janoshik Analytical</strong> est un laboratoire européen indépendant basé à Prague,
+                    <strong className="text-foreground">Janoshik Analytical</strong> est un laboratoire européen indépendant basé à Prague,
                     spécialisé dans l'analyse quantitative et qualitative de peptides par HPLC et
                     spectrométrie de masse.
                   </p>
                   <p>
                     Chacune des fioles ci-dessous a été testée par Janoshik. Vous pouvez consulter
-                    les rapports en taille réelle et <strong className="text-white">vérifier vous-même l'authenticité</strong> de chaque
+                    les rapports en taille réelle et <strong className="text-foreground">vérifier vous-même l'authenticité</strong> de chaque
                     rapport directement sur{" "}
                     <a href="https://www.janoshik.com/" target="_blank" rel="noreferrer" className="underline decoration-white/30 underline-offset-4 hover:decoration-white">janoshik.com</a>{" "}
                     en saisissant la clé unique fournie sur le CoA.
@@ -184,41 +184,41 @@ function AboutPage() {
                     href={c.src}
                     target="_blank"
                     rel="noreferrer"
-                    className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm transition-all hover:border-white/30 hover:bg-white/[0.06]"
+                    className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card backdrop-blur-sm transition-all hover:border-white/30 hover:bg-card"
                   >
                     <div className="relative aspect-[3/4] overflow-hidden bg-white">
                       <img src={c.src} alt={`Rapport Janoshik — ${c.name} ${c.dosage}`} loading="lazy" className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
-                      <div className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-black/80 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.2em] text-white backdrop-blur">
+                      <div className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-foreground px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.2em] text-background backdrop-blur">
                         <span className="size-1 rounded-full" style={{ background: "var(--brand-cyan)" }} /> Vérifié
                       </div>
                     </div>
                     <div className="flex flex-1 flex-col gap-3 p-5">
                       <div className="flex items-baseline justify-between gap-3">
-                        <h3 className="text-[16px] font-semibold tracking-tight text-white">{c.name}</h3>
-                        <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/50">{c.dosage}</span>
+                        <h3 className="text-[16px] font-semibold tracking-tight text-foreground">{c.name}</h3>
+                        <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">{c.dosage}</span>
                       </div>
-                      <div className="grid grid-cols-2 gap-3 border-t border-white/10 pt-3 text-[11px] text-white/70">
+                      <div className="grid grid-cols-2 gap-3 border-t border-border pt-3 text-[11px] text-muted-foreground">
                         <div>
-                          <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/40">Tâche</div>
-                          <div className="mt-0.5 font-mono text-white/90">{c.taskNumber}</div>
+                          <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">Tâche</div>
+                          <div className="mt-0.5 font-mono text-muted-foreground">{c.taskNumber}</div>
                         </div>
                         <div>
-                          <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/40">Analyse</div>
-                          <div className="mt-0.5 font-mono text-white/90">{c.date}</div>
+                          <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">Analyse</div>
+                          <div className="mt-0.5 font-mono text-muted-foreground">{c.date}</div>
                         </div>
                         <div className="col-span-2">
-                          <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/40">Pureté</div>
-                          <div className="mt-0.5 text-white/90">{c.purity}</div>
+                          <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">Pureté</div>
+                          <div className="mt-0.5 text-muted-foreground">{c.purity}</div>
                         </div>
                         <div className="col-span-2">
-                          <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/40">Clé</div>
-                          <div className="mt-0.5 font-mono text-[11px] tracking-[0.12em] text-white">{c.verifyKey}</div>
+                          <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">Clé</div>
+                          <div className="mt-0.5 font-mono text-[11px] tracking-[0.12em] text-foreground">{c.verifyKey}</div>
                         </div>
                       </div>
-                      {c.notes ? <div className="text-[11px] italic text-white/50">{c.notes}</div> : null}
-                      <div className="mt-2 inline-flex items-center justify-between border-t border-white/10 pt-3 font-mono text-[10px] uppercase tracking-[0.22em] text-white/60">
+                      {c.notes ? <div className="text-[11px] italic text-muted-foreground">{c.notes}</div> : null}
+                      <div className="mt-2 inline-flex items-center justify-between border-t border-border pt-3 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
                         <span>Voir le rapport</span>
-                        <span className="text-white transition-transform group-hover:translate-x-0.5">Agrandir →</span>
+                        <span className="text-foreground transition-transform group-hover:translate-x-0.5">Agrandir →</span>
                       </div>
                     </div>
                   </a>
@@ -227,23 +227,23 @@ function AboutPage() {
             </div>
 
             {/* How to verify */}
-            <div className="mt-16 rounded-2xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-sm sm:p-12">
+            <div className="mt-16 rounded-2xl border border-border bg-card p-8 backdrop-blur-sm sm:p-12">
               <div className="grid gap-10 md:grid-cols-[1fr_1.4fr] md:gap-16">
                 <div>
-                  <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-white/60">— Guide</span>
-                  <h3 className="mt-4 text-[26px] font-semibold leading-[1.1] tracking-[-0.02em] text-white sm:text-[32px]">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">— Guide</span>
+                  <h3 className="mt-4 text-[26px] font-semibold leading-[1.1] tracking-[-0.02em] text-foreground sm:text-[32px]">
                     Comment vérifier un rapport ?
                   </h3>
                 </div>
                 <ol className="space-y-6">
                   {[
                     ["01", <>Rendez-vous sur{" "}<a href="https://www.janoshik.com/" target="_blank" rel="noreferrer" className="underline decoration-white/30 underline-offset-4 hover:decoration-white">janoshik.com</a>.</>],
-                    ["02", <>Saisissez la clé unique figurant sur le CoA (ex. <span className="font-mono text-white">132C6ASFNB4V</span>).</>],
+                    ["02", <>Saisissez la clé unique figurant sur le CoA (ex. <span className="font-mono text-foreground">132C6ASFNB4V</span>).</>],
                     ["03", "Le portail affiche le rapport original signé : identité, pureté HPLC et quantification."],
                   ].map(([n, body]) => (
-                    <li key={n as string} className="flex gap-6 border-t border-white/10 pt-6 first:border-t-0 first:pt-0">
-                      <span className="font-display text-[36px] font-extralight leading-none text-white/40">{n as string}</span>
-                      <p className="pt-1 text-[15px] leading-[1.6] text-white/80">{body as React.ReactNode}</p>
+                    <li key={n as string} className="flex gap-6 border-t border-border pt-6 first:border-t-0 first:pt-0">
+                      <span className="font-display text-[36px] font-extralight leading-none text-muted-foreground">{n as string}</span>
+                      <p className="pt-1 text-[15px] leading-[1.6] text-muted-foreground">{body as React.ReactNode}</p>
                     </li>
                   ))}
                 </ol>
