@@ -48,10 +48,14 @@ export const Route = createFileRoute("/api/public/peptidepay-webhook")({
           "@/integrations/supabase/client.server"
         );
 
-        const orderId = event.order_id;
+        // PeptidePay renvoie notre metadata sous `metadata.order_id`.
+        // Anciens payloads exposaient `order_id` à la racine — on accepte les deux.
+        const orderId = event.metadata?.order_id ?? event.order_id;
         if (!orderId) {
+          console.warn("[peptidepay-webhook] missing order_id", event.session_id);
           return new Response("Missing order_id", { status: 400 });
         }
+
 
         const { data: order, error: readErr } = await supabaseAdmin
           .from("orders")
