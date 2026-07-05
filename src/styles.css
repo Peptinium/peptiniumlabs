@@ -344,63 +344,59 @@
   position: relative;
   display: inline-block;
   color: var(--foreground);
-  -webkit-text-fill-color: currentColor;
-  background: none;
-  background-clip: initial;
-  -webkit-background-clip: initial;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(
+    110deg,
+    currentColor 0%,
+    currentColor 30%,
+    var(--brand-cyan) 43%,
+    var(--brand-blue) 48%,
+    var(--brand-violet) 54%,
+    var(--brand-magenta) 60%,
+    currentColor 72%,
+    currentColor 100%
+  );
+  background-size: 220% 100%;
+  background-position: 200% 50%;
+  background-repeat: no-repeat;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: shimmer 4s linear infinite both;
   backface-visibility: hidden;
   transform: translateZ(0);
-  isolation: isolate;
+  will-change: background-position;
 }
 
 @utility shimmer-text-light {
   position: relative;
   display: inline-block;
   color: oklch(1 0 0);
-  -webkit-text-fill-color: currentColor;
-  background: none;
-  background-clip: initial;
-  -webkit-background-clip: initial;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(
+    110deg,
+    currentColor 0%,
+    currentColor 30%,
+    var(--brand-cyan) 43%,
+    var(--brand-blue) 48%,
+    var(--brand-violet) 54%,
+    var(--brand-magenta) 60%,
+    currentColor 72%,
+    currentColor 100%
+  );
+  background-size: 220% 100%;
+  background-position: 200% 50%;
+  background-repeat: no-repeat;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: shimmer 4s linear infinite both;
   backface-visibility: hidden;
   transform: translateZ(0);
-  isolation: isolate;
+  will-change: background-position;
 }
 
 .shimmer-text[data-shimmer]::after,
 .shimmer-text-light[data-shimmer]::after {
-    position: absolute;
-    inset: 0;
-    display: block;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
-    content: attr(data-shimmer);
-    font: inherit;
-    letter-spacing: inherit;
-    line-height: inherit;
-    text-align: inherit;
-    white-space: inherit;
-    background-image: linear-gradient(
-      110deg,
-      transparent 0%,
-      transparent 30%,
-      var(--brand-cyan) 43%,
-      var(--brand-blue) 48%,
-      var(--brand-violet) 54%,
-      var(--brand-magenta) 60%,
-      transparent 72%,
-      transparent 100%
-    );
-    background-size: 220% 100%;
-    background-position: 200% 50%;
-    background-repeat: no-repeat;
-    background-clip: text;
-    -webkit-background-clip: text;
-    animation: shimmer 4s linear infinite both;
-    opacity: 1;
-    will-change: background-position;
+  content: none;
 }
 
 
