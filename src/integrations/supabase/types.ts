@@ -257,6 +257,7 @@ export type Database = {
           payment_link: string | null
           payment_link_sent_at: string | null
           payment_method: string
+          payment_reminder_sent_at: string | null
           payment_validated_at: string | null
           payment_validated_by: string | null
           phone: string | null
@@ -288,6 +289,7 @@ export type Database = {
           payment_link?: string | null
           payment_link_sent_at?: string | null
           payment_method?: string
+          payment_reminder_sent_at?: string | null
           payment_validated_at?: string | null
           payment_validated_by?: string | null
           phone?: string | null
@@ -319,6 +321,7 @@ export type Database = {
           payment_link?: string | null
           payment_link_sent_at?: string | null
           payment_method?: string
+          payment_reminder_sent_at?: string | null
           payment_validated_at?: string | null
           payment_validated_by?: string | null
           phone?: string | null
