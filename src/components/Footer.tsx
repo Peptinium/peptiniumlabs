@@ -102,7 +102,7 @@ export function Footer() {
           <p className="text-[12px] leading-[1.7] text-muted-foreground">
             <strong className="text-foreground">Réservé à la recherche — Avis important.</strong>{" "}
             Tous les produits listés et vendus par Peptinium Labs sont strictement destinés à la
-            recherche en laboratoire — en particulier aux études in vitro. Ils ne sont pas
+            recherche en laboratoire — notamment aux études in vitro. Ils ne sont pas
             destinés à la consommation humaine ou animale, ni à une utilisation dans les aliments,
             les médicaments, les cosmétiques, les dispositifs médicaux ou les procédures
             diagnostiques.
