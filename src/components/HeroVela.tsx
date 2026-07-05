@@ -111,7 +111,7 @@ export function HeroVela() {
             {/* Reflet de verre — balayage lumineux qui traverse le flacon */}
             <span
               aria-hidden
-              className="pointer-events-none absolute inset-0"
+              className="pointer-events-none absolute inset-0 [backface-visibility:hidden]"
               style={{
                 WebkitMaskImage: `url(${vialAsset})`,
                 maskImage: `url(${vialAsset})`,
