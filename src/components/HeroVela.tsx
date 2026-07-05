@@ -32,7 +32,7 @@ export function HeroVela() {
 
       <div className="container-prose relative grid gap-10 px-5 pt-16 pb-20 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-6 lg:pt-28 lg:pb-32">
         {/* LEFT — copy */}
-        <div className="scroll-blur relative z-10 flex flex-col text-left">
+        <div className="relative z-10 flex flex-col text-left">
           <span className="brand-gradient-text font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
             La plus haute qualité
           </span>
@@ -83,7 +83,7 @@ export function HeroVela() {
         </div>
 
         {/* RIGHT — trio (vial + pen + pill) */}
-        <div className="scroll-blur relative mx-auto flex h-[420px] w-full max-w-[560px] items-center justify-center lg:h-[620px]">
+        <div className="relative mx-auto flex h-[420px] w-full max-w-[560px] items-center justify-center lg:h-[620px]">
           {/* Soft aurora halo */}
           <div
             aria-hidden
