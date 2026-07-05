@@ -404,7 +404,7 @@
 }
 
 .shimmer-fast {
-  --shimmer-duration: 1.2s;
+  --shimmer-duration: 6s;
 }
 
 .journal-title-sweep {
