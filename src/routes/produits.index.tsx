@@ -61,9 +61,10 @@ function CatalogPage() {
           <Reveal>
             <div className="flex flex-wrap items-center gap-3">
               <RuoBadge />
-              <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+              <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-accent">
                 · {products.length} référence(s) disponibles
               </span>
+
             </div>
           </Reveal>
           <Reveal delay={80}>
