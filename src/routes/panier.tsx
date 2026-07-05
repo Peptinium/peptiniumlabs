@@ -580,6 +580,34 @@ function PaiementBlock({
                     <div key={i}>{l}</div>
                   ))}
                 </div>
+                {active && m.id === "crypto" && (
+                  <div className="mt-4 space-y-2 pl-8">
+                    <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">
+                      Choisir la crypto
+                    </div>
+                    <div className="grid gap-2 sm:grid-cols-3">
+                      {cryptoOptions.map((c) => {
+                        const on = cryptoCurrency === c.id;
+                        return (
+                          <button
+                            key={c.id}
+                            type="button"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setCryptoCurrency(c.id);
+                            }}
+                            className={`rounded-xl border p-3 text-left transition-colors ${
+                              on ? "border-accent bg-accent/10" : "border-border bg-background hover:border-accent/50"
+                            }`}
+                          >
+                            <div className="font-display text-sm font-semibold text-foreground">{c.label}</div>
+                            <div className="mt-0.5 text-[11px] text-muted-foreground">{c.sub}</div>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
                 <input
                   type="radio"
                   name="method"
