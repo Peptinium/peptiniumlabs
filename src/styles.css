@@ -342,6 +342,7 @@
 
 @utility shimmer-text {
   position: relative;
+  display: inline-block;
   color: var(--foreground);
   -webkit-text-fill-color: currentColor;
   background: none;
@@ -354,6 +355,7 @@
 
 @utility shimmer-text-light {
   position: relative;
+  display: inline-block;
   color: oklch(1 0 0);
   -webkit-text-fill-color: currentColor;
   background: none;
@@ -368,11 +370,18 @@
 .shimmer-text-light[data-shimmer]::after {
     position: absolute;
     inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
     color: transparent;
     -webkit-text-fill-color: transparent;
     content: attr(data-shimmer);
-    white-space: pre-line;
+    font: inherit;
+    letter-spacing: inherit;
+    line-height: inherit;
+    text-align: inherit;
+    white-space: inherit;
     background-image: linear-gradient(
       110deg,
       transparent 0%,
