@@ -30,11 +30,11 @@ function DesktopHero() {
         className="pointer-events-none absolute -top-px left-0 h-px w-1/2 bg-gradient-to-r from-transparent via-[oklch(0.62_0.26_296)] to-transparent [animation:beam-sweep_7s_ease-in-out_infinite]"
       />
 
-      <div className="container-prose relative flex flex-1 flex-col items-center px-5 pt-20 pb-8 text-center lg:pt-14 lg:pb-4">
+      <div className="container-prose relative flex flex-1 flex-col items-center px-5 pt-20 pb-8 text-center lg:pt-32 lg:pb-6">
         {/* Pill removed */}
 
         {/* Title */}
-        <h1 className="mt-5 font-display text-[40px] font-semibold leading-[1.02] tracking-[-0.035em] text-balance text-[oklch(0.15_0.02_270)] sm:text-[54px] lg:mt-2 lg:text-[64px] lg:leading-[0.98]">
+        <h1 className="mt-5 font-display text-[40px] font-semibold leading-[1.02] tracking-[-0.035em] text-balance text-[oklch(0.15_0.02_270)] sm:text-[60px] lg:mt-8 lg:text-[92px] lg:leading-[0.95]">
           <span className="shimmer-text block">L'Avenir de la</span>
           <span className="shimmer-text block">Précision Moléculaire.</span>
         </h1>
@@ -67,7 +67,7 @@ function DesktopHero() {
         </div>
 
         {/* CTAs — Desktop (premium) */}
-        <div className="mt-6 hidden flex-wrap items-center justify-center gap-4 lg:flex">
+        <div className="mt-10 hidden flex-wrap items-center justify-center gap-4 lg:flex">
           <Link
             to="/produits"
             className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full p-[1.5px] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5"
@@ -250,7 +250,7 @@ function MobileHero() {
 
 function VialShowcase() {
   return (
-    <div className="group relative mt-6 w-full max-w-[360px] sm:mt-8 lg:mt-4 lg:max-w-[300px]">
+    <div className="group relative mt-14 w-full max-w-[520px] sm:mt-16">
       {/* Outer soft halo — Peptinium brand linear sweep (matches CTA gradient) */}
       <div
         aria-hidden
@@ -292,7 +292,7 @@ function VialShowcase() {
         }}
       />
       {/* Image */}
-      <div className="relative mx-auto aspect-[2/3] w-full max-w-[300px] overflow-visible lg:max-w-[260px]">
+      <div className="relative mx-auto aspect-[2/3] w-full max-w-[420px] overflow-visible">
         <img
           src={avantAsset.url}
           alt="Flacon Peptinium Retatrutide — pureté 99%"
