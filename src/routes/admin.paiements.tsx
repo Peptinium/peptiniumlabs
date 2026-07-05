@@ -177,6 +177,7 @@ function PaiementsPage() {
                 pendingCrypto={sendCryptoMut.isPending}
                 pendingValidate={validateMut.isPending}
                 pendingShip={shipMut.isPending}
+                pendingReconcile={reconcileMut.isPending && reconcileMut.variables === o.id}
                 onSendLink={(paymentLink) => sendLinkMut.mutate({ orderId: o.id, paymentLink })}
                 onSendCrypto={(address) => sendCryptoMut.mutate({ orderId: o.id, address })}
                 onValidate={(amount, reference, note) =>
@@ -185,7 +186,9 @@ function PaiementsPage() {
                 onShip={(carrier, trackingNumber) =>
                   shipMut.mutate({ orderId: o.id, carrier, trackingNumber })
                 }
+                onReconcile={() => reconcileMut.mutate(o.id)}
               />
+
             ))}
           </div>
         )}
