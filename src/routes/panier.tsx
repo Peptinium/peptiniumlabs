@@ -283,6 +283,18 @@ function PanierPage() {
             shippingFee={shippingFee}
           />
 
+        ) : step === "crypto_pay" ? (
+          cryptoIntent ? (
+            <CryptoPaymentBlock
+              intent={cryptoIntent}
+              orderRef={orderRef}
+              cart={cart}
+              subtotal={subtotal}
+              shippingFee={shippingFee}
+              total={total}
+              onConfirmed={() => setStep("confirmation")}
+            />
+          ) : null
         ) : (
           <ConfirmationBlock
             total={total}
