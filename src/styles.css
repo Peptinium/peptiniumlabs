@@ -163,7 +163,8 @@
   --ring: oklch(0.70 0.20 296);
 }
 
-/* Legacy utilities kept as no-op solids — brand color sweeps only, no gradients. */
+/* Legacy utilities kept as no-op solids — brand color sweeps only, no gradients.
+   The logo wordmark keeps its gradient as a deliberate signature. */
 @utility brand-gradient-text {
   color: inherit;
 }
@@ -171,6 +172,14 @@
   background: var(--foreground);
   color: var(--background);
 }
+@utility logo-gradient-text {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
 
 @layer base {
   button,
