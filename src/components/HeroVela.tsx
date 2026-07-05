@@ -31,19 +31,29 @@ export function HeroVela() {
           La plus haute qualité
         </span>
 
-        <h1 className="mt-6 pb-2 text-[52px] font-semibold leading-[1.05] tracking-[-0.03em] sm:text-[76px] lg:text-[104px] lg:leading-[1.02]">
-          <span
-            className="bg-clip-text text-transparent"
-            style={{
-              backgroundImage:
-                "linear-gradient(100deg, var(--brand-cyan) 0%, var(--brand-blue) 32%, var(--brand-violet) 62%, var(--brand-magenta) 88%, var(--foreground) 100%)",
-            }}
-          >
-            L'Avenir de la
-            <br />
-            Précision Moléculaire.
-          </span>
+        <h1 className="mt-6 pb-2 text-[52px] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground sm:text-[76px] lg:text-[104px] lg:leading-[1.02]">
+          {["L'Avenir de la", "Précision Moléculaire."].map((line, i) => (
+            <span key={i} className="relative inline-block align-baseline">
+              <span className="relative z-0">{line}</span>
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-0 bg-clip-text text-transparent"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(95deg, transparent 0%, transparent 32%, var(--brand-cyan) 44%, var(--brand-blue) 50%, var(--brand-violet) 56%, var(--brand-magenta) 62%, transparent 74%, transparent 100%)",
+                  backgroundSize: "230% 100%",
+                  backgroundRepeat: "no-repeat",
+                  WebkitBackgroundClip: "text",
+                  animation: `shimmer 7s linear ${i * 0.6}s infinite`,
+                }}
+              >
+                {line}
+              </span>
+              {i === 0 && <br />}
+            </span>
+          ))}
         </h1>
+
 
         <p className="mt-7 max-w-xl text-[16px] leading-[1.6] text-muted-foreground lg:text-[17px]">
           Peptides synthétiques haute pureté, contrôlés par HPLC. L'exigence du
@@ -120,27 +130,27 @@ function LabTestsStrip() {
   ];
   return (
     <div className="relative border-t border-border/60 bg-surface/40 backdrop-blur-sm">
-      <div className="container-prose flex flex-wrap items-center gap-x-12 gap-y-7 px-5 py-8">
-
-        <div className="flex flex-1 flex-wrap items-center gap-x-10 gap-y-5">
+      <div className="container-prose px-5 py-8">
+        <ul className="grid grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-3 lg:grid-cols-5">
           {tests.map(({ k, v, Icon }) => (
-            <div key={k} className="flex items-center gap-3">
-              <Icon className="h-10 w-auto shrink-0 text-foreground/25" />
-              <div className="leading-tight">
-                <div className="font-sans text-[15px] font-semibold text-foreground">
+            <li key={k} className="flex min-w-0 items-center gap-3">
+              <Icon className="h-9 w-9 shrink-0 text-foreground/25" />
+              <div className="min-w-0 leading-tight">
+                <div className="truncate font-sans text-[14px] font-semibold text-foreground sm:text-[15px]">
                   {k}
                 </div>
-                <div className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                <div className="mt-0.5 truncate font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
                   {v}
                 </div>
               </div>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </div>
   );
 }
+
 
 /* ── Lab icons (fournis par la marque) ─────────────────────── */
 type IconProps = { className?: string };
