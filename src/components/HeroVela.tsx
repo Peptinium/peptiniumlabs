@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import vialAsset from "@/assets/vial/RT_AVANT_TRANSPARENT.png.asset.json";
 import penAsset from "@/assets/hero/peptinium-pen.png.asset.json";
-import pillAsset from "@/assets/hero/peptinium-pill.png.asset.json";
+
 import { useRevealBlur } from "@/hooks/useScrollBlur";
 
 /**
@@ -37,10 +37,7 @@ export function HeroVela() {
             La plus haute qualité
           </span>
 
-          <h1
-            className="shimmer-text shimmer-active mt-6 pb-2 text-[54px] font-semibold leading-[1.05] tracking-[-0.03em] sm:text-[76px] lg:text-[104px] lg:leading-[1.02]"
-            data-shimmer={"Le leader\neuropéen\ndes peptides"}
-          >
+          <h1 className="mt-6 pb-2 text-[54px] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground sm:text-[76px] lg:text-[104px] lg:leading-[1.02]">
             Le leader
             <br />
             européen
@@ -116,14 +113,7 @@ export function HeroVela() {
             className="relative z-10 h-full w-auto object-contain drop-shadow-[0_36px_50px_color-mix(in_oklab,var(--brand-violet)_28%,transparent)] [animation:float_6s_ease-in-out_infinite]"
           />
 
-          {/* Pill — foreground, bottom-right */}
-          <img
-            src={pillAsset.url}
-            alt=""
-            aria-hidden
-            draggable={false}
-            className="absolute -bottom-2 right-8 z-20 h-[32%] w-auto object-contain drop-shadow-[0_16px_24px_color-mix(in_oklab,var(--brand-magenta)_25%,transparent)] [animation:float_5s_ease-in-out_infinite_0.8s] lg:right-14 lg:h-[36%]"
-          />
+          {/* Pill removed per request */}
         </div>
       </div>
 
