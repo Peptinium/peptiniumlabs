@@ -142,17 +142,6 @@ function LabTestsStrip() {
   return (
     <div className="relative border-t border-border/60 bg-surface/40 backdrop-blur-sm">
       <div className="container-prose flex flex-wrap items-center gap-x-12 gap-y-7 px-5 py-8">
-        <div className="flex items-center gap-4">
-          <img
-            src={avatarsAsset.url}
-            alt="Scientifiques et médecins experts"
-            className="h-11 w-auto shrink-0 select-none"
-            draggable={false}
-          />
-          <span className="font-sans text-[15px] font-medium text-foreground">
-            Tests de laboratoire avancés
-          </span>
-        </div>
 
         <div className="flex flex-1 flex-wrap items-center gap-x-10 gap-y-5">
           {tests.map(({ k, v, Icon }) => (
