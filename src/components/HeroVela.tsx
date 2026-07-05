@@ -31,19 +31,29 @@ export function HeroVela() {
           La plus haute qualité
         </span>
 
-        <h1 className="mt-6 pb-2 text-[52px] font-semibold leading-[1.05] tracking-[-0.03em] sm:text-[76px] lg:text-[104px] lg:leading-[1.02]">
-          <span
-            className="bg-clip-text text-transparent"
-            style={{
-              backgroundImage:
-                "linear-gradient(100deg, var(--brand-cyan) 0%, var(--brand-blue) 32%, var(--brand-violet) 62%, var(--brand-magenta) 88%, var(--foreground) 100%)",
-            }}
-          >
-            L'Avenir de la
-            <br />
-            Précision Moléculaire.
-          </span>
+        <h1 className="mt-6 pb-2 text-[52px] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground sm:text-[76px] lg:text-[104px] lg:leading-[1.02]">
+          {["L'Avenir de la", "Précision Moléculaire."].map((line, i) => (
+            <span key={i} className="relative inline-block align-baseline">
+              <span className="relative z-0">{line}</span>
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-0 bg-clip-text text-transparent"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(95deg, transparent 0%, transparent 32%, var(--brand-cyan) 44%, var(--brand-blue) 50%, var(--brand-violet) 56%, var(--brand-magenta) 62%, transparent 74%, transparent 100%)",
+                  backgroundSize: "230% 100%",
+                  backgroundRepeat: "no-repeat",
+                  WebkitBackgroundClip: "text",
+                  animation: `shimmer 7s linear ${i * 0.6}s infinite`,
+                }}
+              >
+                {line}
+              </span>
+              {i === 0 && <br />}
+            </span>
+          ))}
         </h1>
+
 
         <p className="mt-7 max-w-xl text-[16px] leading-[1.6] text-muted-foreground lg:text-[17px]">
           Peptides synthétiques haute pureté, contrôlés par HPLC. L'exigence du
