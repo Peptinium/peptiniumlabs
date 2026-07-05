@@ -67,7 +67,7 @@ function DesktopHero() {
         </div>
 
         {/* CTAs — Desktop (premium) */}
-        <div className="mt-10 hidden flex-wrap items-center justify-center gap-4 lg:flex">
+        <div className="mt-6 hidden flex-wrap items-center justify-center gap-4 lg:flex">
           <Link
             to="/produits"
             className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full p-[1.5px] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5"
