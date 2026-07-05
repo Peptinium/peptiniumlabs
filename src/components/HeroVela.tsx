@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import vialAsset from "@/assets/vial/RT_AVANT_TRANSPARENT.png.asset.json";
 import penAsset from "@/assets/hero/peptinium-pen.png.asset.json";
 import pillAsset from "@/assets/hero/peptinium-pill.png.asset.json";
+import avatarsAsset from "@/assets/hero/lab-avatars.webp.asset.json";
 import { useRevealBlur } from "@/hooks/useScrollBlur";
 
 /**
