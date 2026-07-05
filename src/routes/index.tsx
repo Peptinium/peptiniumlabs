@@ -104,7 +104,7 @@ function HomePage() {
         <Reveal>
           <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
             <div className="min-w-0">
-              <span className="text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
+              <span className="block text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
                 Meilleures ventes
               </span>
               <h2 className="mt-5 max-w-3xl shimmer-text text-[44px] font-semibold leading-[1.05] tracking-[-0.035em] sm:text-[64px] sm:leading-[1.02]" data-shimmer="Des peptides de la plus haute qualité.">
@@ -173,7 +173,7 @@ function HomePage() {
           <div className="relative mx-auto max-w-[1400px] overflow-hidden rounded-[32px] border border-border/40 bg-gradient-to-br from-[#eef1ff] via-[#f5f2ff] to-[#fdf2f6]">
             <div className="grid grid-cols-1 items-center gap-8 px-8 py-14 sm:px-16 sm:py-20 md:grid-cols-2">
               <div className="flex flex-col items-start">
-                <span className="text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
+                <span className="block text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
                   Promotion
                 </span>
                 <h2 className="mt-6 max-w-lg shimmer-text text-[36px] font-semibold leading-[1.02] tracking-[-0.03em] sm:text-[52px] sm:leading-[1.0]" data-shimmer="Offerte : 3 ml d'eau bactériostatique à chaque commande.">
@@ -286,7 +286,7 @@ function HomePage() {
       <section data-reveal-blur className="mx-auto max-w-6xl px-8 py-32 sm:py-40">
         <Reveal>
           <div className="mb-20 text-center">
-            <span className="text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
+            <span className="block text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
               Le protocole
             </span>
             <h2 className="mx-auto mt-6 max-w-3xl shimmer-text text-[40px] font-semibold leading-[1.0] tracking-[-0.03em] sm:text-[72px] sm:leading-[0.96]" data-shimmer="Une exigence, lot après lot.">
@@ -350,7 +350,7 @@ function HomePage() {
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.6fr] lg:gap-20">
           <Reveal>
             <div>
-              <span className="text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
+              <span className="block text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
                 FAQ
               </span>
               <h2 className="mt-5 shimmer-text text-[40px] font-semibold leading-[1.0] tracking-[-0.03em] sm:text-[56px] sm:leading-[0.98]" data-shimmer="Foire aux questions.">
@@ -420,7 +420,7 @@ function HomePage() {
       <section data-reveal-blur className="mx-auto max-w-4xl px-8 pb-32 sm:pb-40">
         <Reveal>
           <div className="flex flex-col items-center text-center">
-            <span className="text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
+            <span className="block text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
               Prêt à commander
             </span>
             <h2 className="shimmer-text mt-6 text-[44px] font-semibold leading-[1.0] tracking-[-0.03em] sm:text-[68px] sm:leading-[0.96]" data-shimmer={"La sérénité du laboratoire,\nà portée de commande."}>
