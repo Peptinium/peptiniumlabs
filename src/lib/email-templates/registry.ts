@@ -28,4 +28,5 @@ export const TEMPLATES: Record<string, TemplateEntry> = {
   'order-paid': orderPaid,
   'admin-new-order': adminNewOrder,
   'admin-new-ticket': adminNewTicket,
+  'payment-reminder': paymentReminder,
 }
