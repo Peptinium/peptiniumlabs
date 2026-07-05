@@ -535,22 +535,28 @@ export type Database = {
       promo_codes: {
         Row: {
           active: boolean
+          amount_off_eur: number
           code: string
           created_at: string
+          free_shipping: boolean
           id: string
           rate: number
         }
         Insert: {
           active?: boolean
+          amount_off_eur?: number
           code: string
           created_at?: string
+          free_shipping?: boolean
           id?: string
-          rate: number
+          rate?: number
         }
         Update: {
           active?: boolean
+          amount_off_eur?: number
           code?: string
           created_at?: string
+          free_shipping?: boolean
           id?: string
           rate?: number
         }

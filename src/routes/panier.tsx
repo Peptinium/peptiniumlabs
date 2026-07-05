@@ -24,7 +24,7 @@ type CryptoPaymentIntent = Awaited<ReturnType<typeof createCryptoPayment>>;
 
 type Step = "livraison" | "paiement" | "virement" | "confirmation" | "peptidepay_redirect" | "crypto_pay";
 type PayMethod = "bank" | "card" | "crypto" | "peptidepay";
-type AppliedPromo = { code: string; rate: number };
+type AppliedPromo = { code: string; rate: number; amountOff: number; freeShipping: boolean };
 
 const validSteps: Step[] = ["livraison", "paiement", "virement", "confirmation", "peptidepay_redirect", "crypto_pay"];
 
@@ -111,8 +111,11 @@ function PanierPage() {
   const isEmpty = cart.items.length === 0 || cart.count === 0;
 
   const subtotal = Number.isFinite(cart.subtotal) ? cart.subtotal : 0;
-  const shippingFee = subtotal === 0 || subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING;
-  const discount = promo ? Math.round(subtotal * promo.rate * 100) / 100 : 0;
+  const rawShipping = subtotal === 0 || subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING;
+  const shippingFee = promo?.freeShipping ? 0 : rawShipping;
+  const rateDiscount = promo ? Math.round(subtotal * promo.rate * 100) / 100 : 0;
+  const amountOffDiscount = promo ? promo.amountOff : 0;
+  const discount = Math.min(subtotal, Math.round((rateDiscount + amountOffDiscount) * 100) / 100);
   const total = Math.max(0, subtotal - discount + shippingFee);
 
   const handleConfirmPaiement = async () => {
@@ -132,7 +135,7 @@ function PanierPage() {
         `[Méthode : ${methodLabel}]\n` +
         `[Certification RUO acceptée le ${researchAcceptedAt ?? new Date().toISOString()}]\n` +
         `[CGV acceptées le ${cgvAcceptedAt ?? new Date().toISOString()}]` +
-        (promo ? `\n[Code promo ${promo.code} appliqué : −${(promo.rate * 100).toFixed(0)} %]` : "");
+        (promo ? `\n[Code promo ${promo.code} appliqué${promo.amountOff > 0 ? ` : −${promo.amountOff.toFixed(2)} €` : promo.rate > 0 ? ` : −${(promo.rate * 100).toFixed(0)} %` : ""}${promo.freeShipping ? " + livraison offerte" : ""}]` : "");
       const res = await submitOrderFn({
         data: {
           shipping: {
@@ -229,7 +232,7 @@ function PanierPage() {
                 try {
                   const res = await checkPromo({ data: { code } });
                   if (res.valid) {
-                    setPromo({ code: res.code, rate: res.rate });
+                    setPromo({ code: res.code, rate: res.rate, amountOff: res.amountOff, freeShipping: res.freeShipping });
                     return true;
                   }
                 } catch {
@@ -842,7 +845,7 @@ function Recap({
           {promoApplied ? (
             <div className="flex items-center justify-between text-sm">
               <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-success">
-                ✓ {promoCode ?? "Code"} appliqué (−{((promoRate ?? 0) * 100).toFixed(0)} %)
+                ✓ {promoCode ?? "Code"} appliqué{promoRate && promoRate > 0 ? ` (−${(promoRate * 100).toFixed(0)} %)` : ""}
               </span>
               <button
                 type="button"
