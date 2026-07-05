@@ -265,14 +265,23 @@
 @utility font-serif { font-family: var(--font-serif); font-feature-settings: "ss01", "ss02"; }
 @utility font-mono { font-family: var(--font-mono); }
 
-/* Momentary blur while scrolling (Vela-style). Driven by JS setting --scroll-blur on <html>. */
-.scroll-blur {
-  filter: blur(var(--scroll-blur, 0px));
-  transition: filter 320ms ease-out;
-  will-change: filter;
+/* Vela-style reveal blur: elements enter blurred, then sharpen on view. */
+[data-reveal-blur] {
+  filter: blur(14px);
+  opacity: 0;
+  transform: translateY(18px);
+  transition: filter 700ms cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+              transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: filter, opacity, transform;
+}
+[data-reveal-blur="in"] {
+  filter: blur(0);
+  opacity: 1;
+  transform: none;
 }
 @media (prefers-reduced-motion: reduce) {
-  .scroll-blur { filter: none !important; transition: none; }
+  [data-reveal-blur] { filter: none; opacity: 1; transform: none; transition: none; }
 }
 
 @utility grid-bg {
