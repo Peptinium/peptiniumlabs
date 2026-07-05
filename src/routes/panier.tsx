@@ -150,25 +150,19 @@ function PanierPage() {
       setOrderRef(res.orderNumber);
 
       if (paymentMethod === "peptidepay" || paymentMethod === "crypto") {
-        // Need order ID, not order number.
-        const { supabase } = await import("@/integrations/supabase/client");
-        const { data: orderRow } = await supabase
-          .from("orders")
-          .select("id")
-          .eq("order_number", res.orderNumber)
-          .maybeSingle();
-        if (!orderRow?.id) {
+        const orderId = res.orderId;
+        if (!orderId) {
           throw new Error("Commande créée mais introuvable.");
         }
         if (paymentMethod === "peptidepay") {
-          const checkout = await startPeptidePayFn({ data: { orderId: orderRow.id } });
+          const checkout = await startPeptidePayFn({ data: { orderId } });
           setPeptidePayUrl(checkout.url);
           setStep("peptidepay_redirect");
           return;
         }
         // crypto
         const intent = await startCryptoPaymentFn({
-          data: { orderId: orderRow.id, currency: cryptoCurrency },
+          data: { orderId, currency: cryptoCurrency },
         });
         setCryptoIntent(intent);
         setStep("crypto_pay");
