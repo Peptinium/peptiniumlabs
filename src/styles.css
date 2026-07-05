@@ -341,55 +341,77 @@
 }
 
 @utility shimmer-text {
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  
-  background-image: linear-gradient(
-    110deg,
-    var(--foreground) 0%,
-    var(--foreground) 30%,
-    var(--brand-cyan) 42%,
-    var(--brand-blue) 48%,
-    var(--brand-violet) 54%,
-    var(--brand-magenta) 60%,
-    var(--foreground) 72%,
-    var(--foreground) 100%
-  );
-  background-size: 220% 100%;
-  background-position: 0% 50%;
-  background-repeat: no-repeat;
-  background-clip: text;
-  -webkit-background-clip: text;
-  animation: shimmer 4s linear infinite both;
+  position: relative;
+  color: var(--foreground);
+  -webkit-text-fill-color: currentColor;
+  background: none;
+  background-clip: initial;
+  -webkit-background-clip: initial;
   backface-visibility: hidden;
   transform: translateZ(0);
-  will-change: background-position;
+  isolation: isolate;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -0.06em -0.12em;
+    pointer-events: none;
+    background-image: linear-gradient(
+      110deg,
+      transparent 0%,
+      transparent 36%,
+      var(--brand-cyan) 43%,
+      var(--brand-blue) 48%,
+      var(--brand-violet) 54%,
+      var(--brand-magenta) 60%,
+      transparent 68%,
+      transparent 100%
+    );
+    background-size: 220% 100%;
+    background-position: 200% 50%;
+    background-repeat: no-repeat;
+    animation: shimmer 4s linear infinite both;
+    mix-blend-mode: screen;
+    opacity: 0.95;
+    will-change: background-position;
+  }
 }
 
 @utility shimmer-text-light {
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  
-  background-image: linear-gradient(
-    110deg,
-    oklch(1 0 0) 0%,
-    oklch(1 0 0) 30%,
-    var(--brand-cyan) 42%,
-    var(--brand-blue) 48%,
-    var(--brand-violet) 54%,
-    var(--brand-magenta) 60%,
-    oklch(1 0 0) 72%,
-    oklch(1 0 0) 100%
-  );
-  background-size: 220% 100%;
-  background-position: 0% 50%;
-  background-repeat: no-repeat;
-  background-clip: text;
-  -webkit-background-clip: text;
-  animation: shimmer 4s linear infinite both;
+  position: relative;
+  color: oklch(1 0 0);
+  -webkit-text-fill-color: currentColor;
+  background: none;
+  background-clip: initial;
+  -webkit-background-clip: initial;
   backface-visibility: hidden;
   transform: translateZ(0);
-  will-change: background-position;
+  isolation: isolate;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -0.06em -0.12em;
+    pointer-events: none;
+    background-image: linear-gradient(
+      110deg,
+      transparent 0%,
+      transparent 36%,
+      var(--brand-cyan) 43%,
+      var(--brand-blue) 48%,
+      var(--brand-violet) 54%,
+      var(--brand-magenta) 60%,
+      transparent 68%,
+      transparent 100%
+    );
+    background-size: 220% 100%;
+    background-position: 200% 50%;
+    background-repeat: no-repeat;
+    animation: shimmer 4s linear infinite both;
+    mix-blend-mode: multiply;
+    opacity: 0.9;
+    will-change: background-position;
+  }
 }
 
 
