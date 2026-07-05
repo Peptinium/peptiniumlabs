@@ -3,7 +3,6 @@ import { ArrowRight } from "lucide-react";
 import vialAsset from "@/assets/vial/RT_AVANT_TRANSPARENT.png.asset.json";
 import penAsset from "@/assets/hero/peptinium-pen.png.asset.json";
 import pillAsset from "@/assets/hero/peptinium-pill.png.asset.json";
-import avatarsAsset from "@/assets/hero/lab-avatars.webp.asset.json";
 import { useRevealBlur } from "@/hooks/useScrollBlur";
 
 /**
@@ -34,7 +33,7 @@ export function HeroVela() {
       <div className="container-prose relative grid gap-10 px-5 pt-16 pb-20 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-6 lg:pt-28 lg:pb-32">
         {/* LEFT — copy */}
         <div className="relative z-10 flex flex-col text-left">
-          <span className="brand-gradient-text font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
+          <span className="text-muted-foreground font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
             La plus haute qualité
           </span>
 

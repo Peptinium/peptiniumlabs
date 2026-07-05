@@ -41,7 +41,7 @@ function ContactPage() {
         />
 
         <div className="container-prose relative px-5 pt-20 pb-14 lg:pt-32 lg:pb-20">
-          <span className="brand-gradient-text font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
+          <span className="text-muted-foreground font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
             Nous écrire
           </span>
           <h1 className="mt-6 max-w-[14ch] text-[54px] font-semibold leading-[0.98] tracking-[-0.03em] text-foreground sm:text-[76px] lg:text-[104px] lg:leading-[0.94]">
