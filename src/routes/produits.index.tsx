@@ -46,39 +46,52 @@ function CatalogPage() {
   );
   return (
     <SiteLayout>
-      <section className="relative overflow-hidden border-b border-border">
-        <div className="pointer-events-none absolute inset-0 grid-bg opacity-50 [animation:grid-drift_24s_linear_infinite]" />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,transparent_30%,var(--background)_85%)]" />
-        <div className="container-prose relative py-12 lg:py-20">
+      {/* HERO éditorial Vela */}
+      <section className="relative overflow-hidden border-b border-border/60 bg-background">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(55% 45% at 82% 22%, color-mix(in oklab, var(--brand-violet) 10%, transparent) 0%, transparent 65%), radial-gradient(40% 40% at 8% 88%, color-mix(in oklab, var(--brand-cyan) 8%, transparent) 0%, transparent 70%)",
+          }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -top-px left-0 h-px w-1/2 bg-gradient-to-r from-transparent via-[oklch(0.62_0.26_296)] to-transparent [animation:beam-sweep_7s_ease-in-out_infinite]"
+        />
+
+        <div className="container-prose relative px-5 pt-20 pb-14 lg:pt-28 lg:pb-20">
           <Reveal>
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex flex-wrap items-center gap-3">
               <RuoBadge />
-              <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground lg:text-[10px] lg:tracking-[0.2em]">
+              <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
                 · {products.length} référence(s) disponibles
               </span>
             </div>
           </Reveal>
           <Reveal delay={80}>
-            <h1 className="mt-5 max-w-3xl font-display text-[42px] font-semibold leading-[1.02] tracking-[-0.035em] text-balance lg:text-5xl lg:font-medium lg:leading-normal lg:tracking-[-0.03em]">
-              <span className="shimmer-text">Catalogue de réactifs peptidiques</span>
+            <h1 className="mt-8 max-w-[16ch] text-[52px] font-semibold leading-[0.98] tracking-[-0.03em] text-foreground sm:text-[72px] lg:text-[96px] lg:leading-[0.94]">
+              Catalogue de{" "}
+              <span className="brand-gradient-text">réactifs peptidiques</span>.
             </h1>
           </Reveal>
           <Reveal delay={140}>
-            <p className="mt-5 max-w-2xl text-[17px] leading-[1.55] text-muted-foreground lg:text-[15px] lg:leading-relaxed">
-              Composés validés par HPLC et spectrométrie de masse, conditionnés en flacons
-              stériles. Réactifs destinés{" "}
+            <p className="mt-8 max-w-2xl text-[17px] leading-[1.6] text-muted-foreground">
+              Composés validés par HPLC et spectrométrie de masse, conditionnés
+              en flacons stériles. Réactifs destinés{" "}
               <strong className="text-foreground">
                 exclusivement à la recherche scientifique en laboratoire.
               </strong>
             </p>
           </Reveal>
           <Reveal delay={200}>
-            <div className="mt-8 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:flex-wrap lg:overflow-visible lg:pb-0">
+            <div className="mt-10 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:flex-wrap lg:overflow-visible lg:pb-0">
               {categories.map((c) => (
                 <button
                   key={c}
                   onClick={() => setCat(c)}
-                  className={`shrink-0 rounded-full border px-4 py-3 font-mono text-[11px] uppercase tracking-[0.14em] transition-all lg:py-2 lg:text-[10px] lg:tracking-[0.2em] ${
+                  className={`shrink-0 rounded-full border px-5 py-3 font-sans text-[13px] font-medium transition-all lg:py-2.5 lg:text-[12px] ${
                     cat === c
                       ? "border-foreground bg-foreground text-background"
                       : "border-border bg-card text-muted-foreground hover:border-foreground/50 hover:text-foreground"
@@ -91,6 +104,7 @@ function CatalogPage() {
           </Reveal>
         </div>
       </section>
+
 
       <section className="container-prose py-10 lg:py-16">
         <div key={`${cat}-mobile`} className="grid animate-[fade-in_0.5s_ease-out_both] gap-4 lg:hidden">
