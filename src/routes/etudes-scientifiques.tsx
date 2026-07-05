@@ -52,7 +52,7 @@ function StudiesPage() {
 
           <div className="relative mx-auto max-w-[1400px] px-6 pt-28 pb-20 lg:px-10 sm:pt-36 sm:pb-28">
             <Reveal>
-              <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">
+              <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.28em] text-accent">
                 <span className="inline-block size-1.5 rounded-full bg-muted" />
                 Bibliographie · PubMed · PMC · JAMA
               </div>
@@ -168,7 +168,7 @@ function StudiesPage() {
             </div>
 
             <div className="mt-24 rounded-2xl border border-border bg-card px-6 py-8 text-center backdrop-blur-sm sm:px-10 sm:py-10">
-              <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">Sources</div>
+              <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-accent">Sources</div>
               <p className="mx-auto mt-3 max-w-2xl text-[13.5px] leading-[1.65] text-muted-foreground">
                 NIH · National Library of Medicine · PubMed · PubMed Central (PMC) · JAMA Network.
                 Liens directs vérifiés vers les publications originales.
