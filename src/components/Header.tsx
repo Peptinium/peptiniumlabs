@@ -189,25 +189,6 @@ export function Header() {
   );
 }
 
-function IconPill({
-  href,
-  label,
-  children,
-}: {
-  href: string;
-  label: string;
-  children: ReactNode;
-}) {
-  return (
-    <Link
-      to={href}
-      aria-label={label}
-      className="grid size-10 place-items-center rounded-full bg-surface text-foreground/80 transition-all hover:bg-surface-2 hover:text-foreground"
-    >
-      {children}
-    </Link>
-  );
-}
 
 function AccountPill({ isLoggedIn }: { isLoggedIn: boolean }) {
   const cls =
