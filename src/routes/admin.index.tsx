@@ -17,7 +17,7 @@ import { Button } from "@/components/ui/button";
 import { deleteOrder, listOrders, updateOrderStatus } from "@/lib/orders.functions";
 import {
   generateInvoice,
-  sendBrandedEmailTests,
+  
   sendCryptoPayment,
   sendPaymentLink,
   sendShippingNotification,
@@ -50,22 +50,11 @@ function CommandesPage() {
   const updateFn = useServerFn(updateOrderStatus);
   const deleteFn = useServerFn(deleteOrder);
   const invoiceFn = useServerFn(generateInvoice);
-  const testEmailsFn = useServerFn(sendBrandedEmailTests);
 
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [filter, setFilter] = useState<string>("all");
   const [search, setSearch] = useState("");
 
-  const testEmailsMut = useMutation({
-    mutationFn: (recipient: string) => testEmailsFn({ data: { recipient } }),
-    onSuccess: (res) => {
-      const ok = res.results.filter((r: any) => r.ok).length;
-      const total = res.results.length;
-      if (ok === total) toast.success(`${total} emails de test envoyés à ${res.recipient}`);
-      else toast.warning(`${ok}/${total} envoyés — vérifier les logs`);
-    },
-    onError: (e: Error) => toast.error(e.message || "Envoi impossible"),
-  });
 
   const ordersQ = useQuery({
     queryKey: ["admin", "orders"],
@@ -74,7 +63,7 @@ function CommandesPage() {
   });
 
   const updateMut = useMutation({
-    mutationFn: ({ id, status }: { id: string; status: "pending" | "paid" | "shipped" | "cancelled" }) =>
+    mutationFn: ({ id, status }: { id: string; status: "pending" | "paid" | "shipped" | "delivered" | "cancelled" }) =>
       updateFn({ data: { id, status } }),
     onSuccess: () => {
       toast.success("Statut mis à jour");
@@ -160,15 +149,6 @@ function CommandesPage() {
             Suivi des commandes, paiements, suivi colis et factures.
           </p>
         </div>
-        <Button
-          size="sm"
-          variant="outline"
-          disabled={testEmailsMut.isPending}
-          onClick={() => testEmailsMut.mutate("peptinium@gmail.com")}
-        >
-          <Send className="mr-1.5 size-4" />
-          {testEmailsMut.isPending ? "Envoi en cours…" : "Tester les 5 emails Peptinium"}
-        </Button>
       </header>
 
       <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -309,7 +289,7 @@ function CommandesPage() {
                           Statut de la commande
                         </label>
                         <div className="flex flex-wrap gap-2">
-                          {(["pending", "paid", "shipped", "cancelled"] as const).map((status) => (
+                          {(["pending", "paid", "shipped", "delivered", "cancelled"] as const).map((status) => (
                             <button
                               key={status}
                               disabled={o.status === status || updateMut.isPending}
