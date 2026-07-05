@@ -346,13 +346,20 @@ export const validatePromoCode = createServerFn({ method: "POST" })
     const code = data.code.trim().toUpperCase();
     const { data: promo } = await supabaseAdmin
       .from("promo_codes")
-      .select("code,rate,active")
+      .select("code,rate,amount_off_eur,free_shipping,active")
       .eq("code", code)
       .eq("active", true)
       .maybeSingle();
     if (!promo) return { valid: false as const };
-    return { valid: true as const, code: promo.code, rate: Number(promo.rate) };
+    return {
+      valid: true as const,
+      code: promo.code,
+      rate: Number(promo.rate ?? 0),
+      amountOff: Number(promo.amount_off_eur ?? 0),
+      freeShipping: !!promo.free_shipping,
+    };
   });
+
 
 // ─────── Admin server functions ───────
 
