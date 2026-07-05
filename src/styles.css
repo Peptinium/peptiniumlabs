@@ -410,6 +410,13 @@
   backdrop-filter: blur(24px) saturate(140%);
 }
 
+@utility header-sweep-bg {
+  background:
+    radial-gradient(55% 45% at 82% 10%, color-mix(in oklab, var(--brand-magenta) 26%, transparent) 0%, transparent 70%),
+    radial-gradient(50% 55% at 8% 92%, color-mix(in oklab, var(--brand-cyan) 26%, transparent) 0%, transparent 70%),
+    radial-gradient(70% 55% at 50% 55%, color-mix(in oklab, var(--brand-violet) 16%, transparent) 0%, transparent 78%);
+}
+
 @utility hero-glow {
   background: radial-gradient(ellipse at center, color-mix(in oklab, var(--brand-blue) 14%, transparent) 0%, transparent 70%);
 }

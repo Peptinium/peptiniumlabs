@@ -27,7 +27,7 @@ function ContactPage() {
   return (
     <SiteLayout>
       {/* ============ HERO ============ */}
-      <section className="relative overflow-hidden bg-background">
+      <section className="relative overflow-hidden bg-background header-sweep-bg">
         <div className="container-prose relative px-5 pt-24 pb-14 lg:pt-32 lg:pb-20">
           <Reveal>
             <span className="text-muted-foreground font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
