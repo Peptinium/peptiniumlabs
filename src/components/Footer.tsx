@@ -141,17 +141,3 @@ function FooterCol({
   );
 }
 
-function QualityBadge({ label, sub }: { label: string; sub: string }) {
-  return (
-    <div
-      className="grid size-14 place-items-center rounded-full text-center text-[8px] font-semibold leading-[1.1] text-background"
-      style={{ background: "var(--gradient-brand)" }}
-      title={`${label} — ${sub}`}
-    >
-      <div>
-        <div className="font-mono uppercase tracking-[0.08em]">{label.split(" ")[0]}</div>
-        <div className="font-mono text-[7px] opacity-80">{sub}</div>
-      </div>
-    </div>
-  );
-}
