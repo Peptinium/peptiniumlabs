@@ -164,19 +164,22 @@ function HomePage() {
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">La collection</span>
-              <h2 className="mt-4 font-display text-4xl font-light leading-[1.05] tracking-tighter sm:text-5xl">
-                <span className="shimmer-text">Réactifs sélectionnés pour la recherche.</span>
+              <span className="brand-gradient-text font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
+                La collection
+              </span>
+              <h2 className="mt-5 max-w-3xl text-[40px] font-semibold leading-[1.0] tracking-[-0.03em] text-foreground sm:text-[60px] sm:leading-[0.98]">
+                Réactifs sélectionnés pour la <span className="brand-gradient-text">recherche</span>.
               </h2>
             </div>
             <Link
               to="/produits"
-              className="inline-flex items-center gap-2 font-display text-sm font-medium text-foreground transition-colors hover:text-accent"
+              className="inline-flex items-center gap-2 text-[14px] font-medium text-foreground transition-colors hover:text-accent"
             >
               Tout voir <span aria-hidden>→</span>
             </Link>
           </div>
         </Reveal>
+
         <div className="mt-16 grid grid-cols-2 gap-6 lg:grid-cols-3">
           {rest.map((p, i) => (
             <Reveal key={p.slug} delay={i * 60}>
