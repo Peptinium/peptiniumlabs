@@ -538,7 +538,8 @@ function PaiementBlock({
       ),
       lines: [
         <>Redirection immédiate vers un checkout sécurisé.</>,
-        <><strong className="text-foreground">Paiement instantané.</strong> Commande validée automatiquement après règlement.</>,
+        <>Commande validée automatiquement après règlement.</>,
+        <><strong className="text-foreground">⏱ Confirmation définitive en 5 à 10 minutes</strong> après le paiement (délai bancaire). Un email vous est envoyé dès validation — inutile de repayer.</>,
       ],
     },
     {
