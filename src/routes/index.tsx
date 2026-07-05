@@ -107,7 +107,7 @@ function HomePage() {
               <span className="text-muted-foreground font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
                 Meilleures ventes
               </span>
-              <h2 className="mt-5 max-w-3xl shimmer-text text-[44px] font-semibold leading-[1.0] tracking-[-0.035em] sm:text-[64px] sm:leading-[0.98]">
+              <h2 className="mt-5 max-w-3xl shimmer-text text-[44px] font-semibold leading-[1.0] tracking-[-0.035em] sm:text-[64px] sm:leading-[0.98]" data-shimmer="Des peptides de la plus haute qualité.">
                 Des peptides de la plus haute qualité.
               </h2>
             </div>
@@ -175,7 +175,7 @@ function HomePage() {
                 <span className="text-muted-foreground font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
                   Promotion
                 </span>
-                <h2 className="mt-6 max-w-lg shimmer-text text-[36px] font-semibold leading-[1.02] tracking-[-0.03em] sm:text-[52px] sm:leading-[1.0]">
+                <h2 className="mt-6 max-w-lg shimmer-text text-[36px] font-semibold leading-[1.02] tracking-[-0.03em] sm:text-[52px] sm:leading-[1.0]" data-shimmer="Offerte : 3 ml d'eau bactériostatique à chaque commande.">
                   Offerte : 3 ml d'eau bactériostatique à chaque commande.
                 </h2>
                 <p className="mt-6 max-w-md text-[15px] leading-[1.6] text-[#0f1d3a]/70 sm:text-[16px]">
@@ -240,7 +240,7 @@ function HomePage() {
             <span className="inline-block rounded-full border border-white/20 bg-white/5 px-4 py-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.28em] text-white/90 backdrop-blur">
               À propos de Peptinium
             </span>
-            <h2 className="mt-8 max-w-4xl shimmer-text-light text-[44px] font-semibold leading-[1.0] tracking-[-0.035em] sm:text-[80px] sm:leading-[0.96]">
+            <h2 className="mt-8 max-w-4xl shimmer-text-light text-[44px] font-semibold leading-[1.0] tracking-[-0.035em] sm:text-[80px] sm:leading-[0.96]" data-shimmer="Plus que de la science.">
               Plus que de la science.
             </h2>
             <div className="mt-10 h-px w-full bg-gradient-to-r from-white/30 via-white/10 to-transparent" />
@@ -297,7 +297,7 @@ function HomePage() {
             <span className="text-muted-foreground font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
               Le protocole
             </span>
-            <h2 className="mx-auto mt-6 max-w-3xl shimmer-text text-[40px] font-semibold leading-[1.0] tracking-[-0.03em] sm:text-[72px] sm:leading-[0.96]">
+            <h2 className="mx-auto mt-6 max-w-3xl shimmer-text text-[40px] font-semibold leading-[1.0] tracking-[-0.03em] sm:text-[72px] sm:leading-[0.96]" data-shimmer="Une exigence, lot après lot.">
               Une exigence, lot après lot.
             </h2>
           </div>
@@ -361,7 +361,7 @@ function HomePage() {
               <span className="text-muted-foreground font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
                 FAQ
               </span>
-              <h2 className="mt-5 shimmer-text text-[40px] font-semibold leading-[1.0] tracking-[-0.03em] sm:text-[56px] sm:leading-[0.98]">
+              <h2 className="mt-5 shimmer-text text-[40px] font-semibold leading-[1.0] tracking-[-0.03em] sm:text-[56px] sm:leading-[0.98]" data-shimmer="Foire aux questions.">
                 Foire aux questions.
               </h2>
               <p className="mt-6 max-w-sm text-[15px] leading-[1.65] text-muted-foreground">
@@ -431,7 +431,7 @@ function HomePage() {
             <span className="text-muted-foreground font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
               Prêt à commander
             </span>
-            <h2 className="shimmer-text mt-6 text-[44px] font-semibold leading-[1.0] tracking-[-0.03em] sm:text-[68px] sm:leading-[0.96]">
+            <h2 className="shimmer-text mt-6 text-[44px] font-semibold leading-[1.0] tracking-[-0.03em] sm:text-[68px] sm:leading-[0.96]" data-shimmer={"La sérénité du laboratoire,\nà portée de commande."}>
               La sérénité du laboratoire,<br />
               à portée de commande.
             </h2>

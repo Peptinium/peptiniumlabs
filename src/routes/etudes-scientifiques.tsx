@@ -58,7 +58,7 @@ function StudiesPage() {
               </div>
             </Reveal>
             <Reveal delay={80}>
-              <h1 className="shimmer-text mt-10 max-w-5xl text-[52px] font-semibold leading-[0.98] tracking-[-0.035em] sm:text-[104px] sm:leading-[0.94]">
+              <h1 className="shimmer-text mt-10 max-w-5xl text-[52px] font-semibold leading-[0.98] tracking-[-0.035em] sm:text-[104px] sm:leading-[0.94]" data-shimmer="Études de référence par molécule.">
                 Études de référence par molécule.
               </h1>
             </Reveal>
