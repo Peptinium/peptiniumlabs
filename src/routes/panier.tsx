@@ -33,15 +33,11 @@ export const Route = createFileRoute("/panier")({
   component: PanierPage,
 });
 
-type Step = "livraison" | "paiement" | "virement" | "confirmation" | "peptidepay_redirect";
-type PayMethod = "bank" | "card" | "crypto" | "peptidepay";
-
-type AppliedPromo = { code: string; rate: number };
-
 type Step = "livraison" | "paiement" | "virement" | "confirmation" | "peptidepay_redirect" | "crypto_pay";
 type PayMethod = "bank" | "card" | "crypto" | "peptidepay";
 
 type AppliedPromo = { code: string; rate: number };
+
 
 function PanierPage() {
   const cart = useCart();
