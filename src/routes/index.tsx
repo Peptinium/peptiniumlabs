@@ -464,6 +464,28 @@ function HomePage() {
   );
 }
 
+function FaqItem({ q, a }: { q: string; a: string }) {
+  return (
+    <details className="group py-6">
+      <summary className="flex cursor-pointer list-none items-center justify-between gap-6">
+        <span className="text-[17px] font-medium leading-[1.35] tracking-[-0.01em] text-foreground sm:text-[19px]">
+          {q}
+        </span>
+        <span
+          aria-hidden
+          className="grid size-8 shrink-0 place-items-center rounded-full border border-border/70 text-foreground/70 transition-all group-open:rotate-45 group-open:border-foreground group-open:bg-foreground group-open:text-background"
+        >
+          <Plus className="size-4" strokeWidth={1.6} />
+        </span>
+      </summary>
+      <p className="mt-4 max-w-2xl pr-14 text-[14.5px] leading-[1.7] text-muted-foreground">
+        {a}
+      </p>
+    </details>
+  );
+}
+
+
 function MobileHome({ featured, rest }: { featured: typeof products[number]; rest: typeof products }) {
   const mobileProducts = [featured, ...rest].slice(0, 5);
 
