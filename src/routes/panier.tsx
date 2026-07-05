@@ -1487,6 +1487,7 @@ function CryptoPaymentBlock({
         </div>
         <div className="border-b border-border px-5 pt-3 pb-2 text-center text-[11px] text-muted-foreground">
           Scannez l'adresse puis saisissez le montant exact ci-dessous dans votre wallet.
+        </div>
         <CopyRow
           label={`Montant exact à envoyer (${current.unit})`}
           value={current.amountCryptoFormatted}
