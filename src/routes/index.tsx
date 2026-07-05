@@ -464,8 +464,8 @@ function HomePage() {
           </Reveal>
         </div>
       </section>
-      </div>
     </SiteLayout>
+
   );
 }
 
