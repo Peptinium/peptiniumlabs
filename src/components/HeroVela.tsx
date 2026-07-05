@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 import vialAsset from "@/assets/vial/RT_AVANT_TRANSPARENT.png.asset.json";
 import penAsset from "@/assets/hero/peptinium-pen.png.asset.json";
 import pillAsset from "@/assets/hero/peptinium-pill.png.asset.json";
-import { useScrollBlur } from "@/hooks/useScrollBlur";
+import { useRevealBlur } from "@/hooks/useScrollBlur";
 
 /**
  * Editorial hero inspired by Vela — massive serif headline,
@@ -11,7 +11,7 @@ import { useScrollBlur } from "@/hooks/useScrollBlur";
  * Kept Peptinium brand DA (cyan → violet → magenta) as accents only.
  */
 export function HeroVela() {
-  useScrollBlur();
+  useRevealBlur();
   return (
     <section className="relative overflow-hidden bg-background">
 
@@ -32,17 +32,17 @@ export function HeroVela() {
 
       <div className="container-prose relative grid gap-10 px-5 pt-16 pb-20 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-6 lg:pt-28 lg:pb-32">
         {/* LEFT — copy */}
-        <div className="scroll-blur relative z-10 flex flex-col text-left">
+        <div className="relative z-10 flex flex-col text-left">
           <span className="brand-gradient-text font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
             La plus haute qualité
           </span>
 
-          <h1 className="mt-6 font-serif text-[54px] font-normal leading-[0.98] tracking-[-0.03em] text-foreground sm:text-[76px] lg:text-[104px] lg:leading-[0.94]">
+          <h1 className="mt-6 text-[54px] font-semibold leading-[0.98] tracking-[-0.03em] text-foreground sm:text-[76px] lg:text-[104px] lg:leading-[0.94]">
             Le leader
             <br />
             européen
             <br />
-            <span className="italic">des peptides</span>
+            <span className="brand-gradient-text">des peptides</span>
           </h1>
 
           <p className="mt-7 max-w-md text-[16px] leading-[1.6] text-muted-foreground lg:text-[17px]">
@@ -83,7 +83,7 @@ export function HeroVela() {
         </div>
 
         {/* RIGHT — trio (vial + pen + pill) */}
-        <div className="scroll-blur relative mx-auto flex h-[420px] w-full max-w-[560px] items-center justify-center lg:h-[620px]">
+        <div className="relative mx-auto flex h-[420px] w-full max-w-[560px] items-center justify-center lg:h-[620px]">
           {/* Soft aurora halo */}
           <div
             aria-hidden

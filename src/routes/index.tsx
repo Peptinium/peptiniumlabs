@@ -110,7 +110,7 @@ function HomePage() {
       </section>
 
       {/* ============ FEATURED PRODUCT — MAGNIFIED ============ */}
-      <section className="mx-auto max-w-6xl px-8 py-32 sm:py-40">
+      <section data-reveal-blur className="mx-auto max-w-6xl px-8 py-32 sm:py-40">
         <Reveal>
           <div className="flex flex-col items-center text-center">
             <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Produit phare</span>
@@ -133,7 +133,7 @@ function HomePage() {
       </section>
 
       {/* ============ AIRY PILLARS ============ */}
-      <section className="mx-auto max-w-7xl px-8 pb-32 sm:pb-40">
+      <section data-reveal-blur className="mx-auto max-w-7xl px-8 pb-32 sm:pb-40">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-3 md:gap-16">
           {[
             {
@@ -170,7 +170,7 @@ function HomePage() {
       </section>
 
       {/* ============ CATALOG — AIRY ============ */}
-      <section className="mx-auto max-w-7xl px-8 pb-32 sm:pb-40">
+      <section data-reveal-blur className="mx-auto max-w-7xl px-8 pb-32 sm:pb-40">
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
@@ -197,7 +197,7 @@ function HomePage() {
       </section>
 
       {/* ============ QUALITY — APPLE-STYLE PROCESS ============ */}
-      <section className="mx-auto max-w-6xl px-8 pb-32 sm:pb-40">
+      <section data-reveal-blur className="mx-auto max-w-6xl px-8 pb-32 sm:pb-40">
         <Reveal>
           <div className="mb-20 text-center">
             <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Le protocole</span>
@@ -259,7 +259,7 @@ function HomePage() {
 
 
       {/* ============ FINAL CTA — QUIET ============ */}
-      <section className="mx-auto max-w-4xl px-8 pb-32 sm:pb-40">
+      <section data-reveal-blur className="mx-auto max-w-4xl px-8 pb-32 sm:pb-40">
         <Reveal>
           <div className="flex flex-col items-center text-center">
             <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Prêt à commander</span>
