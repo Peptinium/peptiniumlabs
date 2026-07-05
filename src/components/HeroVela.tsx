@@ -96,7 +96,7 @@ export function HeroVela() {
 
           {/* Vial — main, centered */}
           <img
-            src={vialAsset.url}
+            src={vialAsset}
             alt="Flacon Peptinium — peptide de recherche pureté ≥ 99 %"
             draggable={false}
             className="relative z-10 h-full w-auto object-contain drop-shadow-[0_36px_50px_color-mix(in_oklab,var(--brand-violet)_28%,transparent)] [animation:float_6s_ease-in-out_infinite]"
