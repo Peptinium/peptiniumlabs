@@ -232,7 +232,7 @@ function HomePage() {
             <span className="inline-block rounded-full border border-white/20 bg-white/5 px-4 py-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.28em] text-white/90 backdrop-blur">
               À propos de Peptinium
             </span>
-            <h2 className="mt-8 max-w-4xl text-[44px] font-semibold leading-[1.0] tracking-[-0.035em] text-white sm:text-[80px] sm:leading-[0.96]">
+            <h2 className="mt-8 max-w-4xl shimmer-text-light text-[44px] font-semibold leading-[1.0] tracking-[-0.035em] sm:text-[80px] sm:leading-[0.96]">
               Plus que de la science.
             </h2>
             <div className="mt-10 h-px w-full bg-gradient-to-r from-white/30 via-white/10 to-transparent" />
