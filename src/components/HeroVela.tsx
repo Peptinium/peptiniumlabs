@@ -14,95 +14,93 @@ export function HeroVela() {
   useRevealBlur();
   return (
     <section className="relative overflow-hidden bg-background">
-
-      {/* Ambient brand glow — subtil, crédibilité médicale */}
+      {/* Ambient brand halo — cyan → violet → magenta, centré */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(55% 45% at 82% 25%, color-mix(in oklab, var(--brand-blue) 5%, transparent) 0%, transparent 70%)",
+            "radial-gradient(45% 40% at 25% 75%, color-mix(in oklab, var(--brand-cyan) 22%, transparent) 0%, transparent 70%)," +
+            "radial-gradient(45% 40% at 75% 75%, color-mix(in oklab, var(--brand-magenta) 22%, transparent) 0%, transparent 70%)," +
+            "radial-gradient(60% 50% at 50% 60%, color-mix(in oklab, var(--brand-violet) 14%, transparent) 0%, transparent 75%)",
         }}
       />
 
+      <div className="container-prose relative flex flex-col items-center px-5 pt-20 pb-24 text-center lg:pt-28 lg:pb-32">
+        <span className="block text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
+          La plus haute qualité
+        </span>
 
-      <div className="container-prose relative grid gap-10 px-5 pt-16 pb-20 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-6 lg:pt-28 lg:pb-32">
-        {/* LEFT — copy */}
-        <div className="relative z-10 flex flex-col text-left">
-          <span className="block text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
-            La plus haute qualité
+        <h1 className="mt-6 pb-2 text-[52px] font-semibold leading-[1.05] tracking-[-0.03em] sm:text-[76px] lg:text-[104px] lg:leading-[1.02]">
+          <span
+            className="bg-clip-text text-transparent"
+            style={{
+              backgroundImage:
+                "linear-gradient(100deg, var(--brand-cyan) 0%, var(--brand-blue) 32%, var(--brand-violet) 62%, var(--brand-magenta) 88%, var(--foreground) 100%)",
+            }}
+          >
+            L'Avenir de la
+            <br />
+            Précision Moléculaire.
           </span>
+        </h1>
 
-          <h1 className="mt-6 pb-2 text-[54px] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground sm:text-[76px] lg:text-[104px] lg:leading-[1.02]">
-            La science
-            <br />
-            des peptides,
-            <br />
-            à l'état pur.
-          </h1>
+        <p className="mt-7 max-w-xl text-[16px] leading-[1.6] text-muted-foreground lg:text-[17px]">
+          Peptides synthétiques haute pureté, contrôlés par HPLC. L'exigence du
+          laboratoire, pensée pour le chercheur.
+        </p>
 
-
-
-          <p className="mt-7 max-w-md text-[16px] leading-[1.6] text-muted-foreground lg:text-[17px]">
-            Découvrez notre gamme de peptides rigoureusement testés, fabriqués
-            selon des protocoles de laboratoire stricts et préparés pour des
-            résultats de recherche optimaux.
-          </p>
-
-          <div className="mt-9 flex flex-wrap items-center gap-3">
-            <Link
-              to="/produits"
-              className="group inline-flex items-center gap-3 rounded-full bg-foreground px-7 py-4 font-sans text-[14px] font-medium text-background shadow-[0_18px_44px_-18px_color-mix(in_oklab,var(--foreground)_60%,transparent)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:bg-foreground/90"
+        <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+          <Link
+            to="/produits"
+            className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full px-8 py-4 font-sans text-[12px] font-semibold uppercase tracking-[0.22em] text-white shadow-[0_18px_44px_-14px_color-mix(in_oklab,var(--brand-violet)_65%,transparent)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5"
+            style={{
+              backgroundImage:
+                "linear-gradient(120deg, var(--brand-cyan) 0%, var(--brand-blue) 35%, var(--brand-violet) 65%, var(--brand-magenta) 100%)",
+              backgroundSize: "200% 100%",
+            }}
+          >
+            <span className="relative z-10">Explorer le catalogue</span>
+            <span
+              aria-hidden
+              className="relative z-10 grid size-7 place-items-center rounded-full bg-white/20 transition-transform duration-500 group-hover:translate-x-0.5"
             >
-              Catalogue
-              <span
-                aria-hidden
-                className="grid size-7 place-items-center rounded-full bg-background/15 transition-transform duration-500 group-hover:translate-x-0.5"
-              >
-                <ArrowRight className="size-3.5" strokeWidth={2.2} />
+              <ArrowRight className="size-3.5" strokeWidth={2.4} />
+            </span>
+          </Link>
 
-              </span>
-            </Link>
-
-            <Link
-              to="/etudes-scientifiques"
-              className="inline-flex items-center gap-2 rounded-full border border-foreground/25 bg-transparent px-7 py-4 font-sans text-[14px] font-medium text-foreground transition-all hover:border-foreground/60 hover:bg-foreground/[0.03]"
-            >
-              Découvrir la science
-            </Link>
-          </div>
-
-          <div className="mt-10 font-mono text-[10px] uppercase tracking-[0.28em] text-accent">
-            Réservé à la recherche
-          </div>
+          <Link
+            to="/tester-fioles"
+            className="inline-flex items-center gap-2 rounded-full border border-foreground/25 bg-background px-8 py-4 font-sans text-[12px] font-semibold uppercase tracking-[0.22em] text-foreground transition-all hover:border-foreground/60 hover:bg-foreground/[0.03]"
+          >
+            Tester vos fioles
+          </Link>
         </div>
 
-        {/* RIGHT — trio (vial + pen + pill) */}
-        <div className="relative mx-auto flex h-[420px] w-full max-w-[560px] items-center justify-center lg:h-[620px]">
-          {/* Soft aurora halo */}
+        {/* Flacon centré avec halo coloré */}
+        <div className="relative mx-auto mt-16 flex h-[420px] w-full max-w-[560px] items-center justify-center lg:h-[560px]">
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-8 -z-10 rounded-full"
+            className="pointer-events-none absolute inset-0 -z-10"
             style={{
               background:
-                "radial-gradient(closest-side, color-mix(in oklab, var(--brand-blue) 18%, transparent) 0%, transparent 75%)",
-              filter: "blur(60px)",
+                "radial-gradient(closest-side at 30% 45%, color-mix(in oklab, var(--brand-cyan) 42%, transparent) 0%, transparent 70%)," +
+                "radial-gradient(closest-side at 70% 55%, color-mix(in oklab, var(--brand-magenta) 40%, transparent) 0%, transparent 70%)," +
+                "radial-gradient(closest-side at 50% 50%, color-mix(in oklab, var(--brand-violet) 28%, transparent) 0%, transparent 75%)",
+              filter: "blur(50px)",
             }}
-
           />
 
-
-
-
-          {/* Vial — main, centered */}
           <img
             src={vialAsset}
             alt="Flacon Peptinium — peptide de recherche pureté ≥ 99 %"
             draggable={false}
-            className="relative z-10 h-full w-auto object-contain drop-shadow-[0_36px_50px_color-mix(in_oklab,var(--brand-violet)_28%,transparent)] [animation:float_6s_ease-in-out_infinite]"
+            className="relative z-10 h-full w-auto object-contain drop-shadow-[0_36px_50px_color-mix(in_oklab,var(--brand-violet)_35%,transparent)] [animation:float_6s_ease-in-out_infinite]"
           />
+        </div>
 
-          {/* Pill removed per request */}
+        <div className="mt-10 font-mono text-[10px] uppercase tracking-[0.28em] text-accent">
+          Réservé à la recherche
         </div>
       </div>
 
