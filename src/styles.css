@@ -398,9 +398,13 @@
     background-repeat: no-repeat;
     background-clip: text;
     -webkit-background-clip: text;
-    animation: shimmer 6s linear infinite both;
+    animation: shimmer var(--shimmer-duration, 6s) linear infinite both;
     opacity: 1;
     will-change: background-position;
+}
+
+.shimmer-fast {
+  --shimmer-duration: 1.2s;
 }
 
 .journal-title-sweep {
