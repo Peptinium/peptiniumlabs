@@ -47,7 +47,7 @@ const placeOrderSchema = z.object({
 });
 
 const SHIPPING_FEE_EUR = 4.90;
-const FREE_SHIPPING_THRESHOLD_EUR = 150;
+const FREE_SHIPPING_THRESHOLD_EUR = 149;
 
 const normalizeDosage = (value: string) => value.toLowerCase().replace(/\s+/g, "").trim();
 const roundMoney = (value: number) => Math.round(value * 100) / 100;
