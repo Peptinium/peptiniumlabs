@@ -77,7 +77,7 @@ const Email = ({
 export const template = {
   component: Email,
   subject: (d: Record<string, any>) =>
-    `🛒 Nouvelle commande ${d.orderNumber ?? ''} — ${Number(d.totalEur ?? 0).toFixed(2)} €`,
+    `✅ Commande payée ${d.orderNumber ?? ''} — ${Number(d.totalEur ?? 0).toFixed(2)} €`,
   displayName: 'Notification admin — nouvelle commande',
   previewData: {
     orderNumber: 'CMD-2026-0001',
