@@ -19,8 +19,8 @@ function isPressable(el: HTMLElement): boolean {
   return false;
 }
 
-function findPressable(el: HTMLElement): HTMLElement | null {
-  let current: HTMLElement | null = el;
+function findPressable(target: EventTarget | null): HTMLElement | null {
+  let current = target instanceof HTMLElement ? target : null;
   while (current) {
     if (isPressable(current)) return current;
     current = current.parentElement;
@@ -40,19 +40,19 @@ export function usePressEffect() {
     if (typeof window === "undefined") return;
 
     const onPointerDown = (e: PointerEvent) => {
-      const target = findPressable(e.target as HTMLElement);
+      const target = findPressable(e.target);
       if (target) {
         target.classList.add(PRESS_CLASS);
       }
     };
 
     const onPointerUp = (e: PointerEvent) => {
-      const target = findPressable(e.target as HTMLElement);
+      const target = findPressable(e.target);
       if (target) clearPress(target);
     };
 
     const onPointerCancel = (e: PointerEvent) => {
-      const target = findPressable(e.target as HTMLElement);
+      const target = findPressable(e.target);
       if (target) clearPress(target);
     };
 
