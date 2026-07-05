@@ -134,6 +134,89 @@ export const setTrackingNumber = createServerFn({ method: "POST" })
     return { ok: true };
   });
 
+// ─────────── Réconciliation PeptidePay (bouton "Vérifier chez PeptidePay") ───────────
+export const reconcilePeptidePayOrder = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) =>
+    z.object({ orderId: z.string().uuid() }).parse(d),
+  )
+  .handler(async ({ data, context }) => {
+    await requireAdmin(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+    const { data: order, error: readErr } = await supabaseAdmin
+      .from("orders")
+      .select("id, order_number, status, total_eur, payment_link, payment_method")
+      .eq("id", data.orderId)
+      .maybeSingle();
+    if (readErr) throw new Error(readErr.message);
+    if (!order) throw new Error("Commande introuvable");
+    if (order.payment_method !== "peptidepay") {
+      throw new Error("Cette commande n'utilise pas PeptidePay.");
+    }
+    if (order.status === "paid" || order.status === "shipped" || order.status === "delivered") {
+      return { ok: true, alreadyPaid: true, ppStatus: "paid" as const };
+    }
+    if (!order.payment_link) throw new Error("Aucun lien PeptidePay enregistré.");
+
+    const sessionId = order.payment_link.split("/session/").pop();
+    if (!sessionId) throw new Error("Session PeptidePay introuvable dans le lien.");
+
+    const { getPeptidePaySession } = await import("@/lib/peptidepay.server");
+    const session = await getPeptidePaySession(sessionId);
+
+    if (session.status !== "paid") {
+      return { ok: true, alreadyPaid: false, ppStatus: session.status, sessionId };
+    }
+
+    // PeptidePay dit "paid" mais notre commande ne l'est pas encore → on synchronise.
+    const paidAt = (session as any).paid_at ?? new Date().toISOString();
+    const expectedCents = Math.round(Number(order.total_eur) * 100);
+    if (session.amount != null && session.amount !== expectedCents) {
+      throw new Error(
+        `Montant PeptidePay (${session.amount}) ne correspond pas à la commande (${expectedCents}).`,
+      );
+    }
+
+    const { error: updErr } = await supabaseAdmin
+      .from("orders")
+      .update({
+        status: "paid",
+        paid_at: paidAt,
+        payment_validated_at: paidAt,
+        payment_validated_by: context.userId,
+      })
+      .eq("id", order.id)
+      .neq("status", "paid");
+    if (updErr) throw new Error(updErr.message);
+
+    try {
+      await supabaseAdmin.from("payments").insert({
+        order_id: order.id,
+        method: "peptidepay",
+        amount_eur: (session.amount ?? expectedCents) / 100,
+        reference: (session as any).txid ?? session.id,
+        validated_at: paidAt,
+        validated_by: context.userId,
+        note: `Réconciliation manuelle · session ${session.id}`,
+      });
+    } catch (e) {
+      console.error("[reconcile] payments insert failed", e);
+    }
+
+    try {
+      const { notifyAdminsOrderPaid } = await import("@/lib/order-notify.server");
+      await notifyAdminsOrderPaid(order.id);
+    } catch (e) {
+      console.error("[reconcile] notify failed", e);
+    }
+
+    return { ok: true, alreadyPaid: false, ppStatus: "paid" as const, reconciled: true };
+  });
+
+
+
+
 // ─────────── Lien de paiement CB (différé) ───────────
 function validatePaymentLink(link: string): string {
   const trimmed = (link ?? "").trim();

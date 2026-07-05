@@ -11,6 +11,7 @@ import {
   Link as LinkIcon,
   Package,
   Receipt,
+  RefreshCw,
   Truck,
 } from "lucide-react";
 import { useState } from "react";
@@ -22,8 +23,10 @@ import {
   sendPaymentLink,
   sendCryptoPayment,
   sendShippingNotification,
+  reconcilePeptidePayOrder,
 } from "@/lib/admin.functions";
 import { listOrders } from "@/lib/orders.functions";
+
 
 export const Route = createFileRoute("/admin/paiements")({
   component: PaiementsPage,
@@ -99,6 +102,19 @@ function PaiementsPage() {
     onError: (e: Error) => toast.error(e.message || "Envoi impossible"),
   });
 
+  const reconcileFn = useServerFn(reconcilePeptidePayOrder);
+  const reconcileMut = useMutation({
+    mutationFn: (orderId: string) => reconcileFn({ data: { orderId } }),
+    onSuccess: (res: any) => {
+      if (res?.reconciled) toast.success("Paiement synchronisé ✅ Commande passée en payée.");
+      else if (res?.alreadyPaid) toast.info("Déjà payée.");
+      else toast.info(`PeptidePay: ${res?.ppStatus ?? "pending"} · pas encore de règlement.`);
+      invalidateAll();
+    },
+    onError: (e: Error) => toast.error(e.message || "Vérification impossible"),
+  });
+
+
   const orders: Order[] = ordersQ.data?.orders ?? [];
   const actionable = orders.filter(
     (o) => o.status === "pending" || o.status === "payment_link_sent" || o.status === "paid",
@@ -161,6 +177,7 @@ function PaiementsPage() {
                 pendingCrypto={sendCryptoMut.isPending}
                 pendingValidate={validateMut.isPending}
                 pendingShip={shipMut.isPending}
+                pendingReconcile={reconcileMut.isPending && reconcileMut.variables === o.id}
                 onSendLink={(paymentLink) => sendLinkMut.mutate({ orderId: o.id, paymentLink })}
                 onSendCrypto={(address) => sendCryptoMut.mutate({ orderId: o.id, address })}
                 onValidate={(amount, reference, note) =>
@@ -169,7 +186,9 @@ function PaiementsPage() {
                 onShip={(carrier, trackingNumber) =>
                   shipMut.mutate({ orderId: o.id, carrier, trackingNumber })
                 }
+                onReconcile={() => reconcileMut.mutate(o.id)}
               />
+
             ))}
           </div>
         )}
@@ -228,21 +247,26 @@ function OrderActionCard({
   pendingCrypto,
   pendingValidate,
   pendingShip,
+  pendingReconcile,
   onSendLink,
   onSendCrypto,
   onValidate,
   onShip,
+  onReconcile,
 }: {
   order: Order;
   pendingLink: boolean;
   pendingCrypto: boolean;
   pendingValidate: boolean;
   pendingShip: boolean;
+  pendingReconcile: boolean;
   onSendLink: (paymentLink: string) => void;
   onSendCrypto: (address: string) => void;
   onValidate: (amount: number, reference: string, note: string) => void;
   onShip: (carrier: string, trackingNumber: string) => void;
+  onReconcile: () => void;
 }) {
+
   const method = (order.payment_method ?? "bank") as keyof typeof METHOD_META;
   const meta = METHOD_META[method] ?? METHOD_META.bank;
   const MethodIcon = meta.icon;
@@ -289,7 +313,33 @@ function OrderActionCard({
         <div className="text-right font-semibold">{Number(order.total_eur).toFixed(2)} €</div>
       </div>
 
+      {/* ───── Réconciliation PeptidePay ───── */}
+      {order.status === "pending" && order.payment_method === "peptidepay" && (
+        <div className="rounded-lg border border-indigo-400/30 bg-background p-3 space-y-2">
+          <div className="text-xs font-semibold flex items-center gap-1.5">
+            <RefreshCw className="size-3.5 text-indigo-400" />
+            Paiement PeptidePay en attente
+          </div>
+          <div className="text-[11px] text-muted-foreground">
+            Le webhook n'est pas encore arrivé. Force la vérification directe auprès de PeptidePay :
+            si leur session est marquée « paid », la commande passera automatiquement en payée.
+          </div>
+          <Button
+            type="button"
+            size="sm"
+            variant="outline"
+            className="w-full"
+            disabled={pendingReconcile}
+            onClick={onReconcile}
+          >
+            <RefreshCw className={`mr-2 size-3.5 ${pendingReconcile ? "animate-spin" : ""}`} />
+            {pendingReconcile ? "Vérification…" : "Vérifier chez PeptidePay"}
+          </Button>
+        </div>
+      )}
+
       {/* ───── Étape 1 : envoyer lien / adresse selon méthode (si encore pending) ───── */}
+
       {order.status === "pending" && method === "card" && (
         <div className="rounded-lg border border-violet-400/30 bg-background p-3 space-y-2">
           <div className="text-xs font-semibold flex items-center gap-1.5">
