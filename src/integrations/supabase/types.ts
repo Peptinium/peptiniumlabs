@@ -14,6 +14,65 @@ export type Database = {
   }
   public: {
     Tables: {
+      crypto_payments: {
+        Row: {
+          amount_crypto: number
+          amount_eur: number
+          confirmed_at: string | null
+          created_at: string
+          currency: string
+          detected_at: string | null
+          expires_at: string
+          id: string
+          order_id: string
+          rate_eur_per_unit: number
+          status: string
+          tx_hash: string | null
+          updated_at: string
+          wallet_address: string
+        }
+        Insert: {
+          amount_crypto: number
+          amount_eur: number
+          confirmed_at?: string | null
+          created_at?: string
+          currency: string
+          detected_at?: string | null
+          expires_at: string
+          id?: string
+          order_id: string
+          rate_eur_per_unit: number
+          status?: string
+          tx_hash?: string | null
+          updated_at?: string
+          wallet_address: string
+        }
+        Update: {
+          amount_crypto?: number
+          amount_eur?: number
+          confirmed_at?: string | null
+          created_at?: string
+          currency?: string
+          detected_at?: string | null
+          expires_at?: string
+          id?: string
+          order_id?: string
+          rate_eur_per_unit?: number
+          status?: string
+          tx_hash?: string | null
+          updated_at?: string
+          wallet_address?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crypto_payments_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       customer_notes: {
         Row: {
           email: string
