@@ -99,9 +99,11 @@ function HomePage() {
       <section data-reveal-blur className="mx-auto max-w-6xl px-8 py-32 sm:py-40">
         <Reveal>
           <div className="flex flex-col items-center text-center">
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Produit phare</span>
-            <h2 className="mt-6 max-w-3xl font-display text-5xl font-light leading-[1.05] tracking-tighter sm:text-7xl">
-              <span className="shimmer-text">Sculpté pour la recherche.</span>
+            <span className="brand-gradient-text font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
+              Produit phare
+            </span>
+            <h2 className="mt-6 max-w-3xl text-[44px] font-semibold leading-[1.0] tracking-[-0.03em] text-foreground sm:text-[72px] sm:leading-[0.98]">
+              Sculpté pour la <span className="brand-gradient-text">recherche</span>.
             </h2>
           </div>
         </Reveal>
@@ -111,12 +113,13 @@ function HomePage() {
           </div>
         </Reveal>
         <Reveal delay={140}>
-          <p className="mx-auto mt-14 max-w-xl text-center text-lg font-light leading-relaxed text-muted-foreground">
+          <p className="mx-auto mt-14 max-w-xl text-center text-[17px] leading-[1.6] text-muted-foreground">
             Pureté HPLC vérifiée, conditionnement stérile, traçabilité complète.
             L'exigence du laboratoire, sans compromis.
           </p>
         </Reveal>
       </section>
+
 
       {/* ============ AIRY PILLARS ============ */}
       <section data-reveal-blur className="mx-auto max-w-7xl px-8 pb-32 sm:pb-40">
