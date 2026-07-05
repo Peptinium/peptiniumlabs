@@ -217,8 +217,7 @@ function HomePage() {
       {/* ============ 5. PLUS QUE LA SCIENCE — clean background ============ */}
       <section
         data-reveal-blur
-        className="relative mt-24 overflow-hidden sm:mt-32"
-        style={{ background: "#f7f5f0" }}
+        className="relative mt-24 overflow-hidden bg-background sm:mt-32"
       >
         <div
           className="pointer-events-none absolute inset-x-0 top-0 h-px"
