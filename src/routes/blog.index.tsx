@@ -30,7 +30,10 @@ function BlogIndex() {
           <Reveal>
             <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-accent">Journal laboratoire</p>
             <h1 className="mt-3 font-display text-3xl font-medium tracking-tight md:text-5xl">
-              <span className="journal-title-sweep">Le Carnet Peptinium</span>
+              <span className="journal-title-sweep" aria-label="Le Carnet Peptinium">
+                <span className="journal-title-sweep__base">Le Carnet Peptinium</span>
+                <span className="journal-title-sweep__light" aria-hidden="true">Le Carnet Peptinium</span>
+              </span>
             </h1>
             <p className="mt-4 max-w-2xl text-base text-muted-foreground">
               Méthodologie analytique, histoire scientifique et lecture des certificats. Des articles pensés pour comprendre la recherche peptidique.

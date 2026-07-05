@@ -404,19 +404,39 @@
 }
 
 .journal-title-sweep {
-  display: inline-block;
+  display: inline-grid;
+  position: relative;
   color: var(--foreground);
+}
+
+.journal-title-sweep__base,
+.journal-title-sweep__light {
+  grid-area: 1 / 1;
+  font: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  white-space: inherit;
+}
+
+.journal-title-sweep__base {
+  color: var(--foreground);
+  -webkit-text-fill-color: currentColor;
+}
+
+.journal-title-sweep__light {
+  pointer-events: none;
+  color: transparent;
   -webkit-text-fill-color: transparent;
   background-image: linear-gradient(
     110deg,
-    currentColor 0%,
-    currentColor 34%,
+    transparent 0%,
+    transparent 34%,
     var(--brand-cyan) 44%,
     var(--brand-blue) 50%,
     var(--brand-violet) 56%,
     var(--brand-magenta) 62%,
-    currentColor 72%,
-    currentColor 100%
+    transparent 72%,
+    transparent 100%
   );
   background-size: 230% 100%;
   background-position: 200% 50%;
