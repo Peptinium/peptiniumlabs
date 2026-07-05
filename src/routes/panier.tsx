@@ -712,11 +712,12 @@ function PaiementBlock({
       <button
         onClick={onConfirm}
         disabled={!acceptedCgv || !acceptedResearch || submitting}
-        className={`group relative w-full overflow-hidden rounded-xl px-6 py-4 text-sm font-semibold uppercase tracking-[0.18em] transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${
+        className={`group relative w-full overflow-hidden rounded-xl px-6 py-4 text-sm font-semibold uppercase tracking-[0.18em] transition-[transform,background-color,color] duration-[320ms] ease-[cubic-bezier(0.22,1,0.36,1)] disabled:cursor-not-allowed disabled:opacity-50 active:scale-[0.97] active:duration-150 active:bg-success active:text-success-foreground ${
           submitting
             ? "bg-success text-success-foreground"
             : "bg-accent text-background hover:bg-accent/90"
         }`}
+
       >
         <span className="inline-flex items-center justify-center gap-2">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M3 21h18M5 21V10M19 21V10M3 10l9-6 9 6"/></svg>

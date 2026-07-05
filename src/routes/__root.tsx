@@ -20,6 +20,8 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { CartProvider } from "../lib/cart";
 import { Toaster } from "../components/ui/sonner";
+import { usePressEffect } from "../hooks/use-press-effect";
+
 
 function NotFoundComponent() {
   return (
@@ -144,6 +146,7 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  usePressEffect();
   return (
     <QueryClientProvider client={queryClient}>
       <CartProvider>
@@ -155,6 +158,7 @@ function RootComponent() {
     </QueryClientProvider>
   );
 }
+
 
 function PageViewTracker() {
   const router = useRouter();
