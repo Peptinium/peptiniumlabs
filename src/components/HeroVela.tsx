@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import vialAsset from "@/assets/vial/RT_AVANT_TRANSPARENT.png.asset.json";
 import penAsset from "@/assets/hero/peptinium-pen.png.asset.json";
 import pillAsset from "@/assets/hero/peptinium-pill.png.asset.json";
+import { useScrollBlur } from "@/hooks/useScrollBlur";
 
 /**
  * Editorial hero inspired by Vela — massive serif headline,
@@ -10,8 +11,10 @@ import pillAsset from "@/assets/hero/peptinium-pill.png.asset.json";
  * Kept Peptinium brand DA (cyan → violet → magenta) as accents only.
  */
 export function HeroVela() {
+  useScrollBlur();
   return (
     <section className="relative overflow-hidden bg-background">
+
       {/* Ambient brand glow */}
       <div
         aria-hidden

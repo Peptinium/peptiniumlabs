@@ -265,17 +265,14 @@
 @utility font-serif { font-family: var(--font-serif); font-feature-settings: "ss01", "ss02"; }
 @utility font-mono { font-family: var(--font-mono); }
 
-/* Scroll-driven blur for hero on scroll (Vela-style). Progressive enhancement: only in browsers that support scroll-timeline. */
-@supports (animation-timeline: scroll()) {
-  .scroll-blur {
-    animation: hero-scroll-blur linear both;
-    animation-timeline: scroll(root);
-    animation-range: 0 480px;
-  }
+/* Momentary blur while scrolling (Vela-style). Driven by JS setting --scroll-blur on <html>. */
+.scroll-blur {
+  filter: blur(var(--scroll-blur, 0px));
+  transition: filter 320ms ease-out;
+  will-change: filter;
 }
-@keyframes hero-scroll-blur {
-  0%   { filter: blur(0px);   opacity: 1; transform: translateY(0) scale(1); }
-  100% { filter: blur(14px);  opacity: 0.35; transform: translateY(-40px) scale(0.98); }
+@media (prefers-reduced-motion: reduce) {
+  .scroll-blur { filter: none !important; transition: none; }
 }
 
 @utility grid-bg {
