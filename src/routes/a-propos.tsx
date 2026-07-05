@@ -112,7 +112,7 @@ function AboutPage() {
               <div className="flex flex-wrap items-end justify-between gap-6">
                 <div>
                   <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-white/60">— Notre méthode</span>
-                  <h2 className="mt-4 max-w-3xl text-[36px] font-semibold leading-[1.0] tracking-[-0.03em] text-white sm:text-[56px]">
+                  <h2 className="shimmer-text-light mt-4 max-w-3xl text-[36px] font-semibold leading-[1.0] tracking-[-0.03em] sm:text-[56px]">
                     Quatre piliers, zéro raccourci.
                   </h2>
                 </div>
