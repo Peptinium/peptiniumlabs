@@ -107,8 +107,8 @@ function HomePage() {
               <span className="brand-gradient-text font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
                 Meilleures ventes
               </span>
-              <h2 className="mt-5 max-w-3xl text-[44px] font-semibold leading-[1.0] tracking-[-0.035em] text-foreground sm:text-[64px] sm:leading-[0.98]">
-                Des peptides de la <span className="brand-gradient-text">plus haute qualité</span>.
+              <h2 className="mt-5 max-w-3xl shimmer-text text-[44px] font-semibold leading-[1.0] tracking-[-0.035em] sm:text-[64px] sm:leading-[0.98]">
+                Des peptides de la plus haute qualité.
               </h2>
             </div>
             <Link
@@ -171,8 +171,8 @@ function HomePage() {
                 <span className="brand-gradient-text font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
                   Promotion
                 </span>
-                <h2 className="mt-6 max-w-lg text-[36px] font-semibold leading-[1.02] tracking-[-0.03em] text-[#0f1d3a] sm:text-[52px] sm:leading-[1.0]">
-                  Offerte : <span className="brand-gradient-text">3 ml d'eau bactériostatique</span> à chaque commande.
+                <h2 className="mt-6 max-w-lg shimmer-text text-[36px] font-semibold leading-[1.02] tracking-[-0.03em] sm:text-[52px] sm:leading-[1.0]">
+                  Offerte : 3 ml d'eau bactériostatique à chaque commande.
                 </h2>
                 <p className="mt-6 max-w-md text-[15px] leading-[1.6] text-[#0f1d3a]/70 sm:text-[16px]">
                   Tout ce qu'il vous faut pour démarrer, inclus.
@@ -289,8 +289,8 @@ function HomePage() {
             <span className="brand-gradient-text font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
               Le protocole
             </span>
-            <h2 className="mx-auto mt-6 max-w-3xl text-[40px] font-semibold leading-[1.0] tracking-[-0.03em] text-foreground sm:text-[72px] sm:leading-[0.96]">
-              Une exigence, <span className="brand-gradient-text italic">lot après lot</span>.
+            <h2 className="mx-auto mt-6 max-w-3xl shimmer-text text-[40px] font-semibold leading-[1.0] tracking-[-0.03em] sm:text-[72px] sm:leading-[0.96]">
+              Une exigence, lot après lot.
             </h2>
           </div>
         </Reveal>
@@ -353,8 +353,8 @@ function HomePage() {
               <span className="brand-gradient-text font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
                 FAQ
               </span>
-              <h2 className="mt-5 text-[40px] font-semibold leading-[1.0] tracking-[-0.03em] text-foreground sm:text-[56px] sm:leading-[0.98]">
-                Foire aux <span className="brand-gradient-text italic">questions</span>.
+              <h2 className="mt-5 shimmer-text text-[40px] font-semibold leading-[1.0] tracking-[-0.03em] sm:text-[56px] sm:leading-[0.98]">
+                Foire aux questions.
               </h2>
               <p className="mt-6 max-w-sm text-[15px] leading-[1.65] text-muted-foreground">
                 Vous ne trouvez pas la réponse que vous cherchez ? Parlez à notre équipe.
@@ -418,9 +418,9 @@ function HomePage() {
             <span className="brand-gradient-text font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
               Prêt à commander
             </span>
-            <h2 className="mt-6 text-[44px] font-semibold leading-[1.0] tracking-[-0.03em] text-foreground sm:text-[68px] sm:leading-[0.96]">
+            <h2 className="shimmer-text mt-6 text-[44px] font-semibold leading-[1.0] tracking-[-0.03em] sm:text-[68px] sm:leading-[0.96]">
               La sérénité du laboratoire,<br />
-              <span className="brand-gradient-text italic">à portée de commande</span>.
+              à portée de commande.
             </h2>
             <p className="mt-7 max-w-lg text-[17px] leading-[1.6] text-muted-foreground">
               Traçabilité complète, expédition sous 24 h, support français.

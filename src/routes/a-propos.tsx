@@ -76,12 +76,8 @@ function AboutPage() {
             </Reveal>
 
             <Reveal delay={80}>
-              <h1 className="mt-10 max-w-5xl text-[52px] font-semibold leading-[0.98] tracking-[-0.035em] text-white sm:text-[104px] sm:leading-[0.94]">
-                La science,{" "}
-                <span className="italic font-serif font-light" style={{ background: "linear-gradient(120deg, var(--brand-cyan), var(--brand-violet), var(--brand-magenta))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                  sans compromis
-                </span>
-                .
+              <h1 className="shimmer-text-light mt-10 max-w-5xl text-[52px] font-semibold leading-[0.98] tracking-[-0.035em] sm:text-[104px] sm:leading-[0.94]">
+                La science, sans compromis.
               </h1>
             </Reveal>
 
@@ -116,7 +112,7 @@ function AboutPage() {
               <div className="flex flex-wrap items-end justify-between gap-6">
                 <div>
                   <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-white/60">— Notre méthode</span>
-                  <h2 className="mt-4 max-w-3xl text-[36px] font-semibold leading-[1.0] tracking-[-0.03em] text-white sm:text-[56px]">
+                  <h2 className="shimmer-text-light mt-4 max-w-3xl text-[36px] font-semibold leading-[1.0] tracking-[-0.03em] sm:text-[56px]">
                     Quatre piliers, zéro raccourci.
                   </h2>
                 </div>
@@ -159,12 +155,8 @@ function AboutPage() {
               <div className="grid gap-10 md:grid-cols-[1fr_1.4fr] md:gap-16">
                 <div>
                   <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-white/60">— Preuves</span>
-                  <h2 className="mt-4 text-[40px] font-semibold leading-[0.98] tracking-[-0.03em] text-white sm:text-[64px]">
-                    Vérifié par{" "}
-                    <span className="italic font-serif font-light" style={{ background: "linear-gradient(120deg, var(--brand-cyan), var(--brand-violet))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                      Janoshik Analytical
-                    </span>
-                    .
+                  <h2 className="shimmer-text-light mt-4 text-[40px] font-semibold leading-[0.98] tracking-[-0.03em] sm:text-[64px]">
+                    Vérifié par Janoshik Analytical.
                   </h2>
                 </div>
                 <div className="space-y-4 text-[15.5px] leading-[1.7] text-white/75">
