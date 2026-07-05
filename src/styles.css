@@ -342,6 +342,7 @@
 
 @utility shimmer-text {
   position: relative;
+  display: inline-block;
   color: var(--foreground);
   -webkit-text-fill-color: currentColor;
   background: none;
