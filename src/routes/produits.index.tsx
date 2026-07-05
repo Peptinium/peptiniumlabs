@@ -166,7 +166,7 @@ function CatalogPage() {
             ) : (
               <div
                 key={`${cat}-${maxPrice}`}
-                className="grid animate-[fade-in_0.5s_ease-out_both] grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4"
+                className="grid animate-[fade-in_0.5s_ease-out_both] grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3"
               >
                 {list.map((p, i) => (
                   <Reveal key={p.slug} delay={i * 40}>

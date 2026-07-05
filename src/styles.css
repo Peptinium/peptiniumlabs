@@ -385,7 +385,7 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  animation: shimmer-gradient var(--shimmer-duration, 3s) linear infinite;
+  animation: shimmer-gradient var(--shimmer-duration, 8s) linear infinite;
 }
 
 .shimmer-text.shimmer-active[data-shimmer]::after,
