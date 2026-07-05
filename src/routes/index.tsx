@@ -83,8 +83,12 @@ export const Route = createFileRoute("/")({
 });
 
 function HomePage() {
+function HomePage() {
   const featured = products.find((p) => p.featured)!;
-  const rest = products.filter((p) => !p.featured).slice(0, 6);
+  const rest = products.filter((p) => !p.featured);
+  const bestSellers = rest.slice(0, 4);
+  const moreProducts = rest.slice(4, 8);
+
 
   return (
     <SiteLayout>
