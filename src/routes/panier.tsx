@@ -1392,6 +1392,7 @@ function CryptoPaymentBlock({
   shippingFee,
   total,
   onConfirmed,
+  onBack,
 }: {
   intent: CryptoPaymentIntent;
   orderRef: string;
@@ -1400,6 +1401,7 @@ function CryptoPaymentBlock({
   shippingFee: number;
   total: number;
   onConfirmed: () => void;
+  onBack: () => void;
 }) {
   const pollStatus = useServerFn(getCryptoPaymentStatus);
   const [current, setCurrent] = useState(intent);
