@@ -7,6 +7,7 @@ import { HeroVela } from "@/components/HeroVela";
 import { products, formatPrice } from "@/data/products";
 import { ShieldCheck, Fingerprint, LifeBuoy } from "lucide-react";
 import labBg from "@/assets/lab-bg-ruo.jpg";
+import promoBacWater from "@/assets/promo-bacwater.png";
 
 const SITE_URL = "https://peptinium.com";
 const ALL_PEPTIDES_KEYWORDS = [
