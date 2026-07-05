@@ -232,7 +232,7 @@ function PanierPage() {
                 try {
                   const res = await checkPromo({ data: { code } });
                   if (res.valid) {
-                    setPromo({ code: res.code, rate: res.rate });
+                    setPromo({ code: res.code, rate: res.rate, amountOff: res.amountOff, freeShipping: res.freeShipping });
                     return true;
                   }
                 } catch {
