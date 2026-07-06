@@ -282,17 +282,11 @@
 @utility font-serif { font-family: var(--font-serif); font-feature-settings: "ss01", "ss02"; }
 @utility font-mono { font-family: var(--font-mono); }
 
-/* Vela-style scroll blur: --reveal-p goes 0 (bottom, blurry) → 1 (eye level, sharp). */
+/* Scroll reveal blur disabled — content renders fully in place. */
 [data-reveal-blur] {
-  --reveal-p: 0;
-  filter: blur(calc((1 - var(--reveal-p)) * 14px));
-  opacity: calc(0.55 + 0.45 * var(--reveal-p));
-  transform: translate3d(0, calc((1 - var(--reveal-p)) * 18px), 0);
-  will-change: filter, opacity, transform;
+  --reveal-p: 1;
 }
-@media (prefers-reduced-motion: reduce) {
-  [data-reveal-blur] { --reveal-p: 1; filter: none; opacity: 1; transform: none; }
-}
+
 
 @utility grid-bg {
   background-image:
