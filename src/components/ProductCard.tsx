@@ -125,6 +125,9 @@ export function ProductVisual({
           alt={alt ?? `Flacon ${product.name} — Research Use Only`}
           className={imageClassName || "size-full object-cover"}
           loading={loading}
+          decoding="async"
+          width={800}
+          height={1200}
         />
       </div>
     );
