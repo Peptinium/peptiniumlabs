@@ -8,6 +8,7 @@ type NavLeaf = { to: string; label: string; description?: string };
 type NavItem = { label: string; to?: string; children?: NavLeaf[] };
 
 const nav: NavItem[] = [
+  { to: "/a-propos", label: "Le laboratoire" },
   { to: "/produits", label: "Catalogue" },
   {
     label: "Recherche",
@@ -26,7 +27,6 @@ const nav: NavItem[] = [
       { to: "/lot", label: "Traçabilité de lot", description: "N° de lot → CoA Janoshik" },
     ],
   },
-  { to: "/a-propos", label: "Le laboratoire" },
   { to: "/contact", label: "Contact" },
 ];
 
