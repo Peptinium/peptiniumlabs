@@ -152,7 +152,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
               slug: EAU_OFFERTE_SLUG,
               name: EAU_OFFERTE_NAME,
               dosage: EAU_OFFERTE_DOSAGE,
-              price: EAU_OFFERTE_PRICE,
+              price: freeWaterEligible ? EAU_OFFERTE_PRICE_FREE : EAU_OFFERTE_PRICE_PAID,
               qty: 1,
             },
           ];
