@@ -23,6 +23,7 @@ const nav: NavItem[] = [
       { to: "/tester-fioles", label: "Tester ses fioles", description: "Contrôle qualité" },
       { to: "/comparateur", label: "Comparateur", description: "Jusqu'à 3 peptides côte à côte" },
       { to: "/quiz", label: "Quiz labo", description: "Objectif → peptides pertinents" },
+      { to: "/lot", label: "Traçabilité de lot", description: "N° de lot → CoA Janoshik" },
     ],
   },
   { to: "/a-propos", label: "Le laboratoire" },
