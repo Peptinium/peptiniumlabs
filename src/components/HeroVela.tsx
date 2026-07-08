@@ -101,7 +101,12 @@ export function HeroVela() {
             }}
           />
 
-          <div className="group relative z-10 h-full w-auto cursor-pointer [animation:float_6s_ease-in-out_infinite] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] [will-change:transform] [backface-visibility:hidden] hover:scale-110">
+          <Link
+            to="/produits/$slug"
+            params={{ slug: "retatrutide" }}
+            aria-label="Voir le produit Retatrutide"
+            className="group relative z-10 h-full w-auto cursor-pointer [animation:float_6s_ease-in-out_infinite] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] [will-change:transform] [backface-visibility:hidden] hover:scale-110"
+          >
             <img
               src={vialAsset}
               alt="Flacon Peptinium — peptide de recherche pureté ≥ 99 %"
@@ -129,7 +134,7 @@ export function HeroVela() {
                 animation: "vialShine 3.6s ease-in-out 0s infinite",
               }}
             />
-          </div>
+          </Link>
         </div>
 
         <div className="mt-10 font-mono text-[10px] uppercase tracking-[0.28em] text-accent">
