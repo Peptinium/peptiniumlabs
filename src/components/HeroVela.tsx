@@ -63,17 +63,12 @@ export function HeroVela() {
         <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
           <Link
             to="/produits"
-            className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full px-8 py-4 font-sans text-[12px] font-semibold uppercase tracking-[0.22em] text-white shadow-[0_18px_44px_-14px_color-mix(in_oklab,var(--brand-violet)_65%,transparent)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5"
-            style={{
-              backgroundImage:
-                "linear-gradient(120deg, var(--brand-cyan) 0%, var(--brand-blue) 35%, var(--brand-violet) 65%, var(--brand-magenta) 100%)",
-              backgroundSize: "200% 100%",
-            }}
+            className="group inline-flex items-center gap-3 rounded-full bg-foreground px-8 py-4 font-sans text-[12px] font-semibold uppercase tracking-[0.22em] text-background shadow-[0_18px_44px_-18px_color-mix(in_oklab,var(--foreground)_60%,transparent)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:bg-foreground/90"
           >
-            <span className="relative z-10">Explorer le catalogue</span>
+            Explorer le catalogue
             <span
               aria-hidden
-              className="relative z-10 grid size-7 place-items-center rounded-full bg-white/20 transition-transform duration-500 group-hover:translate-x-0.5"
+              className="grid size-7 place-items-center rounded-full bg-background/15 transition-transform duration-500 group-hover:translate-x-0.5"
             >
               <ArrowRight className="size-3.5" strokeWidth={2.4} />
             </span>
