@@ -39,7 +39,7 @@ function CatalogPage() {
         <div className="container-prose relative px-5 pt-20 pb-16 lg:pt-28 lg:pb-24">
           <Reveal>
             <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-foreground/70">
-              Catalogue <span className="mx-2 opacity-40">·</span> {products.length} sur {products.length}
+              Catalogue <span className="mx-2 opacity-40">·</span> {visibleProducts.length} sur {visibleProducts.length}
             </div>
           </Reveal>
           <Reveal delay={80}>
