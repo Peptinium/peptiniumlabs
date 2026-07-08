@@ -440,35 +440,58 @@ function ProductPage() {
             </h2>
             <p className="mt-5 text-[14px] leading-[1.75] text-foreground/85 whitespace-pre-line">
               {product.detailedEffects}
+              {product.references.length > 0 && (
+                <>
+                  {" "}
+                  <span className="whitespace-nowrap align-super text-[10px] font-mono tracking-tight text-accent">
+                    {product.references.map((r, i) => (
+                      <a
+                        key={r.url}
+                        href={`#ref-${i + 1}`}
+                        className="mx-0.5 rounded px-0.5 hover:bg-accent/10"
+                        aria-label={`Voir la référence ${i + 1} — ${r.id}`}
+                      >
+                        [{i + 1}]
+                      </a>
+                    ))}
+                  </span>
+                </>
+              )}
             </p>
           </div>
         </Reveal>
 
-        {/* Detail blocks */}
-        <div className="mt-12 grid gap-8 lg:grid-cols-3">
-          {[
-            { mono: "01", title: "Contexte de recherche", body: product.researchSummary },
-            { mono: "02", title: "Conservation", body: product.storage },
-            { mono: "03", title: "Reconstitution (labo)", body: product.reconstitution, link: true },
-          ].map((b, i) => (
-            <Reveal key={b.mono} delay={i * 80}>
-              <div className="hover-lift rounded-xl border border-border bg-card p-6">
-                <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent">— {b.mono}</div>
-                <h3 className="mt-2 font-display text-lg font-medium tracking-tight">{b.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{b.body}</p>
-                {b.link && (
-                  <Link to="/calculatrice" className="mt-4 inline-block font-mono text-[10px] uppercase tracking-[0.2em] text-accent link-underline">
+        {/* Fiche technique — fusion Contexte / Conservation / Reconstitution */}
+        <Reveal>
+          <div className="mt-12 overflow-hidden rounded-2xl border border-border bg-card">
+            <div className="border-b border-border/60 p-6 sm:px-8">
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">— Fiche technique</div>
+              <h3 className="mt-2 font-display text-xl font-medium tracking-tight sm:text-2xl">
+                Contexte, conservation, reconstitution
+              </h3>
+            </div>
+            <dl className="divide-y divide-border/60">
+              <TechRow label="Contexte de recherche" body={product.researchSummary} />
+              <TechRow label="Conservation" body={product.storage} />
+              <TechRow
+                label="Reconstitution (labo)"
+                body={product.reconstitution}
+                extra={
+                  <Link
+                    to="/calculatrice"
+                    className="mt-3 inline-block font-mono text-[10px] uppercase tracking-[0.2em] text-accent link-underline"
+                  >
                     → Calculatrice de dilution
                   </Link>
-                )}
-              </div>
-            </Reveal>
-          ))}
-        </div>
+                }
+              />
+            </dl>
+          </div>
+        </Reveal>
 
         {/* References */}
         {product.references.length > 0 && (
-          <div className="mt-20">
+          <div id="bibliographie" className="mt-20 scroll-mt-24">
             <Reveal>
               <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">— Bibliographie</div>
               <h2 className="mt-2 font-display text-3xl font-medium tracking-tight">Références PubMed</h2>
