@@ -66,7 +66,7 @@ export const products: Product[] = [
       RUO_DISCLAIMER,
     storage: "Lyophilisé : −20 °C, à l'abri de la lumière. Reconstitué : 2–8 °C, ≤ 28 jours.",
     reconstitution: "Reconstituer avec de l'eau bactériostatique stérile. Solution claire et incolore.",
-    references: [pubmed("40291085"), pubmed("37366315"), pubmed("40609566")],
+    references: [pmc("PMC11271400"), pubmed("41216380"), pubmed("41090431")],
   },
   {
     slug: "ghk-cu",
@@ -89,7 +89,7 @@ export const products: Product[] = [
       RUO_DISCLAIMER,
     storage: "Lyophilisé : −20 °C, à l'abri de la lumière. Reconstitué : 2–8 °C.",
     reconstitution: "Eau bactériostatique stérile.",
-    references: [pmc("PMC6073405"), pubmed("18644225"), pubmed("35083444")],
+    references: [pubmed("29986520"), pmc("PMC5332963"), pmc("PMC5295439")],
   },
   {
     slug: "cjc-1295-ipamorelin",
@@ -109,7 +109,7 @@ export const products: Product[] = [
       RUO_DISCLAIMER,
     storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
     reconstitution: "Reconstitution séparée recommandée à l'eau bactériostatique stérile.",
-    references: [pubmed("16352683"), pubmed("10373343"), pubmed("17018654")],
+    references: [pubmed("9349622"), pubmed("10372741"), pubmed("19289567")],
   },
   {
     slug: "semax",
@@ -129,7 +129,7 @@ export const products: Product[] = [
       RUO_DISCLAIMER,
     storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
     reconstitution: "Eau bactériostatique stérile.",
-    references: [pubmed("16996699"), pubmed("41479572"), pubmed("16635254")],
+    references: [pubmed("29798983"), pmc("PMC11498467"), pmc("PMC8855339")],
   },
   {
     slug: "ahk-cu",
@@ -152,7 +152,7 @@ export const products: Product[] = [
       RUO_DISCLAIMER,
     storage: "Lyophilisé : −20 °C, à l'abri de la lumière. Reconstitué : 2–8 °C.",
     reconstitution: "Eau bactériostatique stérile.",
-    references: [pubmed("17703734"), pmc("PMC8332470"), pmc("PMC6073405")],
+    references: [pubmed("17703734")],
   },
   {
     slug: "bpc-157",
@@ -172,7 +172,7 @@ export const products: Product[] = [
       RUO_DISCLAIMER,
     storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
     reconstitution: "Eau bactériostatique stérile.",
-    references: [pubmed("30915550"), pmc("PMC6271067"), pmc("PMC8275860")],
+    references: [pubmed("20225319"), pubmed("34829776"), pubmed("16583442")],
   },
   {
     slug: "mt-1",
@@ -192,7 +192,7 @@ export const products: Product[] = [
       RUO_DISCLAIMER,
     storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
     reconstitution: "Eau bactériostatique stérile.",
-    references: [pubmed("15262693"), pubmed("9113347"), pmc("PMC11664455")],
+    references: [pubmed("22845050"), pubmed("19656325")],
   },
   {
     slug: "mt-2",
@@ -212,7 +212,7 @@ export const products: Product[] = [
       RUO_DISCLAIMER,
     storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
     reconstitution: "Eau bactériostatique stérile.",
-    references: [pubmed("8637402"), pubmed("15262693")],
+    references: [pubmed("9679884"), pubmed("11739247"), pubmed("17584134")],
   },
   {
     slug: "klow",
@@ -232,7 +232,7 @@ export const products: Product[] = [
       RUO_DISCLAIMER,
     storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C, ≤ 14 jours.",
     reconstitution: "Eau bactériostatique stérile, agitation douce.",
-    references: [pmc("PMC6073405"), pubmed("30915550"), pmc("PMC6271067")],
+    references: [pubmed("29986520"), pubmed("20225319"), pubmed("10469335")],
   },
   {
     slug: "nad-plus",
@@ -252,7 +252,7 @@ export const products: Product[] = [
       RUO_DISCLAIMER,
     storage: "Lyophilisé : −20 °C, à l'abri de la lumière. Reconstitué : 2–8 °C.",
     reconstitution: "Eau bactériostatique stérile.",
-    references: [pmc("PMC10692436"), pmc("PMC9512238"), pubmed("37971292")],
+    references: [pmc("PMC10721522"), pmc("PMC6611812"), pmc("PMC8932245")],
   },
   {
     slug: "tesamoreline",
@@ -272,7 +272,7 @@ export const products: Product[] = [
       RUO_DISCLAIMER,
     storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
     reconstitution: "Eau bactériostatique stérile.",
-    references: [pubmed("20554713"), pubmed("18690162"), ext("https://jamanetwork.com/journals/jama/fullarticle/1889139", "JAMA", "JAMA · fullarticle/1889139")],
+    references: [pubmed("22050344"), pmc("PMC9947601"), pubmed("41545261")],
   },
   {
     slug: "eau-bacteriostatique",
@@ -312,7 +312,7 @@ export const products: Product[] = [
       RUO_DISCLAIMER,
     storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
     reconstitution: "Eau bactériostatique stérile.",
-    references: [pubmed("6087901"), pubmed("6504737")],
+    references: [pubmed("6895513"), pubmed("1299794"), pubmed("6145137")],
   },
   {
     slug: "epithalon",
@@ -332,7 +332,7 @@ export const products: Product[] = [
       RUO_DISCLAIMER,
     storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
     reconstitution: "Eau bactériostatique stérile.",
-    references: [pubmed("12937682"), pubmed("14708087")],
+    references: [pubmed("29124531"), pmc("PMC12411320"), pubmed("40141333")],
   },
   {
     slug: "kpv",
@@ -352,7 +352,7 @@ export const products: Product[] = [
       RUO_DISCLAIMER,
     storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
     reconstitution: "Eau bactériostatique stérile.",
-    references: [pubmed("18789754"), pmc("PMC2241650")],
+    references: [pubmed("12750433"), pubmed("17934097"), pubmed("10670585")],
   },
   {
     slug: "mots-c",
@@ -372,7 +372,7 @@ export const products: Product[] = [
       RUO_DISCLAIMER,
     storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
     reconstitution: "Eau bactériostatique stérile.",
-    references: [pubmed("25738459"), pmc("PMC4753972")],
+    references: [pubmed("27216708"), pubmed("34520826"), pmc("PMC8376922")],
   },
   {
     slug: "oxytocin",
@@ -392,7 +392,7 @@ export const products: Product[] = [
       RUO_DISCLAIMER,
     storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
     reconstitution: "Eau bactériostatique stérile.",
-    references: [pubmed("21750565"), pmc("PMC3656338")],
+    references: [pmc("PMC7951958"), pmc("PMC5474129"), pmc("PMC3936960")],
   },
   {
     slug: "pt-141",
@@ -412,7 +412,7 @@ export const products: Product[] = [
       RUO_DISCLAIMER,
     storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
     reconstitution: "Eau bactériostatique stérile.",
-    references: [pubmed("18684229"), pmc("PMC5310636")],
+    references: [pubmed("31599840"), pmc("PMC6819023"), pmc("PMC8788464")],
   },
   {
     slug: "selank",
@@ -432,7 +432,7 @@ export const products: Product[] = [
       RUO_DISCLAIMER,
     storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
     reconstitution: "Eau bactériostatique stérile.",
-    references: [pubmed("26228446"), pubmed("21390649")],
+    references: [pubmed("31625062"), pmc("PMC5322660")],
   },
   {
     slug: "snap-8",
@@ -472,7 +472,7 @@ export const products: Product[] = [
       RUO_DISCLAIMER,
     storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
     reconstitution: "Eau bactériostatique stérile.",
-    references: [pubmed("22315649"), pmc("PMC3679553")],
+    references: [pubmed("10469335"), pubmed("17600280")],
   },
   {
     slug: "eau-bacteriostatique-3ml-offerte",
