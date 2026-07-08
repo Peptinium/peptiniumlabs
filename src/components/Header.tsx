@@ -1,17 +1,32 @@
 import { Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useCart } from "@/lib/cart";
 import { supabase } from "@/integrations/supabase/client";
 import peptiniumLogo from "@/assets/brand/peptinium-logo.png.asset.json";
 
-const nav = [
+type NavLeaf = { to: string; label: string; description?: string };
+type NavItem = { label: string; to?: string; children?: NavLeaf[] };
+
+const nav: NavItem[] = [
   { to: "/produits", label: "Catalogue" },
-  { to: "/a-propos", label: "À propos" },
-  { to: "/blog", label: "Journal" },
-  { to: "/etudes-scientifiques", label: "Études" },
+  {
+    label: "Recherche",
+    children: [
+      { to: "/blog", label: "Journal", description: "Articles & analyses" },
+      { to: "/etudes-scientifiques", label: "Bibliographie", description: "Références PubMed / PMC" },
+    ],
+  },
+  {
+    label: "Outils labo",
+    children: [
+      { to: "/calculatrice", label: "Calculatrice", description: "Doses & reconstitution" },
+      { to: "/tester-fioles", label: "Tester ses fioles", description: "Contrôle qualité" },
+      { to: "/comparateur", label: "Comparateur", description: "Jusqu'à 3 peptides côte à côte" },
+      { to: "/quiz", label: "Quiz labo", description: "Objectif → peptides pertinents" },
+    ],
+  },
+  { to: "/a-propos", label: "Le laboratoire" },
   { to: "/contact", label: "Contact" },
-  { to: "/calculatrice", label: "Calculatrice" },
-  { to: "/tester-fioles", label: "Tester ses fioles" },
 ];
 
 export function Header() {
@@ -19,6 +34,9 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const [mobileSub, setMobileSub] = useState<string | null>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const { count } = useCart();
 
   useEffect(() => {
@@ -76,6 +94,14 @@ export function Header() {
     };
   }, []);
 
+  const scheduleClose = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => setOpenMenu(null), 120);
+  };
+  const cancelClose = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+  };
+
   return (
     <header
       className={`sticky top-0 z-40 transition-all duration-300 ${
@@ -94,22 +120,83 @@ export function Header() {
           </span>
         </Link>
 
-        {/* Center — editorial nav (Vela style: normal case, medium, comfortable spacing) */}
+        {/* Center — editorial nav */}
         <nav className="desktop-flex items-center gap-9">
-          {nav.map((n) => (
-            <Link
-              key={n.to}
-              to={n.to}
-              className="group relative text-[15px] font-medium text-foreground/75 transition-colors hover:text-foreground"
-              activeProps={{ className: "text-foreground" }}
-            >
-              {n.label}
-              <span className="absolute -bottom-1 left-0 h-px w-0 bg-foreground transition-all duration-300 group-hover:w-full" />
-            </Link>
-          ))}
+          {nav.map((n) =>
+            n.children ? (
+              <div
+                key={n.label}
+                className="relative"
+                onMouseEnter={() => {
+                  cancelClose();
+                  setOpenMenu(n.label);
+                }}
+                onMouseLeave={scheduleClose}
+              >
+                <button
+                  type="button"
+                  aria-haspopup="true"
+                  aria-expanded={openMenu === n.label}
+                  className="group relative inline-flex items-center gap-1 text-[15px] font-medium text-foreground/75 transition-colors hover:text-foreground"
+                >
+                  {n.label}
+                  <svg
+                    width="10"
+                    height="10"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className={`transition-transform ${openMenu === n.label ? "rotate-180" : ""}`}
+                  >
+                    <path d="M6 9l6 6 6-6" />
+                  </svg>
+                  <span className="absolute -bottom-1 left-0 h-px w-0 bg-foreground transition-all duration-300 group-hover:w-full" />
+                </button>
+                {openMenu === n.label && (
+                  <div
+                    className="absolute left-1/2 top-full z-50 mt-3 w-[300px] -translate-x-1/2 rounded-2xl border border-border/60 bg-background/95 p-2 shadow-lg backdrop-blur-xl"
+                    onMouseEnter={cancelClose}
+                    onMouseLeave={scheduleClose}
+                  >
+                    <ul className="flex flex-col">
+                      {n.children.map((c) => (
+                        <li key={c.to}>
+                          <Link
+                            to={c.to}
+                            onClick={() => setOpenMenu(null)}
+                            className="block rounded-xl px-4 py-3 transition-colors hover:bg-surface"
+                          >
+                            <div className="text-[14px] font-medium text-foreground">{c.label}</div>
+                            {c.description && (
+                              <div className="mt-0.5 text-[12px] text-muted-foreground">
+                                {c.description}
+                              </div>
+                            )}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link
+                key={n.to}
+                to={n.to!}
+                className="group relative text-[15px] font-medium text-foreground/75 transition-colors hover:text-foreground"
+                activeProps={{ className: "text-foreground" }}
+              >
+                {n.label}
+                <span className="absolute -bottom-1 left-0 h-px w-0 bg-foreground transition-all duration-300 group-hover:w-full" />
+              </Link>
+            ),
+          )}
         </nav>
 
-        {/* Right — round icon buttons (Vela style) */}
+        {/* Right — round icon buttons */}
         <div className="flex items-center gap-2">
           {isAdmin && (
             <Link
@@ -156,16 +243,56 @@ export function Header() {
       {open && (
         <div className="mobile-block border-t border-border/60 bg-background/95 backdrop-blur-xl">
           <div className="mx-auto flex max-w-[1400px] flex-col px-6 py-3">
-            {nav.map((n) => (
-              <Link
-                key={n.to}
-                to={n.to}
-                onClick={() => setOpen(false)}
-                className="border-b border-border/40 py-4 text-[15px] font-medium text-foreground/85 last:border-0"
-              >
-                {n.label}
-              </Link>
-            ))}
+            {nav.map((n) =>
+              n.children ? (
+                <div key={n.label} className="border-b border-border/40 last:border-0">
+                  <button
+                    type="button"
+                    onClick={() => setMobileSub(mobileSub === n.label ? null : n.label)}
+                    className="flex w-full items-center justify-between py-4 text-left text-[15px] font-medium text-foreground/85"
+                  >
+                    <span>{n.label}</span>
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      className={`transition-transform ${mobileSub === n.label ? "rotate-180" : ""}`}
+                    >
+                      <path d="M6 9l6 6 6-6" />
+                    </svg>
+                  </button>
+                  {mobileSub === n.label && (
+                    <div className="pb-3 pl-3">
+                      {n.children.map((c) => (
+                        <Link
+                          key={c.to}
+                          to={c.to}
+                          onClick={() => {
+                            setOpen(false);
+                            setMobileSub(null);
+                          }}
+                          className="block py-2.5 text-[14px] text-muted-foreground"
+                        >
+                          {c.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <Link
+                  key={n.to}
+                  to={n.to!}
+                  onClick={() => setOpen(false)}
+                  className="border-b border-border/40 py-4 text-[15px] font-medium text-foreground/85 last:border-0"
+                >
+                  {n.label}
+                </Link>
+              ),
+            )}
             {isAdmin && (
               <Link
                 to="/admin"
