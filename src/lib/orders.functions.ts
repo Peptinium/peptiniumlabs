@@ -122,6 +122,14 @@ export const placeOrder = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
+    // Determine free-water eligibility (first order of the customer, lifetime).
+    const auth = await getOptionalUserEmail();
+    const shippingEmail = (data.shipping.email ?? "").toLowerCase() || null;
+    const freeWaterEligible = await isFirstOrderEligible(
+      auth.userId,
+      auth.email ?? shippingEmail,
+    );
+
     // Re-price server-side from the same catalog used by the cart, by dosage.
     // This prevents the previous bug where Retatrutide 10 mg was charged as the base 5 mg product price.
     const slugs = data.items.map((i) => i.slug);
@@ -156,7 +164,14 @@ export const placeOrder = createServerFn({ method: "POST" })
         throw new Error(`Stock insuffisant pour ${catalog.product.name} ${catalog.variant.dosage}`);
       }
 
-      const unit = Number(catalog.variant.price);
+      // Free-water item: 0 € for first order of this customer, 4,90 € otherwise.
+      const unit =
+        i.slug === EAU_OFFERTE_SLUG
+          ? freeWaterEligible
+            ? 0
+            : EAU_OFFERTE_PRICE_PAID
+          : Number(catalog.variant.price);
+
       const line = roundMoney(unit * i.quantity);
       subtotal = roundMoney(subtotal + line);
       stockUpdates.push({
