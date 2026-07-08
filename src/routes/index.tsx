@@ -173,7 +173,7 @@ function HomePage() {
                 <span className="block text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
                   Promotion
                 </span>
-                <h2 className="mt-6 max-w-lg shimmer-text text-[36px] font-semibold leading-[1.02] tracking-[-0base03em] sm:text-[52px] sm:leading-[1.0]" data-shimmer="Offerte : 3 ml d'eau bactériostatique pour votre première commande.">
+                <h2 className="mt-6 max-w-lg shimmer-text text-[36px] font-semibold leading-[1.02] tracking-[-0.03em] sm:text-[52px] sm:leading-[1.0]" data-shimmer="Offerte : 3 ml d'eau bactériostatique pour votre première commande.">
                   Offerte : 3 ml d'eau bactériostatique pour votre première commande.
                 </h2>
                 <p className="mt-6 max-w-md text-[15px] leading-[1.6] text-[#0f1d3a]/70 sm:text-[16px]">
