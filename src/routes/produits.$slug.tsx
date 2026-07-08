@@ -265,6 +265,19 @@ function ProductPage() {
               <h1 className="mt-3 text-[44px] font-semibold leading-[0.98] tracking-[-0.03em] text-foreground sm:text-[60px]">
                 {product.name}
               </h1>
+              {product.references.length > 0 && (
+                <a
+                  href="#bibliographie"
+                  className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-accent/40 bg-accent/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-accent transition-colors hover:bg-accent/15"
+                  aria-label="Voir la bibliographie"
+                >
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                  </svg>
+                  Indice de preuve · {product.references.length} réf.{" "}
+                  {Array.from(new Set(product.references.map((r) => r.source))).join(" / ")}
+                </a>
+              )}
               <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
                 Composé de recherche lyophilisé{product.cas ? ` · CAS ${product.cas}` : ""}
               </p>
@@ -427,35 +440,58 @@ function ProductPage() {
             </h2>
             <p className="mt-5 text-[14px] leading-[1.75] text-foreground/85 whitespace-pre-line">
               {product.detailedEffects}
+              {product.references.length > 0 && (
+                <>
+                  {" "}
+                  <span className="whitespace-nowrap align-super text-[10px] font-mono tracking-tight text-accent">
+                    {product.references.map((r, i) => (
+                      <a
+                        key={r.url}
+                        href={`#ref-${i + 1}`}
+                        className="mx-0.5 rounded px-0.5 hover:bg-accent/10"
+                        aria-label={`Voir la référence ${i + 1} — ${r.id}`}
+                      >
+                        [{i + 1}]
+                      </a>
+                    ))}
+                  </span>
+                </>
+              )}
             </p>
           </div>
         </Reveal>
 
-        {/* Detail blocks */}
-        <div className="mt-12 grid gap-8 lg:grid-cols-3">
-          {[
-            { mono: "01", title: "Contexte de recherche", body: product.researchSummary },
-            { mono: "02", title: "Conservation", body: product.storage },
-            { mono: "03", title: "Reconstitution (labo)", body: product.reconstitution, link: true },
-          ].map((b, i) => (
-            <Reveal key={b.mono} delay={i * 80}>
-              <div className="hover-lift rounded-xl border border-border bg-card p-6">
-                <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent">— {b.mono}</div>
-                <h3 className="mt-2 font-display text-lg font-medium tracking-tight">{b.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{b.body}</p>
-                {b.link && (
-                  <Link to="/calculatrice" className="mt-4 inline-block font-mono text-[10px] uppercase tracking-[0.2em] text-accent link-underline">
+        {/* Fiche technique — fusion Contexte / Conservation / Reconstitution */}
+        <Reveal>
+          <div className="mt-12 overflow-hidden rounded-2xl border border-border bg-card">
+            <div className="border-b border-border/60 p-6 sm:px-8">
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">— Fiche technique</div>
+              <h3 className="mt-2 font-display text-xl font-medium tracking-tight sm:text-2xl">
+                Contexte, conservation, reconstitution
+              </h3>
+            </div>
+            <dl className="divide-y divide-border/60">
+              <TechRow label="Contexte de recherche" body={product.researchSummary} />
+              <TechRow label="Conservation" body={product.storage} />
+              <TechRow
+                label="Reconstitution (labo)"
+                body={product.reconstitution}
+                extra={
+                  <Link
+                    to="/calculatrice"
+                    className="mt-3 inline-block font-mono text-[10px] uppercase tracking-[0.2em] text-accent link-underline"
+                  >
                     → Calculatrice de dilution
                   </Link>
-                )}
-              </div>
-            </Reveal>
-          ))}
-        </div>
+                }
+              />
+            </dl>
+          </div>
+        </Reveal>
 
         {/* References */}
         {product.references.length > 0 && (
-          <div className="mt-20">
+          <div id="bibliographie" className="mt-20 scroll-mt-24">
             <Reveal>
               <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">— Bibliographie</div>
               <h2 className="mt-2 font-display text-3xl font-medium tracking-tight">Références PubMed</h2>
@@ -463,10 +499,10 @@ function ProductPage() {
             <ul className="mt-8 divide-y divide-border overflow-hidden rounded-xl border border-border bg-card">
               {product.references.map((r, i) => (
                 <Reveal key={r.url} delay={i * 70}>
-                  <li className="group flex items-center justify-between gap-6 p-6 transition-colors hover:bg-surface">
+                  <li id={`ref-${i + 1}`} className="group flex scroll-mt-24 items-center justify-between gap-6 p-6 transition-colors target:bg-accent/5 hover:bg-surface">
                     <div>
                       <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                        {r.source} · Référence n°{i + 1}
+                        [{i + 1}] {r.source}
                       </div>
                       <div className="mt-1.5 font-display text-base font-medium text-foreground">{r.id}</div>
                     </div>
@@ -538,5 +574,19 @@ function AddToCartButton({
       </span>
       <span className="absolute inset-y-0 left-0 w-14 -translate-x-full bg-background/40 blur-md transition-transform duration-700 group-hover:translate-x-[860%]" />
     </button>
+  );
+}
+
+function TechRow({ label, body, extra }: { label: string; body: string; extra?: React.ReactNode }) {
+  return (
+    <div className="grid gap-3 p-6 sm:grid-cols-[200px_1fr] sm:gap-8 sm:px-8">
+      <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+        {label}
+      </dt>
+      <dd className="text-sm leading-relaxed text-foreground/85">
+        {body}
+        {extra}
+      </dd>
+    </div>
   );
 }
