@@ -8,16 +8,16 @@ type NavLeaf = { to: string; label: string; description?: string };
 type NavItem = { label: string; to?: string; children?: NavLeaf[] };
 
 const nav: NavItem[] = [
-  { to: "/produits", label: "Molécules" },
+  { to: "/produits", label: "Catalogue" },
   {
-    label: "Publications",
+    label: "Recherche",
     children: [
       { to: "/blog", label: "Journal", description: "Articles & analyses" },
       { to: "/etudes-scientifiques", label: "Bibliographie", description: "Références PubMed / PMC" },
     ],
   },
   {
-    label: "Paillasse",
+    label: "Outils labo",
     children: [
       { to: "/calculatrice", label: "Calculatrice", description: "Doses & reconstitution" },
       { to: "/tester-fioles", label: "Tester ses fioles", description: "Contrôle qualité" },
@@ -26,7 +26,7 @@ const nav: NavItem[] = [
       { to: "/lot", label: "Traçabilité de lot", description: "N° de lot → CoA Janoshik" },
     ],
   },
-  { to: "/a-propos", label: "Maison" },
+  { to: "/a-propos", label: "Le laboratoire" },
   { to: "/contact", label: "Contact" },
 ];
 

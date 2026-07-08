@@ -35,7 +35,7 @@ function CalcPage() {
   const [peptideUnit, setPeptideUnit] = useState<Unit>("mg");
   const [waterMl, setWaterMl] = useState<string>("");
   const [doseValue, setDoseValue] = useState<string>("");
-  const [doseUnit, setDoseUnit] = useState<Unit>("mcg");
+  const [doseUnit, setDoseUnit] = useState<Unit>("mg");
 
   const result = useMemo(() => {
     const peptideMg =
