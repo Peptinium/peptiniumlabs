@@ -4,6 +4,8 @@ import { ProductCard } from "@/components/ProductCard";
 import { Reveal } from "@/components/Reveal";
 import { products } from "@/data/products";
 
+const visibleProducts = products.filter((p) => !p.hidden);
+
 const SITE_URL = "https://peptinium.com";
 
 export const Route = createFileRoute("/produits/")({
