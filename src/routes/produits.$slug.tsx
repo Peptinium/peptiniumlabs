@@ -576,3 +576,17 @@ function AddToCartButton({
     </button>
   );
 }
+
+function TechRow({ label, body, extra }: { label: string; body: string; extra?: React.ReactNode }) {
+  return (
+    <div className="grid gap-3 p-6 sm:grid-cols-[200px_1fr] sm:gap-8 sm:px-8">
+      <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+        {label}
+      </dt>
+      <dd className="text-sm leading-relaxed text-foreground/85">
+        {body}
+        {extra}
+      </dd>
+    </div>
+  );
+}
