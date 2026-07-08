@@ -18,6 +18,7 @@ import { Route as PanierRouteImport } from './routes/panier'
 import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
 import { Route as EtudesScientifiquesRouteImport } from './routes/etudes-scientifiques'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as ComparateurRouteImport } from './routes/comparateur'
 import { Route as CoaRouteImport } from './routes/coa'
 import { Route as CgvRouteImport } from './routes/cgv'
 import { Route as CalculatriceRouteImport } from './routes/calculatrice'
@@ -97,6 +98,11 @@ const EtudesScientifiquesRoute = EtudesScientifiquesRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ComparateurRoute = ComparateurRouteImport.update({
+  id: '/comparateur',
+  path: '/comparateur',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CoaRoute = CoaRouteImport.update({
@@ -290,6 +296,7 @@ export interface FileRoutesByFullPath {
   '/calculatrice': typeof CalculatriceRoute
   '/cgv': typeof CgvRoute
   '/coa': typeof CoaRoute
+  '/comparateur': typeof ComparateurRoute
   '/contact': typeof ContactRoute
   '/etudes-scientifiques': typeof EtudesScientifiquesRoute
   '/mentions-legales': typeof MentionsLegalesRoute
@@ -334,6 +341,7 @@ export interface FileRoutesByTo {
   '/calculatrice': typeof CalculatriceRoute
   '/cgv': typeof CgvRoute
   '/coa': typeof CoaRoute
+  '/comparateur': typeof ComparateurRoute
   '/contact': typeof ContactRoute
   '/etudes-scientifiques': typeof EtudesScientifiquesRoute
   '/mentions-legales': typeof MentionsLegalesRoute
@@ -380,6 +388,7 @@ export interface FileRoutesById {
   '/calculatrice': typeof CalculatriceRoute
   '/cgv': typeof CgvRoute
   '/coa': typeof CoaRoute
+  '/comparateur': typeof ComparateurRoute
   '/contact': typeof ContactRoute
   '/etudes-scientifiques': typeof EtudesScientifiquesRoute
   '/mentions-legales': typeof MentionsLegalesRoute
@@ -427,6 +436,7 @@ export interface FileRouteTypes {
     | '/calculatrice'
     | '/cgv'
     | '/coa'
+    | '/comparateur'
     | '/contact'
     | '/etudes-scientifiques'
     | '/mentions-legales'
@@ -471,6 +481,7 @@ export interface FileRouteTypes {
     | '/calculatrice'
     | '/cgv'
     | '/coa'
+    | '/comparateur'
     | '/contact'
     | '/etudes-scientifiques'
     | '/mentions-legales'
@@ -516,6 +527,7 @@ export interface FileRouteTypes {
     | '/calculatrice'
     | '/cgv'
     | '/coa'
+    | '/comparateur'
     | '/contact'
     | '/etudes-scientifiques'
     | '/mentions-legales'
@@ -563,6 +575,7 @@ export interface RootRouteChildren {
   CalculatriceRoute: typeof CalculatriceRoute
   CgvRoute: typeof CgvRoute
   CoaRoute: typeof CoaRoute
+  ComparateurRoute: typeof ComparateurRoute
   ContactRoute: typeof ContactRoute
   EtudesScientifiquesRoute: typeof EtudesScientifiquesRoute
   MentionsLegalesRoute: typeof MentionsLegalesRoute
@@ -653,6 +666,13 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/comparateur': {
+      id: '/comparateur'
+      path: '/comparateur'
+      fullPath: '/comparateur'
+      preLoaderRoute: typeof ComparateurRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/coa': {
@@ -971,6 +991,7 @@ const rootRouteChildren: RootRouteChildren = {
   CalculatriceRoute: CalculatriceRoute,
   CgvRoute: CgvRoute,
   CoaRoute: CoaRoute,
+  ComparateurRoute: ComparateurRoute,
   ContactRoute: ContactRoute,
   EtudesScientifiquesRoute: EtudesScientifiquesRoute,
   MentionsLegalesRoute: MentionsLegalesRoute,
