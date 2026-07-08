@@ -1,4 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { getFreeWaterEligibility } from "@/lib/orders.functions";
 
 export type CartItem = {
   slug: string;
@@ -12,9 +14,11 @@ export const EAU_SLUG = "eau-bacteriostatique";
 export const EAU_PRICE = 9.90;
 export const EAU_DOSAGE = "10 mL";
 export const EAU_OFFERTE_SLUG = "eau-bacteriostatique-3ml-offerte";
-export const EAU_OFFERTE_NAME = "Eau bactériostatique 3 mL offerte";
+export const EAU_OFFERTE_NAME = "Eau bactériostatique 3 mL";
 export const EAU_OFFERTE_DOSAGE = "3 mL";
-export const EAU_OFFERTE_PRICE = 0;
+export const EAU_OFFERTE_PRICE_FREE = 0;
+export const EAU_OFFERTE_PRICE_PAID = 4.90;
+
 export const SHIPPING = 3.90;
 export const FREE_SHIPPING_THRESHOLD = 160;
 
