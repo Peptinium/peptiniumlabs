@@ -476,12 +476,12 @@ export const products: Product[] = [
   },
   {
     slug: "eau-bacteriostatique-3ml-offerte",
-    name: "Eau bactériostatique 3 mL offerte",
+    name: "Eau bactériostatique 3 mL",
     cas: "7732-18-5 (H₂O) + 0,9 % alcool benzylique",
     molecularFormula: "H₂O + C7H8O",
     molecularWeight: "—",
     purity: "USP grade",
-    variants: [{ dosage: "3 mL", price: 0 }],
+    variants: [{ dosage: "3 mL", price: 4.90 }],
     category: "Reconstitution",
     hidden: true,
     shortDescription:
