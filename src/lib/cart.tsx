@@ -11,8 +11,14 @@ export type CartItem = {
 export const EAU_SLUG = "eau-bacteriostatique";
 export const EAU_PRICE = 9.90;
 export const EAU_DOSAGE = "10 mL";
+export const EAU_OFFERTE_SLUG = "eau-bacteriostatique-3ml-offerte";
+export const EAU_OFFERTE_NAME = "Eau bactériostatique 3 mL offerte";
+export const EAU_OFFERTE_DOSAGE = "3 mL";
+export const EAU_OFFERTE_PRICE = 0;
 export const SHIPPING = 3.90;
 export const FREE_SHIPPING_THRESHOLD = 160;
+
+const RETATRUTIDE_ELIGIBLE_DOSAGES = ["10 mg", "20 mg", "30 mg"];
 
 type CartCtx = {
   items: CartItem[];
