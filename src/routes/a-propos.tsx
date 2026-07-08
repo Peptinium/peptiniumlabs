@@ -3,7 +3,7 @@ import { SiteLayout } from "@/components/SiteLayout";
 import { Reveal } from "@/components/Reveal";
 import { FlaskConical, ShieldCheck, Beaker, FileCheck2 } from "lucide-react";
 
-import labHero from "@/assets/about/lab-hero.png.asset.json";
+import labHero from "@/assets/about/lab-hero.jpg.asset.json";
 import labQuality from "@/assets/about/lab-quality.jpg";
 import labLogistics from "@/assets/about/lab-logistics.jpg";
 import labPromise from "@/assets/about/lab-promise.jpg";
