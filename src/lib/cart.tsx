@@ -80,7 +80,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, [items, hydrated]);
 
   const peptideCount = items
-    .filter((i) => i.slug !== EAU_SLUG)
+    .filter((i) => i.slug !== EAU_SLUG && i.slug !== EAU_OFFERTE_SLUG)
     .reduce((s, i) => s + i.qty, 0);
 
   const eauItem = items.find((i) => i.slug === EAU_SLUG);
