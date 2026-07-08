@@ -14,10 +14,12 @@ import { Route as TesterFiolesRouteImport } from './routes/tester-fioles'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as QuizRouteImport } from './routes/quiz'
 import { Route as PanierRouteImport } from './routes/panier'
 import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
 import { Route as EtudesScientifiquesRouteImport } from './routes/etudes-scientifiques'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as ComparateurRouteImport } from './routes/comparateur'
 import { Route as CoaRouteImport } from './routes/coa'
 import { Route as CgvRouteImport } from './routes/cgv'
 import { Route as CalculatriceRouteImport } from './routes/calculatrice'
@@ -79,6 +81,11 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
   path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
+const QuizRoute = QuizRouteImport.update({
+  id: '/quiz',
+  path: '/quiz',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PanierRoute = PanierRouteImport.update({
   id: '/panier',
   path: '/panier',
@@ -97,6 +104,11 @@ const EtudesScientifiquesRoute = EtudesScientifiquesRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ComparateurRoute = ComparateurRouteImport.update({
+  id: '/comparateur',
+  path: '/comparateur',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CoaRoute = CoaRouteImport.update({
@@ -290,10 +302,12 @@ export interface FileRoutesByFullPath {
   '/calculatrice': typeof CalculatriceRoute
   '/cgv': typeof CgvRoute
   '/coa': typeof CoaRoute
+  '/comparateur': typeof ComparateurRoute
   '/contact': typeof ContactRoute
   '/etudes-scientifiques': typeof EtudesScientifiquesRoute
   '/mentions-legales': typeof MentionsLegalesRoute
   '/panier': typeof PanierRoute
+  '/quiz': typeof QuizRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/support': typeof SupportRoute
@@ -334,10 +348,12 @@ export interface FileRoutesByTo {
   '/calculatrice': typeof CalculatriceRoute
   '/cgv': typeof CgvRoute
   '/coa': typeof CoaRoute
+  '/comparateur': typeof ComparateurRoute
   '/contact': typeof ContactRoute
   '/etudes-scientifiques': typeof EtudesScientifiquesRoute
   '/mentions-legales': typeof MentionsLegalesRoute
   '/panier': typeof PanierRoute
+  '/quiz': typeof QuizRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/support': typeof SupportRoute
@@ -380,10 +396,12 @@ export interface FileRoutesById {
   '/calculatrice': typeof CalculatriceRoute
   '/cgv': typeof CgvRoute
   '/coa': typeof CoaRoute
+  '/comparateur': typeof ComparateurRoute
   '/contact': typeof ContactRoute
   '/etudes-scientifiques': typeof EtudesScientifiquesRoute
   '/mentions-legales': typeof MentionsLegalesRoute
   '/panier': typeof PanierRoute
+  '/quiz': typeof QuizRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/support': typeof SupportRoute
@@ -427,10 +445,12 @@ export interface FileRouteTypes {
     | '/calculatrice'
     | '/cgv'
     | '/coa'
+    | '/comparateur'
     | '/contact'
     | '/etudes-scientifiques'
     | '/mentions-legales'
     | '/panier'
+    | '/quiz'
     | '/reset-password'
     | '/sitemap.xml'
     | '/support'
@@ -471,10 +491,12 @@ export interface FileRouteTypes {
     | '/calculatrice'
     | '/cgv'
     | '/coa'
+    | '/comparateur'
     | '/contact'
     | '/etudes-scientifiques'
     | '/mentions-legales'
     | '/panier'
+    | '/quiz'
     | '/reset-password'
     | '/sitemap.xml'
     | '/support'
@@ -516,10 +538,12 @@ export interface FileRouteTypes {
     | '/calculatrice'
     | '/cgv'
     | '/coa'
+    | '/comparateur'
     | '/contact'
     | '/etudes-scientifiques'
     | '/mentions-legales'
     | '/panier'
+    | '/quiz'
     | '/reset-password'
     | '/sitemap.xml'
     | '/support'
@@ -563,10 +587,12 @@ export interface RootRouteChildren {
   CalculatriceRoute: typeof CalculatriceRoute
   CgvRoute: typeof CgvRoute
   CoaRoute: typeof CoaRoute
+  ComparateurRoute: typeof ComparateurRoute
   ContactRoute: typeof ContactRoute
   EtudesScientifiquesRoute: typeof EtudesScientifiquesRoute
   MentionsLegalesRoute: typeof MentionsLegalesRoute
   PanierRoute: typeof PanierRoute
+  QuizRoute: typeof QuizRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SupportRoute: typeof SupportRoute
@@ -627,6 +653,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/quiz': {
+      id: '/quiz'
+      path: '/quiz'
+      fullPath: '/quiz'
+      preLoaderRoute: typeof QuizRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/panier': {
       id: '/panier'
       path: '/panier'
@@ -653,6 +686,13 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/comparateur': {
+      id: '/comparateur'
+      path: '/comparateur'
+      fullPath: '/comparateur'
+      preLoaderRoute: typeof ComparateurRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/coa': {
@@ -971,10 +1011,12 @@ const rootRouteChildren: RootRouteChildren = {
   CalculatriceRoute: CalculatriceRoute,
   CgvRoute: CgvRoute,
   CoaRoute: CoaRoute,
+  ComparateurRoute: ComparateurRoute,
   ContactRoute: ContactRoute,
   EtudesScientifiquesRoute: EtudesScientifiquesRoute,
   MentionsLegalesRoute: MentionsLegalesRoute,
   PanierRoute: PanierRoute,
+  QuizRoute: QuizRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SupportRoute: SupportRoute,
