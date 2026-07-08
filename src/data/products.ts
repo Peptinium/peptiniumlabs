@@ -17,6 +17,7 @@ export type Product = {
     | "Anti-âge"
     | "Reconstitution";
   featured?: boolean;
+  hidden?: boolean;
   shortDescription: string;
   researchSummary: string;
   detailedEffects: string;
