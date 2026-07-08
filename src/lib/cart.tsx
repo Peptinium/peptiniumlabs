@@ -45,6 +45,42 @@ const STORAGE_KEY = "peptinium_cart_v1";
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [hydrated, setHydrated] = useState(false);
+  // Eligibility for the free 3 mL water: true unless the customer already has
+  // a non-cancelled order (checked server-side). Guests default to true.
+  const [freeWaterEligible, setFreeWaterEligible] = useState(true);
+
+  // Refresh eligibility on mount and whenever auth state changes.
+  useEffect(() => {
+    let cancelled = false;
+    const refresh = () => {
+      getFreeWaterEligibility({ data: {} })
+        .then((r) => {
+          if (!cancelled) setFreeWaterEligible(!!r?.eligible);
+        })
+        .catch(() => {});
+    };
+    refresh();
+    const { data: sub } = supabase.auth.onAuthStateChange((event) => {
+      if (event === "SIGNED_IN" || event === "SIGNED_OUT" || event === "USER_UPDATED") refresh();
+    });
+    return () => {
+      cancelled = true;
+      sub.subscription.unsubscribe();
+    };
+  }, []);
+
+  // Keep the free-water line in sync with the current eligibility price.
+  useEffect(() => {
+    const targetPrice = freeWaterEligible ? EAU_OFFERTE_PRICE_FREE : EAU_OFFERTE_PRICE_PAID;
+    setItems((prev) => {
+      if (!prev.some((p) => p.slug === EAU_OFFERTE_SLUG && p.price !== targetPrice)) return prev;
+      return prev.map((p) =>
+        p.slug === EAU_OFFERTE_SLUG ? { ...p, price: targetPrice, name: EAU_OFFERTE_NAME } : p,
+      );
+    });
+  }, [freeWaterEligible]);
+
+
 
   useEffect(() => {
     try {
