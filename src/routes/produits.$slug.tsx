@@ -499,10 +499,10 @@ function ProductPage() {
             <ul className="mt-8 divide-y divide-border overflow-hidden rounded-xl border border-border bg-card">
               {product.references.map((r, i) => (
                 <Reveal key={r.url} delay={i * 70}>
-                  <li className="group flex items-center justify-between gap-6 p-6 transition-colors hover:bg-surface">
+                  <li id={`ref-${i + 1}`} className="group flex scroll-mt-24 items-center justify-between gap-6 p-6 transition-colors target:bg-accent/5 hover:bg-surface">
                     <div>
                       <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                        {r.source} · Référence n°{i + 1}
+                        [{i + 1}] {r.source}
                       </div>
                       <div className="mt-1.5 font-display text-base font-medium text-foreground">{r.id}</div>
                     </div>
