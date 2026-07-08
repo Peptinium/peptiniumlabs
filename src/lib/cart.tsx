@@ -200,7 +200,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       setEau,
       subtotal: items.reduce((s, i) => s + i.price * i.qty, 0),
     };
-  }, [items, peptideCount, eauItem]);
+  }, [items, peptideCount, eauItem, freeWaterEligible]);
 
   return <Ctx.Provider value={ctx}>{children}</Ctx.Provider>;
 }
