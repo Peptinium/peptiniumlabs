@@ -30,7 +30,7 @@ export type Reference = { url: string; source: "PubMed" | "PMC" | "JAMA"; id: st
 
 const pubmed = (id: string): Reference => ({ url: `https://pubmed.ncbi.nlm.nih.gov/${id}/`, source: "PubMed", id: `PMID ${id}` });
 const pmc = (id: string): Reference => ({ url: `https://pmc.ncbi.nlm.nih.gov/articles/${id}/`, source: "PMC", id });
-const ext = (url: string, source: "JAMA", id: string): Reference => ({ url, source, id });
+
 
 export const minPrice = (p: Product) => Math.min(...p.variants.map((v) => v.price));
 export const defaultVariant = (p: Product) => p.variants[0];
