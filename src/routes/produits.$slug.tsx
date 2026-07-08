@@ -265,6 +265,19 @@ function ProductPage() {
               <h1 className="mt-3 text-[44px] font-semibold leading-[0.98] tracking-[-0.03em] text-foreground sm:text-[60px]">
                 {product.name}
               </h1>
+              {product.references.length > 0 && (
+                <a
+                  href="#bibliographie"
+                  className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-accent/40 bg-accent/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-accent transition-colors hover:bg-accent/15"
+                  aria-label="Voir la bibliographie"
+                >
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                  </svg>
+                  Indice de preuve · {product.references.length} réf.{" "}
+                  {Array.from(new Set(product.references.map((r) => r.source))).join(" / ")}
+                </a>
+              )}
               <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
                 Composé de recherche lyophilisé{product.cas ? ` · CAS ${product.cas}` : ""}
               </p>
