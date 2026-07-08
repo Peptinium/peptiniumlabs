@@ -235,7 +235,7 @@ function CalcPage() {
                     <MetricCell
                       label="Dose / injection"
                       value={valid ? fmt(result.doseMg * 1000, 1) : "—"}
-                      unit="µg"
+                      unit="mcg"
                     />
                     <MetricCell
                       label="Doses / flacon"
@@ -323,7 +323,7 @@ function UnitField({
                   : undefined
               }
             >
-              {u === "mcg" ? "µg" : "mg"}
+              {u === "mcg" ? "mcg" : "mg"}
             </button>
           ))}
         </div>
