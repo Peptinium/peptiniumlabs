@@ -3,7 +3,7 @@ import { SiteLayout } from "@/components/SiteLayout";
 import { Reveal } from "@/components/Reveal";
 import { FlaskConical, ShieldCheck, Beaker, FileCheck2 } from "lucide-react";
 
-import labHero from "@/assets/about/lab-hero.jpg.asset.json";
+
 import labQuality from "@/assets/about/lab-quality.jpg";
 import labLogistics from "@/assets/about/lab-logistics.jpg";
 import labPromise from "@/assets/about/lab-promise.jpg";
@@ -110,23 +110,6 @@ function AboutPage() {
           </div>
         </section>
 
-        {/* ============ Grande image labo ============ */}
-        <section className="relative">
-          <div className="mx-auto max-w-[1400px] px-6 pb-24 lg:px-10 sm:pb-32">
-            <Reveal>
-              <div className="overflow-hidden rounded-[28px] border border-border">
-                <img
-                  src={labHero.url}
-                  alt="Laboratoire Peptinium — banc de synthèse et flacons de peptides lyophilisés"
-                  width={1600}
-                  height={1024}
-                  loading="lazy"
-                  className="block h-auto w-full object-cover"
-                />
-              </div>
-            </Reveal>
-          </div>
-        </section>
 
         {/* ============ Qualité & normes — image + texte ============ */}
         <section className="relative border-t border-border">
