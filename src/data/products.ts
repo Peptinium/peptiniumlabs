@@ -476,20 +476,20 @@ export const products: Product[] = [
   },
   {
     slug: "eau-bacteriostatique-3ml-offerte",
-    name: "Eau bactériostatique 3 mL offerte",
+    name: "Eau bactériostatique 3 mL",
     cas: "7732-18-5 (H₂O) + 0,9 % alcool benzylique",
     molecularFormula: "H₂O + C7H8O",
     molecularWeight: "—",
     purity: "USP grade",
-    variants: [{ dosage: "3 mL", price: 0 }],
+    variants: [{ dosage: "3 mL", price: 4.90 }],
     category: "Reconstitution",
     hidden: true,
     shortDescription:
-      "Solvant de reconstitution stérile 3 mL offert avec chaque commande de Retatrutide 10/20/30 mg.",
+      "Solvant de reconstitution stérile 3 mL — offert avec la première commande de Retatrutide 10/20/30 mg (à vie), puis 4,90 €.",
     researchSummary:
-      "Solvant de reconstitution offert pour peptides lyophilisés en laboratoire.",
+      "Solvant de reconstitution offert à la première commande, pour peptides lyophilisés en laboratoire.",
     detailedEffects:
-      "Eau bactériostatique stérile USP additionnée de 0,9 % d'alcool benzylique. Offerte avec chaque commande de Retatrutide 10 mg, 20 mg ou 30 mg. " +
+      "Eau bactériostatique stérile USP additionnée de 0,9 % d'alcool benzylique. Offerte à la première commande d'un client (à vie) contenant du Retatrutide 10 mg, 20 mg ou 30 mg. Ajoutée automatiquement à 4,90 € pour les commandes suivantes. " +
       RUO_DISCLAIMER,
     storage: "Température ambiante (15–25 °C), à l'abri de la lumière.",
     reconstitution: "Prêt à l'emploi — prélever avec une seringue stérile.",
