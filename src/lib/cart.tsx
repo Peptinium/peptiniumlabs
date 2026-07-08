@@ -11,8 +11,14 @@ export type CartItem = {
 export const EAU_SLUG = "eau-bacteriostatique";
 export const EAU_PRICE = 9.90;
 export const EAU_DOSAGE = "10 mL";
+export const EAU_OFFERTE_SLUG = "eau-bacteriostatique-3ml-offerte";
+export const EAU_OFFERTE_NAME = "Eau bactériostatique 3 mL offerte";
+export const EAU_OFFERTE_DOSAGE = "3 mL";
+export const EAU_OFFERTE_PRICE = 0;
 export const SHIPPING = 3.90;
 export const FREE_SHIPPING_THRESHOLD = 160;
+
+const RETATRUTIDE_ELIGIBLE_DOSAGES = ["10 mg", "20 mg", "30 mg"];
 
 type CartCtx = {
   items: CartItem[];
@@ -74,7 +80,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, [items, hydrated]);
 
   const peptideCount = items
-    .filter((i) => i.slug !== EAU_SLUG)
+    .filter((i) => i.slug !== EAU_SLUG && i.slug !== EAU_OFFERTE_SLUG)
     .reduce((s, i) => s + i.qty, 0);
 
   const eauItem = items.find((i) => i.slug === EAU_SLUG);
@@ -86,12 +92,32 @@ export function CartProvider({ children }: { children: ReactNode }) {
       setItems((prev) => {
         const k = itemKey(item.slug, item.dosage);
         const existing = prev.find((p) => itemKey(p.slug, p.dosage) === k);
-        if (existing) {
-          return prev.map((p) =>
-            itemKey(p.slug, p.dosage) === k ? { ...p, qty: p.qty + qty } : p,
-          );
+        const next = existing
+          ? prev.map((p) =>
+              itemKey(p.slug, p.dosage) === k ? { ...p, qty: p.qty + qty } : p,
+            )
+          : [...prev, { ...item, qty }];
+
+        // Offre : 1 eau bactériostatique 3 mL offerte à la première commande
+        // de Retatrutide 10/20/30 mg dans ce panier.
+        const isEligibleRetatrutide =
+          item.slug === "retatrutide" && RETATRUTIDE_ELIGIBLE_DOSAGES.includes(item.dosage);
+        const alreadyHasFreeWater = next.some(
+          (p) => p.slug === EAU_OFFERTE_SLUG && p.dosage === EAU_OFFERTE_DOSAGE,
+        );
+        if (isEligibleRetatrutide && !alreadyHasFreeWater) {
+          return [
+            ...next,
+            {
+              slug: EAU_OFFERTE_SLUG,
+              name: EAU_OFFERTE_NAME,
+              dosage: EAU_OFFERTE_DOSAGE,
+              price: EAU_OFFERTE_PRICE,
+              qty: 1,
+            },
+          ];
         }
-        return [...prev, { ...item, qty }];
+        return next;
       });
     };
     const setQty: CartCtx["setQty"] = (key, qty) => {

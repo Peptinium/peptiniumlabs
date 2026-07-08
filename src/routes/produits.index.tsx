@@ -4,6 +4,8 @@ import { ProductCard } from "@/components/ProductCard";
 import { Reveal } from "@/components/Reveal";
 import { products } from "@/data/products";
 
+const visibleProducts = products.filter((p) => !p.hidden);
+
 const SITE_URL = "https://peptinium.com";
 
 export const Route = createFileRoute("/produits/")({
@@ -37,7 +39,7 @@ function CatalogPage() {
         <div className="container-prose relative px-5 pt-20 pb-16 lg:pt-28 lg:pb-24">
           <Reveal>
             <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-foreground/70">
-              Catalogue <span className="mx-2 opacity-40">·</span> {products.length} sur {products.length}
+              Catalogue <span className="mx-2 opacity-40">·</span> {visibleProducts.length} sur {visibleProducts.length}
             </div>
           </Reveal>
           <Reveal delay={80}>
@@ -56,7 +58,7 @@ function CatalogPage() {
       {/* Grille produits */}
       <section className="container-prose px-5 py-10 lg:py-16">
         <div className="grid animate-[fade-in_0.5s_ease-out_both] grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3">
-          {products.map((p, i) => (
+          {visibleProducts.map((p, i) => (
             <Reveal key={p.slug} delay={i * 40}>
               <ProductCard product={p} />
             </Reveal>

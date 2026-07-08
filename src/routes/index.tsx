@@ -83,9 +83,9 @@ export const Route = createFileRoute("/")({
 });
 
 function HomePage() {
-
-  const featured = products.find((p) => p.featured)!;
-  const rest = products.filter((p) => !p.featured);
+  const visibleProducts = products.filter((p) => !p.hidden);
+  const featured = visibleProducts.find((p) => p.featured)!;
+  const rest = visibleProducts.filter((p) => !p.featured);
   const bestSellers = rest.slice(0, 4);
   const moreProducts = rest.slice(4, 8);
 

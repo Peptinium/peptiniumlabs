@@ -17,6 +17,7 @@ export type Product = {
     | "Anti-âge"
     | "Reconstitution";
   featured?: boolean;
+  hidden?: boolean;
   shortDescription: string;
   researchSummary: string;
   detailedEffects: string;
@@ -472,6 +473,27 @@ export const products: Product[] = [
     storage: "Lyophilisé : −20 °C. Reconstitué : 2–8 °C.",
     reconstitution: "Eau bactériostatique stérile.",
     references: [pubmed("22315649"), pmc("PMC3679553")],
+  },
+  {
+    slug: "eau-bacteriostatique-3ml-offerte",
+    name: "Eau bactériostatique 3 mL offerte",
+    cas: "7732-18-5 (H₂O) + 0,9 % alcool benzylique",
+    molecularFormula: "H₂O + C7H8O",
+    molecularWeight: "—",
+    purity: "USP grade",
+    variants: [{ dosage: "3 mL", price: 0 }],
+    category: "Reconstitution",
+    hidden: true,
+    shortDescription:
+      "Solvant de reconstitution stérile 3 mL offert avec chaque commande de Retatrutide 10/20/30 mg.",
+    researchSummary:
+      "Solvant de reconstitution offert pour peptides lyophilisés en laboratoire.",
+    detailedEffects:
+      "Eau bactériostatique stérile USP additionnée de 0,9 % d'alcool benzylique. Offerte avec chaque commande de Retatrutide 10 mg, 20 mg ou 30 mg. " +
+      RUO_DISCLAIMER,
+    storage: "Température ambiante (15–25 °C), à l'abri de la lumière.",
+    reconstitution: "Prêt à l'emploi — prélever avec une seringue stérile.",
+    references: [],
   },
 ];
 
