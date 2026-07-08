@@ -177,7 +177,7 @@ function HomePage() {
                   Offerte : 3 ml d'eau bactériostatique pour votre première commande.
                 </h2>
                 <p className="mt-6 max-w-md text-[15px] leading-[1.6] text-[#0f1d3a]/70 sm:text-[16px]">
-                  Ajoutée automatiquement à votre première commande de Retatrutide 10, 20 ou 30 mg.
+                  Ajoutée automatiquement à votre première commande de Retatrutide 10, 20 ou 30 mg — puis 4,90 € les commandes suivantes.
                 </p>
                 <Link
                   to="/produits"
