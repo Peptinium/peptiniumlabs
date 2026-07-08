@@ -1,10 +1,12 @@
 export function RuoBanner() {
   const items = [
-    "Research Use Only",
-    "Réactifs de laboratoire",
-    "Non destiné à un usage vétérinaire, diagnostique ou thérapeutique",
-    "HPLC ≥ 99 %",
-    "CoA par lot",
+    "Pureté HPLC ≥ 99 %",
+    "CoA Janoshik par lot",
+    "Chaîne du froid contrôlée",
+    "Expédition sous 24 h depuis l'UE",
+    "Réactifs de recherche — RUO",
+    "Traçabilité N° de lot complète",
+    "Paiement sécurisé & discret",
   ];
   const loop = [...items, ...items];
   return (
