@@ -67,6 +67,55 @@ function findCatalogVariant(slug: string, dosage?: string, displayName?: string,
   return { product, variant };
 }
 
+const EAU_OFFERTE_SLUG = "eau-bacteriostatique-3ml-offerte";
+const EAU_OFFERTE_PRICE_PAID = 4.90;
+
+async function getOptionalUserEmail(): Promise<{ userId: string | null; email: string | null }> {
+  try {
+    const auth = getRequestHeader("authorization") ?? getRequestHeader("Authorization");
+    if (!auth || !auth.toLowerCase().startsWith("bearer ")) return { userId: null, email: null };
+    const token = auth.slice(7).trim();
+    if (!token) return { userId: null, email: null };
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data } = await supabaseAdmin.auth.getUser(token);
+    return { userId: data.user?.id ?? null, email: (data.user?.email ?? "").toLowerCase() || null };
+  } catch {
+    return { userId: null, email: null };
+  }
+}
+
+async function isFirstOrderEligible(userId: string | null, email: string | null): Promise<boolean> {
+  if (!userId && !email) return true;
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const filters: string[] = [];
+  if (userId) filters.push(`user_id.eq.${userId}`);
+  if (email) filters.push(`email.eq.${email}`);
+  let q = supabaseAdmin
+    .from("orders")
+    .select("id", { count: "exact", head: true })
+    .neq("status", "cancelled");
+  q = filters.length > 1
+    ? q.or(filters.join(","))
+    : userId
+      ? q.eq("user_id", userId)
+      : q.eq("email", email!);
+  const { count } = await q;
+  return (count ?? 0) === 0;
+}
+
+export const getFreeWaterEligibility = createServerFn({ method: "POST" })
+  .inputValidator((d: unknown) =>
+    z.object({ email: z.string().email().optional().nullable() }).parse(d ?? {}),
+  )
+  .handler(async ({ data }) => {
+    const { userId, email } = await getOptionalUserEmail();
+    const effectiveEmail = email ?? (data.email ? data.email.toLowerCase() : null);
+    const eligible = await isFirstOrderEligible(userId, effectiveEmail);
+    return { eligible, paidPrice: EAU_OFFERTE_PRICE_PAID };
+  });
+
+
+
 
 export const placeOrder = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => placeOrderSchema.parse(data))
