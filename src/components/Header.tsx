@@ -8,8 +8,8 @@ type NavLeaf = { to: string; label: string; description?: string };
 type NavItem = { label: string; to?: string; children?: NavLeaf[] };
 
 const nav: NavItem[] = [
-  { to: "/a-propos", label: "Le laboratoire" },
   { to: "/produits", label: "Catalogue" },
+  { to: "/a-propos", label: "Le laboratoire" },
   {
     label: "Recherche",
     children: [
