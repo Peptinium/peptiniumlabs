@@ -25,8 +25,6 @@ import selank5 from "@/assets/products/Selank_5mg.png.asset.json";
 import snap810 from "@/assets/products/Snap_8_10mg.png.asset.json";
 import tb5005 from "@/assets/products/TB_500_5mg.png.asset.json";
 
-const GRADIENT =
-  "linear-gradient(120deg, oklch(0.70 0.18 210) 0%, oklch(0.58 0.28 290) 55%, oklch(0.68 0.27 345) 100%)";
 
 type ProductVisualProps = {
   product: Pick<Product, "slug" | "name">;
@@ -61,18 +59,7 @@ export function ProductCard({ product }: { product: Product }) {
         />
         <div className="absolute right-3 top-3 rounded-full border border-border bg-card/92 px-2.5 py-1 font-display text-sm font-medium shadow-sm backdrop-blur-sm">
           {hasMultiple ? <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-muted-foreground">dès </span> : null}
-          <span
-            style={
-              hasPromo(product)
-                ? {
-                    backgroundImage: GRADIENT,
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                  }
-                : { color: "var(--foreground)" }
-            }
-          >
+          <span className="text-foreground">
             {formatPrice(price)}
           </span>
         </div>
