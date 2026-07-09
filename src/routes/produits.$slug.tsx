@@ -460,8 +460,20 @@ function ProductPage() {
                   >+</button>
                 </div>
                 <div className="text-right">
-                  <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">Total</div>
+                  <div className="flex items-center justify-end gap-2 font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">
+                    <span>Total</span>
+                    {pricing.tier && (
+                      <span className="rounded-full bg-accent/15 px-2 py-0.5 text-accent">
+                        −{pricing.tier.discountPct}% appliqué
+                      </span>
+                    )}
+                  </div>
                   <div className="font-display text-3xl font-medium">{formatPrice(total)}</div>
+                  {(pricing.tier || pricing.promoApplied) && (
+                    <div className="mt-1 font-mono text-[10px] text-muted-foreground">
+                      {formatPrice(pricing.unit)} / flacon
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -470,7 +482,7 @@ function ProductPage() {
                   slug={product.slug}
                   productName={product.name}
                   dosage={variant.dosage}
-                  price={variant.price}
+                  price={pricing.unit}
                   qty={qty}
                   withSolvent={withSolvent}
                   soldOut={!!variant.soldOut}
