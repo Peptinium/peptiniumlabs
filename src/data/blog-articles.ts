@@ -5,7 +5,7 @@ export type BlogArticle = {
   description: string;
   date: string;
   readMinutes: number;
-  category: "Science" | "Méthodologie" | "Pratique";
+  category: "Science" | "Méthodologie" | "Pratique" | "Guides" | "Actualités" | "Sécurité & RUO";
   tags: string[];
   /** Markdown-lite content (paragraphs + ## headings + - bullets). */
   body: string;
