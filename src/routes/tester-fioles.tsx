@@ -6,14 +6,14 @@ import { ExternalLink, MapPin, Clock, Wallet, Beaker, PackageCheck, FileCheck2, 
 export const Route = createFileRoute("/tester-fioles")({
   head: () => ({
     meta: [
-      { title: "Comparateur des laboratoires d'analyse peptides — Janoshik, Fínnrick, Trustpoint · Peptinium" },
+      { title: "Comparateur des laboratoires d'analyse peptides — Janoshik, ChemRx, Colmaric · Peptinium" },
       {
         name: "description",
         content:
-          "Comparez les 3 laboratoires indépendants qui analysent vos fioles de peptides de recherche : Janoshik (UE), Fínnrick et Trustpoint (US). Tarifs, délais, méthodes analytiques et procédure d'envoi.",
+          "Comparez les 3 laboratoires indépendants qui analysent vos fioles de peptides de recherche : Janoshik (UE), ChemRx et Colmaric (US). Tarifs, délais, méthodes analytiques et procédure d'envoi.",
       },
       { property: "og:title", content: "Comparateur des laboratoires d'analyse — Peptinium Labs" },
-      { property: "og:description", content: "Janoshik · Fínnrick · Trustpoint — trois labos indépendants comparés côte à côte." },
+      { property: "og:description", content: "Janoshik · ChemRx · Colmaric — trois labos indépendants comparés côte à côte." },
       { property: "og:url", content: "/tester-fioles" },
     ],
     links: [{ rel: "canonical", href: "/tester-fioles" }],
@@ -28,7 +28,7 @@ const GRADIENT =
   "linear-gradient(120deg, oklch(0.70 0.18 210) 0%, oklch(0.58 0.28 290) 55%, oklch(0.68 0.27 345) 100%)";
 
 type Lab = {
-  key: "janoshik" | "finnrick" | "trustpoint";
+  key: "janoshik" | "chemrx" | "colmaric";
   name: string;
   region: string;
   flag: string;
@@ -73,11 +73,11 @@ const labs: Lab[] = [
     accent: "var(--brand-violet)",
   },
   {
-    key: "finnrick",
-    name: "Fínnrick Laboratories",
+    key: "chemrx",
+    name: "ChemRx Analytical",
     region: "Floride · États-Unis",
     flag: "🇺🇸",
-    url: "https://finnrick.com/",
+    url: "https://chemrx.com/",
     positioning: "Le meilleur rapport qualité/prix",
     priceMin: 129,
     priceMax: 238,
@@ -97,11 +97,11 @@ const labs: Lab[] = [
     accent: "var(--brand-cyan)",
   },
   {
-    key: "trustpoint",
-    name: "Trustpoint Analytical",
+    key: "colmaric",
+    name: "Colmaric Analyticals",
     region: "États-Unis",
     flag: "🇺🇸",
-    url: "https://trustpointlabs.com/",
+    url: "https://colmaric.com/",
     positioning: "Le panel analytique le plus large",
     priceMin: 60,
     priceMax: 110,
@@ -157,7 +157,7 @@ function TestVialsPage() {
                 <p className="text-[17px] leading-[1.6] text-muted-foreground sm:text-[19px]">
                   Faire re-tester une fiole par un laboratoire indépendant est la seule manière
                   d'authentifier un lot. On liste ici les trois labos qui comptent dans la
-                  communauté — <span className="text-foreground">Janoshik, Fínnrick, Trustpoint</span> —
+                  communauté — <span className="text-foreground">Janoshik, ChemRx, Colmaric</span> —
                   avec leurs tarifs, délais et spécialités, sans langue de bois.
                 </p>
                 <div className="flex flex-wrap items-end gap-3 self-end">
@@ -334,7 +334,7 @@ function TestVialsPage() {
 
               <ol className="space-y-10 sm:space-y-14">
                 {[
-                  { Icon: Beaker, t: "Choisir le laboratoire", d: "Selon votre pays (Janoshik en UE, Fínnrick / Trustpoint aux US), votre budget et le panel analytique voulu — pureté seule, ou pureté + endotoxines, etc." },
+                  { Icon: Beaker, t: "Choisir le laboratoire", d: "Selon votre pays (Janoshik en UE, ChemRx / Colmaric aux US), votre budget et le panel analytique voulu — pureté seule, ou pureté + endotoxines, etc." },
                   { Icon: FileCheck2, t: "Créer la commande d'analyse", d: "Sur le site du labo choisi, créez un compte de recherche, sélectionnez le test, payez en ligne. Vous recevez l'adresse d'expédition et un numéro de tâche à inscrire sur le colis." },
                   { Icon: Send, t: "Préparer et expédier", d: "Fiole lyophilisée dans un emballage rigide, formulaire d'accompagnement joint, courrier suivi. Une fiole non reconstituée voyage sans problème à l'international." },
                   { Icon: PackageCheck, t: "Recevoir le CoA", d: "Sous 5–15 jours ouvrés, Certificat d'Analyse signé avec pureté HPLC, masse mesurée et clé de vérification publique. Le rapport se contre-vérifie directement sur le portail du labo." },
