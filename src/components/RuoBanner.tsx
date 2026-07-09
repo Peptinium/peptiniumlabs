@@ -12,7 +12,7 @@ export function RuoBanner() {
   return (
     <div className="relative overflow-hidden border-b border-border">
       <div
-        className="absolute inset-0 bg-[linear-gradient(90deg,var(--brand-cyan),var(--brand-blue),var(--brand-violet),var(--brand-magenta),var(--brand-cyan))]"
+        className="absolute inset-0 animate-[shimmer-gradient_8s_linear_infinite] bg-[linear-gradient(90deg,var(--brand-cyan),var(--brand-blue),var(--brand-violet),var(--brand-magenta),var(--brand-cyan))]"
         style={{ backgroundSize: "200% 100%" }}
       />
       <div className="absolute inset-0 bg-ink/35" />
