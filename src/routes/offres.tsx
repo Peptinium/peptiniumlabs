@@ -124,7 +124,15 @@ function OffresPage() {
                         Prix promotionnel
                       </div>
                       <div className="mt-3 flex items-baseline gap-4">
-                        <span className="font-display text-[64px] font-semibold leading-none tracking-[-0.03em] text-foreground">
+                        <span
+                          className="font-display text-[64px] font-semibold leading-none tracking-[-0.03em]"
+                          style={{
+                            backgroundImage: GRADIENT,
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                            backgroundClip: "text",
+                          }}
+                        >
                           {formatPrice(reta10.promoPrice)}
                         </span>
                         <span className="font-mono text-[18px] text-muted-foreground line-through">
