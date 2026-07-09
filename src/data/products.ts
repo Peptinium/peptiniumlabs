@@ -59,7 +59,15 @@ export const products: Product[] = [
     purity: "≥ 99.1 % (HPLC)",
     variants: [
       { dosage: "5 mg", price: 54.0, soldOut: true },
-      { dosage: "10 mg", price: 89.0 },
+      {
+        dosage: "10 mg",
+        price: 99.0,
+        promoPrice: 89.0,
+        bulkTiers: [
+          { minQty: 3, discountPct: 7, label: "Pack ×3" },
+          { minQty: 6, discountPct: 12, label: "Pack ×6" },
+        ],
+      },
       { dosage: "20 mg", price: 149.0 },
       { dosage: "30 mg", price: 199.0 },
     ],
