@@ -176,7 +176,7 @@ export const FAQ_DATA: FaqSection[] = [
     items: [
       {
         q: "Comment fonctionne le programme fidélité Peptinium Club ?",
-        a: "Chaque euro dépensé est cumulé sur votre compte. Vous montez de palier automatiquement — Bronze (0-500 €), Argent (500-1500 €), Or (1500-3000 €), Platine (3000 €+) — avec un crédit permanent de 3 à 10 % applicable sur vos prochaines commandes.",
+        a: "Chaque euro dépensé est cumulé sur votre compte. Vous montez de palier automatiquement — Bronze (0-500 €), Argent (500-1500 €), Or (1500-3000 €), Platine (3000 €+) — avec un crédit permanent de 2 à 7 % applicable sur vos prochaines commandes.",
       },
       {
         q: "Les crédits fidélité expirent-ils ?",
@@ -184,8 +184,9 @@ export const FAQ_DATA: FaqSection[] = [
       },
       {
         q: "Puis-je cumuler la fidélité avec les packs quantité et les promos ?",
-        a: "Oui. Les avantages Peptinium Club (crédit, livraison offerte, eau bactériostatique offerte) sont cumulables avec les remises quantité et les promos du jour. C'est le principe même du programme.",
+        a: "Oui. Les avantages Peptinium Club (crédit, réduction sur la livraison, eau bactériostatique offerte) sont cumulables avec les remises quantité et les promos du jour. C'est le principe même du programme.",
       },
+
       {
         q: "Comment sont appliquées les remises quantité ?",
         a: "Automatiquement au panier dès que le seuil est atteint. Sur le Retatrutide 10 mg : −7 % dès 3 flacons, −12 % dès 6 flacons. Le barème s'applique sur le prix de référence (99 €), pas sur la promo du jour.",
