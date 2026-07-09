@@ -38,9 +38,20 @@ export function Footer() {
             title="Boutique"
             links={[
               { to: "/", label: "Accueil" },
-              { to: "/produits", label: "Boutique" },
+              { to: "/produits", label: "Catalogue" },
+              { to: "/offres", label: "Offres & fidélité" },
+              { to: "/panier", label: "Panier" },
+            ]}
+          />
+
+          <FooterCol
+            title="Labo & aide"
+            links={[
               { to: "/a-propos", label: "À propos" },
+              { to: "/process-fabrication", label: "Process fabrication" },
+              { to: "/tester-fioles", label: "Tester ses fioles" },
               { to: "/blog", label: "Journal" },
+              { to: "/faq", label: "FAQ" },
               { to: "/contact", label: "Contact" },
             ]}
           />
