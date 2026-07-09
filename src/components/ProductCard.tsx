@@ -25,6 +25,9 @@ import selank5 from "@/assets/products/Selank_5mg.png.asset.json";
 import snap810 from "@/assets/products/Snap_8_10mg.png.asset.json";
 import tb5005 from "@/assets/products/TB_500_5mg.png.asset.json";
 
+const GRADIENT =
+  "linear-gradient(120deg, oklch(0.70 0.18 210) 0%, oklch(0.58 0.28 290) 55%, oklch(0.68 0.27 345) 100%)";
+
 type ProductVisualProps = {
   product: Pick<Product, "slug" | "name">;
   dosage?: string;
