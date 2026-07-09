@@ -30,7 +30,7 @@ const TIERS = [
     key: "bronze",
     name: "Bronze",
     range: "0 – 500 €",
-    perks: ["3 % crédit sur chaque commande", "CoA HPLC systématique", "Accès prioritaire au support"],
+    perks: ["2 % crédit sur chaque commande", "CoA HPLC systématique", "Accès prioritaire au support"],
     accent: "oklch(0.72 0.12 60)",
     icon: Sparkles,
   },
@@ -38,7 +38,7 @@ const TIERS = [
     key: "argent",
     name: "Argent",
     range: "500 – 1 500 €",
-    perks: ["5 % crédit permanent", "Livraison offerte à vie", "Notification lots à l'avance"],
+    perks: ["3 % crédit permanent", "−5 € sur les frais de livraison", "Notification lots à l'avance"],
     accent: "oklch(0.80 0.02 260)",
     icon: ShieldCheck,
   },
@@ -46,7 +46,7 @@ const TIERS = [
     key: "or",
     name: "Or",
     range: "1 500 – 3 000 €",
-    perks: ["8 % crédit permanent", "Eau bactériostatique offerte à vie", "Support prioritaire dédié"],
+    perks: ["5 % crédit permanent", "Eau bactériostatique offerte sur commandes Retatrutide", "Support prioritaire dédié"],
     accent: "oklch(0.82 0.15 90)",
     icon: Crown,
     highlighted: true,
@@ -55,11 +55,12 @@ const TIERS = [
     key: "platine",
     name: "Platine",
     range: "3 000 € et +",
-    perks: ["10 % crédit permanent", "Accès en avant-première aux nouveaux lots", "Interlocuteur unique labo", "Cadeau surprise annuel"],
+    perks: ["7 % crédit permanent", "Accès en avant-première aux nouveaux lots", "Interlocuteur unique labo"],
     accent: "oklch(0.78 0.10 230)",
     icon: Gift,
   },
 ];
+
 
 function OffresPage() {
   const reta = products.find((p) => p.slug === "retatrutide");
