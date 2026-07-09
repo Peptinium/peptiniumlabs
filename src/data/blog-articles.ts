@@ -70,7 +70,7 @@ Tous les peptides référencés sur Peptinium Labs sont distribués **à des fin
       "Article de fond sur la lecture d'un Certificat d'Analyse HPLC : chromatogramme, masse molaire mesurée, quantification, validation indépendante. Contenu éditorial pour la recherche peptidique.",
     date: "2026-06-10",
     readMinutes: 8,
-    category: "Science",
+    category: "Méthodologie",
     tags: ["HPLC", "CoA", "Janoshik", "pureté", "spectrométrie de masse"],
     body: `Un **Certificat d'Analyse (CoA)** est le document central qui accompagne tout peptide de recherche. Sans lui, aucune donnée expérimentale n'est défendable. Cet article explique ce qu'un CoA démontre réellement — et ce qu'il ne démontre pas.
 
