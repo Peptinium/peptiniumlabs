@@ -174,74 +174,98 @@ function OffresPage() {
                   Achetez en gros, payez moins cher.
                 </h2>
                 <p className="mt-6 max-w-3xl text-[15px] leading-[1.7] text-muted-foreground">
-                  Barème dégressif sur le Retatrutide 10 mg, appliqué sur le prix de référence à {formatPrice(reta10.price)}.
-                  Les remises quantité ne se cumulent pas avec la promo du jour à l'unité.
+                  Barème dégressif sur le Retatrutide 10 mg, appliqué directement sur le prix promo à {formatPrice(reta10.promoPrice ?? reta10.price)}. Cumulable avec la promo du jour.
                 </p>
               </Reveal>
 
               <div className="mt-12 grid gap-5 lg:grid-cols-3">
-                {[
-                  { qty: 1, discount: 0, label: "À l'unité", unit: reta10.promoPrice ?? reta10.price, note: reta10.promoPrice != null ? "Promo du jour" : "Prix de référence" },
-                  ...reta10.bulkTiers.map((t) => ({
-                    qty: t.minQty,
-                    discount: t.discountPct,
-                    label: `Pack ×${t.minQty}`,
-                    unit: Math.round(reta10.price * (1 - t.discountPct / 100) * 100) / 100,
-                    note: `−${t.discountPct} % appliqué automatiquement`,
-                  })),
-                ].map((row, i) => (
-                  <Reveal key={row.qty} delay={i * 80}>
-                    <article
-                      className={`relative flex h-full flex-col rounded-2xl border p-8 transition-all ${
-                        row.discount > 0 ? "border-accent/40 bg-accent/5" : "border-border bg-card"
-                      }`}
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
-                          <Package className="size-3.5" strokeWidth={1.6} />
-                          {row.label}
-                        </div>
-                        {row.discount > 0 && (
-                          <span className="rounded-full bg-accent px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-background">
-                            −{row.discount}%
-                          </span>
-                        )}
-                      </div>
-                      <div className="mt-6 flex items-baseline gap-2">
-                        <span className="font-display text-[44px] font-semibold leading-none tracking-[-0.02em] text-foreground">
-                          {formatPrice(row.unit)}
-                        </span>
-                        <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-                          / flacon
-                        </span>
-                      </div>
-                      {row.discount > 0 && (
-                        <div className="mt-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                          <span className="line-through">{formatPrice(reta10.price)}</span> · Économie {formatPrice(reta10.price * row.qty - row.unit * row.qty)}
-                        </div>
-                      )}
-                      <div className="mt-6 border-t border-border/70 pt-5 text-[13px] text-muted-foreground">
-                        {row.note}
-                      </div>
-                      <div className="mt-4 flex items-center justify-between">
-                        <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">Total pack</span>
-                        <span className="font-display text-[20px] font-semibold text-foreground">{formatPrice(row.unit * row.qty)}</span>
-                      </div>
-                      <Link
-                        to="/produits/$slug"
-                        params={{ slug: "retatrutide" }}
-                        className={`mt-8 inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 font-mono text-[10px] uppercase tracking-[0.22em] transition-transform hover:-translate-y-0.5 ${
-                          row.discount > 0
-                            ? "bg-accent text-background"
-                            : "border border-border bg-background text-foreground"
-                        }`}
+                {(() => {
+                  const bulkBase = reta10.promoPrice ?? reta10.price;
+                  const rows = [
+                    {
+                      qty: 1,
+                      discount: 0,
+                      label: "À l'unité",
+                      unit: bulkBase,
+                      note: reta10.promoPrice != null ? "Promo du jour" : "Prix de référence",
+                    },
+                    ...reta10.bulkTiers.map((t) => ({
+                      qty: t.minQty,
+                      discount: t.discountPct,
+                      label: `Pack ×${t.minQty}`,
+                      unit: Math.round(bulkBase * (1 - t.discountPct / 100) * 100) / 100,
+                      note: `−${t.discountPct} % appliqué automatiquement sur le prix promo`,
+                    })),
+                  ];
+                  return rows.map((row, i) => (
+                    <Reveal key={row.qty} delay={i * 80}>
+                      <article
+                        className="relative flex h-full flex-col overflow-hidden rounded-2xl p-[1px] transition-all"
+                        style={row.discount > 0 ? { background: GRADIENT } : undefined}
                       >
-                        {row.discount > 0 ? `Commander le pack ×${row.qty}` : "Commander à l'unité"}
-                      </Link>
-                    </article>
-                  </Reveal>
-                ))}
+                        <div
+                          className={`flex h-full flex-col rounded-[15px] p-8 ${
+                            row.discount > 0 ? "bg-card" : "border border-border bg-card"
+                          }`}
+                        >
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+                              <Package className="size-3.5" strokeWidth={1.6} />
+                              {row.label}
+                            </div>
+                            {row.discount > 0 && (
+                              <span
+                                className="rounded-full px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-white"
+                                style={{ background: GRADIENT }}
+                              >
+                                −{row.discount}%
+                              </span>
+                            )}
+                          </div>
+                          <div className="mt-6 flex items-baseline gap-2">
+                            <span
+                              className="font-display text-[44px] font-semibold leading-none tracking-[-0.02em]"
+                              style={
+                                row.discount > 0
+                                  ? { backgroundImage: GRADIENT, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }
+                                  : { color: "var(--foreground)" }
+                              }
+                            >
+                              {formatPrice(row.unit)}
+                            </span>
+                            <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+                              / flacon
+                            </span>
+                          </div>
+                          {row.discount > 0 && (
+                            <div className="mt-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                              <span className="line-through">{formatPrice(bulkBase)}</span> · Économie {formatPrice((bulkBase - row.unit) * row.qty)}
+                            </div>
+                          )}
+                          <div className="mt-6 border-t border-border/70 pt-5 text-[13px] text-muted-foreground">
+                            {row.note}
+                          </div>
+                          <div className="mt-4 flex items-center justify-between">
+                            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">Total pack</span>
+                            <span className="font-display text-[20px] font-semibold text-foreground">{formatPrice(row.unit * row.qty)}</span>
+                          </div>
+                          <Link
+                            to="/produits/$slug"
+                            params={{ slug: "retatrutide" }}
+                            className={`mt-8 inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 font-mono text-[10px] uppercase tracking-[0.22em] transition-transform hover:-translate-y-0.5 ${
+                              row.discount > 0 ? "text-white" : "border border-border bg-background text-foreground"
+                            }`}
+                            style={row.discount > 0 ? { background: GRADIENT } : undefined}
+                          >
+                            {row.discount > 0 ? `Commander le pack ×${row.qty}` : "Commander à l'unité"}
+                          </Link>
+                        </div>
+                      </article>
+                    </Reveal>
+                  ));
+                })()}
               </div>
+
             </div>
           </section>
         )}

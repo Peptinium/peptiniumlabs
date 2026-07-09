@@ -73,8 +73,25 @@ export const products: Product[] = [
           { minQty: 6, discountPct: 12, label: "Pack ×6" },
         ],
       },
-      { dosage: "20 mg", price: 159.0, promoPrice: 149.0 },
-      { dosage: "30 mg", price: 209.0, promoPrice: 199.0 },
+      {
+        dosage: "20 mg",
+        price: 159.0,
+        promoPrice: 149.0,
+        bulkTiers: [
+          { minQty: 3, discountPct: 7, label: "Pack ×3" },
+          { minQty: 6, discountPct: 12, label: "Pack ×6" },
+        ],
+      },
+      {
+        dosage: "30 mg",
+        price: 209.0,
+        promoPrice: 199.0,
+        bulkTiers: [
+          { minQty: 3, discountPct: 7, label: "Pack ×3" },
+          { minQty: 6, discountPct: 12, label: "Pack ×6" },
+        ],
+      },
+
 
     ],
     category: "GLP-1/GIP",

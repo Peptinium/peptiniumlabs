@@ -15,7 +15,8 @@ export function computeUnitPrice(
   variant: Variant,
   qty: number,
 ): { unit: number; base: number; tier?: BulkTier; promoApplied: boolean } {
-  const base = variant.price;
+  // Bulk discounts are applied on the promo price when one exists, otherwise on the list price.
+  const base = variant.promoPrice ?? variant.price;
   const tiers = (variant.bulkTiers ?? []) as BulkTier[];
   const applicable = tiers
     .filter((t) => qty >= t.minQty)
@@ -25,17 +26,19 @@ export function computeUnitPrice(
     return { unit, base, tier: applicable, promoApplied: false };
   }
   if (variant.promoPrice != null) {
-    return { unit: variant.promoPrice, base, promoApplied: true };
+    return { unit: variant.promoPrice, base: variant.price, promoApplied: true };
   }
   return { unit: base, base, promoApplied: false };
 }
 
 /** Smallest possible unit price the customer can pay for a variant (best tier or promo). */
 export function bestUnitPrice(variant: Variant): number {
+  const promoBase = variant.promoPrice ?? variant.price;
   const tiers = (variant.bulkTiers ?? []) as BulkTier[];
   const best = tiers.reduce((min, t) => {
-    const p = Math.round(variant.price * (1 - t.discountPct / 100) * 100) / 100;
+    const p = Math.round(promoBase * (1 - t.discountPct / 100) * 100) / 100;
     return p < min ? p : min;
   }, variant.promoPrice ?? variant.price);
   return best;
 }
+
