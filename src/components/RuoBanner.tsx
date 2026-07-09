@@ -11,8 +11,11 @@ export function RuoBanner() {
   const loop = [...items, ...items];
   return (
     <div className="relative overflow-hidden border-b border-border">
-      <div className="absolute inset-0 bg-[var(--brand-blue)]" />
-      <div className="absolute inset-0 bg-ink/35" />
+      <div
+        className="absolute inset-0"
+        style={{ background: "linear-gradient(90deg, var(--brand-blue) 0%, var(--brand-violet) 100%)" }}
+      />
+      <div className="absolute inset-0 bg-ink/20" />
       <div className="relative flex animate-[marquee_38s_linear_infinite] whitespace-nowrap py-2">
         {loop.map((t, i) => (
           <div
