@@ -342,7 +342,68 @@ function ProductPage() {
                 </div>
               </div>
 
-              {/* Solvent toggle — hidden on the solvent product itself */}
+              {/* Bulk quantity tiers — displayed when variant supports them */}
+              {variant.bulkTiers && variant.bulkTiers.length > 0 && !variant.soldOut && (
+                <div className="mt-5 overflow-hidden rounded-xl border border-accent/30 bg-accent/5">
+                  <div className="flex items-center justify-between border-b border-accent/20 px-4 py-2.5">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">
+                      — Remise quantité
+                    </span>
+                    <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">
+                      Sur prix de référence {formatPrice(variant.price)}
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-3 divide-x divide-accent/15">
+                    {[
+                      { qty: 1, discount: 0, label: "×1 flacon" },
+                      ...variant.bulkTiers.map((t) => ({
+                        qty: t.minQty,
+                        discount: t.discountPct,
+                        label: `×${t.minQty} flacons`,
+                      })),
+                    ].map((row) => {
+                      const perUnit =
+                        row.discount === 0
+                          ? variant.promoPrice ?? variant.price
+                          : Math.round(variant.price * (1 - row.discount / 100) * 100) / 100;
+                      const active = qty >= row.qty && (row.discount === 0 || qty < (variant.bulkTiers!.find((t) => t.discountPct > row.discount)?.minQty ?? Infinity));
+                      return (
+                        <button
+                          key={row.qty}
+                          type="button"
+                          onClick={() => setQty(row.qty)}
+                          className={`px-3 py-3 text-center transition-colors ${
+                            active ? "bg-accent/15" : "hover:bg-accent/10"
+                          }`}
+                        >
+                          <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">
+                            {row.label}
+                          </div>
+                          <div className="mt-1 font-display text-[15px] font-semibold text-foreground">
+                            {formatPrice(perUnit)}
+                            <span className="ml-1 font-mono text-[9px] font-normal uppercase tracking-[0.15em] text-muted-foreground">
+                              /flacon
+                            </span>
+                          </div>
+                          {row.discount > 0 ? (
+                            <div className="mt-0.5 font-mono text-[9px] uppercase tracking-[0.18em] text-accent">
+                              −{row.discount}%
+                            </div>
+                          ) : variant.promoPrice != null ? (
+                            <div className="mt-0.5 font-mono text-[9px] uppercase tracking-[0.18em] text-accent">
+                              Promo du jour
+                            </div>
+                          ) : (
+                            <div className="mt-0.5 font-mono text-[9px] uppercase tracking-[0.18em] text-muted-foreground">
+                              Standard
+                            </div>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
               {product.slug !== "eau-bacteriostatique" && (
               <div className="mt-5 flex items-center gap-4 rounded-xl border border-border bg-card p-4">
                 <div className="grid size-11 place-items-center rounded-lg border border-border bg-surface text-accent">
