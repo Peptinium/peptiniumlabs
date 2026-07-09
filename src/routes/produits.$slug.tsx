@@ -192,8 +192,13 @@ function ProductPage() {
                     />
                   </div>
                 )}
-                <div className="absolute right-7 top-7 rounded-full border border-background/70 bg-background/86 px-3 py-1.5 font-display text-base font-medium text-foreground shadow-sm backdrop-blur-sm">
-                  {formatPrice(variant.price)}
+                <div className="absolute right-7 top-7 flex items-center gap-1.5 rounded-full border border-background/70 bg-background/86 px-3 py-1.5 font-display text-base font-medium text-foreground shadow-sm backdrop-blur-sm">
+                  {pricing.promoApplied && (
+                    <span className="font-mono text-[10px] text-muted-foreground line-through">
+                      {formatPrice(variant.price)}
+                    </span>
+                  )}
+                  <span>{formatPrice(pricing.unit)}</span>
                 </div>
 
                 {/* Arrows */}
