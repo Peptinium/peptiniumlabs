@@ -6,14 +6,14 @@ import { ExternalLink, MapPin, Clock, Wallet, Beaker, PackageCheck, FileCheck2, 
 export const Route = createFileRoute("/tester-fioles")({
   head: () => ({
     meta: [
-      { title: "Comparateur des laboratoires d'analyse peptides — Janoshik, Fínnrick, Trustpoint · Peptinium" },
+      { title: "Comparateur des laboratoires d'analyse peptides — Janoshik, ChemRx, Colmaric · Peptinium" },
       {
         name: "description",
         content:
-          "Comparez les 3 laboratoires indépendants qui analysent vos fioles de peptides de recherche : Janoshik (UE), Fínnrick et Trustpoint (US). Tarifs, délais, méthodes analytiques et procédure d'envoi.",
+          "Comparez les 3 laboratoires indépendants qui analysent vos fioles de peptides de recherche : Janoshik (UE), ChemRx et Colmaric (US). Tarifs, délais, méthodes analytiques et procédure d'envoi.",
       },
       { property: "og:title", content: "Comparateur des laboratoires d'analyse — Peptinium Labs" },
-      { property: "og:description", content: "Janoshik · Fínnrick · Trustpoint — trois labos indépendants comparés côte à côte." },
+      { property: "og:description", content: "Janoshik · ChemRx · Colmaric — trois labos indépendants comparés côte à côte." },
       { property: "og:url", content: "/tester-fioles" },
     ],
     links: [{ rel: "canonical", href: "/tester-fioles" }],
