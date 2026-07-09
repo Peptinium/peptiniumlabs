@@ -15,6 +15,7 @@ import { Route as SupportRouteImport } from './routes/support'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as QuizRouteImport } from './routes/quiz'
+import { Route as ProcessFabricationRouteImport } from './routes/process-fabrication'
 import { Route as PanierRouteImport } from './routes/panier'
 import { Route as OffresRouteImport } from './routes/offres'
 import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
@@ -86,6 +87,11 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
 const QuizRoute = QuizRouteImport.update({
   id: '/quiz',
   path: '/quiz',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProcessFabricationRoute = ProcessFabricationRouteImport.update({
+  id: '/process-fabrication',
+  path: '/process-fabrication',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PanierRoute = PanierRouteImport.update({
@@ -321,6 +327,7 @@ export interface FileRoutesByFullPath {
   '/mentions-legales': typeof MentionsLegalesRoute
   '/offres': typeof OffresRoute
   '/panier': typeof PanierRoute
+  '/process-fabrication': typeof ProcessFabricationRoute
   '/quiz': typeof QuizRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -369,6 +376,7 @@ export interface FileRoutesByTo {
   '/mentions-legales': typeof MentionsLegalesRoute
   '/offres': typeof OffresRoute
   '/panier': typeof PanierRoute
+  '/process-fabrication': typeof ProcessFabricationRoute
   '/quiz': typeof QuizRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -419,6 +427,7 @@ export interface FileRoutesById {
   '/mentions-legales': typeof MentionsLegalesRoute
   '/offres': typeof OffresRoute
   '/panier': typeof PanierRoute
+  '/process-fabrication': typeof ProcessFabricationRoute
   '/quiz': typeof QuizRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -470,6 +479,7 @@ export interface FileRouteTypes {
     | '/mentions-legales'
     | '/offres'
     | '/panier'
+    | '/process-fabrication'
     | '/quiz'
     | '/reset-password'
     | '/sitemap.xml'
@@ -518,6 +528,7 @@ export interface FileRouteTypes {
     | '/mentions-legales'
     | '/offres'
     | '/panier'
+    | '/process-fabrication'
     | '/quiz'
     | '/reset-password'
     | '/sitemap.xml'
@@ -567,6 +578,7 @@ export interface FileRouteTypes {
     | '/mentions-legales'
     | '/offres'
     | '/panier'
+    | '/process-fabrication'
     | '/quiz'
     | '/reset-password'
     | '/sitemap.xml'
@@ -618,6 +630,7 @@ export interface RootRouteChildren {
   MentionsLegalesRoute: typeof MentionsLegalesRoute
   OffresRoute: typeof OffresRoute
   PanierRoute: typeof PanierRoute
+  ProcessFabricationRoute: typeof ProcessFabricationRoute
   QuizRoute: typeof QuizRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -684,6 +697,13 @@ declare module '@tanstack/react-router' {
       path: '/quiz'
       fullPath: '/quiz'
       preLoaderRoute: typeof QuizRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/process-fabrication': {
+      id: '/process-fabrication'
+      path: '/process-fabrication'
+      fullPath: '/process-fabrication'
+      preLoaderRoute: typeof ProcessFabricationRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/panier': {
@@ -1058,6 +1078,7 @@ const rootRouteChildren: RootRouteChildren = {
   MentionsLegalesRoute: MentionsLegalesRoute,
   OffresRoute: OffresRoute,
   PanierRoute: PanierRoute,
+  ProcessFabricationRoute: ProcessFabricationRoute,
   QuizRoute: QuizRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
