@@ -215,14 +215,14 @@ export function Header() {
           <Link
             to="/panier"
             aria-label="Panier"
-            className="group relative inline-flex h-10 items-center gap-2 rounded-full border border-border bg-background px-4 text-[13px] font-medium text-foreground transition-all hover:bg-surface"
+            className="group relative inline-flex h-10 items-center gap-2 rounded-full border border-border bg-background px-3 text-[13px] font-medium text-foreground transition-all hover:bg-surface sm:px-4"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
               <path d="M6 7h13l-1.5 9a2 2 0 0 1-2 1.7H9a2 2 0 0 1-2-1.7L5 4H2" />
               <circle cx="10" cy="21" r="1.3" />
               <circle cx="17" cy="21" r="1.3" />
             </svg>
-            Panier
+            <span className="hidden sm:inline">Panier</span>
             {count > 0 && (
               <span className="grid min-w-[20px] place-items-center rounded-full bg-foreground px-1.5 py-0.5 font-mono text-[10px] font-semibold text-background">
                 {count}
@@ -321,7 +321,7 @@ export function Header() {
 
 function AccountPill({ isLoggedIn }: { isLoggedIn: boolean }) {
   const cls =
-    "inline-flex h-10 items-center gap-2 rounded-full border border-border bg-background px-4 text-[13px] font-medium text-foreground transition-all hover:bg-surface";
+    "inline-flex h-10 items-center gap-2 rounded-full border border-border bg-background px-3 text-[13px] font-medium text-foreground transition-all hover:bg-surface sm:px-4";
   const icon = (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
@@ -332,14 +332,14 @@ function AccountPill({ isLoggedIn }: { isLoggedIn: boolean }) {
     return (
       <Link to="/mon-compte" aria-label="Mon compte" className={cls}>
         {icon}
-        Compte
+        <span className="hidden sm:inline">Compte</span>
       </Link>
     );
   }
   return (
     <Link to="/auth" search={{ redirect: "/mon-compte" }} aria-label="Se connecter" className={cls}>
       {icon}
-      Compte
+      <span className="hidden sm:inline">Compte</span>
     </Link>
   );
 }
