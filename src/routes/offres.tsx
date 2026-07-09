@@ -11,7 +11,7 @@ export const Route = createFileRoute("/offres")({
       {
         name: "description",
         content:
-          "Retatrutide 10 mg à 89 € (au lieu de 99 €), packs quantité −7 % dès 3 flacons, −12 % dès 6, et programme fidélité Peptinium Club en 4 paliers.",
+          "Retatrutide 10 mg à 99 € (au lieu de 109 €), packs quantité −7 % dès 3 flacons, −12 % dès 6, et programme fidélité Peptinium Club en 4 paliers.",
       },
       { property: "og:title", content: "Offres spéciales — Peptinium Labs" },
       { property: "og:description", content: "Promo Retatrutide, packs quantité et programme fidélité Peptinium Club." },
