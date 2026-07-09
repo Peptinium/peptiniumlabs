@@ -650,8 +650,7 @@ function AddToCartButton({
       onClick={() => {
         add({ slug, name: productName, dosage, price }, qty);
         if (withSolvent) {
-          const targetEau = Math.min(eauQty + qty, peptideCount + qty);
-          setEau(targetEau);
+          setEau(Math.min(eauQty + 1, peptideCount + qty));
         }
         setAdded(true);
         window.setTimeout(() => setAdded(false), 2200);
