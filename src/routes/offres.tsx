@@ -218,7 +218,7 @@ function OffresPage() {
                               className="pointer-events-none absolute -inset-6 -z-10 rounded-[32px] opacity-60 blur-2xl"
                               style={{ background: GRADIENT }}
                             />
-                            <div className="absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2">
+                            <div className="absolute left-1/2 top-0 z-30 -translate-x-1/2 -translate-y-1/2">
                               <span
                                 className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-white shadow-lg"
                                 style={{ background: GRADIENT }}
