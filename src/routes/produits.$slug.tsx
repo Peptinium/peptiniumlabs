@@ -327,7 +327,14 @@ function ProductPage() {
                         )}
                         <div className="font-display text-base font-medium uppercase">{v.dosage}</div>
                         <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-                          {formatPrice(v.price)}
+                          {v.promoPrice != null ? (
+                            <span className="inline-flex items-baseline gap-1">
+                              <span className="line-through opacity-60">{formatPrice(v.price)}</span>
+                              <span className="text-accent">{formatPrice(v.promoPrice)}</span>
+                            </span>
+                          ) : (
+                            formatPrice(v.price)
+                          )}
                         </div>
                       </button>
                     );
