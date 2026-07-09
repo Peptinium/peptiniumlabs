@@ -16,6 +16,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as QuizRouteImport } from './routes/quiz'
 import { Route as PanierRouteImport } from './routes/panier'
+import { Route as OffresRouteImport } from './routes/offres'
 import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
 import { Route as LotRouteImport } from './routes/lot'
 import { Route as EtudesScientifiquesRouteImport } from './routes/etudes-scientifiques'
@@ -90,6 +91,11 @@ const QuizRoute = QuizRouteImport.update({
 const PanierRoute = PanierRouteImport.update({
   id: '/panier',
   path: '/panier',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OffresRoute = OffresRouteImport.update({
+  id: '/offres',
+  path: '/offres',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MentionsLegalesRoute = MentionsLegalesRouteImport.update({
@@ -313,6 +319,7 @@ export interface FileRoutesByFullPath {
   '/etudes-scientifiques': typeof EtudesScientifiquesRoute
   '/lot': typeof LotRoute
   '/mentions-legales': typeof MentionsLegalesRoute
+  '/offres': typeof OffresRoute
   '/panier': typeof PanierRoute
   '/quiz': typeof QuizRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -360,6 +367,7 @@ export interface FileRoutesByTo {
   '/etudes-scientifiques': typeof EtudesScientifiquesRoute
   '/lot': typeof LotRoute
   '/mentions-legales': typeof MentionsLegalesRoute
+  '/offres': typeof OffresRoute
   '/panier': typeof PanierRoute
   '/quiz': typeof QuizRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -409,6 +417,7 @@ export interface FileRoutesById {
   '/etudes-scientifiques': typeof EtudesScientifiquesRoute
   '/lot': typeof LotRoute
   '/mentions-legales': typeof MentionsLegalesRoute
+  '/offres': typeof OffresRoute
   '/panier': typeof PanierRoute
   '/quiz': typeof QuizRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -459,6 +468,7 @@ export interface FileRouteTypes {
     | '/etudes-scientifiques'
     | '/lot'
     | '/mentions-legales'
+    | '/offres'
     | '/panier'
     | '/quiz'
     | '/reset-password'
@@ -506,6 +516,7 @@ export interface FileRouteTypes {
     | '/etudes-scientifiques'
     | '/lot'
     | '/mentions-legales'
+    | '/offres'
     | '/panier'
     | '/quiz'
     | '/reset-password'
@@ -554,6 +565,7 @@ export interface FileRouteTypes {
     | '/etudes-scientifiques'
     | '/lot'
     | '/mentions-legales'
+    | '/offres'
     | '/panier'
     | '/quiz'
     | '/reset-password'
@@ -604,6 +616,7 @@ export interface RootRouteChildren {
   EtudesScientifiquesRoute: typeof EtudesScientifiquesRoute
   LotRoute: typeof LotRoute
   MentionsLegalesRoute: typeof MentionsLegalesRoute
+  OffresRoute: typeof OffresRoute
   PanierRoute: typeof PanierRoute
   QuizRoute: typeof QuizRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
@@ -678,6 +691,13 @@ declare module '@tanstack/react-router' {
       path: '/panier'
       fullPath: '/panier'
       preLoaderRoute: typeof PanierRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/offres': {
+      id: '/offres'
+      path: '/offres'
+      fullPath: '/offres'
+      preLoaderRoute: typeof OffresRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mentions-legales': {
@@ -1036,6 +1056,7 @@ const rootRouteChildren: RootRouteChildren = {
   EtudesScientifiquesRoute: EtudesScientifiquesRoute,
   LotRoute: LotRoute,
   MentionsLegalesRoute: MentionsLegalesRoute,
+  OffresRoute: OffresRoute,
   PanierRoute: PanierRoute,
   QuizRoute: QuizRoute,
   ResetPasswordRoute: ResetPasswordRoute,
