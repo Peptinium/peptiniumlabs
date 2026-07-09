@@ -59,9 +59,22 @@ export function ProductCard({ product }: { product: Product }) {
           imageClassName="size-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
           loading="lazy"
         />
-        <div className="absolute right-3 top-3 rounded-full border border-border bg-card/92 px-2.5 py-1 font-display text-sm font-medium text-foreground shadow-sm backdrop-blur-sm">
+        <div className="absolute right-3 top-3 rounded-full border border-border bg-card/92 px-2.5 py-1 font-display text-sm font-medium shadow-sm backdrop-blur-sm">
           {hasMultiple ? <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-muted-foreground">dès </span> : null}
-          {formatPrice(price)}
+          <span
+            style={
+              hasPromo(product)
+                ? {
+                    backgroundImage: GRADIENT,
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                  }
+                : { color: "var(--foreground)" }
+            }
+          >
+            {formatPrice(price)}
+          </span>
         </div>
         {allSoldOut && (
           <div className="absolute left-3 top-3 rounded-full border border-warning/40 bg-warning/15 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.18em] text-warning backdrop-blur-sm">
