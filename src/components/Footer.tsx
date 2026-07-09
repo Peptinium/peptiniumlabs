@@ -13,7 +13,7 @@ export function Footer() {
 
       {/* Main editorial block */}
       <div className="mx-auto max-w-[1400px] px-6 pt-20 lg:px-10 lg:pt-24">
-        <div className="grid gap-14 lg:grid-cols-[1.2fr_0.9fr_1fr_1fr] lg:gap-12">
+        <div className="grid gap-14 lg:grid-cols-[1.1fr_0.8fr_1fr_1fr_0.9fr] lg:gap-10">
           {/* Left — brand */}
           <div>
             <Link to="/" className="inline-flex items-center gap-3">
@@ -38,9 +38,20 @@ export function Footer() {
             title="Boutique"
             links={[
               { to: "/", label: "Accueil" },
-              { to: "/produits", label: "Boutique" },
+              { to: "/produits", label: "Catalogue" },
+              { to: "/offres", label: "Offres & fidélité" },
+              { to: "/panier", label: "Panier" },
+            ]}
+          />
+
+          <FooterCol
+            title="Labo & aide"
+            links={[
               { to: "/a-propos", label: "À propos" },
+              { to: "/process-fabrication", label: "Process fabrication" },
+              { to: "/tester-fioles", label: "Tester ses fioles" },
               { to: "/blog", label: "Journal" },
+              { to: "/faq", label: "FAQ" },
               { to: "/contact", label: "Contact" },
             ]}
           />

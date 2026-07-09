@@ -5,7 +5,7 @@ export type BlogArticle = {
   description: string;
   date: string;
   readMinutes: number;
-  category: "Science" | "Méthodologie" | "Pratique";
+  category: "Science" | "Méthodologie" | "Pratique" | "Guides" | "Actualités" | "Sécurité & RUO";
   tags: string[];
   /** Markdown-lite content (paragraphs + ## headings + - bullets). */
   body: string;
@@ -70,7 +70,7 @@ Tous les peptides référencés sur Peptinium Labs sont distribués **à des fin
       "Article de fond sur la lecture d'un Certificat d'Analyse HPLC : chromatogramme, masse molaire mesurée, quantification, validation indépendante. Contenu éditorial pour la recherche peptidique.",
     date: "2026-06-10",
     readMinutes: 8,
-    category: "Science",
+    category: "Méthodologie",
     tags: ["HPLC", "CoA", "Janoshik", "pureté", "spectrométrie de masse"],
     body: `Un **Certificat d'Analyse (CoA)** est le document central qui accompagne tout peptide de recherche. Sans lui, aucune donnée expérimentale n'est défendable. Cet article explique ce qu'un CoA démontre réellement — et ce qu'il ne démontre pas.
 
@@ -134,7 +134,7 @@ Pour comprendre la stabilité et la conservation, voir notre article sur la [cha
       "Article éditorial sur la physico-chimie de la stabilité peptidique : hydrolyse, oxydation, photodégradation, transition vitreuse du lyophilisat. Pour comprendre la chaîne du froid laboratoire.",
     date: "2026-06-02",
     readMinutes: 6,
-    category: "Science",
+    category: "Pratique",
     tags: ["stabilité", "stockage", "chaîne du froid", "lyophilisation"],
     body: `Pourquoi un peptide lyophilisé conservé à **-20 °C** reste stable plusieurs années, alors qu'une solution aqueuse du même peptide se dégrade en quelques semaines ? La réponse est entièrement physico-chimique — et comprendre ces mécanismes éclaire les choix de stockage en laboratoire.
 

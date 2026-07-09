@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { minPrice, formatPrice, type Product } from "@/data/products";
+import { minPrice, formatPrice, hasPromo, type Product } from "@/data/products";
 import reta10 from "@/assets/products/Reta_10mg.png.asset.json";
 import reta20 from "@/assets/products/Reta_20mg.png.asset.json";
 import cjcIpa from "@/assets/products/CJC_1295_IPAMORELIN_5_5mg.png.asset.json";
@@ -63,6 +63,11 @@ export function ProductCard({ product }: { product: Product }) {
         {allSoldOut && (
           <div className="absolute left-3 top-3 rounded-full border border-warning/40 bg-warning/15 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.18em] text-warning backdrop-blur-sm">
             Rupture de stock
+          </div>
+        )}
+        {!allSoldOut && hasPromo(product) && (
+          <div className="absolute left-3 top-3 rounded-full border border-accent/50 bg-accent/20 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.18em] text-accent backdrop-blur-sm">
+            Promo
           </div>
         )}
         {anyLowStock && (

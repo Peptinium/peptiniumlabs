@@ -1,4 +1,12 @@
-export type Variant = { dosage: string; price: number; soldOut?: boolean; lowStock?: boolean };
+export type BulkTier = { minQty: number; discountPct: number; label?: string };
+export type Variant = {
+  dosage: string;
+  price: number;
+  promoPrice?: number;
+  bulkTiers?: BulkTier[];
+  soldOut?: boolean;
+  lowStock?: boolean;
+};
 
 export type Product = {
   slug: string;
@@ -32,8 +40,13 @@ const pubmed = (id: string): Reference => ({ url: `https://pubmed.ncbi.nlm.nih.g
 const pmc = (id: string): Reference => ({ url: `https://pmc.ncbi.nlm.nih.gov/articles/${id}/`, source: "PMC", id });
 
 
-export const minPrice = (p: Product) => Math.min(...p.variants.map((v) => v.price));
-export const defaultVariant = (p: Product) => p.variants[0];
+export const minPrice = (p: Product) => {
+  const usable = p.variants.filter((v) => !v.soldOut);
+  const list = (usable.length ? usable : p.variants).map((v) => v.promoPrice ?? v.price);
+  return Math.min(...list);
+};
+export const defaultVariant = (p: Product) => p.variants.find((v) => !v.soldOut) ?? p.variants[0];
+export const hasPromo = (p: Product) => p.variants.some((v) => !v.soldOut && v.promoPrice != null);
 
 export const formatPrice = (n: number) =>
   `${n.toLocaleString("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
@@ -51,7 +64,15 @@ export const products: Product[] = [
     purity: "≥ 99.1 % (HPLC)",
     variants: [
       { dosage: "5 mg", price: 54.0, soldOut: true },
-      { dosage: "10 mg", price: 89.0 },
+      {
+        dosage: "10 mg",
+        price: 99.0,
+        promoPrice: 89.0,
+        bulkTiers: [
+          { minQty: 3, discountPct: 7, label: "Pack ×3" },
+          { minQty: 6, discountPct: 12, label: "Pack ×6" },
+        ],
+      },
       { dosage: "20 mg", price: 149.0 },
       { dosage: "30 mg", price: 199.0 },
     ],

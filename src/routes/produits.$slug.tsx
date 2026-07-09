@@ -7,6 +7,7 @@ import { RuoBadge } from "@/components/RuoBadge";
 import { Reveal } from "@/components/Reveal";
 import { ProductVisual } from "@/components/ProductCard";
 import { products, formatPrice } from "@/data/products";
+import { computeUnitPrice } from "@/lib/pricing";
 
 // CoA images
 import coaRetatrutide from "@/assets/coa/coa-retatrutide-10mg.jpg.asset.json";
@@ -128,7 +129,8 @@ function ProductPage() {
   const coaUrl = COA_MAP[product.slug];
   const slides: ("vial" | "coa")[] = coaUrl ? ["vial", "coa"] : ["vial"];
 
-  const unit = variant.price + (withSolvent ? SOLVENT_PRICE : 0);
+  const pricing = computeUnitPrice(variant, qty);
+  const unit = pricing.unit + (withSolvent ? SOLVENT_PRICE : 0);
   const total = unit * qty;
 
   const nextSlide = () => setSlide((s) => ((s + 1) % slides.length) as 0 | 1);
@@ -190,8 +192,13 @@ function ProductPage() {
                     />
                   </div>
                 )}
-                <div className="absolute right-7 top-7 rounded-full border border-background/70 bg-background/86 px-3 py-1.5 font-display text-base font-medium text-foreground shadow-sm backdrop-blur-sm">
-                  {formatPrice(variant.price)}
+                <div className="absolute right-7 top-7 flex items-center gap-1.5 rounded-full border border-background/70 bg-background/86 px-3 py-1.5 font-display text-base font-medium text-foreground shadow-sm backdrop-blur-sm">
+                  {pricing.promoApplied && (
+                    <span className="font-mono text-[10px] text-muted-foreground line-through">
+                      {formatPrice(variant.price)}
+                    </span>
+                  )}
+                  <span>{formatPrice(pricing.unit)}</span>
                 </div>
 
                 {/* Arrows */}
@@ -320,13 +327,83 @@ function ProductPage() {
                         )}
                         <div className="font-display text-base font-medium uppercase">{v.dosage}</div>
                         <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-                          {formatPrice(v.price)}
+                          {v.promoPrice != null ? (
+                            <span className="inline-flex items-baseline gap-1">
+                              <span className="line-through opacity-60">{formatPrice(v.price)}</span>
+                              <span className="text-accent">{formatPrice(v.promoPrice)}</span>
+                            </span>
+                          ) : (
+                            formatPrice(v.price)
+                          )}
                         </div>
                       </button>
                     );
                   })}
                 </div>
               </div>
+
+              {/* Bulk quantity tiers — displayed when variant supports them */}
+              {variant.bulkTiers && variant.bulkTiers.length > 0 && !variant.soldOut && (
+                <div className="mt-5 overflow-hidden rounded-xl border border-accent/30 bg-accent/5">
+                  <div className="flex items-center justify-between border-b border-accent/20 px-4 py-2.5">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">
+                      — Remise quantité
+                    </span>
+                    <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">
+                      Sur prix de référence {formatPrice(variant.price)}
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-3 divide-x divide-accent/15">
+                    {[
+                      { qty: 1, discount: 0, label: "×1 flacon" },
+                      ...variant.bulkTiers.map((t) => ({
+                        qty: t.minQty,
+                        discount: t.discountPct,
+                        label: `×${t.minQty} flacons`,
+                      })),
+                    ].map((row) => {
+                      const perUnit =
+                        row.discount === 0
+                          ? variant.promoPrice ?? variant.price
+                          : Math.round(variant.price * (1 - row.discount / 100) * 100) / 100;
+                      const active = qty >= row.qty && (row.discount === 0 || qty < (variant.bulkTiers!.find((t) => t.discountPct > row.discount)?.minQty ?? Infinity));
+                      return (
+                        <button
+                          key={row.qty}
+                          type="button"
+                          onClick={() => setQty(row.qty)}
+                          className={`px-3 py-3 text-center transition-colors ${
+                            active ? "bg-accent/15" : "hover:bg-accent/10"
+                          }`}
+                        >
+                          <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">
+                            {row.label}
+                          </div>
+                          <div className="mt-1 font-display text-[15px] font-semibold text-foreground">
+                            {formatPrice(perUnit)}
+                            <span className="ml-1 font-mono text-[9px] font-normal uppercase tracking-[0.15em] text-muted-foreground">
+                              /flacon
+                            </span>
+                          </div>
+                          {row.discount > 0 ? (
+                            <div className="mt-0.5 font-mono text-[9px] uppercase tracking-[0.18em] text-accent">
+                              −{row.discount}%
+                            </div>
+                          ) : variant.promoPrice != null ? (
+                            <div className="mt-0.5 font-mono text-[9px] uppercase tracking-[0.18em] text-accent">
+                              Promo du jour
+                            </div>
+                          ) : (
+                            <div className="mt-0.5 font-mono text-[9px] uppercase tracking-[0.18em] text-muted-foreground">
+                              Standard
+                            </div>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
 
               {/* Solvent toggle — hidden on the solvent product itself */}
               {product.slug !== "eau-bacteriostatique" && (
@@ -383,8 +460,20 @@ function ProductPage() {
                   >+</button>
                 </div>
                 <div className="text-right">
-                  <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">Total</div>
+                  <div className="flex items-center justify-end gap-2 font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">
+                    <span>Total</span>
+                    {pricing.tier && (
+                      <span className="rounded-full bg-accent/15 px-2 py-0.5 text-accent">
+                        −{pricing.tier.discountPct}% appliqué
+                      </span>
+                    )}
+                  </div>
                   <div className="font-display text-3xl font-medium">{formatPrice(total)}</div>
+                  {(pricing.tier || pricing.promoApplied) && (
+                    <div className="mt-1 font-mono text-[10px] text-muted-foreground">
+                      {formatPrice(pricing.unit)} / flacon
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -393,7 +482,7 @@ function ProductPage() {
                   slug={product.slug}
                   productName={product.name}
                   dosage={variant.dosage}
-                  price={variant.price}
+                  price={pricing.unit}
                   qty={qty}
                   withSolvent={withSolvent}
                   soldOut={!!variant.soldOut}

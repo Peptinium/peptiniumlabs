@@ -9,7 +9,14 @@ type NavItem = { label: string; to?: string; children?: NavLeaf[] };
 
 const nav: NavItem[] = [
   { to: "/produits", label: "Catalogue" },
-  { to: "/a-propos", label: "Le laboratoire" },
+  { to: "/offres", label: "Offres" },
+  {
+    label: "Laboratoire",
+    children: [
+      { to: "/a-propos", label: "À propos", description: "Qui sommes-nous" },
+      { to: "/process-fabrication", label: "Process fabrication", description: "SPPS · HPLC · CQ" },
+    ],
+  },
   {
     label: "Recherche",
     children: [
@@ -27,7 +34,13 @@ const nav: NavItem[] = [
       { to: "/lot", label: "Traçabilité de lot", description: "N° de lot → CoA Janoshik" },
     ],
   },
-  { to: "/contact", label: "Contact" },
+  {
+    label: "Aide",
+    children: [
+      { to: "/faq", label: "FAQ", description: "Réponses aux questions" },
+      { to: "/contact", label: "Contact", description: "Écrire au support" },
+    ],
+  },
 ];
 
 export function Header() {
