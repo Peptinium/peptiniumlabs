@@ -189,7 +189,7 @@ function AboutPage() {
                       <span className="block font-mono text-[11px] uppercase tracking-[0.28em] text-accent">{p.n}</span>
                     </div>
                     <h3 className="text-[24px] font-semibold leading-[1.15] tracking-[-0.015em] text-foreground sm:text-[28px]">{p.t}</h3>
-                    <p className="max-w-lg text-[14.5px] leading-[1.65] text-muted-foreground">{p.d}</p>
+                    <p className="max-w-lg text-[15.5px] leading-[1.65] text-muted-foreground sm:text-[16px]">{p.d}</p>
                     <div
                       aria-hidden
                       className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
@@ -223,7 +223,7 @@ function AboutPage() {
                 <h2 className="shimmer-text mt-4 text-[36px] font-semibold leading-[1.02] tracking-[-0.03em] sm:text-[52px]" data-shimmer="Un partenaire fiable pour la recherche.">
                   Un partenaire fiable pour la recherche.
                 </h2>
-                <div className="mt-8 space-y-5 text-[15.5px] leading-[1.7] text-muted-foreground">
+                <div className="mt-8 space-y-5 text-[16px] leading-[1.7] text-muted-foreground sm:text-[18px]">
                   <p>
                     Peptinium Labs opère dans un cadre strict de conformité européenne. Nos produits
                     sont fournis <span className="text-foreground">exclusivement à des fins de recherche
@@ -249,7 +249,7 @@ function AboutPage() {
                 <h2 className="shimmer-text mt-4 text-[36px] font-semibold leading-[1.02] tracking-[-0.03em] sm:text-[52px]" data-shimmer="Commande simple, expédition maîtrisée.">
                   Commande simple, expédition maîtrisée.
                 </h2>
-                <div className="mt-8 space-y-5 text-[15.5px] leading-[1.7] text-muted-foreground">
+                <div className="mt-8 space-y-5 text-[16px] leading-[1.7] text-muted-foreground sm:text-[18px]">
                   <p>
                     Du sourcing à l'envoi, chaque étape est standardisée pour la précision et la
                     sécurité. Commandes passées avant 14 h expédiées <span className="text-foreground">le jour même</span>,
@@ -303,7 +303,7 @@ function AboutPage() {
                     Vérifié par Janoshik Analytical.
                   </h2>
                 </div>
-                <div className="space-y-4 text-[15.5px] leading-[1.7] text-muted-foreground">
+                <div className="space-y-4 text-[16px] leading-[1.7] text-muted-foreground sm:text-[18px]">
                   <p>
                     <strong className="text-foreground">Janoshik Analytical</strong> est un laboratoire européen indépendant basé à Prague,
                     spécialisé dans l'analyse quantitative et qualitative de peptides par HPLC et
@@ -387,7 +387,7 @@ function AboutPage() {
                   ].map(([n, body]) => (
                     <li key={n as string} className="flex gap-6 border-t border-border pt-6 first:border-t-0 first:pt-0">
                       <span className="font-display text-[36px] font-extralight leading-none text-muted-foreground">{n as string}</span>
-                      <p className="pt-1 text-[15px] leading-[1.6] text-muted-foreground">{body as React.ReactNode}</p>
+                      <p className="pt-1 text-[16px] leading-[1.6] text-muted-foreground">{body as React.ReactNode}</p>
                     </li>
                   ))}
                 </ol>
