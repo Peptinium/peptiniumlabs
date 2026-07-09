@@ -40,8 +40,13 @@ const pubmed = (id: string): Reference => ({ url: `https://pubmed.ncbi.nlm.nih.g
 const pmc = (id: string): Reference => ({ url: `https://pmc.ncbi.nlm.nih.gov/articles/${id}/`, source: "PMC", id });
 
 
-export const minPrice = (p: Product) => Math.min(...p.variants.map((v) => v.price));
-export const defaultVariant = (p: Product) => p.variants[0];
+export const minPrice = (p: Product) => {
+  const usable = p.variants.filter((v) => !v.soldOut);
+  const list = (usable.length ? usable : p.variants).map((v) => v.promoPrice ?? v.price);
+  return Math.min(...list);
+};
+export const defaultVariant = (p: Product) => p.variants.find((v) => !v.soldOut) ?? p.variants[0];
+export const hasPromo = (p: Product) => p.variants.some((v) => !v.soldOut && v.promoPrice != null);
 
 export const formatPrice = (n: number) =>
   `${n.toLocaleString("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
