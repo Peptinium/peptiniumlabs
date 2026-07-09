@@ -2,7 +2,7 @@ export function RuoBanner() {
   const items = [
     "Pureté HPLC ≥ 99 %",
     "CoA Janoshik par lot",
-    "Chaîne du froid contrôlée",
+    "Stockage lyophilisé stable",
     "Expédition sous 24 h depuis l'UE",
     "Réactifs de recherche — RUO",
     "Traçabilité N° de lot complète",
@@ -12,8 +12,8 @@ export function RuoBanner() {
   return (
     <div className="relative overflow-hidden border-b border-border">
       <div
-        className="absolute inset-0 animate-[shimmer-gradient_8s_linear_infinite] bg-[linear-gradient(90deg,var(--brand-cyan),var(--brand-blue),var(--brand-violet),var(--brand-magenta),var(--brand-cyan))]"
-        style={{ backgroundSize: "200% 100%" }}
+        className="absolute inset-0 bg-[linear-gradient(90deg,oklch(0.78_0.18_200),oklch(0.65_0.22_260),oklch(0.60_0.30_296),oklch(0.70_0.28_0),oklch(0.78_0.18_200))]"
+        style={{ backgroundSize: "100% 100%" }}
       />
       <div className="absolute inset-0 bg-ink/35" />
       <div className="relative flex animate-[marquee_38s_linear_infinite] whitespace-nowrap py-2">
