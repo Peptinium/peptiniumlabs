@@ -264,6 +264,8 @@
   .container-prose { padding-inline: 1.5rem; }
 }
 
+html, body { overflow-x: hidden; max-width: 100%; }
+
 .mobile-experience { display: block; }
 .desktop-experience { display: none; }
 .desktop-flex { display: none; }
