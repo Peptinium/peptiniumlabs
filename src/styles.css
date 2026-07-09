@@ -45,7 +45,7 @@
   --animate-scale-in: scale-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-shimmer: shimmer 6s linear infinite;
   --animate-pulse-ring: pulse-ring 2.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  --animate-marquee: marquee 38s linear infinite;
+  --animate-marquee: marquee 70s linear infinite;
   --animate-grid: grid-drift 24s linear infinite;
   --animate-beam: beam-sweep 5s ease-in-out infinite;
   --animate-float: float 6s ease-in-out infinite;
