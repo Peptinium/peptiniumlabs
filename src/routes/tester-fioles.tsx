@@ -157,7 +157,7 @@ function TestVialsPage() {
                 <p className="text-[17px] leading-[1.6] text-muted-foreground sm:text-[19px]">
                   Faire re-tester une fiole par un laboratoire indépendant est la seule manière
                   d'authentifier un lot. On liste ici les trois labos qui comptent dans la
-                  communauté — <span className="text-foreground">Janoshik, Fínnrick, Trustpoint</span> —
+                  communauté — <span className="text-foreground">Janoshik, ChemRx, Colmaric</span> —
                   avec leurs tarifs, délais et spécialités, sans langue de bois.
                 </p>
                 <div className="flex flex-wrap items-end gap-3 self-end">
