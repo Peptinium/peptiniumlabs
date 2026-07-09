@@ -350,7 +350,7 @@ function ProductPage() {
                       — Remise quantité
                     </span>
                     <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">
-                      Sur prix de référence {formatPrice(variant.price)}
+                      Sur prix de référence {formatPrice(variant.promoPrice ?? variant.price)}
                     </span>
                   </div>
                   <div className="grid grid-cols-3 divide-x divide-accent/15">
@@ -362,10 +362,11 @@ function ProductPage() {
                         label: `×${t.minQty} flacons`,
                       })),
                     ].map((row) => {
+                      const bulkBase = variant.promoPrice ?? variant.price;
                       const perUnit =
                         row.discount === 0
                           ? variant.promoPrice ?? variant.price
-                          : Math.round(variant.price * (1 - row.discount / 100) * 100) / 100;
+                          : Math.round(bulkBase * (1 - row.discount / 100) * 100) / 100;
                       const active = qty >= row.qty && (row.discount === 0 || qty < (variant.bulkTiers!.find((t) => t.discountPct > row.discount)?.minQty ?? Infinity));
                       return (
                         <button
