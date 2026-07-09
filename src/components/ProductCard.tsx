@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { minPrice, formatPrice, type Product } from "@/data/products";
+import { minPrice, formatPrice, hasPromo, type Product } from "@/data/products";
 import reta10 from "@/assets/products/Reta_10mg.png.asset.json";
 import reta20 from "@/assets/products/Reta_20mg.png.asset.json";
 import cjcIpa from "@/assets/products/CJC_1295_IPAMORELIN_5_5mg.png.asset.json";
