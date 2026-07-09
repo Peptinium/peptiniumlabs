@@ -117,10 +117,10 @@ function AboutPage() {
             <Reveal>
               <div className="flex flex-col">
                 <span className="block font-mono text-[10px] uppercase tracking-[0.28em] text-accent">— Qualité &amp; normes</span>
-                <h2 className="shimmer-text mt-4 text-[36px] font-semibold leading-[1.02] tracking-[-0.03em] sm:text-[56px]" data-shimmer="Chaque lot testé, vérifié, documenté.">
+                <h2 className="shimmer-text mt-4 text-[40px] font-semibold leading-[1.02] tracking-[-0.03em] sm:text-[64px]" data-shimmer="Chaque lot testé, vérifié, documenté.">
                   Chaque lot testé, vérifié, documenté.
                 </h2>
-                <div className="mt-8 space-y-5 text-[15.5px] leading-[1.7] text-muted-foreground">
+                <div className="mt-8 space-y-5 text-[17px] leading-[1.75] text-muted-foreground sm:text-[19px]">
                   <p>
                     Nos partenaires de fabrication opèrent en environnement contrôlé et suivent des
                     protocoles de synthèse stricts. Chaque composé est soumis à un contrôle interne,
@@ -141,7 +141,7 @@ function AboutPage() {
                   ].map((s) => (
                     <div key={s.k}>
                       <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-foreground">{s.k}</dt>
-                      <dd className="mt-2 text-[13px] leading-[1.55] text-muted-foreground">{s.v}</dd>
+                      <dd className="mt-2 text-[15px] leading-[1.6] text-muted-foreground">{s.v}</dd>
                     </div>
                   ))}
                 </dl>
