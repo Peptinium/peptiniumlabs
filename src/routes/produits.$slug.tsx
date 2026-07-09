@@ -129,7 +129,8 @@ function ProductPage() {
   const coaUrl = COA_MAP[product.slug];
   const slides: ("vial" | "coa")[] = coaUrl ? ["vial", "coa"] : ["vial"];
 
-  const unit = variant.price + (withSolvent ? SOLVENT_PRICE : 0);
+  const pricing = computeUnitPrice(variant, qty);
+  const unit = pricing.unit + (withSolvent ? SOLVENT_PRICE : 0);
   const total = unit * qty;
 
   const nextSlide = () => setSlide((s) => ((s + 1) % slides.length) as 0 | 1);
