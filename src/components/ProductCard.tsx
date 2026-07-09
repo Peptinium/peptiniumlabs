@@ -48,7 +48,7 @@ export function ProductCard({ product }: { product: Product }) {
     <Link
       to="/produits/$slug"
       params={{ slug: product.slug }}
-      className="hover-lift group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm"
+      className="hover-lift group relative flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm"
     >
       <div className="relative aspect-[2/3] overflow-hidden border-b border-border bg-surface">
         <ProductVisual
