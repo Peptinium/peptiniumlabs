@@ -20,6 +20,7 @@ import { Route as PanierRouteImport } from './routes/panier'
 import { Route as OffresRouteImport } from './routes/offres'
 import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
 import { Route as LotRouteImport } from './routes/lot'
+import { Route as FaqRouteImport } from './routes/faq'
 import { Route as EtudesScientifiquesRouteImport } from './routes/etudes-scientifiques'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ComparateurRouteImport } from './routes/comparateur'
@@ -112,6 +113,11 @@ const MentionsLegalesRoute = MentionsLegalesRouteImport.update({
 const LotRoute = LotRouteImport.update({
   id: '/lot',
   path: '/lot',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EtudesScientifiquesRoute = EtudesScientifiquesRouteImport.update({
@@ -323,6 +329,7 @@ export interface FileRoutesByFullPath {
   '/comparateur': typeof ComparateurRoute
   '/contact': typeof ContactRoute
   '/etudes-scientifiques': typeof EtudesScientifiquesRoute
+  '/faq': typeof FaqRoute
   '/lot': typeof LotRoute
   '/mentions-legales': typeof MentionsLegalesRoute
   '/offres': typeof OffresRoute
@@ -372,6 +379,7 @@ export interface FileRoutesByTo {
   '/comparateur': typeof ComparateurRoute
   '/contact': typeof ContactRoute
   '/etudes-scientifiques': typeof EtudesScientifiquesRoute
+  '/faq': typeof FaqRoute
   '/lot': typeof LotRoute
   '/mentions-legales': typeof MentionsLegalesRoute
   '/offres': typeof OffresRoute
@@ -423,6 +431,7 @@ export interface FileRoutesById {
   '/comparateur': typeof ComparateurRoute
   '/contact': typeof ContactRoute
   '/etudes-scientifiques': typeof EtudesScientifiquesRoute
+  '/faq': typeof FaqRoute
   '/lot': typeof LotRoute
   '/mentions-legales': typeof MentionsLegalesRoute
   '/offres': typeof OffresRoute
@@ -475,6 +484,7 @@ export interface FileRouteTypes {
     | '/comparateur'
     | '/contact'
     | '/etudes-scientifiques'
+    | '/faq'
     | '/lot'
     | '/mentions-legales'
     | '/offres'
@@ -524,6 +534,7 @@ export interface FileRouteTypes {
     | '/comparateur'
     | '/contact'
     | '/etudes-scientifiques'
+    | '/faq'
     | '/lot'
     | '/mentions-legales'
     | '/offres'
@@ -574,6 +585,7 @@ export interface FileRouteTypes {
     | '/comparateur'
     | '/contact'
     | '/etudes-scientifiques'
+    | '/faq'
     | '/lot'
     | '/mentions-legales'
     | '/offres'
@@ -626,6 +638,7 @@ export interface RootRouteChildren {
   ComparateurRoute: typeof ComparateurRoute
   ContactRoute: typeof ContactRoute
   EtudesScientifiquesRoute: typeof EtudesScientifiquesRoute
+  FaqRoute: typeof FaqRoute
   LotRoute: typeof LotRoute
   MentionsLegalesRoute: typeof MentionsLegalesRoute
   OffresRoute: typeof OffresRoute
@@ -732,6 +745,13 @@ declare module '@tanstack/react-router' {
       path: '/lot'
       fullPath: '/lot'
       preLoaderRoute: typeof LotRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/etudes-scientifiques': {
@@ -1074,6 +1094,7 @@ const rootRouteChildren: RootRouteChildren = {
   ComparateurRoute: ComparateurRoute,
   ContactRoute: ContactRoute,
   EtudesScientifiquesRoute: EtudesScientifiquesRoute,
+  FaqRoute: FaqRoute,
   LotRoute: LotRoute,
   MentionsLegalesRoute: MentionsLegalesRoute,
   OffresRoute: OffresRoute,
