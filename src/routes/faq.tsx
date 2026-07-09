@@ -184,7 +184,7 @@ export const FAQ_DATA: FaqSection[] = [
       },
       {
         q: "Puis-je cumuler la fidélité avec les packs quantité et les promos ?",
-        a: "Oui. Les avantages Peptinium Club (crédit, réduction sur la livraison, eau bactériostatique offerte) sont cumulables avec les remises quantité et les promos du jour. C'est le principe même du programme.",
+        a: "Oui. Les avantages Peptinium Club (crédit fidélité et eau bactériostatique offerte) sont cumulables avec les remises quantité et les promos du jour. C'est le principe même du programme.",
       },
 
       {

@@ -38,7 +38,7 @@ const TIERS = [
     key: "argent",
     name: "Argent",
     range: "1 000 – 3 000 €",
-    perks: ["2 % crédit permanent", "−5 € sur les frais de livraison", "Notification lots à l'avance"],
+    perks: ["2 % crédit permanent", "Rapport HPLC détaillé sur simple demande", "Notification lots à l'avance"],
     accent: "oklch(0.80 0.02 260)",
     icon: ShieldCheck,
   },
