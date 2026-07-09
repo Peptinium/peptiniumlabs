@@ -173,12 +173,13 @@ function HomePage() {
                 <span className="block text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
                   Promotion
                 </span>
-                <h2 className="mt-6 max-w-full break-words text-[30px] font-semibold leading-[1.05] tracking-[-0.03em] shimmer-text sm:max-w-lg sm:text-[52px] sm:leading-[1.0]" data-shimmer="Offerte : 3 ml d'eau bactériostatique pour votre première commande.">
-                  Offerte : 3 ml d'eau bactériostatique pour votre première commande.
+                <h2 className="mt-6 max-w-full break-words text-[30px] font-semibold leading-[1.05] tracking-[-0.03em] shimmer-text sm:max-w-lg sm:text-[52px] sm:leading-[1.0]" data-shimmer="Offerte : 3 ml d'eau bactériostatique pour tout achat de Retatrutide.">
+                  Offerte : 3 ml d'eau bactériostatique pour tout achat de Retatrutide.
                 </h2>
                 <p className="mt-6 max-w-md text-[15px] leading-[1.6] text-[#0f1d3a]/70 sm:text-[16px]">
-                  Ajoutée automatiquement à votre première commande de Retatrutide 10, 20 ou 30 mg — puis 4,90 € les commandes suivantes.
+                  Ajoutée automatiquement à toute commande de Retatrutide 10, 20 ou 30 mg — sans condition, à chaque achat.
                 </p>
+
                 <Link
                   to="/produits"
                   className="group mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 text-[14px] font-medium text-white shadow-[0_18px_44px_-18px_color-mix(in_oklab,var(--brand-violet)_70%,transparent)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5"
