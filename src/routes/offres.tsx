@@ -197,72 +197,97 @@ function OffresPage() {
                       note: `−${t.discountPct} % appliqué automatiquement sur le prix promo`,
                     })),
                   ];
-                  return rows.map((row, i) => (
+                  const maxDiscount = Math.max(...rows.map((r) => r.discount));
+                  return rows.map((row, i) => {
+                    const isRecommended = row.discount > 0 && row.discount === maxDiscount;
+                    return (
                     <Reveal key={row.qty} delay={i * 80}>
-                      <article
-                        className="relative flex h-full flex-col overflow-hidden rounded-2xl p-[1px] transition-all"
-                        style={row.discount > 0 ? { background: GRADIENT } : undefined}
-                      >
-                        <div
-                          className={`flex h-full flex-col rounded-[15px] p-8 ${
-                            row.discount > 0 ? "bg-card" : "border border-border bg-card"
-                          }`}
-                        >
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
-                              <Package className="size-3.5" strokeWidth={1.6} />
-                              {row.label}
-                            </div>
-                            {row.discount > 0 && (
+                      <div className={`relative ${isRecommended ? "lg:-mt-4 lg:mb-0" : ""}`}>
+                        {isRecommended && (
+                          <>
+                            <div
+                              aria-hidden
+                              className="pointer-events-none absolute -inset-6 -z-10 rounded-[32px] opacity-60 blur-2xl"
+                              style={{ background: GRADIENT }}
+                            />
+                            <div className="absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2">
                               <span
-                                className="rounded-full px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-white"
+                                className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-white shadow-lg"
                                 style={{ background: GRADIENT }}
                               >
-                                −{row.discount}%
+                                <Sparkles className="size-3" strokeWidth={2} />
+                                Le plus populaire
                               </span>
-                            )}
-                          </div>
-                          <div className="mt-6 flex items-baseline gap-2">
-                            <span
-                              className="font-display text-[44px] font-semibold leading-none tracking-[-0.02em]"
-                              style={
-                                row.discount > 0
-                                  ? { backgroundImage: GRADIENT, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }
-                                  : { color: "var(--foreground)" }
-                              }
-                            >
-                              {formatPrice(row.unit)}
-                            </span>
-                            <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-                              / flacon
-                            </span>
-                          </div>
-                          {row.discount > 0 && (
-                            <div className="mt-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                              <span className="line-through">{formatPrice(bulkBase)}</span> · Économie {formatPrice((bulkBase - row.unit) * row.qty)}
                             </div>
-                          )}
-                          <div className="mt-6 border-t border-border/70 pt-5 text-[13px] text-muted-foreground">
-                            {row.note}
-                          </div>
-                          <div className="mt-4 flex items-center justify-between">
-                            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">Total pack</span>
-                            <span className="font-display text-[20px] font-semibold text-foreground">{formatPrice(row.unit * row.qty)}</span>
-                          </div>
-                          <Link
-                            to="/produits/$slug"
-                            params={{ slug: "retatrutide" }}
-                            className={`mt-8 inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 font-mono text-[10px] uppercase tracking-[0.22em] transition-transform hover:-translate-y-0.5 ${
-                              row.discount > 0 ? "text-white" : "border border-border bg-background text-foreground"
+                          </>
+                        )}
+                        <article
+                          className="relative flex h-full flex-col overflow-hidden rounded-2xl p-[1px] transition-all"
+                          style={{ background: GRADIENT }}
+                        >
+                          <div
+                            className={`flex h-full flex-col rounded-[15px] p-8 ${
+                              isRecommended ? "bg-card shadow-[0_20px_60px_-20px_color-mix(in_oklab,var(--brand-violet)_55%,transparent)]" : "bg-card"
                             }`}
-                            style={row.discount > 0 ? { background: GRADIENT } : undefined}
                           >
-                            {row.discount > 0 ? `Commander le pack ×${row.qty}` : "Commander à l'unité"}
-                          </Link>
-                        </div>
-                      </article>
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+                                <Package className="size-3.5" strokeWidth={1.6} />
+                                {row.label}
+                              </div>
+                              {row.discount > 0 && (
+                                <span
+                                  className="rounded-full px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-white"
+                                  style={{ background: GRADIENT }}
+                                >
+                                  −{row.discount}%
+                                </span>
+                              )}
+                            </div>
+                            <div className="mt-6 flex items-baseline gap-2">
+                              <span
+                                className="font-display text-[44px] font-semibold leading-none tracking-[-0.02em]"
+                                style={
+                                  row.discount > 0
+                                    ? { backgroundImage: GRADIENT, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }
+                                    : { color: "var(--foreground)" }
+                                }
+                              >
+                                {formatPrice(row.unit)}
+                              </span>
+                              <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+                                / flacon
+                              </span>
+                            </div>
+                            {row.discount > 0 && (
+                              <div className="mt-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                                <span className="line-through">{formatPrice(bulkBase)}</span> · Économie {formatPrice((bulkBase - row.unit) * row.qty)}
+                              </div>
+                            )}
+                            <div className="mt-6 border-t border-border/70 pt-5 text-[13px] text-muted-foreground">
+                              {row.note}
+                            </div>
+                            <div className="mt-4 flex items-center justify-between">
+                              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">Total pack</span>
+                              <span className="font-display text-[20px] font-semibold text-foreground">{formatPrice(row.unit * row.qty)}</span>
+                            </div>
+                            <Link
+                              to="/produits/$slug"
+                              params={{ slug: "retatrutide" }}
+                              className={`mt-8 inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 font-mono text-[10px] uppercase tracking-[0.22em] transition-transform hover:-translate-y-0.5 ${
+                                row.discount > 0 ? "text-white" : "border border-border bg-background text-foreground"
+                              }`}
+                              style={row.discount > 0 ? { background: GRADIENT } : undefined}
+                            >
+                              {row.discount > 0 ? `Commander le pack ×${row.qty}` : "Commander à l'unité"}
+                            </Link>
+                          </div>
+                        </article>
+                      </div>
                     </Reveal>
-                  ));
+                    );
+                  });
+
                 })()}
               </div>
 
