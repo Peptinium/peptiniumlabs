@@ -25,6 +25,9 @@ import selank5 from "@/assets/products/Selank_5mg.png.asset.json";
 import snap810 from "@/assets/products/Snap_8_10mg.png.asset.json";
 import tb5005 from "@/assets/products/TB_500_5mg.png.asset.json";
 
+const GRADIENT =
+  "linear-gradient(120deg, oklch(0.70 0.18 210) 0%, oklch(0.58 0.28 290) 55%, oklch(0.68 0.27 345) 100%)";
+
 type ProductVisualProps = {
   product: Pick<Product, "slug" | "name">;
   dosage?: string;
@@ -45,7 +48,7 @@ export function ProductCard({ product }: { product: Product }) {
     <Link
       to="/produits/$slug"
       params={{ slug: product.slug }}
-      className="hover-lift group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm"
+      className="hover-lift group relative flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm"
     >
       <div className="relative aspect-[2/3] overflow-hidden border-b border-border bg-surface">
         <ProductVisual
@@ -56,9 +59,22 @@ export function ProductCard({ product }: { product: Product }) {
           imageClassName="size-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
           loading="lazy"
         />
-        <div className="absolute right-3 top-3 rounded-full border border-border bg-card/92 px-2.5 py-1 font-display text-sm font-medium text-foreground shadow-sm backdrop-blur-sm">
+        <div className="absolute right-3 top-3 rounded-full border border-border bg-card/92 px-2.5 py-1 font-display text-sm font-medium shadow-sm backdrop-blur-sm">
           {hasMultiple ? <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-muted-foreground">dès </span> : null}
-          {formatPrice(price)}
+          <span
+            style={
+              hasPromo(product)
+                ? {
+                    backgroundImage: GRADIENT,
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                  }
+                : { color: "var(--foreground)" }
+            }
+          >
+            {formatPrice(price)}
+          </span>
         </div>
         {allSoldOut && (
           <div className="absolute left-3 top-3 rounded-full border border-warning/40 bg-warning/15 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.18em] text-warning backdrop-blur-sm">

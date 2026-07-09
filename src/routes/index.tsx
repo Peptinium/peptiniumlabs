@@ -126,7 +126,7 @@ function HomePage() {
 
         <div className="mt-14 grid grid-cols-2 gap-5 lg:grid-cols-4 lg:gap-6">
           {[featured, ...bestSellers.slice(0, 3)].map((p, i) => (
-            <Reveal key={p.slug} delay={i * 60}>
+            <Reveal key={p.slug} delay={i * 60} className="h-full">
               <ProductCard product={p} />
             </Reveal>
           ))}
@@ -137,7 +137,7 @@ function HomePage() {
       <section data-reveal-blur className="mx-auto max-w-[1400px] px-8 pt-16 sm:pt-24">
         <div className="grid grid-cols-2 gap-5 lg:grid-cols-4 lg:gap-6">
           {moreProducts.map((p, i) => (
-            <Reveal key={p.slug} delay={i * 60}>
+            <Reveal key={p.slug} delay={i * 60} className="h-full">
               <ProductCard product={p} />
             </Reveal>
           ))}

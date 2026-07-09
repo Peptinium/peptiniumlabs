@@ -209,8 +209,8 @@ function OffresPage() {
                   return rows.map((row, i) => {
                     const isRecommended = row.discount > 0 && row.discount === maxDiscount;
                     return (
-                    <Reveal key={row.qty} delay={i * 80}>
-                      <div className={`relative ${isRecommended ? "lg:-mt-4 lg:mb-0" : ""}`}>
+                    <Reveal key={row.qty} delay={i * 80} className="h-full">
+                      <div className="relative h-full">
                         {isRecommended && (
                           <>
                             <div
@@ -230,7 +230,7 @@ function OffresPage() {
                           </>
                         )}
                         <article
-                          className="relative flex h-full flex-col overflow-hidden rounded-2xl p-[1px] transition-all"
+                          className="hover-lift relative flex h-full flex-col overflow-hidden rounded-2xl p-[1px]"
                           style={{ background: GRADIENT }}
                         >
                           <div
