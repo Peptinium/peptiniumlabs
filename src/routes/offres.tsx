@@ -255,11 +255,8 @@ function OffresPage() {
                             <div className="mt-6 flex items-baseline gap-2">
                               <span
                                 className="font-display text-[44px] font-semibold leading-none tracking-[-0.02em]"
-                                style={
-                                  row.discount > 0
-                                    ? { backgroundImage: GRADIENT, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }
-                                    : { color: "var(--foreground)" }
-                                }
+                                style={{ backgroundImage: GRADIENT, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}
+
                               >
                                 {formatPrice(row.unit)}
                               </span>
