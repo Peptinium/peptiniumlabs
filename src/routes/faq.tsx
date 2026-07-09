@@ -176,7 +176,7 @@ export const FAQ_DATA: FaqSection[] = [
     items: [
       {
         q: "Comment fonctionne le programme fidélité Peptinium Club ?",
-        a: "Chaque euro dépensé est cumulé sur votre compte. Vous montez de palier automatiquement — Bronze (0-500 €), Argent (500-1500 €), Or (1500-3000 €), Platine (3000 €+) — avec un crédit permanent de 2 à 7 % applicable sur vos prochaines commandes.",
+        a: "Chaque euro dépensé est cumulé sur votre compte. Vous montez de palier automatiquement — Bronze (0-1000 €), Argent (1000-3000 €), Or (3000-6000 €), Platine (6000 €+) — avec un crédit permanent de 1 à 5 % applicable sur vos prochaines commandes.",
       },
       {
         q: "Les crédits fidélité expirent-ils ?",
