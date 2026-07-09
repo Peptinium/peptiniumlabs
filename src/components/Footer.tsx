@@ -13,7 +13,7 @@ export function Footer() {
 
       {/* Main editorial block */}
       <div className="mx-auto max-w-[1400px] px-6 pt-20 lg:px-10 lg:pt-24">
-        <div className="grid gap-14 lg:grid-cols-[1.2fr_0.9fr_1fr_1fr] lg:gap-12">
+        <div className="grid gap-14 lg:grid-cols-[1.1fr_0.8fr_1fr_1fr_0.9fr] lg:gap-10">
           {/* Left — brand */}
           <div>
             <Link to="/" className="inline-flex items-center gap-3">
