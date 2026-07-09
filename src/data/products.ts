@@ -70,7 +70,7 @@ export const products: Product[] = [
         promoPrice: 99.0,
         bulkTiers: [
           { minQty: 3, discountPct: 7, label: "Pack ×3" },
-          { minQty: 6, discountPct: 12, label: "Pack ×6" },
+          { minQty: 6, discountPct: 13, label: "Pack ×6" },
         ],
       },
       {
@@ -79,7 +79,7 @@ export const products: Product[] = [
         promoPrice: 149.0,
         bulkTiers: [
           { minQty: 3, discountPct: 7, label: "Pack ×3" },
-          { minQty: 6, discountPct: 12, label: "Pack ×6" },
+          { minQty: 6, discountPct: 13, label: "Pack ×6" },
         ],
       },
       {
@@ -88,7 +88,7 @@ export const products: Product[] = [
         promoPrice: 199.0,
         bulkTiers: [
           { minQty: 3, discountPct: 7, label: "Pack ×3" },
-          { minQty: 6, discountPct: 12, label: "Pack ×6" },
+          { minQty: 6, discountPct: 13, label: "Pack ×6" },
         ],
       },
 
