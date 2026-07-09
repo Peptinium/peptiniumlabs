@@ -49,20 +49,21 @@ export const FAQ_DATA: FaqSection[] = [
     items: [
       {
         q: "Combien de temps prend l'expédition d'une commande ?",
-        a: "Les commandes payées avant 15 h (heure de Paris) sont préparées le jour même et remises au transporteur sous 24 h ouvrées. La livraison en France métropolitaine prend ensuite 24 à 72 h, en Europe 2 à 5 jours ouvrés.",
+        a: "Les commandes payées avant 15 h (heure de Paris) sont préparées le jour même et remises au transporteur sous 24 h ouvrées. La livraison en France métropolitaine prend ensuite 48 à 72 h, en Europe 2 à 5 jours ouvrés.",
       },
       {
         q: "Livrez-vous en dehors de l'Union européenne ?",
-        a: "Oui, nous expédions vers la Suisse, le Royaume-Uni, les États-Unis, le Canada et l'Australie. Le colis passe la douane sous statut Research Use Only. Le suivi est fourni dès l'expédition.",
+        a: "Pas encore. Nous expédions uniquement au sein de l'Union européenne pour le moment. Une ouverture vers d'autres pays (Suisse, Royaume-Uni, États-Unis, Canada, Australie) est à l'étude — le suivi est fourni dès l'expédition pour toutes les commandes UE.",
       },
       {
         q: "L'emballage est-il discret ?",
-        a: "Oui. Colis neutre, sans logo ni mention Peptinium Labs à l'extérieur. Les flacons sont protégés par un compartiment isotherme rigide et scellés avec un joint anti-effraction.",
+        a: "Oui. Colis neutre, sans logo ni mention Peptinium Labs à l'extérieur. Les flacons sont soigneusement calés dans un emballage rembourré pour absorber les chocs pendant le transport.",
       },
       {
         q: "Que se passe-t-il si mon colis est perdu ou endommagé ?",
-        a: "Vous êtes intégralement remboursé ou réexpédié gratuitement. Notre garantie de livraison couvre 100 % des cas de perte transporteur (délai de livraison + 15 jours) et de casse à réception (sous 48 h avec photos).",
+        a: "Contactez le support avec une preuve (photos du colis et des flacons pour un dommage, ou capture du suivi bloqué pour une perte) et nous trouverons une solution adaptée : réexpédition ou remboursement selon le cas. Sans preuve, nous ne pouvons malheureusement pas ouvrir de dossier auprès du transporteur.",
       },
+
       {
         q: "Puis-je modifier une commande déjà passée ?",
         a: "Oui, tant qu'elle n'a pas été préparée. Contactez le support par email ou via la messagerie de votre espace client — la fenêtre de modification est en général de 2 à 4 heures après paiement.",
