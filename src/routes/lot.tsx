@@ -1,8 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { SiteLayout } from "@/components/SiteLayout";
-import { RuoBadge } from "@/components/RuoBadge";
+import { Reveal } from "@/components/Reveal";
 import { coaCatalog, type CoaItem } from "@/data/coa-catalog";
+import { Search, ShieldCheck, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/lot")({
   head: () => ({
@@ -26,6 +27,12 @@ function normalize(s: string) {
   return s.toLowerCase().replace(/[\s#/\-_.]/g, "");
 }
 
+const SWEEPS =
+  "radial-gradient(55% 45% at 82% 10%, color-mix(in oklab, var(--brand-magenta) 22%, transparent) 0%, transparent 70%), radial-gradient(50% 55% at 8% 92%, color-mix(in oklab, var(--brand-cyan) 22%, transparent) 0%, transparent 70%), radial-gradient(70% 55% at 50% 55%, color-mix(in oklab, var(--brand-violet) 14%, transparent) 0%, transparent 78%)";
+
+const GRADIENT_BTN =
+  "linear-gradient(120deg, oklch(0.70 0.18 210) 0%, oklch(0.58 0.28 290) 55%, oklch(0.68 0.27 345) 100%)";
+
 function LotLookupPage() {
   const [q, setQ] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -43,108 +50,188 @@ function LotLookupPage() {
 
   return (
     <SiteLayout>
-      <section className="relative overflow-hidden border-b border-border">
-        <div className="pointer-events-none absolute inset-0 grid-bg opacity-50 [animation:grid-drift_24s_linear_infinite]" />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,transparent_30%,var(--background)_85%)]" />
-        <div className="container-prose relative py-14">
-          <RuoBadge />
-          <h1 className="mt-4 font-display text-3xl font-medium tracking-tight sm:text-4xl">
-            <span className="shimmer-text" data-shimmer="Traçabilité des lots">
-              Traçabilité des lots
-            </span>
-          </h1>
-          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-            Entrez un numéro de lot Janoshik (ex. <code className="rounded bg-surface px-1.5 py-0.5 font-mono text-[12px]">#75760</code>),
-            une clé de vérification (<code className="rounded bg-surface px-1.5 py-0.5 font-mono text-[12px]">TDM8D15H11BE</code>)
-            ou le nom d'un peptide pour retrouver le certificat d'analyse correspondant.
-          </p>
-        </div>
-      </section>
+      <div className="bg-background text-foreground">
+        {/* ============ HERO ============ */}
+        <section className="relative overflow-hidden">
+          <div className="pointer-events-none absolute inset-0" aria-hidden style={{ background: SWEEPS }} />
+          <div
+            className="pointer-events-none absolute inset-x-0 top-0 h-px"
+            aria-hidden
+            style={{ background: "linear-gradient(90deg, transparent, color-mix(in oklab, var(--brand-violet) 60%, transparent), transparent)" }}
+          />
 
-      <section className="container-prose py-12">
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            setSubmitted(true);
-          }}
-          className="rounded-2xl border border-border/60 bg-surface/40 p-5"
-        >
-          <label htmlFor="lot" className="block font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-            N° de lot / Clé Janoshik / Nom du peptide
-          </label>
-          <div className="mt-3 flex flex-col gap-3 sm:flex-row">
-            <input
-              id="lot"
-              type="search"
-              value={q}
-              onChange={(e) => {
-                setQ(e.target.value);
-                setSubmitted(false);
-              }}
-              placeholder="ex. #75760, TDM8D15H11BE, Retatrutide"
-              className="flex-1 rounded-lg border border-border bg-background px-4 py-3 font-mono text-[14px] text-foreground outline-none focus:border-foreground/40"
-            />
-            <button
-              type="submit"
-              disabled={q.trim().length === 0}
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-foreground px-6 text-[13px] font-medium text-background transition-opacity disabled:opacity-40"
-            >
-              Rechercher le CoA
-            </button>
-          </div>
-        </form>
-
-        {/* Results */}
-        {submitted && (
-          <div className="mt-10">
-            <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-              {results.length} résultat{results.length > 1 ? "s" : ""}
-            </div>
-            {results.length === 0 ? (
-              <div className="mt-5 rounded-2xl border border-border/60 bg-surface/40 p-6 text-[14px] text-muted-foreground">
-                Aucun lot trouvé pour cette recherche. Vérifiez le numéro ou consultez tous nos
-                lots ci-dessous.
+          <div className="relative mx-auto max-w-[1400px] px-6 pt-24 pb-16 lg:px-10 sm:pt-32 sm:pb-20">
+            <Reveal>
+              <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.28em] text-accent">
+                <span className="inline-block size-1.5 rounded-full bg-muted" />
+                Outils labo — Traçabilité
               </div>
-            ) : (
-              <ul className="mt-5 grid gap-4">
-                {results.map((c) => (
-                  <CoaCard key={c.slug} c={c} highlight />
-                ))}
-              </ul>
-            )}
-          </div>
-        )}
+            </Reveal>
 
-        {/* All lots — transparency */}
-        <div className="mt-16">
-          <div className="flex items-baseline justify-between">
-            <div>
-              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">
-                — Transparence totale
+            <Reveal delay={80}>
+              <h1
+                className="shimmer-text mt-8 max-w-4xl text-[44px] font-semibold leading-[1.0] tracking-[-0.035em] sm:text-[80px] sm:leading-[0.96]"
+                data-shimmer="Retrouvez chaque lot en une seconde."
+              >
+                Retrouvez chaque lot en une seconde.
+              </h1>
+            </Reveal>
+
+            <Reveal delay={160}>
+              <p className="mt-8 max-w-2xl text-[17px] leading-[1.6] text-muted-foreground sm:text-[19px]">
+                Entrez un numéro de lot Janoshik, une clé de vérification ou le nom d'un peptide pour
+                retrouver le certificat d'analyse correspondant.{" "}
+                <span className="text-foreground">Transparence totale sur chaque lot.</span>
+              </p>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* ============ LOOKUP ============ */}
+        <section className="relative border-t border-border">
+          <div className="mx-auto max-w-[1400px] px-6 py-20 lg:px-10 sm:py-24">
+            <div className="grid gap-10 lg:grid-cols-[1fr_1.25fr] lg:gap-16">
+              {/* --- Search --- */}
+              <Reveal>
+                <div className="relative overflow-hidden rounded-[28px] border border-border/70 bg-card p-8 shadow-[0_30px_80px_-40px_color-mix(in_oklab,var(--brand-violet)_35%,transparent)] sm:p-10">
+                  <div
+                    className="pointer-events-none absolute inset-x-0 top-0 h-px"
+                    aria-hidden
+                    style={{ background: "linear-gradient(90deg, transparent, color-mix(in oklab, var(--brand-violet) 60%, transparent), transparent)" }}
+                  />
+
+                  <span className="block font-mono text-[10px] uppercase tracking-[0.28em] text-accent">
+                    — Recherche CoA
+                  </span>
+                  <h2 className="mt-3 text-[26px] font-semibold leading-[1.1] tracking-[-0.02em] text-foreground sm:text-[32px]">
+                    Renseignez un identifiant.
+                  </h2>
+                  <p className="mt-2 text-[13.5px] leading-[1.6] text-muted-foreground">
+                    Numéro de lot, clé Janoshik ou nom de peptide. La recherche tolère les espaces et la casse.
+                  </p>
+
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      setSubmitted(true);
+                    }}
+                    className="mt-9"
+                  >
+                    <label htmlFor="lot" className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+                      <Search className="size-3.5 text-accent" strokeWidth={1.6} />
+                      N° de lot / Clé Janoshik / Nom du peptide
+                    </label>
+                    <input
+                      id="lot"
+                      type="search"
+                      value={q}
+                      onChange={(e) => {
+                        setQ(e.target.value);
+                        setSubmitted(false);
+                      }}
+                      placeholder="ex. #75760, TDM8D15H11BE, Retatrutide"
+                      className="mt-2 w-full rounded-xl border border-border/70 bg-background px-4 py-3 text-[15px] font-medium text-foreground outline-none transition-all placeholder:text-muted-foreground/50 focus:border-[color-mix(in_oklab,var(--brand-violet)_60%,var(--border))] focus:shadow-[0_0_0_4px_color-mix(in_oklab,var(--brand-violet)_12%,transparent)]"
+                    />
+                    <button
+                      type="submit"
+                      disabled={q.trim().length === 0}
+                      className="mt-4 inline-flex h-11 items-center gap-2 rounded-full bg-foreground px-5 text-[13px] font-medium text-background transition-opacity disabled:opacity-40"
+                    >
+                      Rechercher le CoA
+                    </button>
+                  </form>
+
+                  <div className="mt-8 rounded-[16px] border border-border/70 bg-card/60 p-4">
+                    <div className="flex items-start gap-3">
+                      <ShieldCheck className="mt-0.5 size-4 shrink-0 text-accent" strokeWidth={1.6} />
+                      <p className="text-[12px] leading-[1.6] text-muted-foreground">
+                        Chaque lot est testé indépendamment par{" "}
+                        <a href="https://janoshik.com" target="_blank" rel="noreferrer" className="text-foreground underline">
+                          Janoshik Analytical
+                        </a>
+                        . La clé de vérification permet de contrôler l'authenticité du CoA directement sur leur site.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+
+              {/* --- Results --- */}
+              <Reveal delay={80}>
+                <div className="relative overflow-hidden rounded-[28px] border border-transparent p-[1px]" style={{ background: GRADIENT_BTN }}>
+                  <div className="relative flex min-h-full flex-col rounded-[27px] bg-card px-6 py-8 sm:px-10 sm:py-10">
+                    <div
+                      className="pointer-events-none absolute inset-0 opacity-70"
+                      aria-hidden
+                      style={{
+                        background:
+                          "radial-gradient(70% 60% at 80% 10%, color-mix(in oklab, var(--brand-violet) 14%, transparent), transparent 70%), radial-gradient(60% 60% at 10% 90%, color-mix(in oklab, var(--brand-cyan) 12%, transparent), transparent 70%)",
+                      }}
+                    />
+                    <div className="relative flex-1">
+                      <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.28em] text-accent">
+                        <Sparkles className="size-3.5" strokeWidth={1.6} />
+                        Résultats de recherche
+                      </div>
+
+                      {!submitted ? (
+                        <div className="mt-10 flex flex-col items-center justify-center gap-4 rounded-[20px] border border-border/70 bg-card/60 p-8 text-center">
+                          <Search className="size-8 text-muted-foreground" strokeWidth={1.4} />
+                          <p className="max-w-xs text-[13px] leading-relaxed text-muted-foreground">
+                            Saisissez un identifiant pour afficher les certificats d'analyse correspondants.
+                          </p>
+                        </div>
+                      ) : results.length === 0 ? (
+                        <div className="mt-6 rounded-[20px] border border-border/70 bg-card/60 p-6 text-[14px] text-muted-foreground">
+                          Aucun lot trouvé pour cette recherche. Vérifiez le numéro ou consultez tous nos lots ci-dessous.
+                        </div>
+                      ) : (
+                        <ul className="mt-6 grid gap-3">
+                          {results.map((c) => (
+                            <CoaCard key={c.slug} c={c} highlight />
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            </div>
+
+            {/* --- All lots --- */}
+            <Reveal delay={120}>
+              <div className="mt-16">
+                <div className="flex items-baseline justify-between">
+                  <div>
+                    <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">
+                      — Transparence totale
+                    </div>
+                    <h2 className="mt-2 font-display text-2xl font-medium tracking-tight sm:text-3xl">
+                      Tous les lots référencés
+                    </h2>
+                  </div>
+                  <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+                    {coaCatalog.length} lots
+                  </div>
+                </div>
+                <p className="mt-3 max-w-2xl text-[13px] leading-relaxed text-muted-foreground">
+                  Chaque lot est testé indépendamment par{" "}
+                  <a href="https://janoshik.com" target="_blank" rel="noreferrer" className="text-foreground underline">
+                    Janoshik Analytical
+                  </a>
+                  . La clé de vérification permet de contrôler l'authenticité du CoA directement sur leur site.
+                </p>
+
+                <ul className="mt-8 grid gap-3">
+                  {coaCatalog.map((c) => (
+                    <CoaCard key={c.slug} c={c} />
+                  ))}
+                </ul>
               </div>
-              <h2 className="mt-2 font-display text-2xl font-medium tracking-tight">
-                Tous les lots référencés
-              </h2>
-            </div>
-            <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-              {coaCatalog.length} lots
-            </div>
+            </Reveal>
           </div>
-          <p className="mt-3 max-w-2xl text-[13px] leading-relaxed text-muted-foreground">
-            Chaque lot est testé indépendamment par{" "}
-            <a href="https://janoshik.com" target="_blank" rel="noreferrer" className="text-foreground underline">
-              Janoshik Analytical
-            </a>
-            . La clé de vérification permet de contrôler l'authenticité du CoA directement sur leur site.
-          </p>
-
-          <ul className="mt-8 grid gap-3">
-            {coaCatalog.map((c) => (
-              <CoaCard key={c.slug} c={c} />
-            ))}
-          </ul>
-        </div>
-      </section>
+        </section>
+      </div>
     </SiteLayout>
   );
 }
