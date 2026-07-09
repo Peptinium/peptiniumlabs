@@ -65,6 +65,11 @@ export function ProductCard({ product }: { product: Product }) {
             Rupture de stock
           </div>
         )}
+        {!allSoldOut && hasPromo(product) && (
+          <div className="absolute left-3 top-3 rounded-full border border-accent/50 bg-accent/20 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.18em] text-accent backdrop-blur-sm">
+            Promo
+          </div>
+        )}
         {anyLowStock && (
           <div className="absolute left-3 top-3 flex items-center gap-1.5 rounded-full border border-accent/40 bg-accent/15 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.18em] text-accent backdrop-blur-sm">
             <span className="size-1.5 animate-pulse rounded-full bg-accent" />
