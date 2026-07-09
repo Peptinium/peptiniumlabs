@@ -215,14 +215,14 @@ export function Header() {
           <Link
             to="/panier"
             aria-label="Panier"
-            className="group relative inline-flex h-10 items-center gap-2 rounded-full border border-border bg-background px-4 text-[13px] font-medium text-foreground transition-all hover:bg-surface"
+            className="group relative inline-flex h-10 items-center gap-2 rounded-full border border-border bg-background px-3 text-[13px] font-medium text-foreground transition-all hover:bg-surface sm:px-4"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
               <path d="M6 7h13l-1.5 9a2 2 0 0 1-2 1.7H9a2 2 0 0 1-2-1.7L5 4H2" />
               <circle cx="10" cy="21" r="1.3" />
               <circle cx="17" cy="21" r="1.3" />
             </svg>
-            Panier
+            <span className="hidden sm:inline">Panier</span>
             {count > 0 && (
               <span className="grid min-w-[20px] place-items-center rounded-full bg-foreground px-1.5 py-0.5 font-mono text-[10px] font-semibold text-background">
                 {count}
