@@ -321,7 +321,7 @@ export function Header() {
 
 function AccountPill({ isLoggedIn }: { isLoggedIn: boolean }) {
   const cls =
-    "inline-flex h-10 items-center gap-2 rounded-full border border-border bg-background px-4 text-[13px] font-medium text-foreground transition-all hover:bg-surface";
+    "inline-flex h-10 items-center gap-2 rounded-full border border-border bg-background px-3 text-[13px] font-medium text-foreground transition-all hover:bg-surface sm:px-4";
   const icon = (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
@@ -332,14 +332,14 @@ function AccountPill({ isLoggedIn }: { isLoggedIn: boolean }) {
     return (
       <Link to="/mon-compte" aria-label="Mon compte" className={cls}>
         {icon}
-        Compte
+        <span className="hidden sm:inline">Compte</span>
       </Link>
     );
   }
   return (
     <Link to="/auth" search={{ redirect: "/mon-compte" }} aria-label="Se connecter" className={cls}>
       {icon}
-      Compte
+      <span className="hidden sm:inline">Compte</span>
     </Link>
   );
 }
