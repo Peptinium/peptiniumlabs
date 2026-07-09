@@ -134,7 +134,7 @@ Pour comprendre la stabilité et la conservation, voir notre article sur la [cha
       "Article éditorial sur la physico-chimie de la stabilité peptidique : hydrolyse, oxydation, photodégradation, transition vitreuse du lyophilisat. Pour comprendre la chaîne du froid laboratoire.",
     date: "2026-06-02",
     readMinutes: 6,
-    category: "Science",
+    category: "Pratique",
     tags: ["stabilité", "stockage", "chaîne du froid", "lyophilisation"],
     body: `Pourquoi un peptide lyophilisé conservé à **-20 °C** reste stable plusieurs années, alors qu'une solution aqueuse du même peptide se dégrade en quelques semaines ? La réponse est entièrement physico-chimique — et comprendre ces mécanismes éclaire les choix de stockage en laboratoire.
 
