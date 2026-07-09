@@ -334,7 +334,7 @@ function TestVialsPage() {
 
               <ol className="space-y-10 sm:space-y-14">
                 {[
-                  { Icon: Beaker, t: "Choisir le laboratoire", d: "Selon votre pays (Janoshik en UE, Fínnrick / Trustpoint aux US), votre budget et le panel analytique voulu — pureté seule, ou pureté + endotoxines, etc." },
+                  { Icon: Beaker, t: "Choisir le laboratoire", d: "Selon votre pays (Janoshik en UE, ChemRx / Colmaric aux US), votre budget et le panel analytique voulu — pureté seule, ou pureté + endotoxines, etc." },
                   { Icon: FileCheck2, t: "Créer la commande d'analyse", d: "Sur le site du labo choisi, créez un compte de recherche, sélectionnez le test, payez en ligne. Vous recevez l'adresse d'expédition et un numéro de tâche à inscrire sur le colis." },
                   { Icon: Send, t: "Préparer et expédier", d: "Fiole lyophilisée dans un emballage rigide, formulaire d'accompagnement joint, courrier suivi. Une fiole non reconstituée voyage sans problème à l'international." },
                   { Icon: PackageCheck, t: "Recevoir le CoA", d: "Sous 5–15 jours ouvrés, Certificat d'Analyse signé avec pureté HPLC, masse mesurée et clé de vérification publique. Le rapport se contre-vérifie directement sur le portail du labo." },
