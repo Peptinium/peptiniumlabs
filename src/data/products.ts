@@ -1,4 +1,12 @@
-export type Variant = { dosage: string; price: number; soldOut?: boolean; lowStock?: boolean };
+export type BulkTier = { minQty: number; discountPct: number; label?: string };
+export type Variant = {
+  dosage: string;
+  price: number;
+  promoPrice?: number;
+  bulkTiers?: BulkTier[];
+  soldOut?: boolean;
+  lowStock?: boolean;
+};
 
 export type Product = {
   slug: string;
