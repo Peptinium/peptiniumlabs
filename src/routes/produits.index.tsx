@@ -59,7 +59,7 @@ function CatalogPage() {
       <section className="container-prose px-5 py-10 lg:py-16">
         <div className="grid animate-[fade-in_0.5s_ease-out_both] grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3">
           {visibleProducts.map((p, i) => (
-            <Reveal key={p.slug} delay={i * 40}>
+            <Reveal key={p.slug} delay={i * 40} className="h-full">
               <ProductCard product={p} />
             </Reveal>
           ))}
