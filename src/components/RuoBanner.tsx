@@ -8,7 +8,7 @@ export function RuoBanner() {
     "Traçabilité N° de lot complète",
     "Paiement sécurisé & discret",
   ];
-  const loop = [...items, ...items];
+  const loop = [...items, ...items, ...items, ...items];
   return (
     <div className="relative overflow-hidden border-b border-border">
       <div
@@ -16,13 +16,16 @@ export function RuoBanner() {
         style={{ background: "linear-gradient(90deg, var(--brand-blue) 0%, var(--brand-violet) 100%)" }}
       />
       <div className="absolute inset-0 bg-ink/20" />
-      <div className="relative flex animate-[marquee_38s_linear_infinite] whitespace-nowrap py-2">
+      <div
+        className="relative flex animate-marquee whitespace-nowrap py-2 will-change-transform"
+        style={{ width: "max-content" }}
+      >
         {loop.map((t, i) => (
           <div
             key={i}
-            className="flex items-center gap-3 px-6 font-mono text-[11px] uppercase tracking-[0.18em] text-white"
+            className="flex shrink-0 items-center gap-3 px-6 font-mono text-[11px] uppercase tracking-[0.18em] text-white"
           >
-            <span className="relative flex size-2 items-center justify-center rounded-full bg-white shadow-[0_0_8px_var(--brand-cyan),0_0_16px_var(--brand-violet)]">
+            <span className="relative flex size-2 shrink-0 items-center justify-center rounded-full bg-white shadow-[0_0_8px_var(--brand-cyan),0_0_16px_var(--brand-violet)]">
               <span className="absolute inset-0 rounded-full bg-white/80 animate-ping" />
             </span>
             {t}
