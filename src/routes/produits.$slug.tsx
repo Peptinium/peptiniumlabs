@@ -7,6 +7,7 @@ import { RuoBadge } from "@/components/RuoBadge";
 import { Reveal } from "@/components/Reveal";
 import { ProductVisual } from "@/components/ProductCard";
 import { products, formatPrice } from "@/data/products";
+import { computeUnitPrice } from "@/lib/pricing";
 
 // CoA images
 import coaRetatrutide from "@/assets/coa/coa-retatrutide-10mg.jpg.asset.json";
