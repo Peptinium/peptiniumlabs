@@ -10,15 +10,21 @@ export function RuoBanner() {
   ];
   const loop = [...items, ...items];
   return (
-    <div className="relative overflow-hidden border-b border-border bg-ink">
-      <div className="absolute inset-0 opacity-20 bg-[linear-gradient(90deg,var(--brand-cyan),var(--brand-blue),var(--brand-violet),var(--brand-magenta))]" />
-      <div className="relative flex animate-[marquee_38s_linear_infinite] whitespace-nowrap py-1.5">
+    <div className="relative overflow-hidden border-b border-border">
+      <div
+        className="absolute inset-0 bg-[linear-gradient(90deg,var(--brand-cyan),var(--brand-blue),var(--brand-violet),var(--brand-magenta),var(--brand-cyan))]"
+        style={{ backgroundSize: "200% 100%" }}
+      />
+      <div className="absolute inset-0 bg-ink/35" />
+      <div className="relative flex animate-[marquee_38s_linear_infinite] whitespace-nowrap py-2">
         {loop.map((t, i) => (
           <div
             key={i}
-            className="flex items-center gap-3 px-6 font-mono text-[10px] uppercase tracking-[0.22em] text-white/90"
+            className="flex items-center gap-3 px-6 font-mono text-[11px] uppercase tracking-[0.18em] text-white"
           >
-            <span className="size-1.5 rounded-full bg-[linear-gradient(135deg,var(--brand-cyan),var(--brand-blue),var(--brand-violet),var(--brand-magenta))]" />
+            <span className="relative flex size-2 items-center justify-center rounded-full bg-white shadow-[0_0_8px_var(--brand-cyan),0_0_16px_var(--brand-violet)]">
+              <span className="absolute inset-0 rounded-full bg-white/80 animate-ping" />
+            </span>
             {t}
           </div>
         ))}
