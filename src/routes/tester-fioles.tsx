@@ -191,10 +191,10 @@ function TestVialsPage() {
               {labs.map((lab, i) => (
                 <Reveal key={lab.key} delay={i * 80}>
                   <article
-                    className={`relative flex h-full flex-col overflow-hidden rounded-[24px] border ${lab.recommended ? "border-transparent p-[1px]" : "border-border/70"}`}
-                    style={lab.recommended ? { background: GRADIENT } : undefined}
+                    className="relative flex h-full flex-col overflow-hidden rounded-[24px] border border-transparent p-[1px]"
+                    style={{ background: GRADIENT }}
                   >
-                    <div className={`relative flex h-full flex-col gap-6 bg-card p-8 ${lab.recommended ? "rounded-[23px]" : "rounded-[23px]"}`}>
+                    <div className="relative flex h-full flex-col gap-6 rounded-[23px] bg-card p-8">
                       {lab.recommended && (
                         <span
                           className="absolute right-6 top-6 rounded-full px-3 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-white"
