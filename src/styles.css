@@ -137,7 +137,7 @@
   --secondary-foreground: oklch(0.20 0.03 260);
   --muted: oklch(0.94 0.015 260);
   --muted-foreground: oklch(0.55 0.03 260);
-  --accent: oklch(0.62 0.15 200);
+  --accent: oklch(0.55 0.22 280);
   --accent-foreground: oklch(1 0 0);
   --warning: oklch(0.55 0.18 38);
   --warning-foreground: oklch(0.99 0 0);
@@ -166,7 +166,7 @@
   --secondary-foreground: oklch(0.95 0.01 240);
   --muted: oklch(0.18 0.03 270);
   --muted-foreground: oklch(0.70 0.03 270);
-  --accent: oklch(0.78 0.14 200);
+  --accent: oklch(0.72 0.18 285);
   --accent-foreground: oklch(0.12 0.02 270);
   --border: oklch(0.22 0.025 270);
   --input: oklch(0.22 0.025 270);
@@ -188,6 +188,18 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
+}
+@utility brand-gradient-cta {
+  background: var(--gradient-brand);
+  background-size: 180% 180%;
+  background-position: 0% 50%;
+  color: #fff;
+  transition: background-position 400ms ease, box-shadow 300ms ease, transform 200ms ease;
+  box-shadow: 0 10px 30px -14px color-mix(in oklab, var(--brand-violet) 65%, transparent);
+  &:hover:not(:disabled) {
+    background-position: 100% 50%;
+    box-shadow: 0 14px 34px -12px color-mix(in oklab, var(--brand-magenta) 55%, transparent);
+  }
 }
 
 

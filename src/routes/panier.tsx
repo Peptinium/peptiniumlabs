@@ -454,7 +454,7 @@ function LivraisonForm({
       <button
         type="submit"
         disabled={!required}
-        className="mt-6 group relative w-full overflow-hidden rounded-xl bg-accent px-6 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-background transition-colors hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-50"
+        className="brand-gradient-cta mt-6 group relative w-full overflow-hidden rounded-xl px-6 py-4 text-sm font-semibold uppercase tracking-[0.18em] disabled:cursor-not-allowed disabled:opacity-50"
       >
         <span className="inline-flex items-center justify-center gap-2">
           Continuer <span aria-hidden>→</span>
