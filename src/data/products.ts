@@ -129,7 +129,7 @@ export const products: Product[] = [
     molecularFormula: "C152H252N44O42 / C38H49N9O5",
     molecularWeight: "3367.9 / 711.9 g/mol",
     purity: "≥ 99.0 % (HPLC)",
-    variants: [{ dosage: "5 mg + 5 mg", price: 64.0 }],
+    variants: [{ dosage: "5 mg + 5 mg", price: 75.0 }],
     category: "Croissance",
     shortDescription:
       "Combinaison analogue GHRH (CJC-1295 no-DAC) + agoniste GHS-R1a (Ipamorelin) — outil de référence pour l'étude in vitro de l'axe somatotrope.",
