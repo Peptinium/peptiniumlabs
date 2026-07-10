@@ -233,7 +233,7 @@ function AuthPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-lg bg-accent px-6 py-3 text-sm font-medium text-accent-foreground transition-opacity hover:opacity-90 disabled:opacity-40"
+              className="brand-gradient-cta w-full rounded-lg px-6 py-3 text-sm font-medium disabled:opacity-40"
             >
               {loading
                 ? "…"
