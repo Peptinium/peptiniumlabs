@@ -91,9 +91,10 @@ function MonCompteLayout() {
               <Link
                 key={t.to}
                 to={t.to}
+                style={active ? { background: "var(--gradient-brand)" } : undefined}
                 className={`flex flex-1 items-center justify-center gap-2 rounded-lg px-3 py-2.5 text-xs font-medium transition-colors sm:text-sm ${
                   active
-                    ? "bg-accent text-accent-foreground"
+                    ? "text-white shadow-[0_6px_20px_-8px_color-mix(in_oklab,var(--brand-violet)_60%,transparent)]"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >
