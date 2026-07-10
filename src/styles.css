@@ -196,8 +196,6 @@
   color: #fff;
   transition: background-position 400ms ease, box-shadow 300ms ease, transform 200ms ease;
   box-shadow: 0 10px 30px -14px color-mix(in oklab, var(--brand-violet) 65%, transparent);
-}
-@utility brand-gradient-cta {
   &:hover:not(:disabled) {
     background-position: 100% 50%;
     box-shadow: 0 14px 34px -12px color-mix(in oklab, var(--brand-magenta) 55%, transparent);
