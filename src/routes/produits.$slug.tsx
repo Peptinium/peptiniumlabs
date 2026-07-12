@@ -655,6 +655,63 @@ function ProductPage() {
   );
 }
 
+function PackToggle({
+  active,
+  onToggle,
+  title,
+  subtitle,
+  badge,
+  price,
+  originalPrice,
+}: {
+  active: boolean;
+  onToggle: () => void;
+  title: string;
+  subtitle: string;
+  badge: string;
+  price: number;
+  originalPrice?: number;
+}) {
+  return (
+    <div className="mt-3 flex items-center gap-4 rounded-xl border border-border bg-card p-4">
+      <div className="grid size-11 place-items-center rounded-lg border border-border bg-surface text-accent">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M3 7l9-4 9 4-9 4-9-4z" /><path d="M3 7v10l9 4 9-4V7" /><path d="M12 11v10" />
+        </svg>
+      </div>
+      <div className="flex-1">
+        <div className="flex items-center gap-2">
+          <span className="font-display text-[15px] font-medium">{title}</span>
+          <span className="rounded-full border border-accent/40 bg-accent/10 px-2 py-0.5 font-mono text-[8px] uppercase tracking-[0.22em] text-accent">
+            {badge}
+          </span>
+        </div>
+        <div className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">{subtitle}</div>
+      </div>
+      <div className="text-right">
+        {originalPrice && (
+          <div className="font-mono text-[10px] text-muted-foreground line-through">{formatPrice(originalPrice)}</div>
+        )}
+        <div className="font-mono text-[11px] font-medium text-accent">+{formatPrice(price)}</div>
+        <button
+          role="switch"
+          aria-checked={active}
+          onClick={onToggle}
+          className={`mt-1 relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+            active ? "bg-accent" : "bg-border"
+          }`}
+        >
+          <span
+            className={`inline-block size-5 transform rounded-full bg-background shadow transition-transform ${
+              active ? "translate-x-5" : "translate-x-0.5"
+            }`}
+          />
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function AddToCartButton({
   slug,
   productName,
@@ -662,6 +719,8 @@ function AddToCartButton({
   price,
   qty,
   withSolvent,
+  withPackEssentiel,
+  withPackPremium,
   soldOut,
 }: {
   slug: string;
@@ -670,6 +729,8 @@ function AddToCartButton({
   price: number;
   qty: number;
   withSolvent: boolean;
+  withPackEssentiel: boolean;
+  withPackPremium: boolean;
   soldOut?: boolean;
 }) {
   const { add, setEau, eauQty, peptideCount } = useCart();
@@ -692,9 +753,18 @@ function AddToCartButton({
         if (withSolvent) {
           setEau(Math.min(eauQty + 1, peptideCount + qty));
         }
+        if (withPackEssentiel) {
+          const pack = findAccessory(PACK_ESSENTIEL_SLUG);
+          if (pack) add({ slug: pack.slug, name: pack.name, dosage: pack.variantLabel, price: pack.priceEUR }, 1);
+        }
+        if (withPackPremium) {
+          const pack = findAccessory(PACK_PREMIUM_SLUG);
+          if (pack) add({ slug: pack.slug, name: pack.name, dosage: pack.variantLabel, price: pack.priceEUR }, 1);
+        }
         setAdded(true);
         window.setTimeout(() => setAdded(false), 2200);
       }}
+
       aria-label={`Ajouter ${productName} ${dosage} au panier`}
       className="group relative w-full overflow-hidden rounded-full bg-accent px-6 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-background transition-colors hover:bg-accent/90"
     >
