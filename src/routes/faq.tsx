@@ -11,10 +11,10 @@ export const Route = createFileRoute("/faq")({
       {
         name: "description",
         content:
-          "30+ réponses aux questions fréquentes : commande, livraison, paiement crypto/CB, qualité HPLC, CoA, reconstitution, conservation, cadre RUO, programme fidélité Peptinium Club.",
+          "30+ réponses aux questions fréquentes : commande, livraison, paiement crypto/CB, qualité HPLC, CoA, reconstitution, conservation, cadre RUO, remises quantité.",
       },
       { property: "og:title", content: "FAQ Peptinium Labs — Réponses aux questions labo" },
-      { property: "og:description", content: "Commande, livraison, paiement, qualité, reconstitution, cadre RUO, fidélité." },
+      { property: "og:description", content: "Commande, livraison, paiement, qualité, reconstitution, cadre RUO, remises quantité." },
       { property: "og:url", content: "/faq" },
     ],
     links: [{ rel: "canonical", href: "/faq" }],
