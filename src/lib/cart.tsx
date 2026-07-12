@@ -96,34 +96,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
       setItems((prev) => {
         const k = itemKey(item.slug, item.dosage);
         const existing = prev.find((p) => itemKey(p.slug, p.dosage) === k);
-        const next = existing
+        return existing
           ? prev.map((p) =>
               itemKey(p.slug, p.dosage) === k ? { ...p, qty: p.qty + qty } : p,
             )
           : [...prev, { ...item, qty }];
-
-        // Offre : 1 eau bactériostatique 3 mL offerte à la première commande
-        // de Retatrutide 10/20/30 mg dans ce panier.
-        const isEligibleRetatrutide =
-          item.slug === "retatrutide" && RETATRUTIDE_ELIGIBLE_DOSAGES.includes(item.dosage);
-        const alreadyHasFreeWater = next.some(
-          (p) => p.slug === EAU_OFFERTE_SLUG && p.dosage === EAU_OFFERTE_DOSAGE,
-        );
-        if (isEligibleRetatrutide && !alreadyHasFreeWater) {
-          return [
-            ...next,
-            {
-              slug: EAU_OFFERTE_SLUG,
-              name: EAU_OFFERTE_NAME,
-              dosage: EAU_OFFERTE_DOSAGE,
-              price: freeWaterEligible ? EAU_OFFERTE_PRICE_FREE : EAU_OFFERTE_PRICE_PAID,
-              qty: 1,
-            },
-          ];
-        }
-        return next;
       });
     };
+
     const setQty: CartCtx["setQty"] = (key, qty) => {
       setItems((prev) =>
         prev
@@ -164,7 +144,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       setEau,
       subtotal: items.reduce((s, i) => s + i.price * i.qty, 0),
     };
-  }, [items, peptideCount, eauItem, freeWaterEligible]);
+  }, [items, peptideCount, eauItem]);
 
   return <Ctx.Provider value={ctx}>{children}</Ctx.Provider>;
 }
