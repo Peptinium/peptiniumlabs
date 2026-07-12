@@ -123,6 +123,8 @@ function ProductPage() {
   const firstAvailableIdx = product.variants.findIndex((v) => !v.soldOut);
   const [variantIdx, setVariantIdx] = useState(firstAvailableIdx >= 0 ? firstAvailableIdx : 0);
   const [withSolvent, setWithSolvent] = useState(false);
+  const [withPackEssentiel, setWithPackEssentiel] = useState(false);
+  const [withPackPremium, setWithPackPremium] = useState(false);
   const [qty, setQty] = useState(1);
   const [slide, setSlide] = useState<0 | 1>(0); // 0 = vial, 1 = CoA
   const variant = product.variants[variantIdx];
@@ -130,9 +132,18 @@ function ProductPage() {
   const coaUrl = COA_MAP[product.slug];
   const slides: ("vial" | "coa")[] = coaUrl ? ["vial", "coa"] : ["vial"];
 
+  const packEssentiel = findAccessory(PACK_ESSENTIEL_SLUG);
+  const packPremium = findAccessory(PACK_PREMIUM_SLUG);
+  const isSolventProduct = product.slug === "eau-bacteriostatique";
+  const showAccessoryToggles = !isSolventProduct;
+
   const pricing = computeUnitPrice(variant, qty);
   const unit = pricing.unit;
-  const total = unit * qty + (withSolvent ? SOLVENT_PRICE : 0);
+  const total =
+    unit * qty +
+    (withSolvent ? SOLVENT_PRICE : 0) +
+    (withPackEssentiel && packEssentiel ? packEssentiel.priceEUR : 0) +
+    (withPackPremium && packPremium ? packPremium.priceEUR : 0);
 
   const nextSlide = () => setSlide((s) => ((s + 1) % slides.length) as 0 | 1);
   const prevSlide = () => setSlide((s) => ((s - 1 + slides.length) % slides.length) as 0 | 1);
