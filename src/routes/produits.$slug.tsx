@@ -422,9 +422,48 @@ function ProductPage() {
                 </div>
               )}
 
-              {/* Solvent toggle — hidden on the solvent product itself */}
+              {/* Solvent 3 mL toggle — quick add small format (shown first) */}
               {product.slug !== "eau-bacteriostatique" && (
               <div className="mt-5 flex items-center gap-4 rounded-xl border border-border bg-card p-4">
+                <div className="grid size-11 place-items-center rounded-lg border border-border bg-surface text-accent">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M10 2c2 3 4 5.5 4 8.5a4 4 0 1 1-8 0C6 7.5 8 5 10 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <span className="font-display text-[15px] font-medium">Solvant de reconstitution 3 mL</span>
+                    <span className="rounded-full border border-accent/40 bg-accent/10 px-2 py-0.5 font-mono text-[8px] uppercase tracking-[0.22em] text-accent">
+                      Format essai
+                    </span>
+                  </div>
+                  <div className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+                    Eau bactériostatique · 3 mL USP
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="font-mono text-[11px] font-medium text-accent">+{formatPrice(SOLVENT_3ML_PRICE)}</div>
+                  <button
+                    role="switch"
+                    aria-checked={withSolvent3ml}
+                    onClick={() => setWithSolvent3ml((v) => !v)}
+                    className={`mt-1 relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                      withSolvent3ml ? "bg-accent" : "bg-border"
+                    }`}
+                  >
+                    <span
+                      className={`inline-block size-5 transform rounded-full bg-background shadow transition-transform ${
+                        withSolvent3ml ? "translate-x-5" : "translate-x-0.5"
+                      }`}
+                    />
+                  </button>
+                </div>
+              </div>
+              )}
+
+              {/* Solvent 10 mL toggle — hidden on the solvent product itself */}
+              {product.slug !== "eau-bacteriostatique" && (
+              <div className="mt-3 flex items-center gap-4 rounded-xl border border-border bg-card p-4">
                 <div className="grid size-11 place-items-center rounded-lg border border-border bg-surface text-accent">
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                     <path d="M10 2c2.5 4 5 6.5 5 10a5 5 0 1 1-10 0c0-3.5 2.5-6 5-10Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
@@ -432,7 +471,7 @@ function ProductPage() {
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-2">
-                    <span className="font-display text-[15px] font-medium">Solvant de reconstitution</span>
+                    <span className="font-display text-[15px] font-medium">Solvant de reconstitution 10 mL</span>
                     <span className="rounded-full border border-accent/40 bg-accent/10 px-2 py-0.5 font-mono text-[8px] uppercase tracking-[0.22em] text-accent">
                       Recommandé
                     </span>
@@ -461,44 +500,6 @@ function ProductPage() {
               </div>
               )}
 
-              {/* Solvent 3 mL toggle — quick add small format */}
-              {product.slug !== "eau-bacteriostatique" && (
-              <div className="mt-3 flex items-center gap-4 rounded-xl border border-border bg-card p-4">
-                <div className="grid size-11 place-items-center rounded-lg border border-border bg-surface text-accent">
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                    <path d="M10 2c2 3 4 5.5 4 8.5a4 4 0 1 1-8 0C6 7.5 8 5 10 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
-                  </svg>
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2">
-                    <span className="font-display text-[15px] font-medium">Solvant 3 mL</span>
-                    <span className="rounded-full border border-accent/40 bg-accent/10 px-2 py-0.5 font-mono text-[8px] uppercase tracking-[0.22em] text-accent">
-                      Format essai
-                    </span>
-                  </div>
-                  <div className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-                    Eau bactériostatique · 3 mL USP
-                  </div>
-                </div>
-                <div className="text-right">
-                  <div className="font-mono text-[11px] font-medium text-accent">+{formatPrice(SOLVENT_3ML_PRICE)}</div>
-                  <button
-                    role="switch"
-                    aria-checked={withSolvent3ml}
-                    onClick={() => setWithSolvent3ml((v) => !v)}
-                    className={`mt-1 relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                      withSolvent3ml ? "bg-accent" : "bg-border"
-                    }`}
-                  >
-                    <span
-                      className={`inline-block size-5 transform rounded-full bg-background shadow transition-transform ${
-                        withSolvent3ml ? "translate-x-5" : "translate-x-0.5"
-                      }`}
-                    />
-                  </button>
-                </div>
-              </div>
-              )}
 
               {/* Accessory packs toggles */}
               {showAccessoryToggles && packEssentiel && (
