@@ -1,0 +1,1 @@
+CREATE POLICY "Users read guest orders by matching email" ON public.orders FOR SELECT USING ((user_id IS NULL) AND (email IS NOT NULL) AND (lower(email) = lower(COALESCE((auth.jwt() ->> 'email'::text), ''::text))));
