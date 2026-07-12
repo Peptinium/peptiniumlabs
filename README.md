@@ -18,8 +18,8 @@ Application web full-stack construite avec **TanStack Start** (React 19 + Vite 7
 ## Installation
 
 ```bash
-git clone https://github.com/Peptinium/peptiniumlabs.git
-cd peptiniumlabs
+git clone https://github.com/Peptinium/peptinium.git
+cd peptinium
 bun install
 ```
 
