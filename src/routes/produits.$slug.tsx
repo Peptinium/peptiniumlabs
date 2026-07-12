@@ -457,6 +457,31 @@ function ProductPage() {
               </div>
               )}
 
+              {/* Accessory packs toggles */}
+              {showAccessoryToggles && packEssentiel && (
+                <PackToggle
+                  active={withPackEssentiel}
+                  onToggle={() => setWithPackEssentiel((v) => !v)}
+                  title="Pack Accessoires Essentiel"
+                  subtitle="10 seringues + 10 tampons alcoolisés"
+                  badge="Recommandé"
+                  price={packEssentiel.priceEUR}
+                  originalPrice={packEssentiel.originalPriceEUR}
+                />
+              )}
+              {showAccessoryToggles && packPremium && (
+                <PackToggle
+                  active={withPackPremium}
+                  onToggle={() => setWithPackPremium((v) => !v)}
+                  title="Pack Accessoires Premium"
+                  subtitle="20 seringues + 20 tampons + BAC water 10 mL"
+                  badge="Premium"
+                  price={packPremium.priceEUR}
+                  originalPrice={packPremium.originalPriceEUR}
+                />
+              )}
+
+
               {/* Qty + total */}
               <div className="mt-6 flex items-center justify-between border-t border-border pt-6">
                 <div className="inline-flex items-center gap-3 rounded-xl border border-border bg-card px-3 py-2">
