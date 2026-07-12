@@ -422,9 +422,33 @@ function ProductPage() {
                 </div>
               )}
 
-              {/* Solvent 3 mL toggle — quick add small format (shown first) */}
+              {/* Accessory packs toggles */}
+              {showAccessoryToggles && packEssentiel && (
+                <PackToggle
+                  active={withPackEssentiel}
+                  onToggle={() => setWithPackEssentiel((v) => !v)}
+                  title="Pack Accessoires Essentiel"
+                  subtitle="5 seringues + 5 tampons + BAC water 3 mL"
+                  badge="Recommandé"
+                  price={packEssentiel.priceEUR}
+                  originalPrice={packEssentiel.originalPriceEUR}
+                />
+              )}
+              {showAccessoryToggles && packPremium && (
+                <PackToggle
+                  active={withPackPremium}
+                  onToggle={() => setWithPackPremium((v) => !v)}
+                  title="Pack Accessoires Premium"
+                  subtitle="10 seringues + 10 tampons + BAC water 10 mL"
+                  badge="Premium"
+                  price={packPremium.priceEUR}
+                  originalPrice={packPremium.originalPriceEUR}
+                />
+              )}
+
+              {/* Solvent 3 mL toggle — quick add small format */}
               {product.slug !== "eau-bacteriostatique" && (
-              <div className="mt-5 flex items-center gap-4 rounded-xl border border-border bg-card p-4">
+              <div className="mt-3 flex items-center gap-4 rounded-xl border border-border bg-card p-4">
                 <div className="grid size-11 place-items-center rounded-lg border border-border bg-surface text-accent">
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                     <path d="M10 2c2 3 4 5.5 4 8.5a4 4 0 1 1-8 0C6 7.5 8 5 10 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
@@ -498,31 +522,6 @@ function ProductPage() {
                   </button>
                 </div>
               </div>
-              )}
-
-
-              {/* Accessory packs toggles */}
-              {showAccessoryToggles && packEssentiel && (
-                <PackToggle
-                  active={withPackEssentiel}
-                  onToggle={() => setWithPackEssentiel((v) => !v)}
-                  title="Pack Accessoires Essentiel"
-                  subtitle="10 seringues + 10 tampons alcoolisés"
-                  badge="Recommandé"
-                  price={packEssentiel.priceEUR}
-                  originalPrice={packEssentiel.originalPriceEUR}
-                />
-              )}
-              {showAccessoryToggles && packPremium && (
-                <PackToggle
-                  active={withPackPremium}
-                  onToggle={() => setWithPackPremium((v) => !v)}
-                  title="Pack Accessoires Premium"
-                  subtitle="20 seringues + 20 tampons + BAC water 10 mL"
-                  badge="Premium"
-                  price={packPremium.priceEUR}
-                  originalPrice={packPremium.originalPriceEUR}
-                />
               )}
 
 
