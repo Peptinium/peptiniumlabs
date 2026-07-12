@@ -125,6 +125,7 @@ function ProductPage() {
   const firstAvailableIdx = product.variants.findIndex((v) => !v.soldOut);
   const [variantIdx, setVariantIdx] = useState(firstAvailableIdx >= 0 ? firstAvailableIdx : 0);
   const [withSolvent, setWithSolvent] = useState(false);
+  const [withSolvent3ml, setWithSolvent3ml] = useState(false);
   const [withPackEssentiel, setWithPackEssentiel] = useState(false);
   const [withPackPremium, setWithPackPremium] = useState(false);
   const [qty, setQty] = useState(1);
@@ -144,6 +145,7 @@ function ProductPage() {
   const total =
     unit * qty +
     (withSolvent ? SOLVENT_PRICE : 0) +
+    (withSolvent3ml ? SOLVENT_3ML_PRICE : 0) +
     (withPackEssentiel && packEssentiel ? packEssentiel.priceEUR : 0) +
     (withPackPremium && packPremium ? packPremium.priceEUR : 0);
 
