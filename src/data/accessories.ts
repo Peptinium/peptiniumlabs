@@ -92,7 +92,7 @@ export const accessories: Accessory[] = [
     variantGroup: "syringes",
     variantLabel: "Pack de 10",
     variantDefault: true,
-    priceEUR: 8.9,
+    priceEUR: 7.9,
     badge: "Best-seller",
     imageUrl: syringesX10Img.url,
     description: SYRINGE_DESC + "\n\nContenu du pack : 10 seringues graduées 0,5 ml — 30G × 8 mm.",
