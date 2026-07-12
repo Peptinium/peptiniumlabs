@@ -7,6 +7,7 @@ import { RuoBadge } from "@/components/RuoBadge";
 import { Reveal } from "@/components/Reveal";
 import { ProductVisual } from "@/components/ProductCard";
 import { products, formatPrice } from "@/data/products";
+import { findAccessory, PACK_ESSENTIEL_SLUG, PACK_PREMIUM_SLUG } from "@/data/accessories";
 import { computeUnitPrice } from "@/lib/pricing";
 
 // CoA images
