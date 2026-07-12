@@ -351,7 +351,7 @@ export const products: Product[] = [
     molecularFormula: "C14H22N4O9",
     molecularWeight: "390.35 g/mol",
     purity: "≥ 99.0 % (HPLC)",
-    variants: [{ dosage: "10 mg", price: 44.0 }],
+    variants: [{ dosage: "10 mg", price: 44.0, soldOut: true }],
     category: "Anti-âge",
     shortDescription:
       "Tétrapeptide (Ala-Glu-Asp-Gly) — outil de recherche in vitro sur l'activité télomérase et la sénescence cellulaire.",
