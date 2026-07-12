@@ -1,6 +1,4 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { getFreeWaterEligibility } from "@/lib/orders.functions";
 
 export type CartItem = {
   slug: string;
@@ -13,16 +11,15 @@ export type CartItem = {
 export const EAU_SLUG = "eau-bacteriostatique";
 export const EAU_PRICE = 9.90;
 export const EAU_DOSAGE = "10 mL";
+// Legacy exports kept for compatibility with server-side pricing branch.
 export const EAU_OFFERTE_SLUG = "eau-bacteriostatique-3ml-offerte";
 export const EAU_OFFERTE_NAME = "Eau bactériostatique 3 mL";
 export const EAU_OFFERTE_DOSAGE = "3 mL";
-export const EAU_OFFERTE_PRICE_FREE = 0;
-export const EAU_OFFERTE_PRICE_PAID = 4.90;
+export const EAU_OFFERTE_PRICE = 5.90;
 
 export const SHIPPING = 3.90;
 export const FREE_SHIPPING_THRESHOLD = 160;
 
-const RETATRUTIDE_ELIGIBLE_DOSAGES = ["10 mg", "20 mg", "30 mg"];
 
 type CartCtx = {
   items: CartItem[];
@@ -45,40 +42,7 @@ const STORAGE_KEY = "peptinium_cart_v1";
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [hydrated, setHydrated] = useState(false);
-  // Eligibility for the free 3 mL water: true unless the customer already has
-  // a non-cancelled order (checked server-side). Guests default to true.
-  const [freeWaterEligible, setFreeWaterEligible] = useState(true);
 
-  // Refresh eligibility on mount and whenever auth state changes.
-  useEffect(() => {
-    let cancelled = false;
-    const refresh = () => {
-      getFreeWaterEligibility({ data: {} })
-        .then((r) => {
-          if (!cancelled) setFreeWaterEligible(!!r?.eligible);
-        })
-        .catch(() => {});
-    };
-    refresh();
-    const { data: sub } = supabase.auth.onAuthStateChange((event) => {
-      if (event === "SIGNED_IN" || event === "SIGNED_OUT" || event === "USER_UPDATED") refresh();
-    });
-    return () => {
-      cancelled = true;
-      sub.subscription.unsubscribe();
-    };
-  }, []);
-
-  // Keep the free-water line in sync with the current eligibility price.
-  useEffect(() => {
-    const targetPrice = freeWaterEligible ? EAU_OFFERTE_PRICE_FREE : EAU_OFFERTE_PRICE_PAID;
-    setItems((prev) => {
-      if (!prev.some((p) => p.slug === EAU_OFFERTE_SLUG && p.price !== targetPrice)) return prev;
-      return prev.map((p) =>
-        p.slug === EAU_OFFERTE_SLUG ? { ...p, price: targetPrice, name: EAU_OFFERTE_NAME } : p,
-      );
-    });
-  }, [freeWaterEligible]);
 
 
 
@@ -132,34 +96,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
       setItems((prev) => {
         const k = itemKey(item.slug, item.dosage);
         const existing = prev.find((p) => itemKey(p.slug, p.dosage) === k);
-        const next = existing
+        return existing
           ? prev.map((p) =>
               itemKey(p.slug, p.dosage) === k ? { ...p, qty: p.qty + qty } : p,
             )
           : [...prev, { ...item, qty }];
-
-        // Offre : 1 eau bactériostatique 3 mL offerte à la première commande
-        // de Retatrutide 10/20/30 mg dans ce panier.
-        const isEligibleRetatrutide =
-          item.slug === "retatrutide" && RETATRUTIDE_ELIGIBLE_DOSAGES.includes(item.dosage);
-        const alreadyHasFreeWater = next.some(
-          (p) => p.slug === EAU_OFFERTE_SLUG && p.dosage === EAU_OFFERTE_DOSAGE,
-        );
-        if (isEligibleRetatrutide && !alreadyHasFreeWater) {
-          return [
-            ...next,
-            {
-              slug: EAU_OFFERTE_SLUG,
-              name: EAU_OFFERTE_NAME,
-              dosage: EAU_OFFERTE_DOSAGE,
-              price: freeWaterEligible ? EAU_OFFERTE_PRICE_FREE : EAU_OFFERTE_PRICE_PAID,
-              qty: 1,
-            },
-          ];
-        }
-        return next;
       });
     };
+
     const setQty: CartCtx["setQty"] = (key, qty) => {
       setItems((prev) =>
         prev
@@ -200,7 +144,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       setEau,
       subtotal: items.reduce((s, i) => s + i.price * i.qty, 0),
     };
-  }, [items, peptideCount, eauItem, freeWaterEligible]);
+  }, [items, peptideCount, eauItem]);
 
   return <Ctx.Provider value={ctx}>{children}</Ctx.Provider>;
 }
