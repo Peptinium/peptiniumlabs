@@ -38,8 +38,8 @@ export const accessories: Accessory[] = [
     shortName: "Pack Essentiel",
     family: "Pack",
     variantLabel: "Pack Essentiel",
-    priceEUR: 12.9,
-    originalPriceEUR: 14.8,
+    priceEUR: 6.9,
+    originalPriceEUR: 8.8,
     badge: "Recommandé",
     imageUrl: packEssentielImg.url,
     description:
@@ -56,8 +56,8 @@ export const accessories: Accessory[] = [
     shortName: "Pack Premium",
     family: "Pack",
     variantLabel: "Pack Premium",
-    priceEUR: 24.9,
-    originalPriceEUR: 33.8,
+    priceEUR: 13.9,
+    originalPriceEUR: 19.7,
     badge: "Premium",
     imageUrl: packPremiumImg.url,
     description:

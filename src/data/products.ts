@@ -511,15 +511,15 @@ export const products: Product[] = [
     molecularFormula: "H₂O + C7H8O",
     molecularWeight: "—",
     purity: "USP grade",
-    variants: [{ dosage: "3 mL", price: 4.90 }],
+    variants: [{ dosage: "3 mL", price: 5.90 }],
     category: "Reconstitution",
     hidden: true,
     shortDescription:
-      "Solvant de reconstitution stérile 3 mL — offert avec la première commande de Retatrutide 10/20/30 mg (à vie), puis 4,90 €.",
+      "Solvant de reconstitution stérile 3 mL — 5,90 €.",
     researchSummary:
-      "Solvant de reconstitution offert à la première commande, pour peptides lyophilisés en laboratoire.",
+      "Solvant de reconstitution stérile 3 mL, pour peptides lyophilisés en laboratoire.",
     detailedEffects:
-      "Eau bactériostatique stérile USP additionnée de 0,9 % d'alcool benzylique. Offerte à la première commande d'un client (à vie) contenant du Retatrutide 10 mg, 20 mg ou 30 mg. Ajoutée automatiquement à 4,90 € pour les commandes suivantes. " +
+      "Eau bactériostatique stérile USP additionnée de 0,9 % d'alcool benzylique, conditionnée en flacon 3 mL. " +
       RUO_DISCLAIMER,
     storage: "Température ambiante (15–25 °C), à l'abri de la lumière.",
     reconstitution: "Prêt à l'emploi — prélever avec une seringue stérile.",
