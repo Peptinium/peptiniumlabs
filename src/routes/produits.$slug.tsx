@@ -23,6 +23,8 @@ import coaNad from "@/assets/coa/coa-nad-plus.jpg.asset.json";
 import coaTesa from "@/assets/coa/coa-tesamoreline.jpg.asset.json";
 
 const SOLVENT_PRICE = 9.90;
+const SOLVENT_3ML_PRICE = 5.90;
+const SOLVENT_3ML_SLUG = "eau-bacteriostatique-3ml-offerte";
 
 const COA_MAP: Record<string, string> = {
   retatrutide: coaRetatrutide.url,
@@ -123,6 +125,7 @@ function ProductPage() {
   const firstAvailableIdx = product.variants.findIndex((v) => !v.soldOut);
   const [variantIdx, setVariantIdx] = useState(firstAvailableIdx >= 0 ? firstAvailableIdx : 0);
   const [withSolvent, setWithSolvent] = useState(false);
+  const [withSolvent3ml, setWithSolvent3ml] = useState(false);
   const [withPackEssentiel, setWithPackEssentiel] = useState(false);
   const [withPackPremium, setWithPackPremium] = useState(false);
   const [qty, setQty] = useState(1);
@@ -142,6 +145,7 @@ function ProductPage() {
   const total =
     unit * qty +
     (withSolvent ? SOLVENT_PRICE : 0) +
+    (withSolvent3ml ? SOLVENT_3ML_PRICE : 0) +
     (withPackEssentiel && packEssentiel ? packEssentiel.priceEUR : 0) +
     (withPackPremium && packPremium ? packPremium.priceEUR : 0);
 
@@ -457,6 +461,45 @@ function ProductPage() {
               </div>
               )}
 
+              {/* Solvent 3 mL toggle — quick add small format */}
+              {product.slug !== "eau-bacteriostatique" && (
+              <div className="mt-3 flex items-center gap-4 rounded-xl border border-border bg-card p-4">
+                <div className="grid size-11 place-items-center rounded-lg border border-border bg-surface text-accent">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M10 2c2 3 4 5.5 4 8.5a4 4 0 1 1-8 0C6 7.5 8 5 10 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <span className="font-display text-[15px] font-medium">Solvant 3 mL</span>
+                    <span className="rounded-full border border-accent/40 bg-accent/10 px-2 py-0.5 font-mono text-[8px] uppercase tracking-[0.22em] text-accent">
+                      Format essai
+                    </span>
+                  </div>
+                  <div className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+                    Eau bactériostatique · 3 mL USP
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="font-mono text-[11px] font-medium text-accent">+{formatPrice(SOLVENT_3ML_PRICE)}</div>
+                  <button
+                    role="switch"
+                    aria-checked={withSolvent3ml}
+                    onClick={() => setWithSolvent3ml((v) => !v)}
+                    className={`mt-1 relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                      withSolvent3ml ? "bg-accent" : "bg-border"
+                    }`}
+                  >
+                    <span
+                      className={`inline-block size-5 transform rounded-full bg-background shadow transition-transform ${
+                        withSolvent3ml ? "translate-x-5" : "translate-x-0.5"
+                      }`}
+                    />
+                  </button>
+                </div>
+              </div>
+              )}
+
               {/* Accessory packs toggles */}
               {showAccessoryToggles && packEssentiel && (
                 <PackToggle
@@ -523,6 +566,7 @@ function ProductPage() {
                   price={pricing.unit}
                   qty={qty}
                   withSolvent={withSolvent}
+                  withSolvent3ml={withSolvent3ml}
                   withPackEssentiel={withPackEssentiel}
                   withPackPremium={withPackPremium}
                   soldOut={!!variant.soldOut}
@@ -719,6 +763,7 @@ function AddToCartButton({
   price,
   qty,
   withSolvent,
+  withSolvent3ml,
   withPackEssentiel,
   withPackPremium,
   soldOut,
@@ -729,6 +774,7 @@ function AddToCartButton({
   price: number;
   qty: number;
   withSolvent: boolean;
+  withSolvent3ml: boolean;
   withPackEssentiel: boolean;
   withPackPremium: boolean;
   soldOut?: boolean;
@@ -752,6 +798,9 @@ function AddToCartButton({
         add({ slug, name: productName, dosage, price }, qty);
         if (withSolvent) {
           setEau(Math.min(eauQty + 1, peptideCount + qty));
+        }
+        if (withSolvent3ml) {
+          add({ slug: SOLVENT_3ML_SLUG, name: "Eau bactériostatique 3 mL", dosage: "3 mL", price: SOLVENT_3ML_PRICE }, 1);
         }
         if (withPackEssentiel) {
           const pack = findAccessory(PACK_ESSENTIEL_SLUG);
