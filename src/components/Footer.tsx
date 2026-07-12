@@ -39,7 +39,7 @@ export function Footer() {
             links={[
               { to: "/", label: "Accueil" },
               { to: "/produits", label: "Catalogue" },
-              { to: "/offres", label: "Offres & fidélité" },
+              { to: "/offres", label: "Remises quantité" },
               { to: "/panier", label: "Panier" },
             ]}
           />

@@ -66,11 +66,10 @@ export const products: Product[] = [
       { dosage: "5 mg", price: 54.0, soldOut: true },
       {
         dosage: "10 mg",
-        price: 109.0,
-        promoPrice: 99.0,
+        price: 89.0,
         bulkTiers: [
-          { minQty: 3, discountPct: 7, label: "Pack ×3" },
-          { minQty: 6, discountPct: 13, label: "Pack ×6" },
+          { minQty: 3, discountPct: 5, label: "Pack ×3" },
+          { minQty: 6, discountPct: 10, label: "Pack ×6" },
         ],
       },
       {

@@ -388,8 +388,8 @@ function HomePage() {
                   a: "Contactez-nous directement par e-mail ou via notre formulaire. Nous faisons de notre mieux pour sourcer des peptides spécifiques sur demande et nous vous orienterons vers la meilleure solution disponible dans notre réseau de partenaires audités.",
                 },
                 {
-                  q: "Proposez-vous un programme de fidélité ou de parrainage ?",
-                  a: "Un programme de fidélité chercheur est en cours de déploiement. En attendant, contactez-nous pour des remises volume sur les commandes récurrentes.",
+                  q: "Proposez-vous des remises quantité ?",
+                  a: "Oui. Sur le Retatrutide 10 mg : −5 % dès 3 flacons et −10 % dès 6 flacons, appliqués automatiquement au panier. Pour des volumes plus importants ou des commandes récurrentes, contactez-nous.",
                 },
                 {
                   q: "Que faire si mon colis est endommagé ou manquant ?",
