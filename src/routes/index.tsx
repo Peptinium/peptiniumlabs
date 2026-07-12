@@ -164,21 +164,22 @@ function HomePage() {
         </Reveal>
       </section>
 
-      {/* ============ 4. PROMO — Bac Water offert ============ */}
+      {/* ============ 4. Bac Water 3 mL — 5,90 € ============ */}
       <section data-reveal-blur className="px-6 pt-24 sm:pt-32">
         <Reveal>
           <div className="relative mx-auto max-w-[1400px] overflow-hidden rounded-[32px] border border-border/40 bg-gradient-to-br from-[#eef1ff] via-[#f5f2ff] to-[#fdf2f6]">
             <div className="grid grid-cols-1 items-center gap-8 px-8 py-14 sm:px-16 sm:py-20 md:grid-cols-2">
               <div className="flex flex-col items-start">
                 <span className="block text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
-                  Promotion
+                  Solvant · 3 mL
                 </span>
-                <h2 className="mt-6 max-w-full break-words text-[30px] font-semibold leading-[1.05] tracking-[-0.03em] shimmer-text sm:max-w-lg sm:text-[52px] sm:leading-[1.0]" data-shimmer="Offerte : 3 ml d'eau bactériostatique pour tout achat de Retatrutide.">
-                  Offerte : 3 ml d'eau bactériostatique pour tout achat de Retatrutide.
+                <h2 className="mt-6 max-w-full break-words text-[30px] font-semibold leading-[1.05] tracking-[-0.03em] shimmer-text sm:max-w-lg sm:text-[52px] sm:leading-[1.0]" data-shimmer="Eau bactériostatique 3 mL à 5,90 € seulement.">
+                  Eau bactériostatique 3 mL à 5,90 € seulement.
                 </h2>
                 <p className="mt-6 max-w-md text-[15px] leading-[1.6] text-[#0f1d3a]/70 sm:text-[16px]">
-                  Ajoutée automatiquement à toute commande de Retatrutide 10, 20 ou 30 mg — sans condition, à chaque achat.
+                  Solvant de reconstitution stérile USP, idéal pour un premier essai — également disponible en flacon 10 mL.
                 </p>
+
 
                 <Link
                   to="/produits"
@@ -203,7 +204,8 @@ function HomePage() {
                 />
                 <img
                   src={promoBacWater}
-                  alt="Flacons d'eau bactériostatique Peptinium Labs offerts"
+                  alt="Flacon d'eau bactériostatique 3 mL Peptinium Labs"
+
                   width={1024}
                   height={1024}
                   loading="lazy"
