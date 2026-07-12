@@ -92,7 +92,7 @@ export const FAQ_DATA: FaqSection[] = [
       },
       {
         q: "Puis-je payer en plusieurs fois ?",
-        a: "Non pour le moment. Nous privilégions le paiement direct pour rester sans intermédiaire. Les remises quantité et le programme fidélité Peptinium Club sont là pour amortir les commandes plus importantes.",
+        a: "Non pour le moment. Nous privilégions le paiement direct pour rester sans intermédiaire. Les remises quantité automatiques sont là pour amortir les commandes plus importantes.",
       },
     ],
   },
