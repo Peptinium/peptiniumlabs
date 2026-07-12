@@ -523,8 +523,11 @@ function ProductPage() {
                   price={pricing.unit}
                   qty={qty}
                   withSolvent={withSolvent}
+                  withPackEssentiel={withPackEssentiel}
+                  withPackPremium={withPackPremium}
                   soldOut={!!variant.soldOut}
                 />
+
               </div>
 
               <div className="mt-6 rounded-xl border border-warning/40 bg-warning/5 p-5 text-xs leading-relaxed text-foreground/80">
