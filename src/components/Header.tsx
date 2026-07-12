@@ -9,6 +9,7 @@ type NavItem = { label: string; to?: string; children?: NavLeaf[] };
 
 const nav: NavItem[] = [
   { to: "/produits", label: "Catalogue" },
+  { to: "/accessoires", label: "Accessoires" },
   { to: "/offres", label: "Offres" },
   {
     label: "Laboratoire",

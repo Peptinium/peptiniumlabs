@@ -7,6 +7,7 @@ import { RuoBadge } from "@/components/RuoBadge";
 import { Reveal } from "@/components/Reveal";
 import { ProductVisual } from "@/components/ProductCard";
 import { products, formatPrice } from "@/data/products";
+import { findAccessory, PACK_ESSENTIEL_SLUG, PACK_PREMIUM_SLUG } from "@/data/accessories";
 import { computeUnitPrice } from "@/lib/pricing";
 
 // CoA images
@@ -122,6 +123,8 @@ function ProductPage() {
   const firstAvailableIdx = product.variants.findIndex((v) => !v.soldOut);
   const [variantIdx, setVariantIdx] = useState(firstAvailableIdx >= 0 ? firstAvailableIdx : 0);
   const [withSolvent, setWithSolvent] = useState(false);
+  const [withPackEssentiel, setWithPackEssentiel] = useState(false);
+  const [withPackPremium, setWithPackPremium] = useState(false);
   const [qty, setQty] = useState(1);
   const [slide, setSlide] = useState<0 | 1>(0); // 0 = vial, 1 = CoA
   const variant = product.variants[variantIdx];
@@ -129,9 +132,18 @@ function ProductPage() {
   const coaUrl = COA_MAP[product.slug];
   const slides: ("vial" | "coa")[] = coaUrl ? ["vial", "coa"] : ["vial"];
 
+  const packEssentiel = findAccessory(PACK_ESSENTIEL_SLUG);
+  const packPremium = findAccessory(PACK_PREMIUM_SLUG);
+  const isSolventProduct = product.slug === "eau-bacteriostatique";
+  const showAccessoryToggles = !isSolventProduct;
+
   const pricing = computeUnitPrice(variant, qty);
   const unit = pricing.unit;
-  const total = unit * qty + (withSolvent ? SOLVENT_PRICE : 0);
+  const total =
+    unit * qty +
+    (withSolvent ? SOLVENT_PRICE : 0) +
+    (withPackEssentiel && packEssentiel ? packEssentiel.priceEUR : 0) +
+    (withPackPremium && packPremium ? packPremium.priceEUR : 0);
 
   const nextSlide = () => setSlide((s) => ((s + 1) % slides.length) as 0 | 1);
   const prevSlide = () => setSlide((s) => ((s - 1 + slides.length) % slides.length) as 0 | 1);
@@ -445,6 +457,31 @@ function ProductPage() {
               </div>
               )}
 
+              {/* Accessory packs toggles */}
+              {showAccessoryToggles && packEssentiel && (
+                <PackToggle
+                  active={withPackEssentiel}
+                  onToggle={() => setWithPackEssentiel((v) => !v)}
+                  title="Pack Accessoires Essentiel"
+                  subtitle="10 seringues + 10 tampons alcoolisés"
+                  badge="Recommandé"
+                  price={packEssentiel.priceEUR}
+                  originalPrice={packEssentiel.originalPriceEUR}
+                />
+              )}
+              {showAccessoryToggles && packPremium && (
+                <PackToggle
+                  active={withPackPremium}
+                  onToggle={() => setWithPackPremium((v) => !v)}
+                  title="Pack Accessoires Premium"
+                  subtitle="20 seringues + 20 tampons + BAC water 10 mL"
+                  badge="Premium"
+                  price={packPremium.priceEUR}
+                  originalPrice={packPremium.originalPriceEUR}
+                />
+              )}
+
+
               {/* Qty + total */}
               <div className="mt-6 flex items-center justify-between border-t border-border pt-6">
                 <div className="inline-flex items-center gap-3 rounded-xl border border-border bg-card px-3 py-2">
@@ -486,8 +523,11 @@ function ProductPage() {
                   price={pricing.unit}
                   qty={qty}
                   withSolvent={withSolvent}
+                  withPackEssentiel={withPackEssentiel}
+                  withPackPremium={withPackPremium}
                   soldOut={!!variant.soldOut}
                 />
+
               </div>
 
               <div className="mt-6 rounded-xl border border-warning/40 bg-warning/5 p-5 text-xs leading-relaxed text-foreground/80">
@@ -615,6 +655,63 @@ function ProductPage() {
   );
 }
 
+function PackToggle({
+  active,
+  onToggle,
+  title,
+  subtitle,
+  badge,
+  price,
+  originalPrice,
+}: {
+  active: boolean;
+  onToggle: () => void;
+  title: string;
+  subtitle: string;
+  badge: string;
+  price: number;
+  originalPrice?: number;
+}) {
+  return (
+    <div className="mt-3 flex items-center gap-4 rounded-xl border border-border bg-card p-4">
+      <div className="grid size-11 place-items-center rounded-lg border border-border bg-surface text-accent">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M3 7l9-4 9 4-9 4-9-4z" /><path d="M3 7v10l9 4 9-4V7" /><path d="M12 11v10" />
+        </svg>
+      </div>
+      <div className="flex-1">
+        <div className="flex items-center gap-2">
+          <span className="font-display text-[15px] font-medium">{title}</span>
+          <span className="rounded-full border border-accent/40 bg-accent/10 px-2 py-0.5 font-mono text-[8px] uppercase tracking-[0.22em] text-accent">
+            {badge}
+          </span>
+        </div>
+        <div className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">{subtitle}</div>
+      </div>
+      <div className="text-right">
+        {originalPrice && (
+          <div className="font-mono text-[10px] text-muted-foreground line-through">{formatPrice(originalPrice)}</div>
+        )}
+        <div className="font-mono text-[11px] font-medium text-accent">+{formatPrice(price)}</div>
+        <button
+          role="switch"
+          aria-checked={active}
+          onClick={onToggle}
+          className={`mt-1 relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+            active ? "bg-accent" : "bg-border"
+          }`}
+        >
+          <span
+            className={`inline-block size-5 transform rounded-full bg-background shadow transition-transform ${
+              active ? "translate-x-5" : "translate-x-0.5"
+            }`}
+          />
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function AddToCartButton({
   slug,
   productName,
@@ -622,6 +719,8 @@ function AddToCartButton({
   price,
   qty,
   withSolvent,
+  withPackEssentiel,
+  withPackPremium,
   soldOut,
 }: {
   slug: string;
@@ -630,6 +729,8 @@ function AddToCartButton({
   price: number;
   qty: number;
   withSolvent: boolean;
+  withPackEssentiel: boolean;
+  withPackPremium: boolean;
   soldOut?: boolean;
 }) {
   const { add, setEau, eauQty, peptideCount } = useCart();
@@ -652,9 +753,18 @@ function AddToCartButton({
         if (withSolvent) {
           setEau(Math.min(eauQty + 1, peptideCount + qty));
         }
+        if (withPackEssentiel) {
+          const pack = findAccessory(PACK_ESSENTIEL_SLUG);
+          if (pack) add({ slug: pack.slug, name: pack.name, dosage: pack.variantLabel, price: pack.priceEUR }, 1);
+        }
+        if (withPackPremium) {
+          const pack = findAccessory(PACK_PREMIUM_SLUG);
+          if (pack) add({ slug: pack.slug, name: pack.name, dosage: pack.variantLabel, price: pack.priceEUR }, 1);
+        }
         setAdded(true);
         window.setTimeout(() => setAdded(false), 2200);
       }}
+
       aria-label={`Ajouter ${productName} ${dosage} au panier`}
       className="group relative w-full overflow-hidden rounded-full bg-accent px-6 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-background transition-colors hover:bg-accent/90"
     >

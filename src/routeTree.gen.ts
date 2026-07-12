@@ -35,6 +35,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProduitsIndexRouteImport } from './routes/produits.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AccessoiresIndexRouteImport } from './routes/accessoires.index'
 import { Route as ProduitsSlugRouteImport } from './routes/produits.$slug'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
@@ -44,6 +45,7 @@ import { Route as AdminSiteWebRouteImport } from './routes/admin.site-web'
 import { Route as AdminSavRouteImport } from './routes/admin.sav'
 import { Route as AdminPaiementsRouteImport } from './routes/admin.paiements'
 import { Route as AdminClientsRouteImport } from './routes/admin.clients'
+import { Route as AccessoiresSlugRouteImport } from './routes/accessoires.$slug'
 import { Route as AuthenticatedMonCompteRouteImport } from './routes/_authenticated/mon-compte'
 import { Route as AuthenticatedMonCompteIndexRouteImport } from './routes/_authenticated/mon-compte.index'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
@@ -189,6 +191,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminRoute,
 } as any)
+const AccessoiresIndexRoute = AccessoiresIndexRouteImport.update({
+  id: '/accessoires/',
+  path: '/accessoires/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProduitsSlugRoute = ProduitsSlugRouteImport.update({
   id: '/produits/$slug',
   path: '/produits/$slug',
@@ -233,6 +240,11 @@ const AdminClientsRoute = AdminClientsRouteImport.update({
   id: '/clients',
   path: '/clients',
   getParentRoute: () => AdminRoute,
+} as any)
+const AccessoiresSlugRoute = AccessoiresSlugRouteImport.update({
+  id: '/accessoires/$slug',
+  path: '/accessoires/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedMonCompteRoute = AuthenticatedMonCompteRouteImport.update({
   id: '/mon-compte',
@@ -342,6 +354,7 @@ export interface FileRoutesByFullPath {
   '/tester-fioles': typeof TesterFiolesRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/mon-compte': typeof AuthenticatedMonCompteRouteWithChildren
+  '/accessoires/$slug': typeof AccessoiresSlugRoute
   '/admin/clients': typeof AdminClientsRoute
   '/admin/paiements': typeof AdminPaiementsRoute
   '/admin/sav': typeof AdminSavRoute
@@ -351,6 +364,7 @@ export interface FileRoutesByFullPath {
   '/blog/$slug': typeof BlogSlugRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/produits/$slug': typeof ProduitsSlugRoute
+  '/accessoires/': typeof AccessoiresIndexRoute
   '/admin/': typeof AdminIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/produits/': typeof ProduitsIndexRoute
@@ -391,6 +405,7 @@ export interface FileRoutesByTo {
   '/support': typeof SupportRoute
   '/tester-fioles': typeof TesterFiolesRoute
   '/unsubscribe': typeof UnsubscribeRoute
+  '/accessoires/$slug': typeof AccessoiresSlugRoute
   '/admin/clients': typeof AdminClientsRoute
   '/admin/paiements': typeof AdminPaiementsRoute
   '/admin/sav': typeof AdminSavRoute
@@ -400,6 +415,7 @@ export interface FileRoutesByTo {
   '/blog/$slug': typeof BlogSlugRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/produits/$slug': typeof ProduitsSlugRoute
+  '/accessoires': typeof AccessoiresIndexRoute
   '/admin': typeof AdminIndexRoute
   '/blog': typeof BlogIndexRoute
   '/produits': typeof ProduitsIndexRoute
@@ -444,6 +460,7 @@ export interface FileRoutesById {
   '/tester-fioles': typeof TesterFiolesRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/_authenticated/mon-compte': typeof AuthenticatedMonCompteRouteWithChildren
+  '/accessoires/$slug': typeof AccessoiresSlugRoute
   '/admin/clients': typeof AdminClientsRoute
   '/admin/paiements': typeof AdminPaiementsRoute
   '/admin/sav': typeof AdminSavRoute
@@ -453,6 +470,7 @@ export interface FileRoutesById {
   '/blog/$slug': typeof BlogSlugRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/produits/$slug': typeof ProduitsSlugRoute
+  '/accessoires/': typeof AccessoiresIndexRoute
   '/admin/': typeof AdminIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/produits/': typeof ProduitsIndexRoute
@@ -497,6 +515,7 @@ export interface FileRouteTypes {
     | '/tester-fioles'
     | '/unsubscribe'
     | '/mon-compte'
+    | '/accessoires/$slug'
     | '/admin/clients'
     | '/admin/paiements'
     | '/admin/sav'
@@ -506,6 +525,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/email/unsubscribe'
     | '/produits/$slug'
+    | '/accessoires/'
     | '/admin/'
     | '/blog/'
     | '/produits/'
@@ -546,6 +566,7 @@ export interface FileRouteTypes {
     | '/support'
     | '/tester-fioles'
     | '/unsubscribe'
+    | '/accessoires/$slug'
     | '/admin/clients'
     | '/admin/paiements'
     | '/admin/sav'
@@ -555,6 +576,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/email/unsubscribe'
     | '/produits/$slug'
+    | '/accessoires'
     | '/admin'
     | '/blog'
     | '/produits'
@@ -598,6 +620,7 @@ export interface FileRouteTypes {
     | '/tester-fioles'
     | '/unsubscribe'
     | '/_authenticated/mon-compte'
+    | '/accessoires/$slug'
     | '/admin/clients'
     | '/admin/paiements'
     | '/admin/sav'
@@ -607,6 +630,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/email/unsubscribe'
     | '/produits/$slug'
+    | '/accessoires/'
     | '/admin/'
     | '/blog/'
     | '/produits/'
@@ -650,9 +674,11 @@ export interface RootRouteChildren {
   SupportRoute: typeof SupportRoute
   TesterFiolesRoute: typeof TesterFiolesRoute
   UnsubscribeRoute: typeof UnsubscribeRoute
+  AccessoiresSlugRoute: typeof AccessoiresSlugRoute
   BlogSlugRoute: typeof BlogSlugRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   ProduitsSlugRoute: typeof ProduitsSlugRoute
+  AccessoiresIndexRoute: typeof AccessoiresIndexRoute
   BlogIndexRoute: typeof BlogIndexRoute
   ProduitsIndexRoute: typeof ProduitsIndexRoute
   ApiPublicCryptoWatcherRoute: typeof ApiPublicCryptoWatcherRoute
@@ -852,6 +878,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/accessoires/': {
+      id: '/accessoires/'
+      path: '/accessoires'
+      fullPath: '/accessoires/'
+      preLoaderRoute: typeof AccessoiresIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/produits/$slug': {
       id: '/produits/$slug'
       path: '/produits/$slug'
@@ -914,6 +947,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/clients'
       preLoaderRoute: typeof AdminClientsRouteImport
       parentRoute: typeof AdminRoute
+    }
+    '/accessoires/$slug': {
+      id: '/accessoires/$slug'
+      path: '/accessoires/$slug'
+      fullPath: '/accessoires/$slug'
+      preLoaderRoute: typeof AccessoiresSlugRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/mon-compte': {
       id: '/_authenticated/mon-compte'
@@ -1106,9 +1146,11 @@ const rootRouteChildren: RootRouteChildren = {
   SupportRoute: SupportRoute,
   TesterFiolesRoute: TesterFiolesRoute,
   UnsubscribeRoute: UnsubscribeRoute,
+  AccessoiresSlugRoute: AccessoiresSlugRoute,
   BlogSlugRoute: BlogSlugRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   ProduitsSlugRoute: ProduitsSlugRoute,
+  AccessoiresIndexRoute: AccessoiresIndexRoute,
   BlogIndexRoute: BlogIndexRoute,
   ProduitsIndexRoute: ProduitsIndexRoute,
   ApiPublicCryptoWatcherRoute: ApiPublicCryptoWatcherRoute,
