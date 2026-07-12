@@ -763,6 +763,7 @@ function AddToCartButton({
   price,
   qty,
   withSolvent,
+  withSolvent3ml,
   withPackEssentiel,
   withPackPremium,
   soldOut,
@@ -773,6 +774,7 @@ function AddToCartButton({
   price: number;
   qty: number;
   withSolvent: boolean;
+  withSolvent3ml: boolean;
   withPackEssentiel: boolean;
   withPackPremium: boolean;
   soldOut?: boolean;
@@ -796,6 +798,9 @@ function AddToCartButton({
         add({ slug, name: productName, dosage, price }, qty);
         if (withSolvent) {
           setEau(Math.min(eauQty + 1, peptideCount + qty));
+        }
+        if (withSolvent3ml) {
+          add({ slug: SOLVENT_3ML_SLUG, name: "Eau bactériostatique 3 mL", dosage: "3 mL", price: SOLVENT_3ML_PRICE }, 1);
         }
         if (withPackEssentiel) {
           const pack = findAccessory(PACK_ESSENTIEL_SLUG);
