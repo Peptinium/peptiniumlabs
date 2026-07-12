@@ -23,6 +23,8 @@ import coaNad from "@/assets/coa/coa-nad-plus.jpg.asset.json";
 import coaTesa from "@/assets/coa/coa-tesamoreline.jpg.asset.json";
 
 const SOLVENT_PRICE = 9.90;
+const SOLVENT_3ML_PRICE = 5.90;
+const SOLVENT_3ML_SLUG = "eau-bacteriostatique-3ml-offerte";
 
 const COA_MAP: Record<string, string> = {
   retatrutide: coaRetatrutide.url,
