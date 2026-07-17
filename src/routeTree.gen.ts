@@ -27,6 +27,7 @@ import { Route as ComparateurRouteImport } from './routes/comparateur'
 import { Route as CoaRouteImport } from './routes/coa'
 import { Route as CgvRouteImport } from './routes/cgv'
 import { Route as CalculatriceRouteImport } from './routes/calculatrice'
+import { Route as BoutiqueWcRouteImport } from './routes/boutique-wc'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AProposRouteImport } from './routes/a-propos'
@@ -150,6 +151,11 @@ const CgvRoute = CgvRouteImport.update({
 const CalculatriceRoute = CalculatriceRouteImport.update({
   id: '/calculatrice',
   path: '/calculatrice',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BoutiqueWcRoute = BoutiqueWcRouteImport.update({
+  id: '/boutique-wc',
+  path: '/boutique-wc',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -335,6 +341,7 @@ export interface FileRoutesByFullPath {
   '/a-propos': typeof AProposRoute
   '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
+  '/boutique-wc': typeof BoutiqueWcRoute
   '/calculatrice': typeof CalculatriceRoute
   '/cgv': typeof CgvRoute
   '/coa': typeof CoaRoute
@@ -387,6 +394,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/a-propos': typeof AProposRoute
   '/auth': typeof AuthRouteWithChildren
+  '/boutique-wc': typeof BoutiqueWcRoute
   '/calculatrice': typeof CalculatriceRoute
   '/cgv': typeof CgvRoute
   '/coa': typeof CoaRoute
@@ -441,6 +449,7 @@ export interface FileRoutesById {
   '/a-propos': typeof AProposRoute
   '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
+  '/boutique-wc': typeof BoutiqueWcRoute
   '/calculatrice': typeof CalculatriceRoute
   '/cgv': typeof CgvRoute
   '/coa': typeof CoaRoute
@@ -496,6 +505,7 @@ export interface FileRouteTypes {
     | '/a-propos'
     | '/admin'
     | '/auth'
+    | '/boutique-wc'
     | '/calculatrice'
     | '/cgv'
     | '/coa'
@@ -548,6 +558,7 @@ export interface FileRouteTypes {
     | '/'
     | '/a-propos'
     | '/auth'
+    | '/boutique-wc'
     | '/calculatrice'
     | '/cgv'
     | '/coa'
@@ -601,6 +612,7 @@ export interface FileRouteTypes {
     | '/a-propos'
     | '/admin'
     | '/auth'
+    | '/boutique-wc'
     | '/calculatrice'
     | '/cgv'
     | '/coa'
@@ -656,6 +668,7 @@ export interface RootRouteChildren {
   AProposRoute: typeof AProposRoute
   AdminRoute: typeof AdminRouteWithChildren
   AuthRoute: typeof AuthRouteWithChildren
+  BoutiqueWcRoute: typeof BoutiqueWcRoute
   CalculatriceRoute: typeof CalculatriceRoute
   CgvRoute: typeof CgvRoute
   CoaRoute: typeof CoaRoute
@@ -820,6 +833,13 @@ declare module '@tanstack/react-router' {
       path: '/calculatrice'
       fullPath: '/calculatrice'
       preLoaderRoute: typeof CalculatriceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/boutique-wc': {
+      id: '/boutique-wc'
+      path: '/boutique-wc'
+      fullPath: '/boutique-wc'
+      preLoaderRoute: typeof BoutiqueWcRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -1128,6 +1148,7 @@ const rootRouteChildren: RootRouteChildren = {
   AProposRoute: AProposRoute,
   AdminRoute: AdminRouteWithChildren,
   AuthRoute: AuthRouteWithChildren,
+  BoutiqueWcRoute: BoutiqueWcRoute,
   CalculatriceRoute: CalculatriceRoute,
   CgvRoute: CgvRoute,
   CoaRoute: CoaRoute,
@@ -1168,13 +1189,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
