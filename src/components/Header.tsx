@@ -8,40 +8,22 @@ type NavLeaf = { to: string; label: string; description?: string };
 type NavItem = { label: string; to?: string; children?: NavLeaf[] };
 
 const nav: NavItem[] = [
-  { to: "/produits", label: "Catalogue" },
+  { to: "/produits", label: "Boutique" },
   { to: "/accessoires", label: "Accessoires" },
-  { to: "/offres", label: "Offres" },
   {
-    label: "Laboratoire",
+    label: "Guide",
     children: [
-      { to: "/a-propos", label: "À propos", description: "Qui sommes-nous" },
-      { to: "/process-fabrication", label: "Process fabrication", description: "SPPS · HPLC · CQ" },
-    ],
-  },
-  {
-    label: "Recherche",
-    children: [
-      { to: "/blog", label: "Journal", description: "Articles & analyses" },
-      { to: "/etudes-scientifiques", label: "Bibliographie", description: "Références PubMed / PMC" },
-    ],
-  },
-  {
-    label: "Outils labo",
-    children: [
+      { to: "/guide", label: "Vue d'ensemble", description: "Tous les outils réunis" },
       { to: "/calculatrice", label: "Calculatrice", description: "Doses & reconstitution" },
+      { to: "/comparateur", label: "Comparateur", description: "Jusqu'à 3 peptides" },
+      { to: "/etudes-scientifiques", label: "Études", description: "Bibliographie PubMed" },
+      { to: "/process-fabrication", label: "Process fabrication", description: "SPPS · HPLC · CQ" },
       { to: "/tester-fioles", label: "Tester ses fioles", description: "Contrôle qualité" },
-      { to: "/comparateur", label: "Comparateur", description: "Jusqu'à 3 peptides côte à côte" },
-      { to: "/quiz", label: "Quiz labo", description: "Objectif → peptides pertinents" },
-      { to: "/lot", label: "Traçabilité de lot", description: "N° de lot → CoA Janoshik" },
-    ],
-  },
-  {
-    label: "Aide",
-    children: [
       { to: "/faq", label: "FAQ", description: "Réponses aux questions" },
-      { to: "/contact", label: "Contact", description: "Écrire au support" },
     ],
   },
+  { to: "/blog", label: "Blog" },
+  { to: "/avis-contact", label: "Avis & Contact" },
 ];
 
 export function Header() {
