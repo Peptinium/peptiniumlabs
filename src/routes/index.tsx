@@ -100,6 +100,18 @@ function HomePage() {
 
   return (
     <SiteLayout>
+      {/* ============ 0. TOP MARQUEE — brand bandeau ============ */}
+      <section aria-hidden className="relative overflow-hidden border-b border-border/60 brand-gradient-cta">
+        <div className="flex whitespace-nowrap py-2.5 font-mono text-[11px] font-medium uppercase tracking-[0.28em] text-white/95 animate-marquee">
+          {[...specsMarquee, ...specsMarquee].map((s, i) => (
+            <span key={i} className="mx-6 inline-flex items-center gap-6">
+              <span>{s}</span>
+              <span className="opacity-60">◆</span>
+            </span>
+          ))}
+        </div>
+      </section>
+
       {/* ============ 1. IMMERSIVE HERO ============ */}
       <HeroVela />
 
