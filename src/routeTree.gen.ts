@@ -20,6 +20,7 @@ import { Route as PanierRouteImport } from './routes/panier'
 import { Route as OffresRouteImport } from './routes/offres'
 import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
 import { Route as LotRouteImport } from './routes/lot'
+import { Route as GuideRouteImport } from './routes/guide'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as EtudesScientifiquesRouteImport } from './routes/etudes-scientifiques'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -116,6 +117,11 @@ const MentionsLegalesRoute = MentionsLegalesRouteImport.update({
 const LotRoute = LotRouteImport.update({
   id: '/lot',
   path: '/lot',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuideRoute = GuideRouteImport.update({
+  id: '/guide',
+  path: '/guide',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FaqRoute = FaqRouteImport.update({
@@ -349,6 +355,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/etudes-scientifiques': typeof EtudesScientifiquesRoute
   '/faq': typeof FaqRoute
+  '/guide': typeof GuideRoute
   '/lot': typeof LotRoute
   '/mentions-legales': typeof MentionsLegalesRoute
   '/offres': typeof OffresRoute
@@ -402,6 +409,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/etudes-scientifiques': typeof EtudesScientifiquesRoute
   '/faq': typeof FaqRoute
+  '/guide': typeof GuideRoute
   '/lot': typeof LotRoute
   '/mentions-legales': typeof MentionsLegalesRoute
   '/offres': typeof OffresRoute
@@ -457,6 +465,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/etudes-scientifiques': typeof EtudesScientifiquesRoute
   '/faq': typeof FaqRoute
+  '/guide': typeof GuideRoute
   '/lot': typeof LotRoute
   '/mentions-legales': typeof MentionsLegalesRoute
   '/offres': typeof OffresRoute
@@ -513,6 +522,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/etudes-scientifiques'
     | '/faq'
+    | '/guide'
     | '/lot'
     | '/mentions-legales'
     | '/offres'
@@ -566,6 +576,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/etudes-scientifiques'
     | '/faq'
+    | '/guide'
     | '/lot'
     | '/mentions-legales'
     | '/offres'
@@ -620,6 +631,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/etudes-scientifiques'
     | '/faq'
+    | '/guide'
     | '/lot'
     | '/mentions-legales'
     | '/offres'
@@ -676,6 +688,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   EtudesScientifiquesRoute: typeof EtudesScientifiquesRoute
   FaqRoute: typeof FaqRoute
+  GuideRoute: typeof GuideRoute
   LotRoute: typeof LotRoute
   MentionsLegalesRoute: typeof MentionsLegalesRoute
   OffresRoute: typeof OffresRoute
@@ -784,6 +797,13 @@ declare module '@tanstack/react-router' {
       path: '/lot'
       fullPath: '/lot'
       preLoaderRoute: typeof LotRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guide': {
+      id: '/guide'
+      path: '/guide'
+      fullPath: '/guide'
+      preLoaderRoute: typeof GuideRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/faq': {
@@ -1156,6 +1176,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   EtudesScientifiquesRoute: EtudesScientifiquesRoute,
   FaqRoute: FaqRoute,
+  GuideRoute: GuideRoute,
   LotRoute: LotRoute,
   MentionsLegalesRoute: MentionsLegalesRoute,
   OffresRoute: OffresRoute,
