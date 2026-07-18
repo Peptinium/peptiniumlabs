@@ -5,9 +5,17 @@ import { RuoBadge } from "@/components/RuoBadge";
 import { Reveal } from "@/components/Reveal";
 import { HeroVela } from "@/components/HeroVela";
 import { products, formatPrice } from "@/data/products";
-import { ShieldCheck, Fingerprint, Truck, FlaskConical, Plus } from "lucide-react";
+import { ShieldCheck, Fingerprint, Truck, FlaskConical, Plus, Send, MessageCircle, Star } from "lucide-react";
 
 import promoBacWater from "@/assets/promo-bacwater.png";
+import coulisses1 from "@/assets/coulisses/coulisses-1.jpg";
+import coulisses2 from "@/assets/coulisses/coulisses-2.jpg";
+import coulisses3 from "@/assets/coulisses/coulisses-3.jpg";
+import coulisses4 from "@/assets/coulisses/coulisses-4.jpg";
+import client1Img from "@/assets/testimonials/client-1.jpg";
+import client2Img from "@/assets/testimonials/client-2.jpg";
+import client3Img from "@/assets/testimonials/client-3.jpg";
+import client4Img from "@/assets/testimonials/client-4.jpg";
 
 
 const SITE_URL = "https://peptinium.com";
