@@ -5,9 +5,17 @@ import { RuoBadge } from "@/components/RuoBadge";
 import { Reveal } from "@/components/Reveal";
 import { HeroVela } from "@/components/HeroVela";
 import { products, formatPrice } from "@/data/products";
-import { ShieldCheck, Fingerprint, Truck, FlaskConical, Plus } from "lucide-react";
+import { ShieldCheck, Fingerprint, Truck, FlaskConical, Plus, Send, MessageCircle, Star } from "lucide-react";
 
 import promoBacWater from "@/assets/promo-bacwater.png";
+import coulisses1 from "@/assets/coulisses/coulisses-1.jpg";
+import coulisses2 from "@/assets/coulisses/coulisses-2.jpg";
+import coulisses3 from "@/assets/coulisses/coulisses-3.jpg";
+import coulisses4 from "@/assets/coulisses/coulisses-4.jpg";
+import client1Img from "@/assets/testimonials/client-1.jpg";
+import client2Img from "@/assets/testimonials/client-2.jpg";
+import client3Img from "@/assets/testimonials/client-3.jpg";
+import client4Img from "@/assets/testimonials/client-4.jpg";
 
 
 const SITE_URL = "https://peptinium.com";
@@ -92,6 +100,18 @@ function HomePage() {
 
   return (
     <SiteLayout>
+      {/* ============ 0. TOP MARQUEE — brand bandeau ============ */}
+      <section aria-hidden className="relative overflow-hidden border-b border-border/60 brand-gradient-cta">
+        <div className="flex whitespace-nowrap py-2.5 font-mono text-[11px] font-medium uppercase tracking-[0.28em] text-white/95 animate-marquee">
+          {[...specsMarquee, ...specsMarquee].map((s, i) => (
+            <span key={i} className="mx-6 inline-flex items-center gap-6">
+              <span>{s}</span>
+              <span className="opacity-60">◆</span>
+            </span>
+          ))}
+        </div>
+      </section>
+
       {/* ============ 1. IMMERSIVE HERO ============ */}
       <HeroVela />
 
@@ -215,6 +235,179 @@ function HomePage() {
             </div>
           </div>
         </Reveal>
+      </section>
+
+      {/* ============ 4B. COULISSES — behind-the-scenes gallery ============ */}
+      <section data-reveal-blur className="mx-auto max-w-[1400px] px-8 pt-24 sm:pt-32">
+        <Reveal>
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+            <div className="max-w-2xl">
+              <span className="block text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
+                — Les coulisses
+              </span>
+              <h2 className="mt-5 shimmer-text text-[40px] font-semibold leading-[1.05] tracking-[-0.035em] sm:text-[60px] sm:leading-[1.02]" data-shimmer="Vu de l'intérieur.">
+                Vu de l'intérieur.
+              </h2>
+              <p className="mt-6 text-[16px] leading-[1.6] text-muted-foreground">
+                Réception, contrôle, préparation, expédition. Chaque colis passe par les mêmes mains.
+              </p>
+            </div>
+          </div>
+        </Reveal>
+        <div className="mt-12 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
+          {[
+            { img: coulisses1, tag: "Contrôle" },
+            { img: coulisses2, tag: "Packaging" },
+            { img: coulisses3, tag: "Stock" },
+            { img: coulisses4, tag: "Expédition" },
+          ].map((it, i) => (
+            <Reveal key={i} delay={i * 60}>
+              <figure className="hover-lift group relative aspect-[4/5] overflow-hidden rounded-2xl border border-border bg-surface">
+                <img
+                  src={it.img}
+                  alt={`Coulisses Peptinium Labs — ${it.tag}`}
+                  loading="lazy"
+                  width={1280}
+                  height={960}
+                  className="size-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                />
+                <figcaption className="absolute left-3 top-3 rounded-full border border-white/40 bg-black/30 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.2em] text-white backdrop-blur-sm">
+                  {it.tag}
+                </figcaption>
+              </figure>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      {/* ============ 4C. AVIS PHOTOS — social proof ============ */}
+      <section data-reveal-blur className="mx-auto max-w-[1400px] px-8 pt-24 sm:pt-32">
+        <Reveal>
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+            <div className="max-w-2xl">
+              <span className="block text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
+                — Ils ont commandé
+              </span>
+              <h2 className="mt-5 shimmer-text text-[40px] font-semibold leading-[1.05] tracking-[-0.035em] sm:text-[60px] sm:leading-[1.02]" data-shimmer="Retours vérifiés.">
+                Retours vérifiés.
+              </h2>
+            </div>
+            <div className="flex items-center gap-2">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} className="size-4 fill-accent text-accent" />
+              ))}
+              <span className="ml-2 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+                4.9 / 5
+              </span>
+            </div>
+          </div>
+        </Reveal>
+        <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            { img: client1Img, name: "Julien M.", loc: "Lyon", text: "Colis nickel, vials bien protégés. Livraison en 3 jours." },
+            { img: client2Img, name: "Camille R.", loc: "Bruxelles", text: "Support réactif sur Telegram, facture claire." },
+            { img: client3Img, name: "Antoine D.", loc: "Paris", text: "Étiquettes propres, lot traçable via CoA Janoshik." },
+            { img: client4Img, name: "Sophie L.", loc: "Genève", text: "Pack accessoires parfait pour démarrer sereinement." },
+          ].map((t, i) => (
+            <Reveal key={t.name} delay={i * 60}>
+              <figure className="hover-lift flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card">
+                <div className="aspect-square overflow-hidden bg-surface">
+                  <img
+                    src={t.img}
+                    alt={`Colis reçu — ${t.name}`}
+                    loading="lazy"
+                    width={1024}
+                    height={1024}
+                    className="size-full object-cover"
+                  />
+                </div>
+                <figcaption className="flex flex-1 flex-col gap-3 p-5">
+                  <div className="flex items-center gap-1">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star key={i} className="size-3 fill-accent text-accent" />
+                    ))}
+                  </div>
+                  <p className="flex-1 text-sm leading-[1.55] text-foreground">« {t.text} »</p>
+                  <div className="border-t border-border pt-3 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                    {t.name} · {t.loc}
+                  </div>
+                </figcaption>
+              </figure>
+            </Reveal>
+          ))}
+        </div>
+        <Reveal delay={120}>
+          <div className="mt-10 flex justify-center">
+            <Link
+              to="/avis-contact"
+              className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-card px-5 py-2.5 text-[13px] font-medium text-foreground transition-colors hover:border-foreground"
+            >
+              Voir tous les avis →
+            </Link>
+          </div>
+        </Reveal>
+      </section>
+
+      {/* ============ 4D. COMMUNAUTÉ — Telegram + Discord ============ */}
+      <section data-reveal-blur className="mx-auto max-w-[1400px] px-8 pt-24 sm:pt-32">
+        <div className="grid gap-5 sm:grid-cols-2 lg:gap-6">
+          <Reveal>
+            <a
+              href="https://t.me/peptinium"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover-lift group flex h-full flex-col justify-between gap-8 rounded-2xl border border-border bg-card p-8"
+            >
+              <div className="flex items-center justify-between">
+                <div className="grid size-12 place-items-center rounded-xl brand-gradient-cta text-white">
+                  <Send className="size-5" strokeWidth={1.8} />
+                </div>
+                <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+                  Canal Telegram
+                </span>
+              </div>
+              <div>
+                <h3 className="font-display text-3xl font-semibold tracking-tight">
+                  Rejoindre sur Telegram
+                </h3>
+                <p className="mt-3 text-sm text-muted-foreground">
+                  Arrivages, restocks, échanges avec l'équipe. Notifs discrètes.
+                </p>
+              </div>
+              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-foreground group-hover:text-accent">
+                Ouvrir →
+              </span>
+            </a>
+          </Reveal>
+          <Reveal delay={80}>
+            <a
+              href="https://discord.gg/peptinium"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover-lift group flex h-full flex-col justify-between gap-8 rounded-2xl border border-border bg-card p-8"
+            >
+              <div className="flex items-center justify-between">
+                <div className="grid size-12 place-items-center rounded-xl brand-gradient-cta text-white">
+                  <MessageCircle className="size-5" strokeWidth={1.8} />
+                </div>
+                <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+                  Serveur Discord
+                </span>
+              </div>
+              <div>
+                <h3 className="font-display text-3xl font-semibold tracking-tight">
+                  Rejoindre sur Discord
+                </h3>
+                <p className="mt-3 text-sm text-muted-foreground">
+                  Salons protocoles, calculs, retours d'expérience. Communauté active.
+                </p>
+              </div>
+              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-foreground group-hover:text-accent">
+                Ouvrir →
+              </span>
+            </a>
+          </Reveal>
+        </div>
       </section>
 
       {/* ============ 5. PLUS QUE LA SCIENCE — clean background ============ */}
@@ -361,7 +554,7 @@ function HomePage() {
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
-                  to="/contact"
+                  to="/avis-contact"
                   className="group inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px] font-medium text-white shadow-[0_18px_44px_-18px_color-mix(in_oklab,var(--brand-violet)_70%,transparent)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-[0_24px_54px_-18px_color-mix(in_oklab,var(--brand-violet)_85%,transparent)]"
                   style={{
                     backgroundImage:

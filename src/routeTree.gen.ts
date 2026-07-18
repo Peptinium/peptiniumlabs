@@ -20,6 +20,7 @@ import { Route as PanierRouteImport } from './routes/panier'
 import { Route as OffresRouteImport } from './routes/offres'
 import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
 import { Route as LotRouteImport } from './routes/lot'
+import { Route as GuideRouteImport } from './routes/guide'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as EtudesScientifiquesRouteImport } from './routes/etudes-scientifiques'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -28,6 +29,7 @@ import { Route as CoaRouteImport } from './routes/coa'
 import { Route as CgvRouteImport } from './routes/cgv'
 import { Route as CalculatriceRouteImport } from './routes/calculatrice'
 import { Route as BoutiqueWcRouteImport } from './routes/boutique-wc'
+import { Route as AvisContactRouteImport } from './routes/avis-contact'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AProposRouteImport } from './routes/a-propos'
@@ -118,6 +120,11 @@ const LotRoute = LotRouteImport.update({
   path: '/lot',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GuideRoute = GuideRouteImport.update({
+  id: '/guide',
+  path: '/guide',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FaqRoute = FaqRouteImport.update({
   id: '/faq',
   path: '/faq',
@@ -156,6 +163,11 @@ const CalculatriceRoute = CalculatriceRouteImport.update({
 const BoutiqueWcRoute = BoutiqueWcRouteImport.update({
   id: '/boutique-wc',
   path: '/boutique-wc',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AvisContactRoute = AvisContactRouteImport.update({
+  id: '/avis-contact',
+  path: '/avis-contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -341,6 +353,7 @@ export interface FileRoutesByFullPath {
   '/a-propos': typeof AProposRoute
   '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
+  '/avis-contact': typeof AvisContactRoute
   '/boutique-wc': typeof BoutiqueWcRoute
   '/calculatrice': typeof CalculatriceRoute
   '/cgv': typeof CgvRoute
@@ -349,6 +362,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/etudes-scientifiques': typeof EtudesScientifiquesRoute
   '/faq': typeof FaqRoute
+  '/guide': typeof GuideRoute
   '/lot': typeof LotRoute
   '/mentions-legales': typeof MentionsLegalesRoute
   '/offres': typeof OffresRoute
@@ -394,6 +408,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/a-propos': typeof AProposRoute
   '/auth': typeof AuthRouteWithChildren
+  '/avis-contact': typeof AvisContactRoute
   '/boutique-wc': typeof BoutiqueWcRoute
   '/calculatrice': typeof CalculatriceRoute
   '/cgv': typeof CgvRoute
@@ -402,6 +417,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/etudes-scientifiques': typeof EtudesScientifiquesRoute
   '/faq': typeof FaqRoute
+  '/guide': typeof GuideRoute
   '/lot': typeof LotRoute
   '/mentions-legales': typeof MentionsLegalesRoute
   '/offres': typeof OffresRoute
@@ -449,6 +465,7 @@ export interface FileRoutesById {
   '/a-propos': typeof AProposRoute
   '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
+  '/avis-contact': typeof AvisContactRoute
   '/boutique-wc': typeof BoutiqueWcRoute
   '/calculatrice': typeof CalculatriceRoute
   '/cgv': typeof CgvRoute
@@ -457,6 +474,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/etudes-scientifiques': typeof EtudesScientifiquesRoute
   '/faq': typeof FaqRoute
+  '/guide': typeof GuideRoute
   '/lot': typeof LotRoute
   '/mentions-legales': typeof MentionsLegalesRoute
   '/offres': typeof OffresRoute
@@ -505,6 +523,7 @@ export interface FileRouteTypes {
     | '/a-propos'
     | '/admin'
     | '/auth'
+    | '/avis-contact'
     | '/boutique-wc'
     | '/calculatrice'
     | '/cgv'
@@ -513,6 +532,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/etudes-scientifiques'
     | '/faq'
+    | '/guide'
     | '/lot'
     | '/mentions-legales'
     | '/offres'
@@ -558,6 +578,7 @@ export interface FileRouteTypes {
     | '/'
     | '/a-propos'
     | '/auth'
+    | '/avis-contact'
     | '/boutique-wc'
     | '/calculatrice'
     | '/cgv'
@@ -566,6 +587,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/etudes-scientifiques'
     | '/faq'
+    | '/guide'
     | '/lot'
     | '/mentions-legales'
     | '/offres'
@@ -612,6 +634,7 @@ export interface FileRouteTypes {
     | '/a-propos'
     | '/admin'
     | '/auth'
+    | '/avis-contact'
     | '/boutique-wc'
     | '/calculatrice'
     | '/cgv'
@@ -620,6 +643,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/etudes-scientifiques'
     | '/faq'
+    | '/guide'
     | '/lot'
     | '/mentions-legales'
     | '/offres'
@@ -668,6 +692,7 @@ export interface RootRouteChildren {
   AProposRoute: typeof AProposRoute
   AdminRoute: typeof AdminRouteWithChildren
   AuthRoute: typeof AuthRouteWithChildren
+  AvisContactRoute: typeof AvisContactRoute
   BoutiqueWcRoute: typeof BoutiqueWcRoute
   CalculatriceRoute: typeof CalculatriceRoute
   CgvRoute: typeof CgvRoute
@@ -676,6 +701,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   EtudesScientifiquesRoute: typeof EtudesScientifiquesRoute
   FaqRoute: typeof FaqRoute
+  GuideRoute: typeof GuideRoute
   LotRoute: typeof LotRoute
   MentionsLegalesRoute: typeof MentionsLegalesRoute
   OffresRoute: typeof OffresRoute
@@ -786,6 +812,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LotRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/guide': {
+      id: '/guide'
+      path: '/guide'
+      fullPath: '/guide'
+      preLoaderRoute: typeof GuideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/faq': {
       id: '/faq'
       path: '/faq'
@@ -840,6 +873,13 @@ declare module '@tanstack/react-router' {
       path: '/boutique-wc'
       fullPath: '/boutique-wc'
       preLoaderRoute: typeof BoutiqueWcRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/avis-contact': {
+      id: '/avis-contact'
+      path: '/avis-contact'
+      fullPath: '/avis-contact'
+      preLoaderRoute: typeof AvisContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -1148,6 +1188,7 @@ const rootRouteChildren: RootRouteChildren = {
   AProposRoute: AProposRoute,
   AdminRoute: AdminRouteWithChildren,
   AuthRoute: AuthRouteWithChildren,
+  AvisContactRoute: AvisContactRoute,
   BoutiqueWcRoute: BoutiqueWcRoute,
   CalculatriceRoute: CalculatriceRoute,
   CgvRoute: CgvRoute,
@@ -1156,6 +1197,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   EtudesScientifiquesRoute: EtudesScientifiquesRoute,
   FaqRoute: FaqRoute,
+  GuideRoute: GuideRoute,
   LotRoute: LotRoute,
   MentionsLegalesRoute: MentionsLegalesRoute,
   OffresRoute: OffresRoute,
@@ -1189,13 +1231,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
