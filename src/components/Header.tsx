@@ -203,6 +203,7 @@ export function Header() {
           )}
           <Link
             to="/panier"
+            search={{ step: "livraison" as const }}
             aria-label="Panier"
             className="group relative inline-flex h-10 items-center gap-2 rounded-full border border-border bg-background px-3 text-[13px] font-medium text-foreground transition-all hover:bg-surface sm:px-4"
           >
