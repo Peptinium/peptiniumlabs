@@ -2,10 +2,12 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { Reveal } from "@/components/Reveal";
-import { products, minPrice, formatPrice, type Product } from "@/data/products";
+import { minPrice, formatPrice, type Product } from "@/data/products";
+import { getCatalog } from "@/lib/catalog.server";
 import { GitCompare, Scale, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/comparateur")({
+  loader: async () => ({ products: await getCatalog() }),
   head: () => ({
     meta: [
       { title: "Comparateur de peptides — Peptinium Labs" },
@@ -32,7 +34,8 @@ const GRADIENT_BTN =
   "linear-gradient(120deg, oklch(0.70 0.18 210) 0%, oklch(0.58 0.28 290) 55%, oklch(0.68 0.27 345) 100%)";
 
 function ComparatorPage() {
-  const available = useMemo(() => products.filter((p) => !p.hidden), []);
+  const { products } = Route.useLoaderData();
+  const available = useMemo(() => products.filter((p) => !p.hidden), [products]);
   const [selected, setSelected] = useState<(string | null)[]>([
     available[0]?.slug ?? null,
     available[1]?.slug ?? null,

@@ -6,7 +6,8 @@ import { SiteLayout } from "@/components/SiteLayout";
 import { RuoBadge } from "@/components/RuoBadge";
 import { Reveal } from "@/components/Reveal";
 import { ProductVisual } from "@/components/ProductCard";
-import { products, formatPrice } from "@/data/products";
+import { formatPrice } from "@/data/products";
+import { getProductBySlug } from "@/lib/catalog.server";
 import { findAccessory, PACK_ESSENTIEL_SLUG, PACK_PREMIUM_SLUG } from "@/data/accessories";
 import { computeUnitPrice } from "@/lib/pricing";
 
@@ -40,8 +41,8 @@ const COA_MAP: Record<string, string> = {
 };
 
 export const Route = createFileRoute("/produits/$slug")({
-  loader: ({ params }) => {
-    const product = products.find((p) => p.slug === params.slug);
+  loader: async ({ params }) => {
+    const product = await getProductBySlug({ data: params.slug });
     if (!product) throw notFound();
     return { product };
   },
@@ -383,7 +384,12 @@ function ProductPage() {
                         row.discount === 0
                           ? variant.promoPrice ?? variant.price
                           : Math.round(bulkBase * (1 - row.discount / 100) * 100) / 100;
-                      const active = qty >= row.qty && (row.discount === 0 || qty < (variant.bulkTiers!.find((t) => t.discountPct > row.discount)?.minQty ?? Infinity));
+                      const active =
+                        qty >= row.qty &&
+                        qty <
+                          (variant.bulkTiers!.find(
+                            (t) => t.discountPct > row.discount,
+                          )?.minQty ?? Infinity);
                       return (
                         <button
                           key={row.qty}

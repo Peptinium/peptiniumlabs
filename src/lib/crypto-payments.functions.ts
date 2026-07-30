@@ -53,24 +53,60 @@ export const createCryptoPayment = createServerFn({ method: "POST" })
 
     const address = mod.getWalletAddress(data.currency);
     const rate = await mod.fetchEurRate(data.currency);
-    const amountCrypto = mod.computeUniqueAmount(amountEur, rate, data.currency, order.id);
     const expiresAt = new Date(Date.now() + 20 * 60 * 1000).toISOString();
 
-    const { data: inserted, error: insErr } = await supabaseAdmin
-      .from("crypto_payments")
-      .insert({
-        order_id: order.id,
-        currency: data.currency,
-        wallet_address: address,
-        amount_eur: amountEur,
-        rate_eur_per_unit: rate,
-        amount_crypto: amountCrypto,
-        status: "pending",
-        expires_at: expiresAt,
-      })
-      .select("*")
-      .single();
-    if (insErr || !inserted) throw new Error("Impossible de créer le paiement crypto.");
+    // Attribution par montant : le montant doit être unique parmi les factures
+    // ouvertes de cette devise, sinon un paiement ne peut pas être rattaché à
+    // une commande précise. On lit les montants déjà réservés, on en alloue un
+    // libre, et l'index unique en base tranche les courses résiduelles — d'où
+    // la boucle de reprise sur conflit (code Postgres 23505).
+    let inserted: Record<string, unknown> | null = null;
+    let lastErr: unknown = null;
+
+    for (let attempt = 0; attempt < 5 && !inserted; attempt++) {
+      const { data: openRows } = await supabaseAdmin
+        .from("crypto_payments")
+        .select("amount_crypto")
+        .eq("currency", data.currency)
+        .in("status", ["pending", "detected"]);
+
+      const taken = (openRows ?? []).map((r) => Number(r.amount_crypto));
+      const amountCrypto = mod.allocateUniqueAmount(
+        amountEur,
+        rate,
+        data.currency,
+        taken,
+      );
+
+      const { data: row, error: insErr } = await supabaseAdmin
+        .from("crypto_payments")
+        .insert({
+          order_id: order.id,
+          currency: data.currency,
+          wallet_address: address,
+          amount_eur: amountEur,
+          rate_eur_per_unit: rate,
+          amount_crypto: amountCrypto,
+          status: "pending",
+          expires_at: expiresAt,
+        })
+        .select("*")
+        .single();
+
+      if (!insErr && row) {
+        inserted = row;
+        break;
+      }
+      lastErr = insErr;
+      // 23505 = violation d'unicité : un autre client a pris ce montant entre
+      // notre lecture et notre insertion. On relit et on réessaie.
+      if (insErr && (insErr as { code?: string }).code !== "23505") break;
+    }
+
+    if (!inserted) {
+      console.error("[crypto-payment] insertion impossible", lastErr);
+      throw new Error("Impossible de créer le paiement crypto.");
+    }
 
     // Mark the order as awaiting crypto payment.
     await supabaseAdmin

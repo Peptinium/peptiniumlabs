@@ -11,20 +11,22 @@ import {
   SHIPPING,
   FREE_SHIPPING_THRESHOLD,
 } from "@/lib/cart";
+import { getRouteApi } from "@tanstack/react-router";
 import { formatPrice } from "@/data/products";
-import { placeOrder, validatePromoCode } from "@/lib/orders.functions";
+import { placeOrder, validatePromoCode, getShippingConfigFn } from "@/lib/orders.functions";
+
+const panierRouteApi = getRouteApi("/panier");
 import { createPeptidePayCheckout } from "@/lib/peptidepay.functions";
+import { createSushippCheckout } from "@/lib/sushipp.functions";
 import { createCryptoPayment, getCryptoPaymentStatus } from "@/lib/crypto-payments.functions";
-import { getMyProfile } from "@/lib/account.functions";
-import { supabase } from "@/integrations/supabase/client";
 import { QRCodeSVG } from "qrcode.react";
 
-type CryptoCurrency = "BTC" | "USDC_POLYGON" | "LTC";
+type CryptoCurrency = "BTC" | "USDC_POLYGON" | "USDT_POLYGON";
 type CryptoPaymentIntent = Awaited<ReturnType<typeof createCryptoPayment>>;
 
 type Step = "livraison" | "paiement" | "virement" | "confirmation" | "peptidepay_redirect" | "crypto_pay";
 type PayMethod = "bank" | "card" | "crypto" | "peptidepay";
-type AppliedPromo = { code: string; rate: number; amountOff: number; freeShipping: boolean };
+type AppliedPromo = { code: string; rate: number; amountOff: number; freeShipping: boolean; fixedTotal?: number };
 
 const validSteps: Step[] = ["livraison", "paiement", "virement", "confirmation", "peptidepay_redirect", "crypto_pay"];
 
@@ -40,14 +42,17 @@ export const Route = createFileRoute("/panier")({
     const step = typeof search.step === "string" && validSteps.includes(search.step as Step) ? (search.step as Step) : "livraison";
     return { step };
   },
+  loader: async () => ({ shipCfg: await getShippingConfigFn() }),
   component: PanierPage,
 });
 
 
 function PanierPage() {
   const cart = useCart();
+  const { shipCfg } = Route.useLoaderData();
   const submitOrderFn = useServerFn(placeOrder);
   const startPeptidePayFn = useServerFn(createPeptidePayCheckout);
+  const startSushippFn = useServerFn(createSushippCheckout);
   const startCryptoPaymentFn = useServerFn(createCryptoPayment);
   const search = useSearch({ from: "/panier" });
   const navigate = useNavigate({ from: "/panier" });
@@ -67,7 +72,6 @@ function PanierPage() {
     country: "France",
   });
   const [orderRef, setOrderRef] = useState<string>("");
-  const [peptidePayUrl, setPeptidePayUrl] = useState<string>("");
   const [paymentMethod, setPaymentMethod] = useState<PayMethod>("peptidepay");
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -75,52 +79,49 @@ function PanierPage() {
   const checkPromo = useServerFn(validatePromoCode);
   const [researchAcceptedAt, setResearchAcceptedAt] = useState<string | null>(null);
   const [cgvAcceptedAt, setCgvAcceptedAt] = useState<string | null>(null);
-  const fetchProfile = useServerFn(getMyProfile);
-  const [cryptoCurrency, setCryptoCurrency] = useState<CryptoCurrency>("BTC");
+  // USDC par défaut : confirmé en secondes pour une fraction de centime de
+  // frais, là où le BTC on-chain fait attendre ~10 min et coûte 1 à 5 EUR.
+  const [cryptoCurrency, setCryptoCurrency] = useState<CryptoCurrency>("USDC_POLYGON");
   const [cryptoIntent, setCryptoIntent] = useState<CryptoPaymentIntent | null>(null);
-
-  // Prefill shipping from profile when user is authenticated
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      const { data } = await supabase.auth.getSession();
-      if (!data.session) return;
-      try {
-        const res = await fetchProfile();
-        if (cancelled) return;
-        setShipping((prev) => ({
-          email: prev.email || res.email || "",
-          firstName: prev.firstName || res.profile?.first_name || "",
-          lastName: prev.lastName || res.profile?.last_name || "",
-          mobile: prev.mobile || res.profile?.phone || "",
-          address: prev.address || res.profile?.address_line || "",
-          address2: prev.address2 || res.profile?.address_line2 || "",
-          postal: prev.postal || res.profile?.postal_code || "",
-          city: prev.city || res.profile?.city || "",
-          country: prev.country || res.profile?.country || "France",
-        }));
-      } catch {
-        // ignore prefill errors
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [fetchProfile]);
 
   const isEmpty = cart.items.length === 0 || cart.count === 0;
 
   const subtotal = Number.isFinite(cart.subtotal) ? cart.subtotal : 0;
-  const rawShipping = subtotal === 0 || subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING;
+  const rawShipping =
+    subtotal === 0 || subtotal >= (shipCfg?.threshold ?? FREE_SHIPPING_THRESHOLD)
+      ? 0
+      : (shipCfg?.fee ?? SHIPPING);
   const shippingFee = promo?.freeShipping ? 0 : rawShipping;
   const rateDiscount = promo ? Math.round(subtotal * promo.rate * 100) / 100 : 0;
   const amountOffDiscount = promo ? promo.amountOff : 0;
-  const discount = Math.min(subtotal, Math.round((rateDiscount + amountOffDiscount) * 100) / 100);
-  const total = Math.max(0, subtotal - discount + shippingFee);
+  const baseDiscount = Math.min(subtotal, Math.round((rateDiscount + amountOffDiscount) * 100) / 100);
+  const total =
+    promo?.fixedTotal != null
+      ? promo.fixedTotal
+      : Math.max(0, subtotal - baseDiscount + shippingFee);
+  const discount =
+    promo?.fixedTotal != null
+      ? Math.max(0, Math.round((subtotal + shippingFee - total) * 100) / 100)
+      : baseDiscount;
 
   const handleConfirmPaiement = async () => {
     if (submitting) return;
     setSubmitError(null);
+    // Garde-fou : adresse incomplète (ex. page rechargée directement sur l'étape
+    // paiement) -> on renvoie remplir les informations de livraison.
+    if (
+      !shipping.email ||
+      !shipping.firstName ||
+      !shipping.lastName ||
+      !shipping.mobile ||
+      !shipping.address ||
+      !shipping.postal ||
+      !shipping.city
+    ) {
+      setSubmitError("Merci de compléter vos informations de livraison.");
+      navigateStep("livraison");
+      return;
+    }
     setSubmitting(true);
     try {
       const methodLabel =
@@ -161,6 +162,11 @@ function PanierPage() {
           cryptoCurrency: paymentMethod === "crypto" ? cryptoCurrency : undefined,
           promoCode: promo?.code ?? null,
           expectedTotal: total,
+          // Preuve d'acceptation : moment exact où les cases ont été cochées.
+          consent: {
+            ruoAcceptedAt: researchAcceptedAt,
+            cgvAcceptedAt,
+          },
         },
       });
       setOrderRef(res.orderNumber);
@@ -171,9 +177,9 @@ function PanierPage() {
           throw new Error("Commande créée mais introuvable.");
         }
         if (paymentMethod === "peptidepay") {
-          const checkout = await startPeptidePayFn({ data: { orderId } });
-          setPeptidePayUrl(checkout.url);
-          navigateStep("peptidepay_redirect");
+          const checkout = await startSushippFn({ data: { orderId } });
+          // Redirection directe vers la page de paiement (pas d'écran intermédiaire).
+          window.location.href = checkout.url;
           return;
         }
         // crypto
@@ -246,7 +252,7 @@ function PanierPage() {
                 try {
                   const res = await checkPromo({ data: { code } });
                   if (res.valid) {
-                    setPromo({ code: res.code, rate: res.rate, amountOff: res.amountOff, freeShipping: res.freeShipping });
+                    setPromo({ code: res.code, rate: res.rate, amountOff: res.amountOff, freeShipping: res.freeShipping, fixedTotal: res.fixedTotal });
                     return true;
                   }
                 } catch {
@@ -295,17 +301,6 @@ function PanierPage() {
             subtotal={subtotal}
             shippingFee={shippingFee}
             onSignaled={() => navigateStep("confirmation")}
-          />
-
-        ) : step === "peptidepay_redirect" ? (
-          <PeptidePayRedirectBlock
-            url={peptidePayUrl}
-            orderRef={orderRef}
-            total={total}
-            cart={cart}
-            subtotal={subtotal}
-            shippingFee={shippingFee}
-            onBack={() => navigateStep("paiement")}
           />
 
         ) : step === "crypto_pay" ? (
@@ -560,23 +555,14 @@ function PaiementBlock({
         <><strong className="text-foreground">⏱ Confirmation définitive en 5 à 10 minutes</strong> après le paiement (délai bancaire). Un email vous est envoyé dès validation — inutile de repayer.</>,
       ],
     },
-    {
-      id: "crypto",
-      title: "Crypto (Bitcoin, USDC, Litecoin)",
-      icon: (
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"><path d="M11.767 19.089c4.924.868 6.14-6.025 1.216-6.894m-1.216 6.894L5.86 18.047m5.908 1.042-.347 1.97m1.563-8.864c4.924.869 6.14-6.025 1.215-6.893m-1.215 6.893L7.116 11.15m6.224-6.91-1.5 8.508m-3.776-.066-1.5 8.509m6.526-15.85L8.34 4.244m6.224 6.91L8.34 4.243m-.225 1.281L4 4.808"/></svg>
-      ),
-      lines: [
-        <>Paiement direct sur notre wallet, <strong className="text-foreground">sans intermédiaire</strong>.</>,
-        <>Validation automatique dès réception on-chain (1 à 10 min selon le réseau).</>,
-      ],
-    },
   ];
 
+  // Litecoin retiré : aucune adresse WALLET_LTC n'est configurée, donc le
+  // choisir levait une exception à la création de la commande.
   const cryptoOptions: Array<{ id: CryptoCurrency; label: string; sub: string }> = [
-    { id: "BTC", label: "Bitcoin", sub: "BTC · réseau Bitcoin" },
-    { id: "USDC_POLYGON", label: "USDC", sub: "Polygon · stablecoin, frais très bas" },
-    { id: "LTC", label: "Litecoin", sub: "LTC · confirmation rapide" },
+    { id: "USDC_POLYGON", label: "USDC", sub: "Polygon · confirmé en secondes, frais quasi nuls" },
+    { id: "USDT_POLYGON", label: "USDT", sub: "Polygon · affiché « USDT0 » dans votre wallet" },
+    { id: "BTC", label: "Bitcoin", sub: "BTC · réseau Bitcoin, ~10 min, frais élevés" },
   ];
 
   return (
@@ -809,8 +795,10 @@ function Recap({
   const [promoOpen, setPromoOpen] = useState(false);
   const [promoInput, setPromoInput] = useState("");
   const [promoError, setPromoError] = useState<string | null>(null);
-  const remaining = Math.max(0, FREE_SHIPPING_THRESHOLD - subtotal);
-  const progress = Math.min(100, (subtotal / FREE_SHIPPING_THRESHOLD) * 100);
+  const shipThreshold =
+    panierRouteApi.useLoaderData().shipCfg?.threshold ?? FREE_SHIPPING_THRESHOLD;
+  const remaining = Math.max(0, shipThreshold - subtotal);
+  const progress = Math.min(100, (subtotal / shipThreshold) * 100);
 
   return (
     <aside className="space-y-4">

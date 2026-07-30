@@ -51,6 +51,19 @@ export const Route = createFileRoute("/api/public/crypto-watcher")({
           buckets.set(k, bucket);
         }
 
+        // 3b. Toute transaction déjà rattachée à une facture est hors jeu.
+        //     Sans ce garde-fou, un seul virement entrant peut satisfaire
+        //     plusieurs commandes et les faire toutes passer en payées.
+        const { data: bound } = await supabaseAdmin
+          .from("crypto_payments")
+          .select("tx_hash")
+          .not("tx_hash", "is", null);
+        const usedHashes = new Set(
+          (bound ?? [])
+            .map((r) => r.tx_hash as string | null)
+            .filter((h): h is string => !!h),
+        );
+
         let updated = 0;
         for (const [key, payments] of buckets) {
           const [currency, address] = key.split("|") as [
@@ -61,9 +74,23 @@ export const Route = createFileRoute("/api/public/crypto-watcher")({
           if (txs.length === 0) continue;
 
           const minConfirmations = mod.requiredConfirmations(currency);
-          for (const payment of payments) {
-            const match = mod.matchTransaction(Number(payment.amount_crypto), currency, txs);
+          // Les factures les plus anciennes servies d'abord : un client qui a
+          // payé avant ne doit pas se faire voler son virement par une commande
+          // créée après lui.
+          const ordered = [...payments].sort((a, b) =>
+            String(a.expires_at).localeCompare(String(b.expires_at)),
+          );
+          for (const payment of ordered) {
+            const match = mod.matchTransaction(
+              Number(payment.amount_crypto),
+              currency,
+              txs,
+              usedHashes,
+            );
             if (!match) continue;
+            // Réservé immédiatement, pour que la facture suivante de ce lot ne
+            // puisse pas réclamer la même transaction.
+            usedHashes.add(match.txHash);
 
             const isConfirmed = match.confirmations >= minConfirmations;
             const newStatus: "detected" | "confirmed" = isConfirmed ? "confirmed" : "detected";
@@ -96,6 +123,21 @@ export const Route = createFileRoute("/api/public/crypto-watcher")({
             }
 
             updated++;
+          }
+
+          // Filet de réconciliation : de l'argent est arrivé sur l'adresse mais
+          // n'a pu être rattaché à aucune facture (montant approximatif, client
+          // hors tunnel, facture expirée). Silencieux, ce cas ressemble à « rien
+          // n'est arrivé » — il doit rester visible dans les logs.
+          const unattributed = txs.filter((tx) => !usedHashes.has(tx.txHash));
+          for (const tx of unattributed) {
+            console.warn(
+              "[crypto-watcher] paiement non attribué",
+              currency,
+              address,
+              tx.txHash,
+              `montant ${tx.amount}`,
+            );
           }
         }
 

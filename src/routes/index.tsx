@@ -4,7 +4,8 @@ import { ProductCard, ProductVisual } from "@/components/ProductCard";
 import { RuoBadge } from "@/components/RuoBadge";
 import { Reveal } from "@/components/Reveal";
 import { HeroVela } from "@/components/HeroVela";
-import { products, formatPrice } from "@/data/products";
+import { formatPrice } from "@/data/products";
+import { getCatalog } from "@/lib/catalog.server";
 import { ShieldCheck, Fingerprint, Truck, FlaskConical, Plus } from "lucide-react";
 
 import promoBacWater from "@/assets/promo-bacwater.png";
@@ -30,6 +31,7 @@ const ALL_PEPTIDES_KEYWORDS = [
 ].join(", ");
 
 export const Route = createFileRoute("/")({
+  loader: async () => ({ products: await getCatalog() }),
   head: () => ({
     meta: [
       { title: "Peptides de recherche — Retatrutide, BPC-157, GHK-Cu, CJC-1295, Semax · Peptinium Labs" },
@@ -83,6 +85,7 @@ export const Route = createFileRoute("/")({
 });
 
 function HomePage() {
+  const { products } = Route.useLoaderData();
   const visibleProducts = products.filter((p) => !p.hidden);
   const featured = visibleProducts.find((p) => p.featured)!;
   const rest = visibleProducts.filter((p) => !p.featured);
@@ -398,8 +401,8 @@ function HomePage() {
                   a: "Signalez-nous le problème sous 48 h avec photos à l'appui. Nous procédons à un remplacement ou remboursement immédiat après vérification.",
                 },
                 {
-                  q: "Puis-je créer un compte professionnel ?",
-                  a: "Oui. Créez votre compte, puis contactez notre équipe pour obtenir le statut « compte laboratoire » avec facturation dédiée et tarifs volume.",
+                  q: "Proposez-vous des tarifs professionnels / laboratoire ?",
+                  a: "Oui. Contactez notre équipe via le support en précisant votre structure : nous mettons en place une facturation dédiée et des tarifs volume.",
                 },
                 {
                   q: "Quel est le délai de livraison en France ?",

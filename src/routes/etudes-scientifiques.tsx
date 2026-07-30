@@ -3,9 +3,10 @@ import { useMemo, useState } from "react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { ProductVisual } from "@/components/ProductCard";
 import { Reveal } from "@/components/Reveal";
-import { products } from "@/data/products";
+import { getCatalog } from "@/lib/catalog.server";
 
 export const Route = createFileRoute("/etudes-scientifiques")({
+  loader: async () => ({ products: await getCatalog() }),
   head: () => ({
     meta: [
       { title: "Bibliographie — Références PubMed & PMC · Peptinium Labs" },
@@ -61,6 +62,7 @@ const SWEEPS =
   "radial-gradient(55% 45% at 82% 10%, color-mix(in oklab, var(--brand-magenta) 26%, transparent) 0%, transparent 70%), radial-gradient(50% 55% at 8% 92%, color-mix(in oklab, var(--brand-cyan) 26%, transparent) 0%, transparent 70%), radial-gradient(70% 55% at 50% 55%, color-mix(in oklab, var(--brand-violet) 16%, transparent) 0%, transparent 78%)";
 
 function StudiesPage() {
+  const { products } = Route.useLoaderData();
   const [q, setQ] = useState("");
 
   const sorted = useMemo(
@@ -75,7 +77,7 @@ function StudiesPage() {
           if (bi === -1) return -1;
           return ai - bi;
         }),
-    [],
+    [products],
   );
 
   const filtered = useMemo(() => {

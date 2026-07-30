@@ -4,20 +4,6 @@ import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { products as catalogProducts } from "@/data/products";
 
-async function getOptionalUserId(): Promise<string | null> {
-  try {
-    const auth = getRequestHeader("authorization") ?? getRequestHeader("Authorization");
-    if (!auth || !auth.toLowerCase().startsWith("bearer ")) return null;
-    const token = auth.slice(7).trim();
-    if (!token) return null;
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { data } = await supabaseAdmin.auth.getUser(token);
-    return data.user?.id ?? null;
-  } catch {
-    return null;
-  }
-}
-
 const itemSchema = z.object({
   slug: z.string().min(1),
   name: z.string().min(1),
@@ -44,6 +30,13 @@ const placeOrderSchema = z.object({
   cryptoCurrency: z.enum(["BTC", "USDC_POLYGON", "LTC"]).optional(),
   promoCode: z.string().trim().max(40).optional().nullable(),
   expectedTotal: z.number().nonnegative().optional(),
+  // Preuve d'acceptation (certification RUO + CGV), horodatée côté client.
+  consent: z
+    .object({
+      ruoAcceptedAt: z.string().max(40).optional().nullable(),
+      cgvAcceptedAt: z.string().max(40).optional().nullable(),
+    })
+    .optional(),
 });
 
 const SHIPPING_FEE_EUR = 3.90;
@@ -84,23 +77,11 @@ async function getOptionalUserEmail(): Promise<{ userId: string | null; email: s
   }
 }
 
-async function isFirstOrderEligible(userId: string | null, email: string | null): Promise<boolean> {
-  if (!userId && !email) return true;
-  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-  const filters: string[] = [];
-  if (userId) filters.push(`user_id.eq.${userId}`);
-  if (email) filters.push(`email.eq.${email}`);
-  let q = supabaseAdmin
-    .from("orders")
-    .select("id", { count: "exact", head: true })
-    .neq("status", "cancelled");
-  q = filters.length > 1
-    ? q.or(filters.join(","))
-    : userId
-      ? q.eq("user_id", userId)
-      : q.eq("email", email!);
-  const { count } = await q;
-  return (count ?? 0) === 0;
+async function isFirstOrderEligible(_userId: string | null, email: string | null): Promise<boolean> {
+  if (!email) return true;
+  const { countMedusaOrdersByEmail } = await import("./medusa.server");
+  const count = await countMedusaOrdersByEmail(email);
+  return count === 0;
 }
 
 export const getFreeWaterEligibility = createServerFn({ method: "POST" })
@@ -124,86 +105,72 @@ export const placeOrder = createServerFn({ method: "POST" })
 
     // Re-price server-side from the same catalog used by the cart, by dosage.
     // This prevents the previous bug where Retatrutide 10 mg was charged as the base 5 mg product price.
-    const slugs = data.items.map((i) => i.slug);
-    const { data: prods, error: prodErr } = await supabaseAdmin
-      .from("products")
-      .select("id,slug,name,stock,active,product_variants(id,dosage,stock,sold_out)")
-      .in("slug", slugs);
-    if (prodErr) throw new Error("Erreur produits");
-    const bySlug = new Map((prods ?? []).map((p: any) => [p.slug, p]));
-
+    const { findAccessory } = await import("@/data/accessories");
     let subtotal = 0;
-    const stockUpdates: Array<{
-      slug: string;
-      productId: string;
-      productStock: number;
-      variantId: string | null;
-      currentVariantStock: number | null;
-      quantity: number;
-    }> = [];
-
     const items = data.items.map((i) => {
-      const p: any = bySlug.get(i.slug);
+      // 1) Peptide (catalogue principal)
       const catalog = findCatalogVariant(i.slug, i.dosage, i.name, i.unitPrice);
-      if (!p || !p.active || !catalog) throw new Error(`Produit indisponible : ${i.slug}`);
-
-      const variantRows = Array.isArray(p.product_variants) ? p.product_variants : [];
-      const variantRow = variantRows.find(
-        (v: any) => normalizeDosage(String(v.dosage ?? "")) === normalizeDosage(catalog.variant.dosage),
-      );
-      const stock = variantRow ? Number(variantRow.stock ?? 0) : Number(p.stock ?? 0);
-      if (catalog.variant.soldOut || variantRow?.sold_out || stock < i.quantity) {
-        throw new Error(`Stock insuffisant pour ${catalog.product.name} ${catalog.variant.dosage}`);
+      if (catalog) {
+        if (catalog.variant.soldOut) {
+          throw new Error(`Stock insuffisant pour ${catalog.product.name} ${catalog.variant.dosage}`);
+        }
+        const unit = Number(catalog.variant.promoPrice ?? catalog.variant.price);
+        const line = roundMoney(unit * i.quantity);
+        subtotal = roundMoney(subtotal + line);
+        return {
+          product_slug: i.slug,
+          dosage: catalog.variant.dosage as string | undefined,
+          product_name: `${catalog.product.name} ${catalog.variant.dosage}`.trim(),
+          quantity: i.quantity,
+          unit_price_eur: unit,
+          line_total_eur: line,
+          is_accessory: false,
+        };
       }
-
-      const unit = Number(catalog.variant.price);
-      const line = roundMoney(unit * i.quantity);
-      subtotal = roundMoney(subtotal + line);
-      stockUpdates.push({
-        slug: i.slug,
-        productId: String(p.id),
-        productStock: Number(p.stock ?? 0),
-        variantId: variantRow?.id ? String(variantRow.id) : null,
-        currentVariantStock: variantRow ? Number(variantRow.stock ?? 0) : null,
-        quantity: i.quantity,
-      });
-      return {
-        product_slug: i.slug,
-        product_name: `${catalog.product.name} ${catalog.variant.dosage}`.trim(),
-        quantity: i.quantity,
-        unit_price_eur: unit,
-        line_total_eur: line,
-      };
+      // 2) Accessoire / pack (catalogue séparé)
+      const acc = findAccessory(i.slug);
+      if (acc) {
+        const unit = Number(acc.priceEUR);
+        const line = roundMoney(unit * i.quantity);
+        subtotal = roundMoney(subtotal + line);
+        return {
+          product_slug: i.slug,
+          dosage: undefined as string | undefined,
+          product_name: acc.name,
+          quantity: i.quantity,
+          unit_price_eur: unit,
+          line_total_eur: line,
+          is_accessory: true,
+        };
+      }
+      throw new Error(`Produit indisponible : ${i.slug}`);
     });
 
 
-    // Server-side promo code validation (fetch first — may unlock free shipping)
+    // Validation code promo côté serveur depuis les Promotions Medusa.
     let discount = 0;
     let appliedPromoCode: string | null = null;
     let promoFreeShipping = false;
     if (data.promoCode && data.promoCode.trim().length > 0) {
-      const code = data.promoCode.trim().toUpperCase();
-      const { data: promo } = await supabaseAdmin
-        .from("promo_codes")
-        .select("code,rate,amount_off_eur,free_shipping,active")
-        .eq("code", code)
-        .eq("active", true)
-        .maybeSingle();
-      if (promo) {
-        const rateDiscount = roundMoney(subtotal * Number(promo.rate ?? 0));
-        const amountOff = roundMoney(Number(promo.amount_off_eur ?? 0));
+      const { validateMedusaPromotion } = await import("./medusa.server");
+      const m = await validateMedusaPromotion(data.promoCode.trim());
+      if (m.valid) {
+        const rateDiscount = roundMoney(subtotal * m.rate);
+        const amountOff = roundMoney(m.amountOff);
         discount = Math.min(subtotal, roundMoney(rateDiscount + amountOff));
-        appliedPromoCode = promo.code;
-        promoFreeShipping = !!promo.free_shipping;
+        appliedPromoCode = m.code;
+        promoFreeShipping = m.freeShipping;
       }
     }
 
-    // Server-side shipping fee (cannot be tampered by the client)
+    // Frais de livraison depuis Medusa (tarif de l'option + seuil de gratuité).
+    const { getShippingConfig } = await import("./medusa.server");
+    const shipCfg = await getShippingConfig();
     const shippingFee = promoFreeShipping
       ? 0
-      : subtotal === 0 || subtotal >= FREE_SHIPPING_THRESHOLD_EUR
+      : subtotal === 0 || subtotal >= shipCfg.threshold
         ? 0
-        : SHIPPING_FEE_EUR;
+        : shipCfg.fee;
 
     const total = roundMoney(Math.max(0, subtotal - discount + shippingFee));
 
@@ -211,61 +178,51 @@ export const placeOrder = createServerFn({ method: "POST" })
       throw new Error("Le montant du panier a changé. Actualisez le panier avant de payer.");
     }
 
-    const userId = await getOptionalUserId();
-
-    const { data: order, error: orderErr } = await supabaseAdmin
-      .from("orders")
-      .insert({
-        status: "pending",
-        total_eur: total,
-        first_name: data.shipping.firstName,
-        last_name: data.shipping.lastName,
-        email: data.shipping.email,
-        phone: data.shipping.phone ?? null,
-        address_line:
+    // Commande créée dans Medusa (source de vérité). L'inventaire est décrémenté
+    // à la confirmation de paiement (webhook Sushipp) via completeMedusaOrder.
+    const { createMedusaDraftOrder } = await import("./medusa.server");
+    const medusaOrder = await createMedusaDraftOrder({
+      items: items.map((i) => ({
+        slug: i.product_slug,
+        dosage: i.dosage,
+        quantity: i.quantity,
+        unitPrice: i.unit_price_eur,
+        title: i.product_name,
+        isAccessory: i.is_accessory,
+      })),
+      shipping: {
+        firstName: data.shipping.firstName,
+        lastName: data.shipping.lastName,
+        address:
           data.shipping.address +
           (data.shipping.address2 ? `, ${data.shipping.address2}` : ""),
-        postal_code: data.shipping.postal,
+        postal: data.shipping.postal,
         city: data.shipping.city,
-        country: data.shipping.country,
-        notes: data.shipping.notes ?? null,
-        user_id: userId,
-        payment_method: data.paymentMethod,
-      })
-      .select("id, order_number, total_eur, payment_method")
-      .single();
-    if (orderErr || !order) throw new Error("Création commande échouée");
-
-    const { error: itemsErr } = await supabaseAdmin
-      .from("order_items")
-      .insert(items.map((i) => ({ ...i, order_id: order.id })));
-    if (itemsErr) throw new Error("Articles non enregistrés");
-
-    // Decrement stock on the ordered dosage, then keep product aggregate stock in sync.
-    for (const update of stockUpdates) {
-      if (update.variantId && update.currentVariantStock !== null) {
-        const nextVariantStock = Math.max(0, update.currentVariantStock - update.quantity);
-        await supabaseAdmin
-          .from("product_variants")
-          .update({ stock: nextVariantStock, sold_out: nextVariantStock <= 0 })
-          .eq("id", update.variantId);
-      }
-
-      const { data: variantsAfter } = await supabaseAdmin
-        .from("product_variants")
-        .select("stock")
-        .eq("product_id", update.productId);
-
-      const nextProductStock =
-        variantsAfter && variantsAfter.length > 0
-          ? variantsAfter.reduce((sum: number, v: any) => sum + Number(v.stock ?? 0), 0)
-          : Math.max(0, update.productStock - update.quantity);
-
-      await supabaseAdmin
-        .from("products")
-        .update({ stock: nextProductStock })
-        .eq("slug", update.slug);
-    }
+        phone: data.shipping.phone ?? null,
+        email: data.shipping.email,
+      },
+      note: data.shipping.notes ?? null,
+      shippingFee,
+      chargeTotal: total,
+      promoCodes: appliedPromoCode ? [appliedPromoCode] : undefined,
+      // Preuve d'acceptation : horodatages client + éléments serveur (non falsifiables).
+      consent: {
+        ruo_accepted_at: data.consent?.ruoAcceptedAt ?? null,
+        cgv_accepted_at: data.consent?.cgvAcceptedAt ?? null,
+        recorded_at: new Date().toISOString(),
+        ip:
+          (getRequestHeader("x-forwarded-for") || "").split(",")[0].trim() ||
+          getRequestHeader("x-real-ip") ||
+          null,
+        user_agent: getRequestHeader("user-agent") || null,
+      },
+    });
+    const order = {
+      id: medusaOrder.orderId,
+      order_number: `PEP-${String(medusaOrder.displayId).padStart(5, "0")}`,
+      total_eur: total,
+      payment_method: data.paymentMethod,
+    };
 
     // ─── Auto-create payment resource (link or crypto intent) BEFORE the email ───
     let peptidePayUrl: string | null = null;
@@ -281,52 +238,60 @@ export const placeOrder = createServerFn({ method: "POST" })
       expiresAt: string;
     } | null = null;
 
-    if (data.paymentMethod === "peptidepay") {
-      try {
-        const { createPeptidePaySession } = await import("./peptidepay.server");
-        const origin = "https://peptinium.com";
-        const session = await createPeptidePaySession({
-          amountCents: Math.round(total * 100),
-          currency: "EUR",
-          customerEmail: data.shipping.email,
-          productName: `Commande ${order.order_number}`,
-          metadata: { order_id: order.id, order_number: order.order_number },
-          successUrl: `${origin}/mon-compte?order=${order.order_number}`,
-          cancelUrl: `${origin}/panier`,
-          idempotencyKey: `order-${order.id}`,
-        });
-        peptidePayUrl = session.url;
-        await supabaseAdmin
-          .from("orders")
-          .update({
-            payment_link: session.url,
-            payment_link_sent_at: new Date().toISOString(),
-          })
-          .eq("id", order.id);
-      } catch (e) {
-        console.error("peptidepay auto-create failed", e);
-      }
-    } else if (data.paymentMethod === "crypto" && data.cryptoCurrency) {
+    // Le paiement Sushipp (session + cookie de retour) est créé par
+    // createSushippCheckout, appelé par le panier après placeOrder.
+    if (data.paymentMethod === "crypto" && data.cryptoCurrency) {
       try {
         const mod = await import("./crypto-payments.server");
         const address = mod.getWalletAddress(data.cryptoCurrency);
         const rate = await mod.fetchEurRate(data.cryptoCurrency);
-        const amountCrypto = mod.computeUniqueAmount(total, rate, data.cryptoCurrency, order.id);
         const expiresAt = new Date(Date.now() + 60 * 60 * 1000).toISOString();
-        const { data: inserted } = await supabaseAdmin
-          .from("crypto_payments")
-          .insert({
-            order_id: order.id,
-            currency: data.cryptoCurrency,
-            wallet_address: address,
-            amount_eur: total,
-            rate_eur_per_unit: rate,
-            amount_crypto: amountCrypto,
-            status: "pending",
-            expires_at: expiresAt,
-          })
-          .select("*")
-          .single();
+
+        // Le montant identifie la commande sur la chaîne : il doit être unique
+        // parmi les factures ouvertes. On relit les montants réservés à chaque
+        // tentative, l'index unique tranchant les courses (Postgres 23505).
+        let inserted: Record<string, unknown> | null = null;
+        let amountCrypto = 0;
+
+        for (let attempt = 0; attempt < 5 && !inserted; attempt++) {
+          const { data: openRows } = await supabaseAdmin
+            .from("crypto_payments")
+            .select("amount_crypto")
+            .eq("currency", data.cryptoCurrency)
+            .in("status", ["pending", "detected"]);
+
+          amountCrypto = mod.allocateUniqueAmount(
+            total,
+            rate,
+            data.cryptoCurrency,
+            (openRows ?? []).map((r) => Number(r.amount_crypto)),
+          );
+
+          const { data: row, error: insErr } = await supabaseAdmin
+            .from("crypto_payments")
+            .insert({
+              order_id: order.id,
+              currency: data.cryptoCurrency,
+              wallet_address: address,
+              amount_eur: total,
+              rate_eur_per_unit: rate,
+              amount_crypto: amountCrypto,
+              status: "pending",
+              expires_at: expiresAt,
+            })
+            .select("*")
+            .single();
+
+          if (!insErr && row) {
+            inserted = row;
+            break;
+          }
+          if (insErr && (insErr as { code?: string }).code !== "23505") {
+            console.error("[placeOrder] insertion crypto impossible", insErr);
+            break;
+          }
+        }
+
         if (inserted) {
           const meta = mod.CRYPTO_META[data.cryptoCurrency];
           cryptoDetails = {
@@ -360,29 +325,9 @@ export const placeOrder = createServerFn({ method: "POST" })
     } catch (e) {
       console.error("admin push (new order) failed", e);
     }
-    try {
-      const { enqueueAppEmail } = await import("./email/enqueue.server");
-      await enqueueAppEmail({
-        templateName: "admin-new-order",
-        recipientEmail: "peptinium@gmail.com",
-        idempotencyKey: `admin-new-${order.id}`,
-        templateData: {
-          orderNumber: order.order_number,
-          customerName: `${data.shipping.firstName} ${data.shipping.lastName}`.trim(),
-          email: data.shipping.email,
-          totalEur: Number(order.total_eur),
-          paymentMethod: data.paymentMethod,
-          adminUrl: "https://peptinium.com/admin/paiements",
-          items: items.map((i) => ({
-            name: i.product_name,
-            quantity: i.quantity,
-            price_eur: Number(i.unit_price_eur),
-          })),
-        },
-      });
-    } catch (e) {
-      console.error("admin email (new order) failed", e);
-    }
+    // Pas d'email admin a la creation (statut pending) : le template
+    // admin-new-order dit "Commande payee" et ne doit partir qu'au
+    // PAIEMENT reel (via notifyAdminsOrderPaid / sushipp-webhook).
 
 
     // Customer "order received" — includes the payment link / crypto details when available
@@ -427,23 +372,26 @@ export const validatePromoCode = createServerFn({ method: "POST" })
     z.object({ code: z.string().trim().min(1).max(40) }).parse(d),
   )
   .handler(async ({ data }) => {
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const code = data.code.trim().toUpperCase();
-    const { data: promo } = await supabaseAdmin
-      .from("promo_codes")
-      .select("code,rate,amount_off_eur,free_shipping,active")
-      .eq("code", code)
-      .eq("active", true)
-      .maybeSingle();
-    if (!promo) return { valid: false as const };
+    const { validateMedusaPromotion } = await import("./medusa.server");
+    const m = await validateMedusaPromotion(data.code.trim());
+    if (!m.valid) return { valid: false as const };
     return {
       valid: true as const,
-      code: promo.code,
-      rate: Number(promo.rate ?? 0),
-      amountOff: Number(promo.amount_off_eur ?? 0),
-      freeShipping: !!promo.free_shipping,
+      code: m.code,
+      rate: m.rate,
+      amountOff: m.amountOff,
+      freeShipping: m.freeShipping,
+      fixedTotal: undefined as number | undefined,
     };
   });
+
+// Config de livraison (tarif + seuil de gratuité) depuis Medusa, pour le panier.
+export const getShippingConfigFn = createServerFn({ method: "GET" }).handler(
+  async () => {
+    const { getShippingConfig } = await import("./medusa.server");
+    return await getShippingConfig();
+  },
+);
 
 
 // ─────── Admin server functions ───────

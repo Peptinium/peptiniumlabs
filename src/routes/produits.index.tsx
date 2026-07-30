@@ -2,13 +2,12 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/SiteLayout";
 import { ProductCard } from "@/components/ProductCard";
 import { Reveal } from "@/components/Reveal";
-import { products } from "@/data/products";
-
-const visibleProducts = products.filter((p) => !p.hidden);
+import { getCatalog } from "@/lib/catalog.server";
 
 const SITE_URL = "https://peptinium.com";
 
 export const Route = createFileRoute("/produits/")({
+  loader: async () => ({ products: await getCatalog() }),
   head: () => ({
     meta: [
       { title: "Catalogue de peptides — Retatrutide, BPC-157, GHK-Cu, CJC-1295, Semax, Melanotan, NAD+ · Peptinium Labs" },
@@ -32,6 +31,8 @@ export const Route = createFileRoute("/produits/")({
 });
 
 function CatalogPage() {
+  const { products } = Route.useLoaderData();
+  const visibleProducts = products.filter((p) => !p.hidden);
   return (
     <SiteLayout>
       {/* HERO éditorial */}

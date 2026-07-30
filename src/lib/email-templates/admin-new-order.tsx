@@ -13,10 +13,15 @@ interface Props {
   items?: Array<{ name: string; quantity: number; price_eur: number }>
 }
 
+// Ces libellés disent à l'admin ce qu'il lui reste à faire. Le crypto ne
+// demande plus rien depuis que l'encaissement est automatisé : l'adresse et le
+// montant sont affichés au client dans le tunnel, et le watcher valide la
+// commande dès la confirmation on-chain. « adresse à envoyer » était un reste
+// de l'ancien fonctionnement manuel et induisait en erreur.
 const METHOD_LABEL: Record<string, string> = {
   bank: 'Virement bancaire',
   card: 'Carte bancaire (lien à envoyer)',
-  crypto: 'Crypto (adresse à envoyer)',
+  crypto: 'Crypto (on-chain — validé automatiquement)',
   peptidepay: 'PeptidePay (hébergé — automatique)',
 }
 

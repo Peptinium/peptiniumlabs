@@ -2,10 +2,12 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { Reveal } from "@/components/Reveal";
-import { products, minPrice, formatPrice, type Product } from "@/data/products";
+import { minPrice, formatPrice, type Product } from "@/data/products";
+import { getCatalog } from "@/lib/catalog.server";
 import { FlaskConical, HelpCircle, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/quiz")({
+  loader: async () => ({ products: await getCatalog() }),
   head: () => ({
     meta: [
       { title: "Quiz labo — Trouver le peptide adapté à votre recherche | Peptinium Labs" },
@@ -77,6 +79,7 @@ const GRADIENT_BTN =
   "linear-gradient(120deg, oklch(0.70 0.18 210) 0%, oklch(0.58 0.28 290) 55%, oklch(0.68 0.27 345) 100%)";
 
 function QuizPage() {
+  const { products } = Route.useLoaderData();
   const [selected, setSelected] = useState<string[]>([]);
   const [submitted, setSubmitted] = useState(false);
 
@@ -91,7 +94,7 @@ function QuizPage() {
     return products
       .filter((p) => !p.hidden && cats.has(p.category))
       .sort((a, b) => b.references.length - a.references.length);
-  }, [submitted, selected]);
+  }, [submitted, selected, products]);
 
   return (
     <SiteLayout>
