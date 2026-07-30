@@ -6,7 +6,7 @@ import { Reveal } from "@/components/Reveal";
 import { getCatalog } from "@/lib/catalog.server";
 
 export const Route = createFileRoute("/etudes-scientifiques")({
-  loader: async () => ({ products: await getCatalog() }),
+  loader: async (): Promise<{ products: Product[] }> => ({ products: await getCatalog() }),
   head: () => ({
     meta: [
       { title: "Bibliographie — Références PubMed & PMC · Peptinium Labs" },

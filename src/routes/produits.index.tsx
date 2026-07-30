@@ -7,7 +7,7 @@ import { getCatalog } from "@/lib/catalog.server";
 const SITE_URL = "https://peptinium.com";
 
 export const Route = createFileRoute("/produits/")({
-  loader: async () => ({ products: await getCatalog() }),
+  loader: async (): Promise<{ products: Product[] }> => ({ products: await getCatalog() }),
   head: () => ({
     meta: [
       { title: "Catalogue de peptides — Retatrutide, BPC-157, GHK-Cu, CJC-1295, Semax, Melanotan, NAD+ · Peptinium Labs" },

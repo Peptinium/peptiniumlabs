@@ -39,7 +39,7 @@ const ALL_PEPTIDES_KEYWORDS = [
 ].join(", ");
 
 export const Route = createFileRoute("/")({
-  loader: async () => ({ products: await getCatalog() }),
+  loader: async (): Promise<{ products: Product[] }> => ({ products: await getCatalog() }),
   head: () => ({
     meta: [
       { title: "Peptides de recherche — Retatrutide, BPC-157, GHK-Cu, CJC-1295, Semax · Peptinium Labs" },

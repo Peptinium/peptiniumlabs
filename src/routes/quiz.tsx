@@ -7,7 +7,7 @@ import { getCatalog } from "@/lib/catalog.server";
 import { FlaskConical, HelpCircle, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/quiz")({
-  loader: async () => ({ products: await getCatalog() }),
+  loader: async (): Promise<{ products: Product[] }> => ({ products: await getCatalog() }),
   head: () => ({
     meta: [
       { title: "Quiz labo — Trouver le peptide adapté à votre recherche | Peptinium Labs" },

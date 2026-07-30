@@ -6,7 +6,7 @@ import { getCatalog } from "@/lib/catalog.server";
 import { Sparkles, Package } from "lucide-react";
 
 export const Route = createFileRoute("/offres")({
-  loader: async () => ({ products: await getCatalog() }),
+  loader: async (): Promise<{ products: Product[] }> => ({ products: await getCatalog() }),
   head: () => ({
     meta: [
       { title: "Offres & remises quantité — Retatrutide 10 mg · Peptinium Labs" },

@@ -7,7 +7,7 @@ import { getCatalog } from "@/lib/catalog.server";
 import { GitCompare, Scale, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/comparateur")({
-  loader: async () => ({ products: await getCatalog() }),
+  loader: async (): Promise<{ products: Product[] }> => ({ products: await getCatalog() }),
   head: () => ({
     meta: [
       { title: "Comparateur de peptides — Peptinium Labs" },
