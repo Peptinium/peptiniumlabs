@@ -13,18 +13,19 @@ import { useRevealBlur } from "@/hooks/useScrollBlur";
 export function HeroVela() {
   useRevealBlur();
   return (
-    <section data-reveal-blur className="relative overflow-hidden bg-background">
-      {/* Ambient brand halo — cyan → violet → magenta, centré */}
+    <section data-reveal-blur className="relative overflow-hidden bg-red-600">
+      {/* Ambient red halo */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(45% 40% at 25% 75%, color-mix(in oklab, var(--brand-cyan) 22%, transparent) 0%, transparent 70%)," +
-            "radial-gradient(45% 40% at 75% 75%, color-mix(in oklab, var(--brand-magenta) 22%, transparent) 0%, transparent 70%)," +
-            "radial-gradient(60% 50% at 50% 60%, color-mix(in oklab, var(--brand-violet) 14%, transparent) 0%, transparent 75%)",
+            "radial-gradient(45% 40% at 25% 75%, rgba(255,0,0,0.35) 0%, transparent 70%)," +
+            "radial-gradient(45% 40% at 75% 75%, rgba(180,0,0,0.35) 0%, transparent 70%)," +
+            "radial-gradient(60% 50% at 50% 60%, rgba(220,0,0,0.25) 0%, transparent 75%)",
         }}
       />
+
 
       <div className="container-prose relative flex flex-col items-center px-5 pt-20 pb-24 text-center lg:pt-28 lg:pb-32">
         <span className="block text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">

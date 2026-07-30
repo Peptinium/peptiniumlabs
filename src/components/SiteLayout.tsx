@@ -5,7 +5,7 @@ import { Footer } from "./Footer";
 import { RuoBanner } from "./RuoBanner";
 import { RuoModal } from "./RuoModal";
 
-export function SiteLayout({ children, showRuoModal = true }: { children: ReactNode; showRuoModal?: boolean }) {
+export function SiteLayout({ children, showRuoModal = true, className = "" }: { children: ReactNode; showRuoModal?: boolean; className?: string }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const [enterKey, setEnterKey] = useState(pathname);
   useEffect(() => {
@@ -13,7 +13,8 @@ export function SiteLayout({ children, showRuoModal = true }: { children: ReactN
   }, [pathname]);
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className={`flex min-h-screen flex-col ${className || "bg-background"}`}>
+
       <RuoBanner />
       <Header />
       <main key={enterKey} className="page-enter flex-1 overflow-x-clip">{children}</main>

@@ -99,8 +99,8 @@ function HomePage() {
 
 
   return (
-    <div className="min-h-screen bg-red-600" style={{ background: "linear-gradient(135deg, #ff0000 0%, #cc0000 100%)" }}>
-    <SiteLayout>
+    <SiteLayout className="bg-red-600">
+
 
       {/* ============ 0. TOP MARQUEE — brand bandeau ============ */}
       <section aria-hidden className="relative overflow-hidden border-b border-border/60 brand-gradient-cta">
@@ -662,7 +662,7 @@ function HomePage() {
         </div>
       </section>
     </SiteLayout>
-    </div>
+
 
   );
 }
