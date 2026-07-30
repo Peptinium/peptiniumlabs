@@ -1539,13 +1539,29 @@ function CryptoPaymentBlock({
             <div className="mt-1 font-display text-base font-medium">{current.network}</div>
           </div>
         </div>
+        <div className="border-b border-border bg-destructive/5 p-5">
+          <div className="flex gap-3">
+            <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-destructive/15 text-[11px] font-bold text-destructive">
+              !
+            </span>
+            <div className="text-xs leading-relaxed text-foreground">
+              <div className="font-display text-sm font-semibold">N'utilisez pas l'option « Max » de votre wallet</div>
+              <p className="mt-1 text-muted-foreground">
+                Envoyez le montant exact affiché ci-dessus,{" "}
+                <strong className="text-foreground">au centime près</strong>. L'option « Max » (ou
+                « Envoyer tout ») déduit les frais de réseau et modifie le montant reçu : la commande
+                ne serait alors pas reconnue automatiquement.
+              </p>
+            </div>
+          </div>
+        </div>
         <div className="space-y-2 bg-surface p-5 text-xs text-muted-foreground">
           <p>
             <strong className="text-foreground">Envoyez uniquement {current.unit}</strong> sur le réseau <strong className="text-foreground">{current.network}</strong>.
             Un envoi sur un autre réseau serait perdu.
           </p>
           <p>
-            Le montant doit correspondre <strong className="text-foreground">exactement</strong> (à 0,5% près). Les derniers chiffres identifient votre commande.
+            Les derniers chiffres du montant identifient votre commande : ne les arrondissez pas.
           </p>
           <p>
             La commande est validée automatiquement après confirmation on-chain (généralement 1 à 10 min).
@@ -1555,7 +1571,11 @@ function CryptoPaymentBlock({
 
       {current.status === "expired" && (
         <div className="mt-6 text-center">
-          <Link to="/panier" className="inline-block rounded-xl border border-border bg-card px-6 py-3 text-sm font-semibold text-foreground hover:border-accent">
+          <Link
+            to="/panier"
+            search={{ step: "livraison" as const }}
+            className="inline-block rounded-xl border border-border bg-card px-6 py-3 text-sm font-semibold text-foreground hover:border-accent"
+          >
             Recommencer la commande
           </Link>
         </div>
