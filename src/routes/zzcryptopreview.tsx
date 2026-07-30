@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { CryptoPaymentBlock } from "./panier";
 import { CartProvider, useCart } from "@/lib/cart";
 
-export const Route = createFileRoute("/__cryptopreview")({
+export const Route = createFileRoute("/zzcryptopreview")({
   component: Preview,
   validateSearch: (s: Record<string, unknown>) => ({ st: String(s.st ?? "pending") }),
 });
