@@ -1,356 +1,420 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { Reveal } from "@/components/Reveal";
-import { FlaskConical, Droplets, Syringe, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Droplets, Syringe } from "lucide-react";
 
 export const Route = createFileRoute("/calculatrice")({
   head: () => ({
     meta: [
-      { title: "Calculatrice de reconstitution de peptide — Peptinium Labs" },
+      { title: "Calculateur de reconstitution — Peptinium Labs" },
       {
         name: "description",
         content:
-          "Calculatrice de dilution pour peptides lyophilisés reconstitués à l'eau bactériostatique. Volume en unités de seringue U-100, µL et mL. Usage recherche uniquement.",
+          "Calcule précisément combien d'unités tirer sur ta seringue à partir des données de ta fiole. Algorithme déterministe, sans IA, sans conseil médical.",
       },
-      { property: "og:title", content: "Calculatrice de reconstitution — Peptinium Labs" },
-      { property: "og:description", content: "Calcul du volume à prélever après reconstitution d'un flacon de peptide lyophilisé." },
-      { property: "og:url", content: "/calculatrice" },
+      { property: "og:title", content: "Calculateur de reconstitution — Peptinium Labs" },
+      {
+        property: "og:description",
+        content:
+          "Deux étapes : volume d'eau bactériostatique à injecter, puis unités U-100 à tirer selon la dose.",
+      },
     ],
     links: [{ rel: "canonical", href: "/calculatrice" }],
   }),
   component: CalcPage,
 });
 
-type Unit = "mg" | "mcg";
+// Presets typiques (mg/ml recommandé & doses)
+const PEPTIDES = [
+  { id: "none", label: "Aucun (saisie libre)", mg: 0, water: 0, dose: 0 },
+  { id: "reta", label: "Retatrutide", mg: 10, water: 2, dose: 2 },
+  { id: "cjc-ipa", label: "CJC-1295 + Ipamorelin", mg: 10, water: 2, dose: 0.3 },
+  { id: "bpc-157", label: "BPC-157", mg: 5, water: 2, dose: 0.25 },
+  { id: "tb-500", label: "TB-500", mg: 10, water: 2, dose: 2 },
+  { id: "ghk-cu", label: "GHK-Cu", mg: 50, water: 3, dose: 2 },
+  { id: "mt-2", label: "Melanotan-2", mg: 10, water: 2, dose: 0.5 },
+  { id: "semaglutide", label: "Semaglutide", mg: 5, water: 2, dose: 0.25 },
+] as const;
 
-const SWEEPS =
-  "radial-gradient(55% 45% at 82% 10%, color-mix(in oklab, var(--brand-magenta) 22%, transparent) 0%, transparent 70%), radial-gradient(50% 55% at 8% 92%, color-mix(in oklab, var(--brand-cyan) 22%, transparent) 0%, transparent 70%), radial-gradient(70% 55% at 50% 55%, color-mix(in oklab, var(--brand-violet) 14%, transparent) 0%, transparent 78%)";
-
-const GRADIENT_BTN =
-  "linear-gradient(120deg, oklch(0.70 0.18 210) 0%, oklch(0.58 0.28 290) 55%, oklch(0.68 0.27 345) 100%)";
+const MG_OPTIONS = [5, 10, 15, 20, 30];
+const WATER_OPTIONS = [1, 2, 3, 4, 5];
 
 function CalcPage() {
-  const [peptideValue, setPeptideValue] = useState<string>("");
-  const [peptideUnit, setPeptideUnit] = useState<Unit>("mg");
-  const [waterMl, setWaterMl] = useState<string>("");
-  const [doseValue, setDoseValue] = useState<string>("");
-  const [doseUnit, setDoseUnit] = useState<Unit>("mg");
+  const [step, setStep] = useState<1 | 2>(1);
+  const [preset, setPreset] = useState<string>("none");
+  const [mg, setMg] = useState<number>(10);
+  const [water, setWater] = useState<number>(2);
+  const [dose, setDose] = useState<number>(2); // mg
 
-  const result = useMemo(() => {
-    const peptideMg =
-      (parseFloat(peptideValue) || 0) * (peptideUnit === "mg" ? 1 : 0.001);
-    const water = parseFloat(waterMl) || 0;
-    const doseMg =
-      (parseFloat(doseValue) || 0) * (doseUnit === "mg" ? 1 : 0.001);
-    const conc = water > 0 ? peptideMg / water : 0; // mg/mL
-    const volumeMl = conc > 0 ? doseMg / conc : 0;
-    const volumeUl = volumeMl * 1000;
-    const units = volumeMl * 100; // seringue insuline U-100
-    const dosesPerVial = doseMg > 0 ? peptideMg / doseMg : 0;
-    return { peptideMg, doseMg, conc, volumeMl, volumeUl, units, dosesPerVial };
-  }, [peptideValue, peptideUnit, waterMl, doseValue, doseUnit]);
+  const applyPreset = (id: string) => {
+    setPreset(id);
+    const p = PEPTIDES.find((x) => x.id === id);
+    if (p && p.mg > 0) {
+      setMg(p.mg);
+      setWater(p.water);
+      setDose(p.dose);
+    }
+  };
 
-  const valid =
-    result.peptideMg > 0 && parseFloat(waterMl) > 0 && result.doseMg > 0;
+  const concentration = water > 0 ? mg / water : 0; // mg/ml
+  const volumeMl = concentration > 0 ? dose / concentration : 0;
+  const units = volumeMl * 100; // U-100
+  const dosesPerVial = dose > 0 ? mg / dose : 0;
 
   return (
     <SiteLayout>
-      <div className="bg-background text-foreground">
-        {/* ============ HERO ============ */}
-        <section className="relative overflow-hidden">
-          <div className="pointer-events-none absolute inset-0" aria-hidden style={{ background: SWEEPS }} />
-          <div
-            className="pointer-events-none absolute inset-x-0 top-0 h-px"
-            aria-hidden
-            style={{ background: "linear-gradient(90deg, transparent, color-mix(in oklab, var(--brand-violet) 60%, transparent), transparent)" }}
-          />
+      {/* Back link + step header */}
+      <section className="border-b border-border/60 bg-background">
+        <div className="container-prose px-5 pt-10 pb-4">
+          <Link
+            to="/guide"
+            className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground hover:text-accent"
+          >
+            <ArrowLeft className="size-3" strokeWidth={2} /> Retour aux guides
+          </Link>
+        </div>
+        <div className="container-prose px-5 pb-12">
+          <Reveal>
+            <span className="block text-accent font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
+              — Guide recherche · Module 2
+            </span>
+          </Reveal>
+          <Reveal delay={80}>
+            <h1 className="mt-6 max-w-[18ch] text-[44px] font-semibold leading-[1.02] tracking-[-0.03em] text-foreground sm:text-[62px] lg:text-[76px]">
+              Calculateur de <span className="logo-gradient-text italic font-light">reconstitution</span>.
+            </h1>
+          </Reveal>
+          <Reveal delay={140}>
+            <p className="mt-6 max-w-2xl text-[16px] leading-[1.6] text-muted-foreground">
+              Calcule précisément combien d'unités tirer sur ta seringue à partir des données
+              de ta fiole. Algorithme déterministe, aucune IA, aucune recommandation médicale.
+            </p>
+          </Reveal>
 
-          <div className="relative mx-auto max-w-[1400px] px-6 pt-24 pb-16 lg:px-10 sm:pt-32 sm:pb-20">
-            <Reveal>
-              <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.28em] text-accent">
-                <span className="inline-block size-1.5 rounded-full bg-muted" />
-                Outils labo — Reconstitution
-              </div>
-            </Reveal>
-
-            <Reveal delay={80}>
-              <h1
-                className="shimmer-text mt-8 max-w-4xl text-[44px] font-semibold leading-[1.0] tracking-[-0.035em] sm:text-[80px] sm:leading-[0.96]"
-                data-shimmer="Calculez votre dilution en une seconde."
-              >
-                Calculez votre dilution en une seconde.
-              </h1>
-            </Reveal>
-
-            <Reveal delay={160}>
-              <p className="mt-8 max-w-2xl text-[17px] leading-[1.6] text-muted-foreground sm:text-[19px]">
-                Volume à prélever après reconstitution d'un flacon de peptide lyophilisé
-                avec de l'eau bactériostatique. Résultat exprimé en unités de seringue
-                insuline U-100, en microlitres et en millilitres.{" "}
-                <span className="text-foreground">Usage recherche in vitro uniquement.</span>
-              </p>
-            </Reveal>
-          </div>
-        </section>
-
-        {/* ============ CALCULATOR ============ */}
-        <section className="relative border-t border-border">
-          <div className="mx-auto max-w-[1400px] px-6 py-20 lg:px-10 sm:py-24">
-            <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
-              {/* --- Inputs --- */}
-              <Reveal>
-                <div className="relative overflow-hidden rounded-[28px] border border-border/70 bg-card p-8 shadow-[0_30px_80px_-40px_color-mix(in_oklab,var(--brand-violet)_35%,transparent)] sm:p-10">
-                  <div
-                    className="pointer-events-none absolute inset-x-0 top-0 h-px"
-                    aria-hidden
-                    style={{ background: "linear-gradient(90deg, transparent, color-mix(in oklab, var(--brand-violet) 60%, transparent), transparent)" }}
-                  />
-
-                  <span className="block font-mono text-[10px] uppercase tracking-[0.28em] text-accent">
-                    — Vos paramètres
+          {/* Stepper */}
+          <div className="mt-10 grid grid-cols-2 gap-3 sm:max-w-xl">
+            {[
+              { n: 1 as const, label: "Combien d'eau ajouter ?", Icon: Droplets },
+              { n: 2 as const, label: "Combien d'unités tirer ?", Icon: Syringe },
+            ].map((s) => {
+              const active = step === s.n;
+              const done = step > s.n;
+              return (
+                <button
+                  key={s.n}
+                  onClick={() => setStep(s.n)}
+                  className={`flex items-center gap-3 rounded-2xl border px-4 py-3 text-left transition ${
+                    active
+                      ? "border-foreground bg-foreground text-background"
+                      : "border-border bg-card text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  <span className="grid size-7 place-items-center rounded-full border border-current text-[11px] font-semibold">
+                    {done ? <Check className="size-3.5" strokeWidth={2.5} /> : s.n}
                   </span>
-                  <h2 className="mt-3 text-[26px] font-semibold leading-[1.1] tracking-[-0.02em] text-foreground sm:text-[32px]">
-                    Renseignez les valeurs.
-                  </h2>
-                  <p className="mt-2 text-[13.5px] leading-[1.6] text-muted-foreground">
-                    Basculez librement entre milligrammes et microgrammes selon votre étiquette.
-                  </p>
+                  <span className="flex-1 font-mono text-[11px] uppercase tracking-[0.18em]">
+                    {s.label}
+                  </span>
+                  <s.Icon className="size-4 opacity-70" strokeWidth={1.6} />
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
-                  <div className="mt-9 space-y-6">
-                    <UnitField
-                      Icon={FlaskConical}
-                      label="Quantité de peptide dans le flacon"
-                      value={peptideValue}
-                      onChange={setPeptideValue}
-                      unit={peptideUnit}
-                      onUnitChange={setPeptideUnit}
-                      placeholder="ex. 10 ou 10000"
+      {/* Grid */}
+      <section className="bg-surface/40">
+        <div className="container-prose grid gap-5 px-5 py-12 lg:grid-cols-2 lg:py-16">
+          {/* LEFT — inputs */}
+          <div className="rounded-2xl border border-border bg-card p-6 lg:p-8">
+            <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+              Étape {step} — {step === 1 ? "Données de la fiole" : "Dose à injecter"}
+            </div>
+            <h2 className="mt-2 font-display text-2xl font-semibold tracking-tight">
+              {step === 1 ? "Paramètres de reconstitution" : "Volume à tirer"}
+            </h2>
+
+            <div className="mt-8 space-y-8">
+              {step === 1 && (
+                <>
+                  {/* Preset */}
+                  <Field label="Peptide (optionnel — pré-remplit les valeurs typiques)">
+                    <select
+                      value={preset}
+                      onChange={(e) => applyPreset(e.target.value)}
+                      className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm"
+                    >
+                      {PEPTIDES.map((p) => (
+                        <option key={p.id} value={p.id}>{p.label}</option>
+                      ))}
+                    </select>
+                  </Field>
+
+                  {/* mg */}
+                  <Field label="Quantité de peptide dans la fiole">
+                    <PillGroup
+                      options={MG_OPTIONS}
+                      value={mg}
+                      onChange={setMg}
+                      suffix="mg"
                     />
-
-                    <div>
-                      <label className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-                        <Droplets className="size-3.5 text-accent" strokeWidth={1.6} />
-                        Eau bactériostatique <span className="normal-case tracking-normal text-muted-foreground/70">(mL)</span>
-                      </label>
+                    <div className="mt-3 flex items-center gap-2">
                       <input
                         type="number"
-                        inputMode="decimal"
-                        step={0.1}
-                        min={0}
-                        value={waterMl}
-                        onChange={(e) => setWaterMl(e.target.value)}
-                        placeholder="ex. 2"
-                        className="mt-2 w-full rounded-xl border border-border/70 bg-background px-4 py-3 text-[15px] font-medium text-foreground outline-none transition-all placeholder:text-muted-foreground/50 focus:border-[color-mix(in_oklab,var(--brand-violet)_60%,var(--border))] focus:shadow-[0_0_0_4px_color-mix(in_oklab,var(--brand-violet)_12%,transparent)]"
+                        value={mg}
+                        onChange={(e) => setMg(parseFloat(e.target.value) || 0)}
+                        className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm"
                       />
+                      <span className="font-mono text-xs text-muted-foreground">mg</span>
                     </div>
+                    <p className="mt-2 text-xs text-muted-foreground">Indiquée sur l'étiquette de ta fiole.</p>
+                  </Field>
 
-                    <UnitField
-                      Icon={Syringe}
-                      label="Dose souhaitée par injection"
-                      value={doseValue}
-                      onChange={setDoseValue}
-                      unit={doseUnit}
-                      onUnitChange={setDoseUnit}
-                      placeholder="ex. 0,25 ou 250"
+                  {/* water */}
+                  <Field label="Volume d'eau bactériostatique">
+                    <PillGroup
+                      options={WATER_OPTIONS}
+                      value={water}
+                      onChange={setWater}
+                      suffix="ml"
                     />
-                  </div>
+                  </Field>
+                </>
+              )}
 
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setPeptideValue("");
-                      setWaterMl("");
-                      setDoseValue("");
-                    }}
-                    className="mt-8 inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    ↺ Réinitialiser
-                  </button>
-                </div>
-              </Reveal>
-
-              {/* --- Results --- */}
-              <Reveal delay={80}>
-                <div className="flex h-full flex-col gap-5">
-                  {/* Result hero */}
-                  <div
-                    className="relative overflow-hidden rounded-[28px] border border-transparent p-[1px]"
-                    style={{ background: GRADIENT_BTN }}
-                  >
-                    <div className="relative flex flex-col rounded-[27px] bg-card px-8 py-10 sm:px-10 sm:py-12">
-                      <div
-                        className="pointer-events-none absolute inset-0 opacity-70"
-                        aria-hidden
-                        style={{
-                          background:
-                            "radial-gradient(70% 60% at 80% 10%, color-mix(in oklab, var(--brand-violet) 14%, transparent), transparent 70%), radial-gradient(60% 60% at 10% 90%, color-mix(in oklab, var(--brand-cyan) 12%, transparent), transparent 70%)",
-                        }}
+              {step === 2 && (
+                <>
+                  <Field label="Dose souhaitée par injection">
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="number"
+                        step="0.05"
+                        value={dose}
+                        onChange={(e) => setDose(parseFloat(e.target.value) || 0)}
+                        className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm"
                       />
-                      <div className="relative">
-                        <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.28em] text-accent">
-                          <Sparkles className="size-3.5" strokeWidth={1.6} />
-                          Volume à prélever
-                        </div>
-
-                        <div className="mt-6 flex items-baseline gap-3">
-                          <span
-                            className="font-display text-[72px] font-semibold leading-none tracking-[-0.04em] sm:text-[104px]"
-                            style={{
-                              backgroundImage: GRADIENT_BTN,
-                              WebkitBackgroundClip: "text",
-                              WebkitTextFillColor: "transparent",
-                              backgroundClip: "text",
-                            }}
-                          >
-                            {valid ? fmt(result.units, 1) : "—"}
-                          </span>
-                          <span className="font-mono text-[12px] uppercase tracking-[0.22em] text-muted-foreground">
-                            unités
-                          </span>
-                        </div>
-                        <p className="mt-3 text-[13.5px] leading-[1.55] text-muted-foreground">
-                          sur seringue insuline U-100 (1 mL = 100 unités)
-                        </p>
-
-                        <div className="mt-7 flex flex-wrap gap-x-6 gap-y-2 border-t border-border pt-5 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-                          <span>
-                            µL <span className="ml-1.5 text-foreground">{valid ? fmt(result.volumeUl, 1) : "—"}</span>
-                          </span>
-                          <span>
-                            mL <span className="ml-1.5 text-foreground">{valid ? fmt(result.volumeMl, 3) : "—"}</span>
-                          </span>
-                        </div>
-                      </div>
+                      <span className="font-mono text-xs text-muted-foreground">mg</span>
                     </div>
-                  </div>
+                    <p className="mt-2 text-xs text-muted-foreground">
+                      Concentration actuelle : <b>{concentration.toFixed(2)} mg/ml</b> · Fiole {mg} mg / {water} ml.
+                    </p>
+                  </Field>
 
-                  {/* Details grid */}
-                  <div className="grid grid-cols-1 gap-px overflow-hidden rounded-[24px] border border-border/70 bg-border sm:grid-cols-3">
-                    <MetricCell
-                      label="Concentration"
-                      value={valid ? `${fmt(result.conc, 3)}` : "—"}
-                      unit="mg/mL"
-                    />
-                    <MetricCell
-                      label="Dose / injection"
-                      value={valid ? fmt(result.doseMg * 1000, 1) : "—"}
-                      unit="mcg"
-                    />
-                    <MetricCell
-                      label="Doses / flacon"
-                      value={valid ? `≈ ${fmt(result.dosesPerVial, 1)}` : "—"}
-                      unit="prises"
-                    />
+                  <div className="grid grid-cols-3 gap-3">
+                    <Stat label="Volume" value={`${volumeMl.toFixed(2)} ml`} />
+                    <Stat label="Unités U-100" value={units.toFixed(1)} highlight />
+                    <Stat label="Doses / fiole" value={dosesPerVial.toFixed(1)} />
                   </div>
+                </>
+              )}
+            </div>
 
-                  {/* Warning */}
-                  <div className="rounded-[20px] border border-border/70 bg-card/60 p-5">
-                    <div className="flex items-start gap-3">
-                      <span
-                        className="mt-1 inline-block size-1.5 shrink-0 rounded-full"
-                        style={{ background: GRADIENT_BTN }}
-                        aria-hidden
-                      />
-                      <p className="text-[13px] leading-[1.65] text-muted-foreground">
-                        <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-foreground">
-                          Avertissement RUO —{" "}
-                        </span>
-                        Ces calculs servent à la préparation d'aliquotes en cadre de recherche
-                        in vitro. Ils ne constituent en aucun cas un protocole posologique
-                        humain ou vétérinaire.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </Reveal>
+            <div className="mt-10 flex justify-between">
+              {step === 2 ? (
+                <button
+                  onClick={() => setStep(1)}
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium hover:bg-surface"
+                >
+                  <ArrowLeft className="size-4" strokeWidth={2} /> Étape 1
+                </button>
+              ) : <span />}
+              {step === 1 && (
+                <button
+                  onClick={() => setStep(2)}
+                  className="brand-gradient-cta ml-auto inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white"
+                >
+                  Calculer ma dose <ArrowRight className="size-4" strokeWidth={2} />
+                </button>
+              )}
             </div>
           </div>
-        </section>
-      </div>
+
+          {/* RIGHT — animated vial / syringe */}
+          <div className="rounded-2xl border border-border bg-foreground p-6 text-background lg:p-8">
+            <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-background/60">
+              {step === 1 ? "Volume d'eau recommandé" : "Unités à tirer (U-100)"}
+            </div>
+
+            {step === 1 ? (
+              <div className="mt-6 grid gap-6 sm:grid-cols-[180px_1fr] sm:items-center">
+                <Vial fillRatio={Math.min(1, water / 5)} label={`${mg} mg poudre · ${concentration.toFixed(2)} mg/ml`} />
+                <div>
+                  <div className="flex items-baseline gap-2">
+                    <span className="font-display text-[72px] font-semibold leading-none tracking-tight">
+                      {water}
+                    </span>
+                    <span className="text-lg text-background/70">ml</span>
+                  </div>
+                  <p className="mt-3 max-w-xs text-sm text-background/70">
+                    Quantité d'eau bactériostatique à injecter dans la fiole.
+                  </p>
+                  <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-background/10 px-3 py-1.5 text-xs">
+                    <span className="size-1.5 rounded-full bg-emerald-400" />
+                    Concentration : <b>{concentration.toFixed(2)} mg/ml</b>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="mt-6 grid gap-6 sm:grid-cols-[1fr_180px] sm:items-center">
+                <div>
+                  <div className="flex items-baseline gap-2">
+                    <span className="font-display text-[72px] font-semibold leading-none tracking-tight">
+                      {units.toFixed(1)}
+                    </span>
+                    <span className="text-lg text-background/70">U</span>
+                  </div>
+                  <p className="mt-3 max-w-xs text-sm text-background/70">
+                    À tirer sur une seringue à insuline U-100 pour délivrer {dose} mg.
+                  </p>
+                  <div className="mt-6 flex flex-wrap gap-2 text-xs">
+                    <Badge>{volumeMl.toFixed(2)} ml</Badge>
+                    <Badge>{(volumeMl * 1000).toFixed(0)} µL</Badge>
+                    <Badge>{dosesPerVial.toFixed(1)} doses/fiole</Badge>
+                  </div>
+                </div>
+                <Syringe100 units={units} />
+              </div>
+            )}
+          </div>
+        </div>
+        <p className="container-prose px-5 pb-16 text-center text-xs text-muted-foreground">
+          Les produits proposés sur ce site sont destinés exclusivement à la recherche scientifique
+          in vitro. Aucun usage humain ou vétérinaire.
+        </p>
+      </section>
     </SiteLayout>
   );
 }
 
-function UnitField({
-  Icon,
-  label,
-  value,
-  onChange,
-  unit,
-  onUnitChange,
-  placeholder,
-}: {
-  Icon: typeof FlaskConical;
-  label: string;
-  value: string;
-  onChange: (v: string) => void;
-  unit: Unit;
-  onUnitChange: (u: Unit) => void;
-  placeholder?: string;
-}) {
+// ---------- UI atoms ----------
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <label className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-        <Icon className="size-3.5 text-accent" strokeWidth={1.6} />
+      <div className="mb-3 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
         {label}
-      </label>
-      <div className="mt-2 flex gap-2">
-        <input
-          type="number"
-          inputMode="decimal"
-          step={unit === "mg" ? 0.1 : 10}
-          min={0}
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          placeholder={placeholder}
-          className="w-full rounded-xl border border-border/70 bg-background px-4 py-3 text-[15px] font-medium text-foreground outline-none transition-all placeholder:text-muted-foreground/50 focus:border-[color-mix(in_oklab,var(--brand-violet)_60%,var(--border))] focus:shadow-[0_0_0_4px_color-mix(in_oklab,var(--brand-violet)_12%,transparent)]"
-        />
-        <div className="flex shrink-0 overflow-hidden rounded-xl border border-border/70 bg-background p-1">
-          {(["mg", "mcg"] as const).map((u) => (
-            <button
-              key={u}
-              type="button"
-              onClick={() => onUnitChange(u)}
-              className={`rounded-lg px-3.5 font-mono text-[11px] font-medium uppercase tracking-[0.18em] transition-all ${
-                unit === u
-                  ? "text-white shadow-[0_8px_24px_-10px_color-mix(in_oklab,var(--brand-violet)_60%,transparent)]"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-              style={
-                unit === u
-                  ? { backgroundImage: GRADIENT_BTN }
-                  : undefined
-              }
-            >
-              {u === "mcg" ? "mcg" : "mg"}
-            </button>
-          ))}
-        </div>
       </div>
+      {children}
     </div>
   );
 }
 
-function MetricCell({ label, value, unit }: { label: string; value: string; unit: string }) {
+function PillGroup({
+  options,
+  value,
+  onChange,
+  suffix,
+}: {
+  options: readonly number[];
+  value: number;
+  onChange: (v: number) => void;
+  suffix: string;
+}) {
   return (
-    <div className="flex flex-col gap-2 bg-card px-6 py-6">
-      <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-accent">
-        {label}
-      </span>
-      <div className="flex items-baseline gap-2">
-        <span className="font-display text-[26px] font-semibold leading-none tracking-[-0.02em] text-foreground sm:text-[30px]">
-          {value}
-        </span>
-        <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-          {unit}
-        </span>
+    <div className="flex flex-wrap gap-2">
+      {options.map((o) => {
+        const active = o === value;
+        return (
+          <button
+            key={o}
+            onClick={() => onChange(o)}
+            className={`rounded-lg border px-3 py-2 text-sm font-medium transition ${
+              active
+                ? "border-foreground bg-foreground text-background"
+                : "border-border bg-background text-foreground hover:border-foreground/50"
+            }`}
+          >
+            {o} {suffix}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function Stat({ label, value, highlight }: { label: string; value: string; highlight?: boolean }) {
+  return (
+    <div className={`rounded-xl border p-4 ${highlight ? "border-accent/50 bg-accent/5" : "border-border bg-background"}`}>
+      <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">{label}</div>
+      <div className={`mt-2 font-display text-2xl font-semibold tracking-tight ${highlight ? "logo-gradient-text" : "text-foreground"}`}>
+        {value}
       </div>
     </div>
   );
 }
 
-function fmt(n: number, digits = 3) {
-  if (!isFinite(n) || isNaN(n)) return "—";
-  return n.toLocaleString("fr-FR", { maximumFractionDigits: digits });
+function Badge({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="inline-flex items-center rounded-full bg-background/10 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-background/80">
+      {children}
+    </span>
+  );
+}
+
+// ---------- Vial illustration ----------
+function Vial({ fillRatio, label }: { fillRatio: number; label: string }) {
+  const ratio = Math.max(0.05, Math.min(1, fillRatio));
+  return (
+    <div className="relative mx-auto flex h-56 w-40 flex-col items-center justify-end rounded-xl bg-background/5 p-3">
+      {/* cap */}
+      <div className="absolute left-1/2 top-3 -translate-x-1/2 flex flex-col items-center">
+        <div className="h-3 w-14 rounded-t-md bg-background/70" />
+        <div className="h-2 w-16 rounded-sm bg-background/40" />
+      </div>
+      {/* body */}
+      <div className="relative mt-10 h-40 w-24 overflow-hidden rounded-md border border-background/20 bg-background/[0.04]">
+        {/* powder */}
+        <div className="absolute inset-x-0 bottom-0 h-6 bg-background/30" />
+        {/* liquid */}
+        <div
+          className="absolute inset-x-0 bottom-0 transition-[height] duration-500 ease-out"
+          style={{
+            height: `${20 + ratio * 70}%`,
+            background:
+              "linear-gradient(180deg, color-mix(in oklab, var(--brand-cyan) 55%, transparent) 0%, color-mix(in oklab, var(--brand-violet) 50%, transparent) 100%)",
+          }}
+        />
+        {/* graduations */}
+        {[0.2, 0.4, 0.6, 0.8].map((g) => (
+          <div key={g} className="absolute right-1 h-px w-3 bg-background/40" style={{ bottom: `${g * 100}%` }}>
+            <span className="absolute -top-2 right-4 font-mono text-[8px] text-background/50">
+              {Math.round(g * 5)}ml
+            </span>
+          </div>
+        ))}
+      </div>
+      <div className="mt-2 font-mono text-[9px] text-background/60">{label}</div>
+    </div>
+  );
+}
+
+function Syringe100({ units }: { units: number }) {
+  const clamped = Math.max(0, Math.min(100, units));
+  return (
+    <div className="relative mx-auto h-56 w-40">
+      <div className="absolute inset-x-0 top-4 mx-auto h-40 w-16 overflow-hidden rounded-sm border border-background/20 bg-background/5">
+        <div
+          className="absolute inset-x-0 bottom-0 transition-[height] duration-500 ease-out"
+          style={{
+            height: `${clamped}%`,
+            background:
+              "linear-gradient(180deg, color-mix(in oklab, var(--brand-cyan) 55%, transparent) 0%, color-mix(in oklab, var(--brand-magenta) 55%, transparent) 100%)",
+          }}
+        />
+        {[0, 20, 40, 60, 80, 100].map((g) => (
+          <div key={g} className="absolute right-1 h-px w-3 bg-background/40" style={{ bottom: `${g}%` }}>
+            <span className="absolute -top-2 right-4 font-mono text-[8px] text-background/50">{g}u</span>
+          </div>
+        ))}
+      </div>
+      {/* plunger */}
+      <div
+        className="absolute left-1/2 w-14 -translate-x-1/2 rounded-sm bg-background/60 transition-[top,height] duration-500 ease-out"
+        style={{ top: `${16 + (100 - clamped) * 1.6}px`, height: `${clamped * 1.6}px` }}
+      />
+      <div className="absolute inset-x-0 top-0 mx-auto h-4 w-24 rounded-t bg-background/70" />
+      <div className="absolute inset-x-0 bottom-0 mx-auto h-6 w-2 bg-background/70" />
+    </div>
+  );
 }
