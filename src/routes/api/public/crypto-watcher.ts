@@ -34,7 +34,7 @@ export const Route = createFileRoute("/api/public/crypto-watcher")({
         //    Bitcoin block would leave the customer paid without validation.
         const { data: active } = await supabaseAdmin
           .from("crypto_payments")
-          .select("id, order_id, currency, wallet_address, amount_crypto, status, tx_hash, expires_at")
+          .select("id, order_id, currency, wallet_address, amount_crypto, amount_eur, status, tx_hash, expires_at, notified_at")
           .in("status", ["pending", "detected"])
           .or(`status.eq.detected,expires_at.gte.${nowIso}`);
 
@@ -108,17 +108,42 @@ export const Route = createFileRoute("/api/public/crypto-watcher")({
               .eq("id", payment.id);
 
             if (isConfirmed) {
-              await supabaseAdmin
-                .from("orders")
-                .update({ status: "paid", paid_at: nowIso })
-                .eq("id", payment.order_id)
-                .neq("status", "paid");
-
+              // La commande vit dans Medusa, pas dans public.orders : on la
+              // convertit comme le fait le webhook Sushipp. C'est aussi ce qui
+              // décrémente l'inventaire. L'opération est idempotente côté
+              // Medusa (elle ne fait rien si la commande n'est plus en draft).
               try {
-                const { notifyAdminsOrderPaid } = await import("@/lib/order-notify.server");
-                await notifyAdminsOrderPaid(payment.order_id);
+                const { completeMedusaOrder } = await import("@/lib/medusa.server");
+                await completeMedusaOrder(payment.order_id);
               } catch (e) {
-                console.error("[crypto-watcher] notify failed", e);
+                // On NE marque PAS la facture comme notifiée : le prochain
+                // passage du cron réessaiera la conversion.
+                console.error(
+                  "[crypto-watcher] completeMedusaOrder a échoué",
+                  payment.order_id,
+                  e,
+                );
+              }
+
+              // Notification admin, une seule fois par facture. Le garde-fou
+              // vit désormais sur crypto_payments.notified_at : l'ancien
+              // notified_paid_at était sur public.orders, hors circuit.
+              if (!payment.notified_at) {
+                try {
+                  const { notifyAdminsOrderPaid } = await import("@/lib/order-notify.server");
+                  // Le montant EUR facturé fait foi : le `total` de Medusa
+                  // n'est pas fiablement exprimé en euros.
+                  await notifyAdminsOrderPaid(
+                    payment.order_id,
+                    Number((payment as { amount_eur?: number }).amount_eur),
+                  );
+                  await supabaseAdmin
+                    .from("crypto_payments")
+                    .update({ notified_at: nowIso })
+                    .eq("id", payment.id);
+                } catch (e) {
+                  console.error("[crypto-watcher] notify failed", e);
+                }
               }
             }
 
