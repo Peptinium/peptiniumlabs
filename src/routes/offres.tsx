@@ -28,7 +28,7 @@ const GRADIENT =
   "linear-gradient(120deg, oklch(0.70 0.18 210) 0%, oklch(0.58 0.28 290) 55%, oklch(0.68 0.27 345) 100%)";
 
 function OffresPage() {
-  const { products } = Route.useLoaderData();
+  const { products } = Route.useLoaderData() as { products: Product[] };
   const reta = products.find((p) => p.slug === "retatrutide");
   const reta10 = reta?.variants.find((v) => v.dosage === "10 mg");
 

@@ -79,7 +79,7 @@ const GRADIENT_BTN =
   "linear-gradient(120deg, oklch(0.70 0.18 210) 0%, oklch(0.58 0.28 290) 55%, oklch(0.68 0.27 345) 100%)";
 
 function QuizPage() {
-  const { products } = Route.useLoaderData();
+  const { products } = Route.useLoaderData() as { products: Product[] };
   const [selected, setSelected] = useState<string[]>([]);
   const [submitted, setSubmitted] = useState(false);
 

@@ -63,7 +63,7 @@ const SWEEPS =
   "radial-gradient(55% 45% at 82% 10%, color-mix(in oklab, var(--brand-magenta) 26%, transparent) 0%, transparent 70%), radial-gradient(50% 55% at 8% 92%, color-mix(in oklab, var(--brand-cyan) 26%, transparent) 0%, transparent 70%), radial-gradient(70% 55% at 50% 55%, color-mix(in oklab, var(--brand-violet) 16%, transparent) 0%, transparent 78%)";
 
 function StudiesPage() {
-  const { products } = Route.useLoaderData();
+  const { products } = Route.useLoaderData() as { products: Product[] };
   const [q, setQ] = useState("");
 
   const sorted = useMemo(

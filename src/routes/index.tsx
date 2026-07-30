@@ -93,7 +93,7 @@ export const Route = createFileRoute("/")({
 });
 
 function HomePage() {
-  const { products } = Route.useLoaderData();
+  const { products } = Route.useLoaderData() as { products: Product[] };
   const visibleProducts = products.filter((p) => !p.hidden);
   const featured = visibleProducts.find((p) => p.featured)!;
   const rest = visibleProducts.filter((p) => !p.featured);

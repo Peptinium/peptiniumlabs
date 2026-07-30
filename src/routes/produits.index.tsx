@@ -32,7 +32,7 @@ export const Route = createFileRoute("/produits/")({
 });
 
 function CatalogPage() {
-  const { products } = Route.useLoaderData();
+  const { products } = Route.useLoaderData() as { products: Product[] };
   const visibleProducts = products.filter((p) => !p.hidden);
   return (
     <SiteLayout>
