@@ -1416,7 +1416,7 @@ function ConfirmationBlock({
 }
 
 // ─────────────────────────── CRYPTO DIRECT PAYMENT ───────────────────────────
-function CryptoPaymentBlock({
+export function CryptoPaymentBlock({
   intent,
   orderRef,
   cart,
