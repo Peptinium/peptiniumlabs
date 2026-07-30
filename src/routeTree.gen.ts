@@ -9,7 +9,6 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ZzcryptopreviewRouteImport } from './routes/zzcryptopreview'
 import { Route as UnsubscribeRouteImport } from './routes/unsubscribe'
 import { Route as TesterFiolesRouteImport } from './routes/tester-fioles'
 import { Route as SupportRouteImport } from './routes/support'
@@ -64,11 +63,6 @@ import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/em
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
 import { Route as ApiPublicPushVapidKeyRouteImport } from './routes/api/public/push.vapid-key'
 
-const ZzcryptopreviewRoute = ZzcryptopreviewRouteImport.update({
-  id: '/zzcryptopreview',
-  path: '/zzcryptopreview',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const UnsubscribeRoute = UnsubscribeRouteImport.update({
   id: '/unsubscribe',
   path: '/unsubscribe',
@@ -367,7 +361,6 @@ export interface FileRoutesByFullPath {
   '/support': typeof SupportRoute
   '/tester-fioles': typeof TesterFiolesRoute
   '/unsubscribe': typeof UnsubscribeRoute
-  '/zzcryptopreview': typeof ZzcryptopreviewRoute
   '/accessoires/$slug': typeof AccessoiresSlugRoute
   '/admin/clients': typeof AdminClientsRoute
   '/admin/paiements': typeof AdminPaiementsRoute
@@ -422,7 +415,6 @@ export interface FileRoutesByTo {
   '/support': typeof SupportRoute
   '/tester-fioles': typeof TesterFiolesRoute
   '/unsubscribe': typeof UnsubscribeRoute
-  '/zzcryptopreview': typeof ZzcryptopreviewRoute
   '/accessoires/$slug': typeof AccessoiresSlugRoute
   '/admin/clients': typeof AdminClientsRoute
   '/admin/paiements': typeof AdminPaiementsRoute
@@ -479,7 +471,6 @@ export interface FileRoutesById {
   '/support': typeof SupportRoute
   '/tester-fioles': typeof TesterFiolesRoute
   '/unsubscribe': typeof UnsubscribeRoute
-  '/zzcryptopreview': typeof ZzcryptopreviewRoute
   '/accessoires/$slug': typeof AccessoiresSlugRoute
   '/admin/clients': typeof AdminClientsRoute
   '/admin/paiements': typeof AdminPaiementsRoute
@@ -537,7 +528,6 @@ export interface FileRouteTypes {
     | '/support'
     | '/tester-fioles'
     | '/unsubscribe'
-    | '/zzcryptopreview'
     | '/accessoires/$slug'
     | '/admin/clients'
     | '/admin/paiements'
@@ -592,7 +582,6 @@ export interface FileRouteTypes {
     | '/support'
     | '/tester-fioles'
     | '/unsubscribe'
-    | '/zzcryptopreview'
     | '/accessoires/$slug'
     | '/admin/clients'
     | '/admin/paiements'
@@ -648,7 +637,6 @@ export interface FileRouteTypes {
     | '/support'
     | '/tester-fioles'
     | '/unsubscribe'
-    | '/zzcryptopreview'
     | '/accessoires/$slug'
     | '/admin/clients'
     | '/admin/paiements'
@@ -705,7 +693,6 @@ export interface RootRouteChildren {
   SupportRoute: typeof SupportRoute
   TesterFiolesRoute: typeof TesterFiolesRoute
   UnsubscribeRoute: typeof UnsubscribeRoute
-  ZzcryptopreviewRoute: typeof ZzcryptopreviewRoute
   AccessoiresSlugRoute: typeof AccessoiresSlugRoute
   BlogSlugRoute: typeof BlogSlugRoute
   ConfirmationRefRoute: typeof ConfirmationRefRoute
@@ -730,13 +717,6 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/zzcryptopreview': {
-      id: '/zzcryptopreview'
-      path: '/zzcryptopreview'
-      fullPath: '/zzcryptopreview'
-      preLoaderRoute: typeof ZzcryptopreviewRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/unsubscribe': {
       id: '/unsubscribe'
       path: '/unsubscribe'
@@ -1168,7 +1148,6 @@ const rootRouteChildren: RootRouteChildren = {
   SupportRoute: SupportRoute,
   TesterFiolesRoute: TesterFiolesRoute,
   UnsubscribeRoute: UnsubscribeRoute,
-  ZzcryptopreviewRoute: ZzcryptopreviewRoute,
   AccessoiresSlugRoute: AccessoiresSlugRoute,
   BlogSlugRoute: BlogSlugRoute,
   ConfirmationRefRoute: ConfirmationRefRoute,
