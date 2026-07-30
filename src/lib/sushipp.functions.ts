@@ -38,7 +38,7 @@ export const createSushippCheckout = createServerFn({ method: "POST" })
     // que /retour-paiement utilise pour VÉRIFIER le paiement avant de confirmer.
     setCookie("pep_last_order", data.orderId, {
       maxAge: 3600,
-      sameSite: "Lax",
+      sameSite: "lax",
       path: "/",
       httpOnly: true,
     });
