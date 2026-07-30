@@ -45,6 +45,7 @@ function ConfirmationPage() {
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Link
                 to="/panier"
+                search={{ step: "livraison" as const }}
                 className="rounded-lg bg-foreground px-5 py-2.5 text-sm font-semibold text-background"
               >
                 Retour au panier
