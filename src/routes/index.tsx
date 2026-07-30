@@ -99,7 +99,9 @@ function HomePage() {
 
 
   return (
+    <div className="min-h-screen bg-red-600" style={{ background: "linear-gradient(135deg, #ff0000 0%, #cc0000 100%)" }}>
     <SiteLayout>
+
       {/* ============ 0. TOP MARQUEE — brand bandeau ============ */}
       <section aria-hidden className="relative overflow-hidden border-b border-border/60 brand-gradient-cta">
         <div className="flex whitespace-nowrap py-2.5 font-mono text-[11px] font-medium uppercase tracking-[0.28em] text-white/95 animate-marquee">
