@@ -27,7 +27,7 @@ const placeOrderSchema = z.object({
   }),
   items: z.array(itemSchema).min(1).max(50),
   paymentMethod: z.enum(["bank", "card", "crypto", "peptidepay"]).default("bank"),
-  cryptoCurrency: z.enum(["BTC", "USDC_POLYGON", "LTC"]).optional(),
+  cryptoCurrency: z.enum(["BTC", "USDC_POLYGON", "USDT_POLYGON"]).optional(),
   promoCode: z.string().trim().max(40).optional().nullable(),
   expectedTotal: z.number().nonnegative().optional(),
   // Preuve d'acceptation (certification RUO + CGV), horodatée côté client.

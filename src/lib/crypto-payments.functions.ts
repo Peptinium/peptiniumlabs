@@ -1,7 +1,9 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
-const currencySchema = z.enum(["BTC", "USDC_POLYGON", "LTC"]);
+// LTC retire : plus propose dans le panier et aucune adresse WALLET_LTC
+// configuree, donc le choisir levait une exception au lieu d'etre rejete ici.
+const currencySchema = z.enum(["BTC", "USDC_POLYGON", "USDT_POLYGON"]);
 
 const createSchema = z.object({
   orderId: z.string().uuid(),
