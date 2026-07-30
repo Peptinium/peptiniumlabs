@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/SiteLayout";
 import { Reveal } from "@/components/Reveal";
-import { formatPrice } from "@/data/products";
+import { formatPrice, type Product } from "@/data/products";
 import { getCatalog } from "@/lib/catalog.server";
 import { Sparkles, Package } from "lucide-react";
 

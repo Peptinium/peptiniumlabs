@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { ProductVisual } from "@/components/ProductCard";
 import { Reveal } from "@/components/Reveal";
+import type { Product } from "@/data/products";
 import { getCatalog } from "@/lib/catalog.server";
 
 export const Route = createFileRoute("/etudes-scientifiques")({

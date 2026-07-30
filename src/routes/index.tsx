@@ -4,7 +4,7 @@ import { ProductCard, ProductVisual } from "@/components/ProductCard";
 import { RuoBadge } from "@/components/RuoBadge";
 import { Reveal } from "@/components/Reveal";
 import { HeroVela } from "@/components/HeroVela";
-import { products, formatPrice } from "@/data/products";
+import { products, formatPrice, type Product } from "@/data/products";
 import { getCatalog } from "@/lib/catalog.server";
 import { ShieldCheck, Fingerprint, Truck, FlaskConical, Plus, Send, MessageCircle, Star } from "lucide-react";
 

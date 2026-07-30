@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/SiteLayout";
 import { ProductCard } from "@/components/ProductCard";
 import { Reveal } from "@/components/Reveal";
+import type { Product } from "@/data/products";
 import { getCatalog } from "@/lib/catalog.server";
 
 const SITE_URL = "https://peptinium.com";
