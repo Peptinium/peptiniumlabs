@@ -662,6 +662,7 @@ function HomePage() {
         </div>
       </section>
     </SiteLayout>
+    </div>
 
   );
 }
