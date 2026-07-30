@@ -13,7 +13,6 @@ import { Route as UnsubscribeRouteImport } from './routes/unsubscribe'
 import { Route as TesterFiolesRouteImport } from './routes/tester-fioles'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as RetourPaiementRouteImport } from './routes/retour-paiement'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as QuizRouteImport } from './routes/quiz'
 import { Route as ProcessFabricationRouteImport } from './routes/process-fabrication'
@@ -34,6 +33,7 @@ import { Route as AvisContactRouteImport } from './routes/avis-contact'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AProposRouteImport } from './routes/a-propos'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProduitsIndexRouteImport } from './routes/produits.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
@@ -41,7 +41,6 @@ import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AccessoiresIndexRouteImport } from './routes/accessoires.index'
 import { Route as ProduitsSlugRouteImport } from './routes/produits.$slug'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
-import { Route as ConfirmationRefRouteImport } from './routes/confirmation.$ref'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 import { Route as AdminStocksRouteImport } from './routes/admin.stocks'
@@ -50,12 +49,15 @@ import { Route as AdminSavRouteImport } from './routes/admin.sav'
 import { Route as AdminPaiementsRouteImport } from './routes/admin.paiements'
 import { Route as AdminClientsRouteImport } from './routes/admin.clients'
 import { Route as AccessoiresSlugRouteImport } from './routes/accessoires.$slug'
+import { Route as AuthenticatedMonCompteRouteImport } from './routes/_authenticated/mon-compte'
+import { Route as AuthenticatedMonCompteIndexRouteImport } from './routes/_authenticated/mon-compte.index'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as ApiPublicTrackRouteImport } from './routes/api/public/track'
-import { Route as ApiPublicSushippWebhookRouteImport } from './routes/api/public/sushipp-webhook'
 import { Route as ApiPublicPeptidepayWebhookRouteImport } from './routes/api/public/peptidepay-webhook'
 import { Route as ApiPublicPaymentReminderRouteImport } from './routes/api/public/payment-reminder'
 import { Route as ApiPublicCryptoWatcherRouteImport } from './routes/api/public/crypto-watcher'
+import { Route as AuthenticatedMonCompteProfilRouteImport } from './routes/_authenticated/mon-compte.profil'
+import { Route as AuthenticatedMonCompteContactRouteImport } from './routes/_authenticated/mon-compte.contact'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
@@ -81,11 +83,6 @@ const SupportRoute = SupportRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RetourPaiementRoute = RetourPaiementRouteImport.update({
-  id: '/retour-paiement',
-  path: '/retour-paiement',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
@@ -188,6 +185,10 @@ const AProposRoute = AProposRouteImport.update({
   path: '/a-propos',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -221,11 +222,6 @@ const ProduitsSlugRoute = ProduitsSlugRouteImport.update({
 const EmailUnsubscribeRoute = EmailUnsubscribeRouteImport.update({
   id: '/email/unsubscribe',
   path: '/email/unsubscribe',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ConfirmationRefRoute = ConfirmationRefRouteImport.update({
-  id: '/confirmation/$ref',
-  path: '/confirmation/$ref',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
@@ -268,6 +264,17 @@ const AccessoiresSlugRoute = AccessoiresSlugRouteImport.update({
   path: '/accessoires/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedMonCompteRoute = AuthenticatedMonCompteRouteImport.update({
+  id: '/mon-compte',
+  path: '/mon-compte',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedMonCompteIndexRoute =
+  AuthenticatedMonCompteIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedMonCompteRoute,
+  } as any)
 const LovableEmailSuppressionRoute = LovableEmailSuppressionRouteImport.update({
   id: '/lovable/email/suppression',
   path: '/lovable/email/suppression',
@@ -276,11 +283,6 @@ const LovableEmailSuppressionRoute = LovableEmailSuppressionRouteImport.update({
 const ApiPublicTrackRoute = ApiPublicTrackRouteImport.update({
   id: '/api/public/track',
   path: '/api/public/track',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiPublicSushippWebhookRoute = ApiPublicSushippWebhookRouteImport.update({
-  id: '/api/public/sushipp-webhook',
-  path: '/api/public/sushipp-webhook',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicPeptidepayWebhookRoute =
@@ -300,6 +302,18 @@ const ApiPublicCryptoWatcherRoute = ApiPublicCryptoWatcherRouteImport.update({
   path: '/api/public/crypto-watcher',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedMonCompteProfilRoute =
+  AuthenticatedMonCompteProfilRouteImport.update({
+    id: '/profil',
+    path: '/profil',
+    getParentRoute: () => AuthenticatedMonCompteRoute,
+  } as any)
+const AuthenticatedMonCompteContactRoute =
+  AuthenticatedMonCompteContactRouteImport.update({
+    id: '/contact',
+    path: '/contact',
+    getParentRoute: () => AuthenticatedMonCompteRoute,
+  } as any)
 const LovableEmailTransactionalSendRoute =
   LovableEmailTransactionalSendRouteImport.update({
     id: '/lovable/email/transactional/send',
@@ -356,11 +370,11 @@ export interface FileRoutesByFullPath {
   '/process-fabrication': typeof ProcessFabricationRoute
   '/quiz': typeof QuizRoute
   '/reset-password': typeof ResetPasswordRoute
-  '/retour-paiement': typeof RetourPaiementRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/support': typeof SupportRoute
   '/tester-fioles': typeof TesterFiolesRoute
   '/unsubscribe': typeof UnsubscribeRoute
+  '/mon-compte': typeof AuthenticatedMonCompteRouteWithChildren
   '/accessoires/$slug': typeof AccessoiresSlugRoute
   '/admin/clients': typeof AdminClientsRoute
   '/admin/paiements': typeof AdminPaiementsRoute
@@ -369,19 +383,20 @@ export interface FileRoutesByFullPath {
   '/admin/stocks': typeof AdminStocksRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/blog/$slug': typeof BlogSlugRoute
-  '/confirmation/$ref': typeof ConfirmationRefRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/produits/$slug': typeof ProduitsSlugRoute
   '/accessoires/': typeof AccessoiresIndexRoute
   '/admin/': typeof AdminIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/produits/': typeof ProduitsIndexRoute
+  '/mon-compte/contact': typeof AuthenticatedMonCompteContactRoute
+  '/mon-compte/profil': typeof AuthenticatedMonCompteProfilRoute
   '/api/public/crypto-watcher': typeof ApiPublicCryptoWatcherRoute
   '/api/public/payment-reminder': typeof ApiPublicPaymentReminderRoute
   '/api/public/peptidepay-webhook': typeof ApiPublicPeptidepayWebhookRoute
-  '/api/public/sushipp-webhook': typeof ApiPublicSushippWebhookRoute
   '/api/public/track': typeof ApiPublicTrackRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
+  '/mon-compte/': typeof AuthenticatedMonCompteIndexRoute
   '/api/public/push/vapid-key': typeof ApiPublicPushVapidKeyRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -410,7 +425,6 @@ export interface FileRoutesByTo {
   '/process-fabrication': typeof ProcessFabricationRoute
   '/quiz': typeof QuizRoute
   '/reset-password': typeof ResetPasswordRoute
-  '/retour-paiement': typeof RetourPaiementRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/support': typeof SupportRoute
   '/tester-fioles': typeof TesterFiolesRoute
@@ -423,19 +437,20 @@ export interface FileRoutesByTo {
   '/admin/stocks': typeof AdminStocksRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/blog/$slug': typeof BlogSlugRoute
-  '/confirmation/$ref': typeof ConfirmationRefRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/produits/$slug': typeof ProduitsSlugRoute
   '/accessoires': typeof AccessoiresIndexRoute
   '/admin': typeof AdminIndexRoute
   '/blog': typeof BlogIndexRoute
   '/produits': typeof ProduitsIndexRoute
+  '/mon-compte/contact': typeof AuthenticatedMonCompteContactRoute
+  '/mon-compte/profil': typeof AuthenticatedMonCompteProfilRoute
   '/api/public/crypto-watcher': typeof ApiPublicCryptoWatcherRoute
   '/api/public/payment-reminder': typeof ApiPublicPaymentReminderRoute
   '/api/public/peptidepay-webhook': typeof ApiPublicPeptidepayWebhookRoute
-  '/api/public/sushipp-webhook': typeof ApiPublicSushippWebhookRoute
   '/api/public/track': typeof ApiPublicTrackRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
+  '/mon-compte': typeof AuthenticatedMonCompteIndexRoute
   '/api/public/push/vapid-key': typeof ApiPublicPushVapidKeyRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -446,6 +461,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/a-propos': typeof AProposRoute
   '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
@@ -466,11 +482,11 @@ export interface FileRoutesById {
   '/process-fabrication': typeof ProcessFabricationRoute
   '/quiz': typeof QuizRoute
   '/reset-password': typeof ResetPasswordRoute
-  '/retour-paiement': typeof RetourPaiementRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/support': typeof SupportRoute
   '/tester-fioles': typeof TesterFiolesRoute
   '/unsubscribe': typeof UnsubscribeRoute
+  '/_authenticated/mon-compte': typeof AuthenticatedMonCompteRouteWithChildren
   '/accessoires/$slug': typeof AccessoiresSlugRoute
   '/admin/clients': typeof AdminClientsRoute
   '/admin/paiements': typeof AdminPaiementsRoute
@@ -479,19 +495,20 @@ export interface FileRoutesById {
   '/admin/stocks': typeof AdminStocksRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/blog/$slug': typeof BlogSlugRoute
-  '/confirmation/$ref': typeof ConfirmationRefRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/produits/$slug': typeof ProduitsSlugRoute
   '/accessoires/': typeof AccessoiresIndexRoute
   '/admin/': typeof AdminIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/produits/': typeof ProduitsIndexRoute
+  '/_authenticated/mon-compte/contact': typeof AuthenticatedMonCompteContactRoute
+  '/_authenticated/mon-compte/profil': typeof AuthenticatedMonCompteProfilRoute
   '/api/public/crypto-watcher': typeof ApiPublicCryptoWatcherRoute
   '/api/public/payment-reminder': typeof ApiPublicPaymentReminderRoute
   '/api/public/peptidepay-webhook': typeof ApiPublicPeptidepayWebhookRoute
-  '/api/public/sushipp-webhook': typeof ApiPublicSushippWebhookRoute
   '/api/public/track': typeof ApiPublicTrackRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
+  '/_authenticated/mon-compte/': typeof AuthenticatedMonCompteIndexRoute
   '/api/public/push/vapid-key': typeof ApiPublicPushVapidKeyRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -523,11 +540,11 @@ export interface FileRouteTypes {
     | '/process-fabrication'
     | '/quiz'
     | '/reset-password'
-    | '/retour-paiement'
     | '/sitemap.xml'
     | '/support'
     | '/tester-fioles'
     | '/unsubscribe'
+    | '/mon-compte'
     | '/accessoires/$slug'
     | '/admin/clients'
     | '/admin/paiements'
@@ -536,19 +553,20 @@ export interface FileRouteTypes {
     | '/admin/stocks'
     | '/auth/callback'
     | '/blog/$slug'
-    | '/confirmation/$ref'
     | '/email/unsubscribe'
     | '/produits/$slug'
     | '/accessoires/'
     | '/admin/'
     | '/blog/'
     | '/produits/'
+    | '/mon-compte/contact'
+    | '/mon-compte/profil'
     | '/api/public/crypto-watcher'
     | '/api/public/payment-reminder'
     | '/api/public/peptidepay-webhook'
-    | '/api/public/sushipp-webhook'
     | '/api/public/track'
     | '/lovable/email/suppression'
+    | '/mon-compte/'
     | '/api/public/push/vapid-key'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -577,7 +595,6 @@ export interface FileRouteTypes {
     | '/process-fabrication'
     | '/quiz'
     | '/reset-password'
-    | '/retour-paiement'
     | '/sitemap.xml'
     | '/support'
     | '/tester-fioles'
@@ -590,19 +607,20 @@ export interface FileRouteTypes {
     | '/admin/stocks'
     | '/auth/callback'
     | '/blog/$slug'
-    | '/confirmation/$ref'
     | '/email/unsubscribe'
     | '/produits/$slug'
     | '/accessoires'
     | '/admin'
     | '/blog'
     | '/produits'
+    | '/mon-compte/contact'
+    | '/mon-compte/profil'
     | '/api/public/crypto-watcher'
     | '/api/public/payment-reminder'
     | '/api/public/peptidepay-webhook'
-    | '/api/public/sushipp-webhook'
     | '/api/public/track'
     | '/lovable/email/suppression'
+    | '/mon-compte'
     | '/api/public/push/vapid-key'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -612,6 +630,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/a-propos'
     | '/admin'
     | '/auth'
@@ -632,11 +651,11 @@ export interface FileRouteTypes {
     | '/process-fabrication'
     | '/quiz'
     | '/reset-password'
-    | '/retour-paiement'
     | '/sitemap.xml'
     | '/support'
     | '/tester-fioles'
     | '/unsubscribe'
+    | '/_authenticated/mon-compte'
     | '/accessoires/$slug'
     | '/admin/clients'
     | '/admin/paiements'
@@ -645,19 +664,20 @@ export interface FileRouteTypes {
     | '/admin/stocks'
     | '/auth/callback'
     | '/blog/$slug'
-    | '/confirmation/$ref'
     | '/email/unsubscribe'
     | '/produits/$slug'
     | '/accessoires/'
     | '/admin/'
     | '/blog/'
     | '/produits/'
+    | '/_authenticated/mon-compte/contact'
+    | '/_authenticated/mon-compte/profil'
     | '/api/public/crypto-watcher'
     | '/api/public/payment-reminder'
     | '/api/public/peptidepay-webhook'
-    | '/api/public/sushipp-webhook'
     | '/api/public/track'
     | '/lovable/email/suppression'
+    | '/_authenticated/mon-compte/'
     | '/api/public/push/vapid-key'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -668,6 +688,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AProposRoute: typeof AProposRoute
   AdminRoute: typeof AdminRouteWithChildren
   AuthRoute: typeof AuthRouteWithChildren
@@ -688,14 +709,12 @@ export interface RootRouteChildren {
   ProcessFabricationRoute: typeof ProcessFabricationRoute
   QuizRoute: typeof QuizRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
-  RetourPaiementRoute: typeof RetourPaiementRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SupportRoute: typeof SupportRoute
   TesterFiolesRoute: typeof TesterFiolesRoute
   UnsubscribeRoute: typeof UnsubscribeRoute
   AccessoiresSlugRoute: typeof AccessoiresSlugRoute
   BlogSlugRoute: typeof BlogSlugRoute
-  ConfirmationRefRoute: typeof ConfirmationRefRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   ProduitsSlugRoute: typeof ProduitsSlugRoute
   AccessoiresIndexRoute: typeof AccessoiresIndexRoute
@@ -704,7 +723,6 @@ export interface RootRouteChildren {
   ApiPublicCryptoWatcherRoute: typeof ApiPublicCryptoWatcherRoute
   ApiPublicPaymentReminderRoute: typeof ApiPublicPaymentReminderRoute
   ApiPublicPeptidepayWebhookRoute: typeof ApiPublicPeptidepayWebhookRoute
-  ApiPublicSushippWebhookRoute: typeof ApiPublicSushippWebhookRoute
   ApiPublicTrackRoute: typeof ApiPublicTrackRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
   ApiPublicPushVapidKeyRoute: typeof ApiPublicPushVapidKeyRoute
@@ -743,13 +761,6 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/retour-paiement': {
-      id: '/retour-paiement'
-      path: '/retour-paiement'
-      fullPath: '/retour-paiement'
-      preLoaderRoute: typeof RetourPaiementRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reset-password': {
@@ -892,6 +903,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AProposRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -939,13 +957,6 @@ declare module '@tanstack/react-router' {
       path: '/email/unsubscribe'
       fullPath: '/email/unsubscribe'
       preLoaderRoute: typeof EmailUnsubscribeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/confirmation/$ref': {
-      id: '/confirmation/$ref'
-      path: '/confirmation/$ref'
-      fullPath: '/confirmation/$ref'
-      preLoaderRoute: typeof ConfirmationRefRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog/$slug': {
@@ -1004,6 +1015,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AccessoiresSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/mon-compte': {
+      id: '/_authenticated/mon-compte'
+      path: '/mon-compte'
+      fullPath: '/mon-compte'
+      preLoaderRoute: typeof AuthenticatedMonCompteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/mon-compte/': {
+      id: '/_authenticated/mon-compte/'
+      path: '/'
+      fullPath: '/mon-compte/'
+      preLoaderRoute: typeof AuthenticatedMonCompteIndexRouteImport
+      parentRoute: typeof AuthenticatedMonCompteRoute
+    }
     '/lovable/email/suppression': {
       id: '/lovable/email/suppression'
       path: '/lovable/email/suppression'
@@ -1016,13 +1041,6 @@ declare module '@tanstack/react-router' {
       path: '/api/public/track'
       fullPath: '/api/public/track'
       preLoaderRoute: typeof ApiPublicTrackRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/sushipp-webhook': {
-      id: '/api/public/sushipp-webhook'
-      path: '/api/public/sushipp-webhook'
-      fullPath: '/api/public/sushipp-webhook'
-      preLoaderRoute: typeof ApiPublicSushippWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/peptidepay-webhook': {
@@ -1045,6 +1063,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/api/public/crypto-watcher'
       preLoaderRoute: typeof ApiPublicCryptoWatcherRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/mon-compte/profil': {
+      id: '/_authenticated/mon-compte/profil'
+      path: '/profil'
+      fullPath: '/mon-compte/profil'
+      preLoaderRoute: typeof AuthenticatedMonCompteProfilRouteImport
+      parentRoute: typeof AuthenticatedMonCompteRoute
+    }
+    '/_authenticated/mon-compte/contact': {
+      id: '/_authenticated/mon-compte/contact'
+      path: '/contact'
+      fullPath: '/mon-compte/contact'
+      preLoaderRoute: typeof AuthenticatedMonCompteContactRouteImport
+      parentRoute: typeof AuthenticatedMonCompteRoute
     }
     '/lovable/email/transactional/send': {
       id: '/lovable/email/transactional/send'
@@ -1091,6 +1123,35 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedMonCompteRouteChildren {
+  AuthenticatedMonCompteContactRoute: typeof AuthenticatedMonCompteContactRoute
+  AuthenticatedMonCompteProfilRoute: typeof AuthenticatedMonCompteProfilRoute
+  AuthenticatedMonCompteIndexRoute: typeof AuthenticatedMonCompteIndexRoute
+}
+
+const AuthenticatedMonCompteRouteChildren: AuthenticatedMonCompteRouteChildren =
+  {
+    AuthenticatedMonCompteContactRoute: AuthenticatedMonCompteContactRoute,
+    AuthenticatedMonCompteProfilRoute: AuthenticatedMonCompteProfilRoute,
+    AuthenticatedMonCompteIndexRoute: AuthenticatedMonCompteIndexRoute,
+  }
+
+const AuthenticatedMonCompteRouteWithChildren =
+  AuthenticatedMonCompteRoute._addFileChildren(
+    AuthenticatedMonCompteRouteChildren,
+  )
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedMonCompteRoute: typeof AuthenticatedMonCompteRouteWithChildren
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedMonCompteRoute: AuthenticatedMonCompteRouteWithChildren,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 interface AdminRouteChildren {
   AdminClientsRoute: typeof AdminClientsRoute
   AdminPaiementsRoute: typeof AdminPaiementsRoute
@@ -1123,6 +1184,7 @@ const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AProposRoute: AProposRoute,
   AdminRoute: AdminRouteWithChildren,
   AuthRoute: AuthRouteWithChildren,
@@ -1143,14 +1205,12 @@ const rootRouteChildren: RootRouteChildren = {
   ProcessFabricationRoute: ProcessFabricationRoute,
   QuizRoute: QuizRoute,
   ResetPasswordRoute: ResetPasswordRoute,
-  RetourPaiementRoute: RetourPaiementRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SupportRoute: SupportRoute,
   TesterFiolesRoute: TesterFiolesRoute,
   UnsubscribeRoute: UnsubscribeRoute,
   AccessoiresSlugRoute: AccessoiresSlugRoute,
   BlogSlugRoute: BlogSlugRoute,
-  ConfirmationRefRoute: ConfirmationRefRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   ProduitsSlugRoute: ProduitsSlugRoute,
   AccessoiresIndexRoute: AccessoiresIndexRoute,
@@ -1159,7 +1219,6 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicCryptoWatcherRoute: ApiPublicCryptoWatcherRoute,
   ApiPublicPaymentReminderRoute: ApiPublicPaymentReminderRoute,
   ApiPublicPeptidepayWebhookRoute: ApiPublicPeptidepayWebhookRoute,
-  ApiPublicSushippWebhookRoute: ApiPublicSushippWebhookRoute,
   ApiPublicTrackRoute: ApiPublicTrackRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
   ApiPublicPushVapidKeyRoute: ApiPublicPushVapidKeyRoute,

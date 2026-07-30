@@ -41,7 +41,7 @@ export const createPeptidePayCheckout = createServerFn({ method: "POST" })
         order_id: order.id,
         order_number: order.order_number,
       },
-      successUrl: `${origin}/retour-paiement`,
+      successUrl: `${origin}/mon-compte?order=${order.order_number}`,
       cancelUrl: `${origin}/panier`,
       idempotencyKey: `order-${order.id}`,
     });

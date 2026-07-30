@@ -30,6 +30,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileSub, setMobileSub] = useState<string | null>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -67,14 +68,19 @@ export function Header() {
       const { data, error } = await supabase.auth.getUser();
       const user = error ? null : data.user;
       if (!user) {
-        if (!cancelled) setIsAdmin(false);
+        if (!cancelled) {
+          setIsAdmin(false);
+          setIsLoggedIn(false);
+        }
         return;
       }
+      if (!cancelled) setIsLoggedIn(true);
       scheduleAdminRole(user.id);
     };
     void checkInitialSession();
     const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
       const userId = session?.user?.id;
+      setIsLoggedIn(!!userId);
       setIsAdmin(false);
       if (userId) scheduleAdminRole(userId);
     });
@@ -201,9 +207,9 @@ export function Header() {
               Admin
             </Link>
           )}
+          <AccountPill isLoggedIn={isLoggedIn} />
           <Link
             to="/panier"
-            search={{ step: "livraison" as const }}
             aria-label="Panier"
             className="group relative inline-flex h-10 items-center gap-2 rounded-full border border-border bg-background px-3 text-[13px] font-medium text-foreground transition-all hover:bg-surface sm:px-4"
           >
@@ -293,6 +299,14 @@ export function Header() {
                 Espace admin
               </Link>
             )}
+            <Link
+              to={isLoggedIn ? "/mon-compte" : "/auth"}
+              search={isLoggedIn ? undefined : { redirect: "/mon-compte" }}
+              onClick={() => setOpen(false)}
+              className="mt-2 py-3 text-[14px] font-medium text-accent"
+            >
+              {isLoggedIn ? "Mon compte" : "Connexion / Créer un compte"}
+            </Link>
           </div>
         </div>
       )}
@@ -301,6 +315,30 @@ export function Header() {
 }
 
 
+function AccountPill({ isLoggedIn }: { isLoggedIn: boolean }) {
+  const cls =
+    "inline-flex h-10 items-center gap-2 rounded-full border border-border bg-background px-3 text-[13px] font-medium text-foreground transition-all hover:bg-surface sm:px-4";
+  const icon = (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+      <circle cx="12" cy="7" r="4" />
+    </svg>
+  );
+  if (isLoggedIn) {
+    return (
+      <Link to="/mon-compte" aria-label="Mon compte" className={cls}>
+        {icon}
+        <span className="hidden sm:inline">Compte</span>
+      </Link>
+    );
+  }
+  return (
+    <Link to="/auth" search={{ redirect: "/mon-compte" }} aria-label="Se connecter" className={cls}>
+      {icon}
+      <span className="hidden sm:inline">Compte</span>
+    </Link>
+  );
+}
 
 function Logo() {
   return (

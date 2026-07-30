@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
-import { loadCatalog } from "@/lib/catalog.server";
+import { products } from "@/data/products";
 import { blogArticles } from "@/data/blog-articles";
 
 const BASE_URL = "https://peptinium.com";
@@ -19,9 +19,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           "/a-propos",
           "/contact",
         ];
-        const productPaths = (await loadCatalog()).map(
-          (p) => `/produits/${p.slug}`,
-        );
+        const productPaths = products.map((p) => `/produits/${p.slug}`);
         const blogPaths = blogArticles.map((a) => `/blog/${a.slug}`);
         const urls = [...staticPaths, ...productPaths, ...blogPaths]
           .map(

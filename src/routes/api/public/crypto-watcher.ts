@@ -34,7 +34,7 @@ export const Route = createFileRoute("/api/public/crypto-watcher")({
         //    Bitcoin block would leave the customer paid without validation.
         const { data: active } = await supabaseAdmin
           .from("crypto_payments")
-          .select("id, order_id, currency, wallet_address, amount_crypto, amount_eur, status, tx_hash, expires_at, notified_at")
+          .select("id, order_id, currency, wallet_address, amount_crypto, status, tx_hash, expires_at")
           .in("status", ["pending", "detected"])
           .or(`status.eq.detected,expires_at.gte.${nowIso}`);
 
@@ -51,19 +51,6 @@ export const Route = createFileRoute("/api/public/crypto-watcher")({
           buckets.set(k, bucket);
         }
 
-        // 3b. Toute transaction déjà rattachée à une facture est hors jeu.
-        //     Sans ce garde-fou, un seul virement entrant peut satisfaire
-        //     plusieurs commandes et les faire toutes passer en payées.
-        const { data: bound } = await supabaseAdmin
-          .from("crypto_payments")
-          .select("tx_hash")
-          .not("tx_hash", "is", null);
-        const usedHashes = new Set(
-          (bound ?? [])
-            .map((r) => r.tx_hash as string | null)
-            .filter((h): h is string => !!h),
-        );
-
         let updated = 0;
         for (const [key, payments] of buckets) {
           const [currency, address] = key.split("|") as [
@@ -74,23 +61,9 @@ export const Route = createFileRoute("/api/public/crypto-watcher")({
           if (txs.length === 0) continue;
 
           const minConfirmations = mod.requiredConfirmations(currency);
-          // Les factures les plus anciennes servies d'abord : un client qui a
-          // payé avant ne doit pas se faire voler son virement par une commande
-          // créée après lui.
-          const ordered = [...payments].sort((a, b) =>
-            String(a.expires_at).localeCompare(String(b.expires_at)),
-          );
-          for (const payment of ordered) {
-            const match = mod.matchTransaction(
-              Number(payment.amount_crypto),
-              currency,
-              txs,
-              usedHashes,
-            );
+          for (const payment of payments) {
+            const match = mod.matchTransaction(Number(payment.amount_crypto), currency, txs);
             if (!match) continue;
-            // Réservé immédiatement, pour que la facture suivante de ce lot ne
-            // puisse pas réclamer la même transaction.
-            usedHashes.add(match.txHash);
 
             const isConfirmed = match.confirmations >= minConfirmations;
             const newStatus: "detected" | "confirmed" = isConfirmed ? "confirmed" : "detected";
@@ -108,61 +81,21 @@ export const Route = createFileRoute("/api/public/crypto-watcher")({
               .eq("id", payment.id);
 
             if (isConfirmed) {
-              // La commande vit dans Medusa, pas dans public.orders : on la
-              // convertit comme le fait le webhook Sushipp. C'est aussi ce qui
-              // décrémente l'inventaire. L'opération est idempotente côté
-              // Medusa (elle ne fait rien si la commande n'est plus en draft).
-              try {
-                const { completeMedusaOrder } = await import("@/lib/medusa.server");
-                await completeMedusaOrder(payment.order_id);
-              } catch (e) {
-                // On NE marque PAS la facture comme notifiée : le prochain
-                // passage du cron réessaiera la conversion.
-                console.error(
-                  "[crypto-watcher] completeMedusaOrder a échoué",
-                  payment.order_id,
-                  e,
-                );
-              }
+              await supabaseAdmin
+                .from("orders")
+                .update({ status: "paid", paid_at: nowIso })
+                .eq("id", payment.order_id)
+                .neq("status", "paid");
 
-              // Notification admin, une seule fois par facture. Le garde-fou
-              // vit désormais sur crypto_payments.notified_at : l'ancien
-              // notified_paid_at était sur public.orders, hors circuit.
-              if (!payment.notified_at) {
-                try {
-                  const { notifyAdminsOrderPaid } = await import("@/lib/order-notify.server");
-                  // Le montant EUR facturé fait foi : le `total` de Medusa
-                  // n'est pas fiablement exprimé en euros.
-                  await notifyAdminsOrderPaid(
-                    payment.order_id,
-                    Number((payment as { amount_eur?: number }).amount_eur),
-                  );
-                  await supabaseAdmin
-                    .from("crypto_payments")
-                    .update({ notified_at: nowIso })
-                    .eq("id", payment.id);
-                } catch (e) {
-                  console.error("[crypto-watcher] notify failed", e);
-                }
+              try {
+                const { notifyAdminsOrderPaid } = await import("@/lib/order-notify.server");
+                await notifyAdminsOrderPaid(payment.order_id);
+              } catch (e) {
+                console.error("[crypto-watcher] notify failed", e);
               }
             }
 
             updated++;
-          }
-
-          // Filet de réconciliation : de l'argent est arrivé sur l'adresse mais
-          // n'a pu être rattaché à aucune facture (montant approximatif, client
-          // hors tunnel, facture expirée). Silencieux, ce cas ressemble à « rien
-          // n'est arrivé » — il doit rester visible dans les logs.
-          const unattributed = txs.filter((tx) => !usedHashes.has(tx.txHash));
-          for (const tx of unattributed) {
-            console.warn(
-              "[crypto-watcher] paiement non attribué",
-              currency,
-              address,
-              tx.txHash,
-              `montant ${tx.amount}`,
-            );
           }
         }
 

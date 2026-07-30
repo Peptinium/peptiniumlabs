@@ -103,7 +103,7 @@ export const validatePayment = createServerFn({ method: "POST" })
         await safeBroadcastToUser(o.user_id, {
           title: "Paiement confirmé ✅",
           body: `Commande ${o.order_number} validée. Préparation en cours.`,
-          url: "/",
+          url: "/mon-compte",
           tag: `paid-${data.orderId}`,
         });
       }
@@ -431,7 +431,7 @@ export const sendShippingNotification = createServerFn({ method: "POST" })
         await safeBroadcastToUser(o2.user_id, {
           title: "Commande expédiée 📦",
           body: `${order.order_number} · ${data.carrier} ${data.trackingNumber}`,
-          url: "/",
+          url: "/mon-compte",
           tag: `ship-${order.id}`,
         });
       }

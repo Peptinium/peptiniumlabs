@@ -30,16 +30,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
-# Secrets — ne JAMAIS versionner (depot public)
-.env
-.env.local
-.env.*.local
-
-# --- Secrets et sauvegardes locales — depot PUBLIC, ne jamais versionner ---
-.env
-.env.*
-!.env.example
-*.bak
-*.bak[0-9]
-*.bak-*

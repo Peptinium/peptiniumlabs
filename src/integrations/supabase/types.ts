@@ -24,7 +24,6 @@ export type Database = {
           detected_at: string | null
           expires_at: string
           id: string
-          notified_at: string | null
           order_id: string
           rate_eur_per_unit: number
           status: string
@@ -41,7 +40,6 @@ export type Database = {
           detected_at?: string | null
           expires_at: string
           id?: string
-          notified_at?: string | null
           order_id: string
           rate_eur_per_unit: number
           status?: string
@@ -58,7 +56,6 @@ export type Database = {
           detected_at?: string | null
           expires_at?: string
           id?: string
-          notified_at?: string | null
           order_id?: string
           rate_eur_per_unit?: number
           status?: string
